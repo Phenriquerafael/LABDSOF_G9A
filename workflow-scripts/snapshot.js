@@ -143,6 +143,7 @@ async function main() {
   // Compatibility export matching example.json, assembled from all API pages.
   // This contains the configured repository's issues, not verbatim API responses.
   const rawSnapshot = {
+    date: snapshot.date,
     data: {
       repository: {
         projectsV2: {
@@ -158,7 +159,9 @@ async function main() {
   };
   const rawDirectory = path.join(dataDirectory, "raw");
   fs.mkdirSync(rawDirectory, { recursive: true });
-  fs.writeFileSync(path.join(rawDirectory, `${runId}.json`), JSON.stringify(rawSnapshot, null, 2));
+  // Replace colons for Windows-compatible filenames; keep the same UTC date as history.
+  const rawFilename = `${snapshot.date.replace(/:/g, "-")}-${process.pid}.json`;
+  fs.writeFileSync(path.join(rawDirectory, rawFilename), JSON.stringify(rawSnapshot, null, 2));
   history.push(snapshot);
   fs.mkdirSync(dataDirectory, { recursive: true });
   const temporaryFile = path.join(dataDirectory, `history-${runId}.tmp`);
