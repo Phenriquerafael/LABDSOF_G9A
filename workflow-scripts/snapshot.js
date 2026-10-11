@@ -5,6 +5,7 @@ const path = require("node:path");
 const owner = "Phenriquerafael";
 const repository = "LABDSOF_GX";
 const projectNumber = 9;
+const sprintFieldName = "Sprint"; // GitHub Projects field name (single-select, iteration or text).
 const dataDirectory = path.join(__dirname, "data");
 const historyFile = path.join(dataDirectory, "history.json");
 const token = process.env.GITHUB_TOKEN;
@@ -18,7 +19,7 @@ query($owner: String!, $number: Int!) {
 }`;
 
 const itemsQuery = `
-query($id: ID!, $after: String) {
+query($id: ID!, $after: String, $sprintField: String!) {
   node(id: $id) {
     ... on ProjectV2 {
       items(first: 100, after: $after) {
@@ -29,6 +30,12 @@ query($id: ID!, $after: String) {
           }
           status: fieldValueByName(name: "Status") {
             ... on ProjectV2ItemFieldSingleSelectValue { name }
+          }
+          sprint: fieldValueByName(name: $sprintField) {
+            __typename
+            ... on ProjectV2ItemFieldSingleSelectValue { name }
+            ... on ProjectV2ItemFieldIterationValue { title }
+            ... on ProjectV2ItemFieldTextValue { text }
           }
         }
         pageInfo { hasNextPage endCursor }
@@ -76,6 +83,13 @@ async function findProject() {
   return project;
 }
 
+function readSprint(value) {
+  if (value == null) return null;
+  const label = value.name ?? value.title ?? value.text;
+  if (typeof label !== "string") throw new Error("Sprint must be a single-select, iteration or text field.");
+  return label.trim() || null;
+}
+
 async function fetchIssues(project) {
   let after = null;
   const cursors = new Set();
@@ -85,7 +99,7 @@ async function fetchIssues(project) {
   const repositories = new Map();
   let scanned = 0;
   do {
-    const data = await graphql(itemsQuery, { id: project.id, after });
+    const data = await graphql(itemsQuery, { id: project.id, after, sprintField: sprintFieldName });
     const connection = data.node?.items;
     after = nextCursor(connection, cursors);
     for (const item of connection.nodes) {
@@ -105,13 +119,20 @@ async function fetchIssues(project) {
         throw new Error(`Issue #${id} has no usable Status. Set its project Status and retry.`);
       }
       if (issues.has(id)) throw new Error(`Duplicate issue #${id} across pages; retry collection.`);
-      issues.set(id, { id, status });
+      const sprint = readSprint(item.sprint);
+      issues.set(id, { id, status, sprint });
       rawItems.push({
         content: { number: id, title: item.content.title },
-        fieldValues: { nodes: [{ name: status, field: { name: "Status" } }] },
+        sprint,
+        fieldValues: { nodes: [
+          { name: status, field: { name: "Status" } },
+          ...(sprint === null ? [] : [{ name: sprint, field: { name: sprintFieldName } }]),
+        ] },
       });
     }
   } while (after);
+  const unassigned = [...issues.values()].filter(issue => issue.sprint === null).length;
+  if (unassigned) console.warn(`${unassigned} issues have no ${sprintFieldName} value; saved with sprint: null. Assign them on the board to include them in a sprint filter.`);
   const counts = values => [...values].map(([name, count]) => `${name}: ${count}`).join(", ") || "none";
   console.log(`Project ${projectNumber}: scanned ${scanned} active items. Types: ${counts(types)}. Issue repositories: ${counts(repositories)}. Matched ${owner}/${repository}: ${issues.size}.`);
   if (!issues.size) {

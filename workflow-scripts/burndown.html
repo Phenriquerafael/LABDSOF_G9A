@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -6,217 +6,336 @@
   <title>Sprint burndown</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
   <style>
-    body { max-width: 1000px; margin: 2rem auto; padding: 0 1rem; font: 16px/1.5 system-ui, sans-serif; color: #182936; }
+    body { max-width: 1100px; margin: 2rem auto; padding: 0 1rem; font: 16px/1.5 system-ui, sans-serif; color: #182936; background: #fff; }
     h1 { margin-bottom: .25rem; }
-    form { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; background: #f2f5f8; padding: 1rem; border-radius: 8px; }
+    form, .filters { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; }
+    form { background: #f2f5f8; padding: 1rem; border-radius: 8px; }
     label { display: flex; flex-direction: column; gap: .3rem; font-weight: 600; }
-    input, button { font: inherit; padding: .5rem; }
-    input { min-width: 0; }
+    input, select, button { font: inherit; padding: .65rem; min-height: 44px; box-sizing: border-box; }
+    input, select { min-width: 0; max-width: 100%; }
+    :focus-visible { outline: 3px solid #1765ab; outline-offset: 3px; }
     .wide { grid-column: 1 / -1; }
-    button { cursor: pointer; }
-    #message { white-space: pre-wrap; }
-    #message.error { color: #a21919; }
+    button, summary { cursor: pointer; }
+    button:disabled { cursor: default; }
+    summary { padding: .5rem 0; }
+    small { font-weight: normal; }
+    #message { white-space: pre-wrap; padding: .75rem; background: #f2f5f8; border-left: 4px solid #1765ab; }
+    #message.error { color: #871818; border-color: #871818; }
     .chart { height: 380px; }
     .table-wrap { overflow-x: auto; }
     table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+    caption { text-align: left; font-weight: 600; }
     th, td { padding: .5rem; text-align: left; border-bottom: 1px solid #d6dfe5; }
-    small { font-weight: normal; }
+    .actions { display: flex; flex-wrap: wrap; gap: .75rem; }
   </style>
 </head>
 <body>
+<main>
   <h1>Sprint burndown</h1>
-  <p>Remaining issues against an ideal line. Dates and daily snapshots use UTC.</p>
+  <p>See all collected issues or choose a sprint. Filters update the chart and issue list automatically.</p>
   <form id="settings">
-    <label class="wide">History URL
-      <input id="history-url" value="./data/history.json">
+    <div class="filters wide">
+      <label for="sprint">Sprint
+        <select id="sprint" aria-describedby="period">
+          <option value="all">All sprints / all issues</option>
+          <option value="A">Sprint A · 11–31 Oct 2026</option>
+          <option value="B">Sprint B · 1 Nov–5 Dec 2026</option>
+          <option value="C">Sprint C · 6 Dec 2026–3 Jan 2027</option>
+        </select>
+      </label>
+      <label for="done-status">Completed status
+        <select id="done-status" aria-describedby="status-help">
+          <option>Done</option><option>Completed</option><option>Closed</option>
+          <option>Backlog</option><option>Ready</option><option>In progress</option><option>In review</option>
+        </select>
+        <small id="status-help">Choose the board status that means finished. Other collected statuses are added automatically.</small>
+      </label>
+    </div>
+    <p id="period" class="wide"></p>
+    <label class="wide" for="history-file">Open a history.json file
+      <input id="history-file" type="file" accept=".json,application/json" aria-describedby="file-help">
+      <small id="file-help">Read locally in your browser; no upload. A selected file overrides the URL below.</small>
     </label>
-    <label class="wide">Or select a history.json file
-      <input id="history-file" type="file" accept=".json,application/json">
-      <small>A selected file takes precedence over the URL. No upload is made.</small>
-    </label>
-    <label>Sprint start (opening baseline)<input id="start" type="date" required></label>
-    <label>Sprint end<input id="end" type="date" required></label>
-    <label>Completed status<input id="done-status" value="Done" required></label>
-    <label class="wide">Initial sprint issue numbers
-      <input id="scope" placeholder="12, 18, 24" required>
-      <small>One repository only. Fixed starting scope; later additions are excluded. Keep scope changes in the sprint review.</small>
-    </label>
-    <button type="submit">Draw burndown</button>
-    <button id="export" type="button" disabled>Download CSV</button>
+    <details class="wide" id="source-settings">
+      <summary>Data source URL</summary>
+      <label for="history-url">History URL<input id="history-url" value="./data/history.json"></label>
+      <p>The default loads automatically when this page is served through HTTP. Use a local file when opening the HTML directly.</p>
+    </details>
+    <div class="actions wide">
+      <button type="submit">Reload history</button>
+      <button id="clear-file" type="button">Use URL instead of file</button>
+      <button id="export" type="button" disabled>Download daily CSV</button>
+    </div>
   </form>
-  <p id="message" role="status" aria-live="polite">Choose sprint dates, enter the selected issue numbers, then draw the chart.</p>
-  <div class="chart"><canvas id="chart" role="img" aria-label="Sprint burndown; the same values are in the table below."></canvas></div>
-  <p>The ideal line starts at the initial issue count and reaches zero at the end, decreasing on Monday–Friday only (public holidays are not excluded). Actual values use the latest snapshot each UTC day. Missing snapshots, missing selected issues or unknown statuses leave gaps.</p>
+  <p id="message" role="status" aria-live="polite">Loading history…</p>
+  <section aria-labelledby="chart-heading">
+    <h2 id="chart-heading">Remaining work</h2>
+    <div class="chart"><canvas id="chart" role="img" aria-label="Remaining issues, ideal line and recorded scope. Equivalent values are available in the daily table below."></canvas></div>
+    <p>Solid blue shows unfinished issues; dotted orange shows the recorded scope. Scope changes can increase or reduce remaining work without completion. The dashed ideal line starts with the first observed non-empty scope in the selected period and decreases on weekdays to the end date. Missing data leaves gaps. All dates use UTC.</p>
+  </section>
+  <section aria-labelledby="issues-heading">
+    <h2 id="issues-heading">Issues</h2>
+    <p id="issue-summary">Load history to see the issues.</p>
+    <div class="table-wrap" tabindex="0" role="region" aria-label="Collected issues">
+      <table><caption id="issue-caption">Latest collected issues</caption>
+        <thead><tr><th scope="col">Issue</th><th scope="col">Status</th><th scope="col">Sprint</th></tr></thead>
+        <tbody id="issue-rows"></tbody>
+      </table>
+    </div>
+  </section>
   <details>
     <summary>Daily values and data gaps</summary>
-    <div class="table-wrap"><table>
-      <thead><tr><th>Date (UTC)</th><th>Scope</th><th>Done</th><th>Remaining</th><th>Ideal</th><th>Data quality</th></tr></thead>
-      <tbody id="rows"></tbody>
-    </table></div>
+    <div class="table-wrap" tabindex="0" role="region" aria-label="Daily burndown values">
+      <table><caption>Daily measurements in UTC</caption>
+        <thead><tr><th scope="col">Date (UTC)</th><th scope="col">Scope</th><th scope="col">Done</th><th scope="col">Remaining</th><th scope="col">Ideal</th><th scope="col">Data quality</th></tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
   </details>
+</main>
 <script id="burndown-model">
-function parseScope(text) {
-  const parts = text.trim().split(/[\s,]+/);
-  if (!text.trim() || parts.some(id => !/^[1-9]\d*$/.test(id) || !Number.isSafeInteger(Number(id)))) {
-    throw new Error('Enter positive issue numbers separated by commas or spaces.');
-  }
-  return [...new Set(parts.map(id => String(Number(id))))];
+const SPRINTS = {
+  A: { start: '2026-10-11', end: '2026-10-31' },
+  B: { start: '2026-11-01', end: '2026-12-05' },
+  C: { start: '2026-12-06', end: '2027-01-03' }
+};
+
+function sprintKey(value) {
+  if (typeof value !== 'string') return '';
+  const label = value.trim();
+  const match = /^(?:sprint\s+)?([abc])$/i.exec(label);
+  return match ? match[1].toUpperCase() : label.toLowerCase();
 }
 
-function buildBurndown(history, start, end, ids, doneStatus) {
-  const dayMs = 86400000;
-  function parseDay(day) {
-    const value = Date.parse(day + 'T00:00:00Z');
-    if (!/^\d{4}-\d{2}-\d{2}$/.test(day) || !Number.isFinite(value) || new Date(value).toISOString().slice(0, 10) !== day) {
-      throw new Error('Choose valid sprint dates.');
-    }
-    return value;
-  }
-  const first = parseDay(start), last = parseDay(end);
-  if (last <= first || (last - first) / dayMs > 366) throw new Error('Sprint end must follow start, within 366 days.');
-  const completed = doneStatus.trim().toLowerCase();
-  if (!completed || ['no_status', 'unknown'].includes(completed)) throw new Error('Enter a valid completed status.');
-  if (!ids.length) throw new Error('Select at least one sprint issue.');
+function periodFor(sprint) {
+  if (sprint === 'all') return { start: SPRINTS.A.start, end: SPRINTS.C.end };
+  if (!SPRINTS[sprint]) throw new Error('Choose a listed sprint.');
+  return SPRINTS[sprint];
+}
+
+function validateHistory(history) {
   if (!Array.isArray(history) || !history.length) throw new Error('History must be a non-empty array of snapshots.');
-
-  const days = [];
-  let workdays = 0;
-  for (let time = first; time <= last; time += dayMs) {
-    const date = new Date(time);
-    if (time > first && date.getUTCDay() !== 0 && date.getUTCDay() !== 6) workdays++;
-    days.push({ date: date.toISOString().slice(0, 10), elapsed: workdays });
+  for (const snapshot of history) {
+    if (typeof snapshot?.date !== 'string' || !Number.isFinite(Date.parse(snapshot.date)) || !Array.isArray(snapshot.issues)) {
+      throw new Error('Each snapshot must contain a valid date and an issues array.');
+    }
+    for (const item of snapshot.issues) {
+      if (!Number.isSafeInteger(item?.id) || item.id <= 0) throw new Error('Each issue must have a positive integer ID.');
+      if (item.sprint !== undefined && item.sprint !== null && typeof item.sprint !== 'string') {
+        throw new Error('Issue sprint must be a string or null.');
+      }
+    }
   }
-  if (!workdays) throw new Error('The interval must include a working day after the opening baseline.');
+  return history;
+}
 
+function selectIssues(snapshot, sprint) {
+  return snapshot.issues.filter(item => sprint === 'all' || sprintKey(item.sprint) === sprint);
+}
+
+function buildBurndown(history, sprint, doneStatus) {
+  validateHistory(history);
+  const { start, end } = periodFor(sprint);
+  const first = Date.parse(start + 'T00:00:00Z'), last = Date.parse(end + 'T00:00:00Z');
+  const completed = doneStatus.trim().toLowerCase();
+  if (!completed || ['no_status', 'unknown'].includes(completed)) throw new Error('Choose a valid completed status.');
   const latest = new Map();
   for (const snapshot of history) {
-    const time = typeof snapshot?.date === 'string' ? Date.parse(snapshot.date) : NaN;
-    if (!Number.isFinite(time) || !Array.isArray(snapshot?.issues)) {
-      throw new Error('Each snapshot must contain a valid date and an issues array. Aggregate-only history is not supported.');
-    }
-    const day = new Date(time).toISOString().slice(0, 10);
+    const time = Date.parse(snapshot.date), day = new Date(time).toISOString().slice(0, 10);
     if (!latest.has(day) || time >= latest.get(day).time) latest.set(day, { time, snapshot });
   }
-
-  return days.map(({ date, elapsed }) => {
-    const row = { date, scope: ids.length, done: null, remaining: null, ideal: ids.length * (1 - elapsed / workdays), quality: 'No snapshot' };
+  const rows = [];
+  for (let time = first; time <= last; time += 86400000) {
+    const date = new Date(time).toISOString().slice(0, 10);
+    const row = { date, scope: null, done: null, remaining: null, ideal: null, quality: 'No snapshot' };
+    rows.push(row);
     const entry = latest.get(date);
-    if (!entry) return row;
-    const items = new Map();
-    const duplicate = new Set();
-    for (const item of entry.snapshot.issues) {
-      const id = String(item?.id);
-      if (items.has(id)) duplicate.add(id);
-      items.set(id, item);
+    if (!entry) continue;
+    if (sprint !== 'all' && entry.snapshot.issues.some(item => item.sprint === undefined)) {
+      row.quality = 'Sprint was not recorded for every issue in this snapshot';
+      continue;
     }
-    const unavailable = ids.filter(id => {
-      const status = items.get(id)?.status;
-      return duplicate.has(id) || typeof status !== 'string' || !status.trim() || ['no_status', 'unknown'].includes(status.trim().toLowerCase());
-    });
-    if (unavailable.length) {
-      row.quality = 'Missing, duplicate or unknown: ' + unavailable.join(', ');
-      return row;
+    const items = selectIssues(entry.snapshot, sprint);
+    const seen = new Set();
+    if (entry.snapshot.issues.some(item => { const duplicate = seen.has(item.id); seen.add(item.id); return duplicate; })) {
+      row.quality = 'Duplicate issue IDs in snapshot';
+      continue;
     }
-    row.done = ids.filter(id => items.get(id).status.trim().toLowerCase() === completed).length;
-    row.remaining = ids.length - row.done;
+    if (items.some(item => typeof item.status !== 'string' || !item.status.trim() || ['no_status', 'unknown'].includes(item.status.trim().toLowerCase()))) {
+      row.quality = 'Missing or unknown issue status';
+      continue;
+    }
+    row.scope = items.length;
+    row.done = items.filter(item => item.status.trim().toLowerCase() === completed).length;
+    row.remaining = row.scope - row.done;
+    const unassigned = entry.snapshot.issues.filter(item => item.sprint == null || !item.sprint.trim()).length;
     row.quality = 'Latest snapshot: ' + new Date(entry.time).toISOString();
-    return row;
-  });
+    if (unassigned && sprint !== 'all') row.quality += `; ${unassigned} unassigned issues excluded`;
+  }
+  const baseline = rows.findIndex(row => row.scope > 0);
+  if (baseline >= 0) {
+    let workdays = 0;
+    const elapsed = rows.map((row, index) => {
+      const day = new Date(row.date + 'T00:00:00Z').getUTCDay();
+      if (index > baseline && day !== 0 && day !== 6) workdays++;
+      return workdays;
+    });
+    if (workdays) {
+      rows.forEach((row, index) => {
+        if (index >= baseline) row.ideal = rows[baseline].scope * (1 - elapsed[index] / workdays);
+      });
+    }
+  }
+  return rows;
 }
 </script>
 <script>
 const byId = id => document.getElementById(id);
 let chart = null;
 let rows = [];
+let history = null;
 let requestVersion = 0;
 
-function resetResult() {
-  requestVersion++;
+function showMessage(text, error = false) {
+  byId('message').className = error ? 'error' : '';
+  byId('message').textContent = text;
+}
+function clearResult() {
   if (chart) chart.destroy();
   chart = null;
   rows = [];
   byId('rows').replaceChildren();
+  byId('issue-rows').replaceChildren();
+  byId('issue-summary').textContent = 'No issues displayed.';
   byId('export').disabled = true;
 }
-byId('settings').addEventListener('input', () => {
-  resetResult();
-  byId('message').className = '';
-  byId('message').textContent = 'Settings changed. Draw the chart to update the results.';
-});
-
-byId('settings').addEventListener('submit', async event => {
-  event.preventDefault();
-  resetResult();
-  const version = requestVersion;
-  byId('message').className = '';
-  byId('message').textContent = 'Loading snapshots…';
+function updatePeriod() {
+  const sprint = byId('sprint').value, { start, end } = periodFor(sprint);
+  byId('period').textContent = `${sprint === 'all' ? 'All sprints' : 'Sprint ' + sprint}: ${start} to ${end} (inclusive, UTC).`;
+}
+function appendRow(target, values) {
+  const tr = document.createElement('tr');
+  for (const value of values) {
+    const td = document.createElement('td');
+    td.textContent = String(value);
+    tr.append(td);
+  }
+  target.append(tr);
+}
+function updateStatuses() {
+  const select = byId('done-status'), selected = select.value;
+  const values = new Map(['Done', 'Completed', 'Closed', 'Backlog', 'Ready', 'In progress', 'In review'].map(value => [value.toLowerCase(), value]));
+  for (const snapshot of history) for (const item of snapshot.issues) {
+    if (typeof item.status === 'string' && item.status.trim() && !['unknown', 'no_status'].includes(item.status.trim().toLowerCase())) {
+      values.set(item.status.trim().toLowerCase(), item.status.trim());
+    }
+  }
+  select.replaceChildren();
+  for (const value of values.values()) {
+    const option = document.createElement('option');
+    option.value = value;
+    option.textContent = value;
+    select.append(option);
+  }
+  select.value = values.get(selected.toLowerCase()) || values.get('done');
+}
+function render() {
+  clearResult();
+  updatePeriod();
+  if (!history) return;
   try {
-    const ids = parseScope(byId('scope').value);
-    const file = byId('history-file').files[0];
-    let history;
-    if (file) {
-      history = JSON.parse(await file.text());
-    } else {
-      const url = byId('history-url').value.trim();
-      if (!url) throw new Error('Enter a history URL or select a JSON file.');
-      const response = await fetch(url, { cache: 'no-store' });
-      if (!response.ok) throw new Error('History request failed: HTTP ' + response.status);
-      history = await response.json();
+    const sprint = byId('sprint').value;
+    rows = buildBurndown(history, sprint, byId('done-status').value);
+    const { end } = periodFor(sprint);
+    // The latest snapshot on/before the period end also shows planned future sprint items.
+    const latest = history.filter(snapshot => new Date(snapshot.date).toISOString().slice(0, 10) <= end)
+      .sort((a, b) => Date.parse(b.date) - Date.parse(a.date))[0];
+    const issues = latest ? selectIssues(latest, sprint).sort((a, b) => a.id - b.id) : [];
+    byId('issue-caption').textContent = latest ? 'Assignments as of ' + new Date(latest.date).toISOString() : 'No snapshot before the period end';
+    for (const issue of issues) {
+      appendRow(byId('issue-rows'), ['#' + issue.id, issue.status || 'Unknown', issue.sprint === undefined ? 'Not recorded (older snapshot)' : issue.sprint || 'Unassigned']);
     }
-    if (version !== requestVersion) return;
-    rows = buildBurndown(history, byId('start').value, byId('end').value, ids, byId('done-status').value);
-    for (const row of rows) {
-      const tr = document.createElement('tr');
-      for (const value of [row.date, row.scope, row.done ?? '—', row.remaining ?? '—', row.ideal.toFixed(2), row.quality]) {
-        const td = document.createElement('td');
-        td.textContent = String(value);
-        tr.append(td);
-      }
-      byId('rows').append(tr);
-    }
+    const unassigned = latest?.issues.filter(item => item.sprint === null || item.sprint === '').length || 0;
+    const unknown = latest?.issues.filter(item => item.sprint === undefined).length || 0;
+    byId('issue-summary').textContent = `${issues.length} issues shown. ${unassigned} unassigned; ${unknown} without recorded sprint in the source snapshot.`;
+    for (const row of rows) appendRow(byId('rows'), [row.date, row.scope ?? '—', row.done ?? '—', row.remaining ?? '—', row.ideal === null ? '—' : row.ideal.toFixed(2), row.quality]);
     byId('export').disabled = false;
-    const gaps = rows.filter(row => row.remaining === null).length;
-    byId('message').textContent = `${ids.length} issues in fixed starting scope. ${rows.length - gaps} measured days; ${gaps} days without complete data.`;
+    const measured = rows.filter(row => row.remaining !== null).length;
+    const baseline = rows.find(row => row.scope > 0);
+    let message = `${measured} measured days; ${rows.length - measured} days without complete data.`;
+    if (baseline) message += ` Reference scope: ${baseline.scope} issues first observed on ${baseline.date}.`;
+    else message += ' No non-empty scope recorded for this selection in the selected period.';
+    if (sprint !== 'all' && unknown) message += ' Older snapshots have no sprint data. Run the updated collector after assigning Sprint values on the board.';
+    if (sprint !== 'all' && !issues.length && !unknown) message += ' Assign board Sprint values such as A or Sprint A, B or Sprint B, C or Sprint C.';
+    if (baseline && rows.every(row => row.ideal === null)) message += ' No ideal line: no working days remain after the first observation.';
+    showMessage(message);
     if (typeof Chart === 'undefined') {
-      byId('message').textContent += ' Chart.js could not load. Daily values and CSV are still available.';
+      showMessage(message + ' Chart.js could not load. The issue list, daily table and CSV remain available.');
       return;
     }
     chart = new Chart(byId('chart'), {
       type: 'line',
-      data: {
-        labels: rows.map(row => row.date),
-        datasets: [
-          { label: 'Actual remaining issues', data: rows.map(row => row.remaining), borderColor: '#1765ab', backgroundColor: '#1765ab', tension: 0, spanGaps: false, pointRadius: 4 },
-          { label: 'Ideal remaining issues', data: rows.map(row => row.ideal), borderColor: '#667680', borderDash: [6, 5], pointRadius: 0, tension: 0 }
-        ]
-      },
+      data: { labels: rows.map(row => row.date), datasets: [
+        { label: 'Remaining issues', data: rows.map(row => row.remaining), borderColor: '#1765ab', backgroundColor: '#1765ab', tension: 0, spanGaps: false, pointRadius: 4 },
+        { label: 'Ideal (first observed scope)', data: rows.map(row => row.ideal), borderColor: '#58646c', borderDash: [7, 5], pointRadius: 0, tension: 0 },
+        { label: 'Recorded scope', data: rows.map(row => row.scope), borderColor: '#994800', borderDash: [2, 4], pointStyle: 'triangle', pointRadius: 4, tension: 0, spanGaps: false }
+      ] },
       options: {
         responsive: true, maintainAspectRatio: false,
         interaction: { mode: 'index', intersect: false },
-        plugins: { title: { display: true, text: `Sprint burndown · ${rows[0].date} to ${rows.at(-1).date} · UTC` } },
-        scales: { y: { beginAtZero: true, suggestedMax: ids.length, ticks: { precision: 0 }, title: { display: true, text: 'Remaining issues' } }, x: { title: { display: true, text: 'Date (UTC)' } } }
+        plugins: { title: { display: true, text: sprint === 'all' ? 'All issues · UTC' : `Sprint ${sprint} · UTC` } },
+        scales: { y: { beginAtZero: true, ticks: { precision: 0 }, title: { display: true, text: 'Issues' } }, x: { title: { display: true, text: 'Date (UTC)' } } }
       }
     });
-  } catch (error) {
+  } catch (error) { clearResult(); showMessage(error.message, true); }
+}
+async function loadHistory() {
+  const version = ++requestVersion;
+  history = null;
+  clearResult();
+  showMessage('Loading snapshots…');
+  try {
+    const file = byId('history-file').files[0];
+    let text;
+    if (file) text = await file.text();
+    else {
+      if (location.protocol === 'file:') throw new Error('Choose your workflow-scripts/data/history.json file above to get started.');
+      const url = byId('history-url').value.trim();
+      if (!url) throw new Error('Enter a history URL or choose a local file.');
+      const response = await fetch(url, { cache: 'no-store' });
+      if (!response.ok) throw new Error('History request failed: HTTP ' + response.status);
+      text = await response.text();
+    }
     if (version !== requestVersion) return;
-    resetResult();
-    byId('message').className = 'error';
-    byId('message').textContent = error.message + ' If opening this page directly, select a local history.json file instead of fetching a URL.';
-  }
+    history = validateHistory(JSON.parse(text.replace(/^\uFEFF/, '')));
+    updateStatuses();
+    render();
+  } catch (error) { if (version === requestVersion) showMessage(error.message, true); }
+}
+byId('settings').addEventListener('submit', event => { event.preventDefault(); loadHistory(); });
+for (const id of ['sprint', 'done-status']) byId(id).addEventListener('change', render);
+byId('history-file').addEventListener('change', loadHistory);
+byId('history-url').addEventListener('input', () => {
+  if (byId('history-file').files.length) return;
+  requestVersion++;
+  history = null;
+  clearResult();
+  showMessage('Data source changed. Select Reload history to load the new URL.');
 });
-
+byId('clear-file').addEventListener('click', () => { byId('history-file').value = ''; loadHistory(); });
 byId('export').addEventListener('click', () => {
+  if (!rows.length) return;
   const quote = value => '"' + String(value ?? '').replaceAll('"', '""') + '"';
-  const csv = ['date_utc,total_scope,done,remaining,ideal,data_quality', ...rows.map(row => [row.date, row.scope, row.done, row.remaining, row.ideal.toFixed(4), row.quality].map(quote).join(','))].join('\r\n');
+  const csv = ['sprint,completed_status,date_utc,total_scope,done,remaining,ideal,data_quality', ...rows.map(row => [byId('sprint').value, byId('done-status').value, row.date, row.scope, row.done, row.remaining, row.ideal === null ? '' : row.ideal.toFixed(4), row.quality].map(quote).join(','))].join('\r\n');
   const url = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' }));
   const link = document.createElement('a');
   link.href = url;
-  link.download = `burndown-${rows[0].date}-${rows.at(-1).date}.csv`;
-  document.body.append(link);
-  link.click();
-  link.remove();
+  link.download = `burndown-${byId('sprint').value}-${rows[0].date}-${rows.at(-1).date}.csv`;
+  document.body.append(link); link.click(); link.remove();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 });
+updatePeriod();
+loadHistory();
 </script>
 </body>
 </html>
