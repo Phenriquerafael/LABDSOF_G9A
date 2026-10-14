@@ -25,11 +25,11 @@
 - Post-MVP: photos, cost analytics and narrative summaries.
 - **IoT remains undecided**; it is not automatically included in the MVP baseline.
 
-## How to interpret statuses
+<!-- ## How to interpret statuses
 
 **Draft/proposal** = written but not validated. **Plan/template** = a way to perform/record work, not proof of execution. **Completed/verified** requires evidence (PR, result, configuration or session). Checked boxes below refer only to what they explicitly describe.
 
-**Latest team update recorded:** 2026-10-10 — member assignments, P1/P3 cross-cutting role swap and optional Sprint 1 skeleton decision. Other proposals and working practices still require review/ratification. Documentation prepared with AI assistance; claims, choices and results require human review and evidence.
+**Latest team update recorded:** 2026-10-10 — member assignments, P1/P3 cross-cutting role swap and optional Sprint 1 skeleton decision. Other proposals and working practices still require review/ratification. Documentation prepared with AI assistance; claims, choices and results require human review and evidence. -->
 
 ## Product documents and Sprint 1 deliverables
 
