@@ -5,7 +5,7 @@ description: Use when working in the LABDSOF_GX repository (Building Maintenance
 
 # LABDSOF_GX — team workflow
 
-Mirrored for every agent harness: canonical `.agents/skills/labdsof-workflow/SKILL.md` (open standard, read by Codex and T3 Code sessions), copies in `.claude/skills/` (Claude Code) and `.opencode/skills/` (opencode). The core rules are also condensed in the repository root `AGENTS.md`, which is loaded every session; keep all of these in sync when editing.
+Mirrored for every agent harness: canonical `.agents/skills/labdsof-workflow/SKILL.md` (open standard, read by Codex and T3 Code sessions), copies in `.claude/skills/` (Claude Code) and `.opencode/skills/` (opencode). Edit the canonical copy, copy it over both mirrors, then run `scripts/check-skill-mirrors.sh` (fails on any drift). The repository root `AGENTS.md` is loaded every session and holds only the always-on rules plus a pointer here; this skill is the single source for the details.
 
 ## Project snapshot
 
@@ -78,6 +78,7 @@ If `gh issue view`, `gh pr view` or `gh pr edit` fails with `GraphQL: Projects (
 ## Automation and pitfalls
 
 - Commits named `update metrics` are automation (`.github/workflows/metrics.yml`, daily 00:00 UTC) appending `workflow-scripts/data/`. Do not hand-edit `history.json`; when changing the collector or charts, run `node --test workflow-scripts/tests/metrics.test.cjs`.
+- `grilling` and `grill-me` are vendored verbatim from `mattpocock/skills` (MIT): keep the `LICENSE` file in each skill folder, and when updating from upstream, re-pin `metadata.source` to the new commit SHA and re-check that the body still matches upstream.
 - `P1–P5` = team members; `P1–P7` = research hypotheses — different namespaces. `Sprint A/B/C` (milestones) vs `Sprint 1/2/3` (narrative) vs `Sprint B` (planning concept, DEC-03 open): do not assume B = Sprint 2.
 - Never invent sources, results or evidence. Cite exact URLs with access dates (S01–Sxx) and separate supplier claims / observed behaviour / unknown capabilities. Record unavailable sources as limitations, not current facts.
 - DEC register: record decisions with evidence, author, date and affected documents. At least one product/technical decision must actually be revised from lecturer feedback (§5.7) — a scheduled meeting or minutes without a change is not enough.
