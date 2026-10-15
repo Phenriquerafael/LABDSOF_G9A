@@ -4,7 +4,7 @@ description: Grill the user relentlessly about a plan, decision, or idea. Use wh
 license: MIT
 metadata:
   author: Matt Pocock
-  source: https://github.com/mattpocock/skills
+  source: https://github.com/mattpocock/skills/tree/49dd158d1076134a641b33efb035946536778336/skills/productivity/grilling
 ---
 
 Interview the user relentlessly until you reach a shared understanding. Map this as a **design tree**: every decision branches into the decisions that hang off it.
@@ -35,4 +35,4 @@ The session is done when the frontier is empty: every branch of the design tree 
 
 ---
 
-Source: [mattpocock/skills](https://github.com/mattpocock/skills) — © 2026 Matt Pocock, MIT License (https://github.com/mattpocock/skills/blob/main/LICENSE).
+Source: [mattpocock/skills@49dd158](https://github.com/mattpocock/skills/tree/49dd158d1076134a641b33efb035946536778336/skills/productivity/grilling) — © 2026 Matt Pocock, MIT License (full text in `LICENSE` next to this file). Unmodified apart from the `license`/`metadata` frontmatter and this footer.
