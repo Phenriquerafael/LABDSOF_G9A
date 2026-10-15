@@ -1,7 +1,8 @@
 # [DISC-01-01] Prepare research and participant data handling
 
-- Publication: Draft — not published; GitHub issue URL: pending.
-- Workflow: Backlog; proposed milestone: S1 — Discover, Validate and Design; dates/estimate: to be agreed.
+- Publication: Local task record; no remote issue URL recorded.
+- Delivery: Research preparation documented; integration and independent review through PR.
+- Milestone: S1 — Discover, Validate and Design; preparation revision: 2026-10-15; planning allowance: 6 person-hours (4 preparation, 1 setup/checks, 1 review), excluding collection.
 - Type: task; suggested labels: `type:task`, `area:product`, `phase:2`, `priority:must`.
 - Parent: [DISC-01](DISC-01-user-research.md); epic: [EP-00](../epics/EP-00-discovery-and-planning.md).
 - Allocation: see the [backlog README](../README.md).
@@ -20,7 +21,7 @@ Excluded: Executing interviews, claiming findings, and final production data pol
 ## Acceptance criteria
 
 - [ ] Review the existing administrator, resident and contractor guides against hypotheses P1–P7; explain the intended sample and professional/volunteer distinction.
-- [ ] Record recruitment routes, consent process, note-taking/recording choices, data owner, restricted storage/access and deletion date; keep identities and raw consent records outside Git.
+- [ ] Record recruitment routes, anonymous participation/storage permission, notes-only choices, record owner, repository readership and retention limits; no participant identities, contact lists, identity maps or consent attachments collected. User-selected anonymous Git retention replaces the separate-storage/deletion-date design.
 - [ ] Agree who conducts and records each session and what to do if access fails; do not invent participant commitments.
 - [ ] Have the reviewer approve the collection arrangements and update DEC-07 to the level needed for research.
 
@@ -38,8 +39,11 @@ Use the documentation/research checks appropriate to this task; implementation t
 
 ## Completion record
 
-- Result/findings and limitations: to be recorded after execution or verification of existing work.
-- Evidence/PR/review links: to be recorded; document presence alone is not completion evidence.
-- Decision/requirement changes: to be recorded, or explain why no change was needed.
-- [ ] DoR reviewed with date, estimate, owner and reviewer confirmed.
-- [ ] Acceptance criteria and applicable [DoD](../../governance/definition-of-done.md) verified with evidence.
+- Preparation revised 2026-10-15: P1–P7 coverage, sample/segment rationale, recruitment routes, consent text, notes-only collection and named responsibilities defined. At the user's direction, retain only anonymous answers in Git; remove the separate personal-data archive and fixed-deletion design.
+- Evidence: [guide coverage](../../03-user-research.md#guide-review-against-p1p7-disc-01-01), [collection arrangements](../../03-user-research.md#32-collection-arrangements), [interview templates](../../templates/interviews/README.md), [record template](../../templates/research-record.md), [research safeguards](../../09-security-privacy.md#41-research-data-handling-disc-01-01). Branch: `docs/DISC-01-01-research-data-handling`.
+- Decision: [DEC-07 research arrangements](../../planning/decisions-and-feedback.md#dec-07-research-preparation-disc-01-01) select anonymous answer records in Git, Sandro as record owner, Pedro/Ricardo as interview pair, Afonso/Sandro as replacements and Martim as reviewer. Anonymous responses remain with academic project/history; no identity lookup or complete-erasure promise. DEC-02 remains a product hypothesis.
+- Planning: owner Sandro, reviewer Martim, 6 person-hours allowance. Scope and verification are documentation/research preparation only; research collection remains DISC-01-02 and synthesis DISC-01-03. These are current planning choices, not a retrospective claim of a team DoR meeting.
+- Delivery process: commit and open a PR referencing DISC-01-01; Martim reviews, comments are resolved, applicable checks pass and the change is merged. Record actual PR/review evidence and mark acceptance/DoD boxes only against that evidence. No remote publication, independent approval or merge is asserted here.
+- Execution boundary: interviews are deferred; only blank templates are prepared. Check repository visibility, anonymous collection and survey settings before collection. No participant commitments, independent approval or findings are recorded.
+- Verification (2026-10-15): `git diff --check` passed; all 59 local Markdown links/anchors in the affected documents resolved. Checked anonymous Git retention, removal of fixed-deletion promises and blank interview templates. Implementation tests do not apply.
+- [ ] Independent review and applicable [DoD](../../governance/definition-of-done.md) evidenced through PR.
