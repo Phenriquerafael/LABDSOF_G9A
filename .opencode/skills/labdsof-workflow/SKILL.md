@@ -51,7 +51,7 @@ Mirrored for every agent harness: canonical `.agents/skills/labdsof-workflow/SKI
 - Hierarchy: **epic (`EP-XX`) → parent task (`DISC-0x`, `EN-01`, `AI-01`) → delivery task (`DISC-02-01`)**. AI-01 is a direct task under EP-02. Use native GitHub sub-issues in both directions. IDs are stable local identifiers kept in titles: `[DISC-02-01] Verify competitor and alternative sources`.
 - Status flow: Backlog → Refinement → Ready → In progress → In review → Done. `Blocked` is a flag with reason/dependency/next action. DoR gates Ready; DoD gates Done. Do not select items that fail the DoR as commitments.
 - Drafts live in `documents/backlog/{epics,tasks}/` with a publication field. Publishing steps (README §"Publishing to GitHub"): confirm scope/owner/reviewer/estimate with the team → create epic issues first, then parent tasks, then delivery tasks → convert relative links to repo/commit permalinks → add two-way parent/child links → record the issue URL and mark Published. After publication, GitHub Issues/Projects own live status.
-- Published so far (2026-10-15): epic EP-00 (#1), parent DISC-02 (#5) with sub-issues #10, #11. Board: personal project 9, `https://github.com/users/Phenriquerafael/projects/9`.
+- Never assume which drafts are already published: query GitHub (`gh issue list --repo Phenriquerafael/LABDSOF_GX --state all --limit 200`) and match the `[ID]` in titles before creating an issue, to avoid duplicates. Board: personal project 9, `https://github.com/users/Phenriquerafael/projects/9`.
 - Labels on GitHub: `Epic`, `Task`, `Sub-Task`, `product`, `backend`, `ai`, `devops`, `security`, `frontend`, `documentation`, `bug`. Milestones: `Sprint A` (due 2026-11-01), `Sprint B` (2026-12-06), `Sprint C` (2027-01-03); windows: A = 10–31 Oct 2026, B = 1 Nov–5 Dec 2026, C = 6 Dec–3 Jan 2027. The `type:*`/`area:*`/`priority:*` scheme in `issue-management.md` is proposed, not fully applied remotely — check actual labels before creating issues.
 - Issue reality rules: docs status ≠ execution; leave acceptance boxes unchecked until evidence is reviewed; attach existing commits/PRs as evidence instead of fabricating prior planning.
 
@@ -64,7 +64,7 @@ Mirrored for every agent harness: canonical `.agents/skills/labdsof-workflow/SKI
 ## Useful commands
 
 ```bash
-gh issue list --repo Phenriquerafael/LABDSOF_GX --state open
+gh issue list --repo Phenriquerafael/LABDSOF_GX --state all --limit 200   # live list of published issues
 gh issue create --repo Phenriquerafael/LABDSOF_GX --title "[DISC-02-03] ..." --body-file draft.md --label Task --milestone "Sprint A"
 gh pr create --repo Phenriquerafael/LABDSOF_GX --title "DISC-02-01: ..."   # PR template auto-fills body
 gh pr review <n> --comment|--approve|--request-changes   # never on your own PR
@@ -72,6 +72,8 @@ gh pr review <n> --comment|--approve|--request-changes   # never on your own PR
 gh api repos/Phenriquerafael/LABDSOF_GX/issues/<child> --jq .id
 gh api repos/Phenriquerafael/LABDSOF_GX/issues/<parent>/sub_issues -f sub_issue_id=<id>
 ```
+
+If `gh issue view`, `gh pr view` or `gh pr edit` fails with `GraphQL: Projects (classic) is being deprecated … (repository.issue.projectCards)` (seen with some `gh` versions), update `gh` or fall back to REST: `gh api repos/Phenriquerafael/LABDSOF_GX/issues/<n>`, `gh api -X PATCH repos/Phenriquerafael/LABDSOF_GX/pulls/<n> -F body=@body.md`.
 
 ## Automation and pitfalls
 
