@@ -19,9 +19,9 @@ Initial order: DISC/EN discovery and foundations → US-01/02 → US-03/04 → U
 | ID | Outcome / boundary | Items | Source |
 |---|---|---|---|
 | [EP-00](backlog/epics/EP-00-discovery-and-planning.md) | Justifiable discovery and planning | DISC-01–03 | §5.1–5.5, §5.7 |
-| EP-01 | Residents report and track issues with appropriate visibility | US-01/02/04/10 | J1, P1/P5 |
+| [EP-01](backlog/epics/EP-01-reporting-and-tracking.md) | Residents report and track issues with appropriate visibility | US-01/02/04/10 | J1, P1/P5 |
 | [EP-02](backlog/epics/EP-02-assisted-triage.md) | Assisted triage and reviewed links | AI-01 (S1 assessment), US-03/05 | §5.6; J2, P2/P3/P7 |
-| EP-03 | Intervention from request to closure | US-06–09/11–13 | J2–J3, P6 |
+| [EP-03](backlog/epics/EP-03-intervention-and-closure.md) | Intervention from request to closure | US-06–09/11–13 | J2–J3, P6 |
 | [EP-04](backlog/epics/EP-04-engineering-and-quality.md) | Deliverable, secure, observable and evaluable system | EN-01–04 | §6–§8 |
 
 ## 3. Discovery and engineering
