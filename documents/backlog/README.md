@@ -2,7 +2,7 @@
 
 **Status:** draft package prepared on 2026-10-10; epic coverage completed on 2026-10-15. No GitHub issue URLs are recorded here; remote publication/status has not been verified in this review. EP-00 ownership and reviews are distributed across the whole team independently of functional roles. Proposed allocations are not sprint commitments; estimates and readiness still require planning. Local items remain Backlog until readiness and any remote status are recorded.
 
-This folder contains **5 epic drafts, 4 parent-task drafts and 15 delivery-task drafts**: all product epics and the detailed Sprint 1 research, planning and design tasks. The [product backlog](../06-product-backlog.md) remains the scope and priority overview. Existing product documents hold the deliverables; these files specify the work and its completion evidence.
+This folder contains **5 epic drafts, 4 parent-task drafts and 15 delivery-task drafts**: all product epics and the detailed Sprint 1 research, planning and design tasks. The [product backlog](../05-product-backlog.md) remains the scope and priority overview. Existing product documents hold the deliverables; these files specify the work and its completion evidence.
 
 The walking skeleton (EN-02) is excluded from Sprint 1 under DEC-11. EP-01/EP-03 now have epic drafts for later implementation; their US stories are defined in the product backlog but do not yet have separate issue draft files here. EP-02/EP-04 also span later sprints; their Sprint 1 tasks do not complete the entire epic. Drafting or publishing a future epic does not commit implementation to Sprint 1.
 
@@ -17,9 +17,9 @@ For implementation, use epic → user story → implementation subtask when need
 | [EP-00](epics/EP-00-discovery-and-planning.md) | [DISC-01](tasks/DISC-01-user-research.md) | Gather user evidence and document the problem |
 | [EP-00](epics/EP-00-discovery-and-planning.md) | [DISC-02](tasks/DISC-02-market-comparison.md) | Complete the market and competitor comparison |
 | [EP-00](epics/EP-00-discovery-and-planning.md) | [DISC-03](tasks/DISC-03-organisation-and-product-planning.md) | Agree organisation, product scope and priorities |
-| [EP-01](epics/EP-01-reporting-and-tracking.md) | [US-01/02/04/10](../06-product-backlog.md#4-stories-and-criteria), story drafts pending | Reporting, manual triage, shared impact and notifications; S2 implementation |
+| [EP-01](epics/EP-01-reporting-and-tracking.md) | [US-01/02/04/10](../05-product-backlog.md#4-stories-and-criteria), story drafts pending | Reporting, manual triage, shared impact and notifications; S2 implementation |
 | [EP-02](epics/EP-02-assisted-triage.md) | [AI-01](tasks/AI-01-assess-ai-opportunity.md) | Assess the AI opportunity and define evaluation |
-| [EP-03](epics/EP-03-intervention-and-closure.md) | [US-06–09/11–13](../06-product-backlog.md#4-stories-and-criteria), story drafts pending | Contractor selection through closure; S2 core, conditional extensions |
+| [EP-03](epics/EP-03-intervention-and-closure.md) | [US-06–09/11–13](../05-product-backlog.md#4-stories-and-criteria), story drafts pending | Contractor selection through closure; S2 core, conditional extensions |
 | [EP-04](epics/EP-04-engineering-and-quality.md) | [EN-01](tasks/EN-01-technical-design.md) | Consolidate technical design, ADRs and security |
 
 | Delivery task | Proposed owner | Proposed reviewer | Predecessors for completion |
@@ -66,10 +66,10 @@ For AI-01, Ricardo supports review of interface assumptions and Martim supports 
 | 2 | Market and competitor analysis | DISC-02-01/02 | [Competitor analysis](../02-market-and-competitor-analysis.md) |
 | 3 | User research | DISC-01-01/02/03 | [Research plan and findings](../03-user-research.md) |
 | 4 | Product vision | DISC-03-03 | [Vision](../04-product-vision.md) |
-| 5 | Product backlog | DISC-03-01/02/04 | [Backlog](../06-product-backlog.md), [roadmap](../05-product-roadmap.md) and [Sprint 1 plan](../planning/sprint-1-plan.md) |
-| 6 | Responsible AI opportunity assessment | AI-01 | [AI assessment](../07-responsible-ai-assessment.md) |
-| 7 | Technical design | EN-01-01/02/03 | [Design](../08-technical-design.md) |
-| 8 | Architecture decision records | EN-01-01; reviewed across design tasks | [ADRs](../adr/README.md) |
+| 5 | Product backlog | DISC-03-01/02/04 | [Backlog](../05-product-backlog.md) and [Sprint 1 plan](../planning/sprint-1-plan.md) |
+| 6 | Responsible AI opportunity assessment | AI-01 | [AI assessment](../06-responsible-ai-assessment.md) |
+| 7 | Technical design | EN-01-01/02/03 | [Design](../07-technical-design.md) |
+| 8 | Architecture decision records | EN-01-01; reviewed across design tasks | [ADRs](../08-architecture-decision-records.md) |
 | 9 | Security and privacy assessment | EN-01-04; research safeguards in DISC-01-01 | [Security/privacy](../09-security-privacy.md) |
 | 10 | Walking skeleton | Not selected for Sprint 1 (DEC-11) | [Retained plan](../10-walking-skeleton.md) |
 

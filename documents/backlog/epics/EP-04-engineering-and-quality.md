@@ -21,7 +21,7 @@ Excluded: A Sprint 1 walking skeleton commitment, production compliance claims a
 
 - [ ] [EN-01 — Consolidate technical design, ADRs and security](../tasks/EN-01-technical-design.md)
 
-[EN-02, EN-03 and EN-04](../../06-product-backlog.md) remain later work; EN-02 is excluded from Sprint 1 by DEC-11.
+[EN-02, EN-03 and EN-04](../../05-product-backlog.md) remain later work; EN-02 is excluded from Sprint 1 by DEC-11.
 
 ## Completion criterion
 

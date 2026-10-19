@@ -33,7 +33,7 @@ Reporting, viewing and manual triage remain usable when AI is unavailable. Notif
 
 ## Child stories
 
-These are existing [product backlog stories](../../06-product-backlog.md#4-stories-and-criteria), not additional work items. Their detailed acceptance criteria remain there until reviewed issue publication; individual story draft files and GitHub links are not yet recorded in this package.
+These are existing [product backlog stories](../../05-product-backlog.md#4-stories-and-criteria), not additional work items. Their detailed acceptance criteria remain there until reviewed issue publication; individual story draft files and GitHub links are not yet recorded in this package.
 
 - [ ] US-01 — Record and view a report · Must · S2 · RF-01.
 - [ ] US-02 — Triage manually and track states · Must · S2 · RF-02.
@@ -58,7 +58,7 @@ Once published, attach each story as a sub-issue of this epic and link its actua
 - Build US-01 before US-02/04. US-10 depends on US-02/04 and EP-03's US-07 events; this does not block starting the reporting slice while intervention work is unfinished.
 - Resolve DEC-06 (notification channel), DEC-07 (visibility/data) and DEC-10 (state rules) to the level needed by each story. Use the [decision register](../../planning/decisions-and-feedback.md).
 - Apply [NFR-01/02/04/05/06/07/09](../../requirements.md) and the [access matrix](../../09-security-privacy.md#2-proposed-access-matrix); reporting must not require AI availability.
-- Review risks of private-data leakage through lists/history/notifications, duplicate delivery and misleading status projections. Keep Issue-owned state and Dispatch-originated updates consistent with the [technical design](../../08-technical-design.md).
+- Review risks of private-data leakage through lists/history/notifications, duplicate delivery and misleading status projections. Keep Issue-owned state and Dispatch-originated updates consistent with the [technical design](../../07-technical-design.md).
 
 ## Publication and review record
 

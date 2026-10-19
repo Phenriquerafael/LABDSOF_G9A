@@ -2,7 +2,7 @@
 
 **Status:** proposal v0.3 · **Current stage:** Sprint 1 · **Reviewed:** 2026-10-19 (DISC-03-03)
 
-This document summarises the product direction. Detailed scope belongs in the [vision](04-product-vision.md), priorities in the [backlog](06-product-backlog.md) and open choices in the [decision register](planning/decisions-and-feedback.md). This documentation revision does not represent team or lecturer approval.
+This document summarises the product direction. Detailed scope belongs in the [vision](04-product-vision.md), priorities in the [backlog](05-product-backlog.md) and open choices in the [decision register](planning/decisions-and-feedback.md). This documentation revision does not represent team or lecturer approval.
 
 ## 1. Problem and positioning
 
@@ -44,7 +44,7 @@ Photos, AI visual analysis, cost charts and narrative summaries are **post-MVP**
 
 Proposed primary metric: **the administrator's active time to triage and prepare an intervention**, comparing equivalent tasks. Proposed success threshold (DEC-08, team agreement pending): a BMC median at least 30% lower than the current process on the same scripted tasks, with no lower completion and no missed critical scenario. Definition, measurement conditions and baseline limitations are in the [vision](04-product-vision.md#51-primary-success-criterion-dec-08). Time until dispatch, acceptance and resolution are separate metrics; resolution also depends on external factors.
 
-Classification quality, duplicate-linking errors, latency and cost are evaluated in the [AI plan](07-responsible-ai-assessment.md). Targets are not results. Perfect detection of critical situations is not promised.
+Classification quality, duplicate-linking errors, latency and cost are evaluated in the [AI plan](06-responsible-ai-assessment.md). Targets are not results. Perfect detection of critical situations is not promised.
 
 ## 4. AI and decision safety
 

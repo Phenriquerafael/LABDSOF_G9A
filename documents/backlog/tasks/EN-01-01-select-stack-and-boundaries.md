@@ -27,7 +27,7 @@ Excluded: Building services, benchmarking invented results and selecting technol
 
 ## Deliverables and evidence
 
-- [Technical design](../../08-technical-design.md) — update the relevant sections and link the change/review evidence.
+- [Technical design](../../07-technical-design.md) — update the relevant sections and link the change/review evidence.
 - [Backend ADR](../../adr/ADR-001-backend-boundaries.md) — update the relevant sections and link the change/review evidence.
 - [ADR index](../../adr/README.md) — update the relevant sections and link the change/review evidence.
 - [ADR template](../../templates/adr.md) — update the relevant sections and link the change/review evidence.

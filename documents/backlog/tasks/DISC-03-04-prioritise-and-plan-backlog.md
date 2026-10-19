@@ -27,9 +27,8 @@ Excluded: Automatically making every draft Ready or assigning all proposed tasks
 
 ## Deliverables and evidence
 
-- [Product backlog](../../06-product-backlog.md) — update the relevant sections and link the change/review evidence.
+- [Product backlog](../../05-product-backlog.md) — update the relevant sections and link the change/review evidence.
 - [Requirements](../../requirements.md) — update the relevant sections and link the change/review evidence.
-- [Roadmap](../../05-product-roadmap.md) — update the relevant sections and link the change/review evidence.
 - [Sprint 1 plan](../../planning/sprint-1-plan.md) — update the relevant sections and link the change/review evidence.
 - [Sprint B proposal](../../planning/sprint-b-backlog.md) — update the relevant sections and link the change/review evidence.
 

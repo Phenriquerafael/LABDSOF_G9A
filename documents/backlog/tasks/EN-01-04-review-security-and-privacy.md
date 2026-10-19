@@ -29,7 +29,7 @@ Excluded: Legal compliance certification, implemented control tests and a produc
 
 - [Security/privacy assessment](../../09-security-privacy.md) — update the relevant sections and link the change/review evidence.
 - [Requirements/NFRs](../../requirements.md) — update the relevant sections and link the change/review evidence.
-- [Technical design](../../08-technical-design.md) — update the relevant sections and link the change/review evidence.
+- [Technical design](../../07-technical-design.md) — update the relevant sections and link the change/review evidence.
 - [Decision register](../../planning/decisions-and-feedback.md) — update the relevant sections and link the change/review evidence.
 
 ## Verification

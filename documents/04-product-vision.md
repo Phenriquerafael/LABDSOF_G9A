@@ -2,7 +2,7 @@
 
 **Status:** proposal v0.4 (DISC-03-03) · **Sprint:** 1 · **Reviewed:** 2026-10-19
 
-Personas, priorities and targets are hypotheses unless a finding is cited. This is the **source of the proposed functional scope**; changes must be reflected in the [backlog](06-product-backlog.md), [requirements](requirements.md) and [decisions](planning/decisions-and-feedback.md).
+Personas, priorities and targets are hypotheses unless a finding is cited. This is the **source of the proposed functional scope**; changes must be reflected in the [backlog](05-product-backlog.md), [requirements](requirements.md) and [decisions](planning/decisions-and-feedback.md).
 
 **Evidence basis on 2026-10-19.** No interview, survey, observation or prototype test has been recorded ([03 §7](03-user-research.md#7-findings)), and the DISC-01-03 synthesis is still open. This revision cites only the secondary findings PS-01–PS-08 ([03 §7.2](03-user-research.md#72-findings)) and the competitor sources S01–S28 ([02 §5](02-market-and-competitor-analysis.md#5-source-and-findings-register)). PS findings make workflow concepts plausible; they do not establish local frequency, effort, adoption or willingness to pay. S01–S28 always refer to the 02 register and are supplier claims unless marked otherwise there; the public sources behind PS findings (S1–S9 in 03) are cited only through their PS IDs. Choices marked **[BA/PO proposal]** were proposed by Afonso (BA/PO) on 2026-10-19 under [DISC-03-03 (#14)](https://github.com/Phenriquerafael/LABDSOF_GX/issues/14) and await team agreement in review; they are not stakeholder or lecturer approval.
 
@@ -90,7 +90,7 @@ In one building community with synthetic data, a resident report becomes an admi
 | Contractor response and calendar/simulator booking confirmation | Basic cost recording | Automatic expense approval |
 | Notifications through one channel, closure and enforced authorisation | | Native apps and subscription management |
 
-Basic cost may remain “not provided” and never blocks closure. The [backlog](06-product-backlog.md) distinguishes Must/Should/Could/Won't; priorities await the MoSCoW session (DISC-03-04).
+Basic cost may remain “not provided” and never blocks closure. The [backlog](05-product-backlog.md) distinguishes Must/Should/Could/Won't; priorities await the MoSCoW session (DISC-03-04).
 
 ### 4.2 IoT decision (DEC-01)
 
@@ -105,7 +105,7 @@ Reopen only through a scope review if research identifies a concrete decision th
 
 ### 4.3 Distinct steps (DEC-10)
 
-The workflow keeps these steps separate in states, history and UI wording. They match the issue and intervention states in [08 §3](08-technical-design.md#3-states-and-business-rules). Validation with administrators and contractors is still pending (Q5, Q9; administrator question 8).
+The workflow keeps these steps separate in states, history and UI wording. They match the issue and intervention states in [07 §3](07-technical-design.md#3-states-and-business-rules). Validation with administrators and contractors is still pending (Q5, Q9; administrator question 8).
 
 | Step | Who | What it records | What it does not mean | Story |
 |---|---|---|---|---|
@@ -140,7 +140,7 @@ Documents and UI use the qualified terms “booking confirmation” and “impac
 **Success threshold.** The BMC median active time is **at least 30% lower** than the current-process median on the same task set, and both guards hold:
 
 - Task completion is no lower than in the current process. A task is complete when the correct request is sent to an eligible contractor.
-- No critical-urgency scenario is left untriaged or downgraded at the end of a BMC task, consistent with the critical-set criterion in the [AI assessment](07-responsible-ai-assessment.md#4-provisional-criteria).
+- No critical-urgency scenario is left untriaged or downgraded at the end of a BMC task, consistent with the critical-set criterion in the [AI assessment](06-responsible-ai-assessment.md#4-provisional-criteria).
 
 **Measurement conditions** (to freeze before the evaluation in EN-04):
 
@@ -171,8 +171,8 @@ If the threshold is not met, record the result, analyse where time was spent and
 | Time until request sent | Receipt to dispatch to the contractor | Separate waiting from active time |
 | Time until acceptance | Dispatch to contractor response | Do not confuse dispatch with confirmation |
 | Time until resolution | Receipt to closure | Exploratory; simulation does not prove real impact |
-| Triage quality | Model, rules and combined system | Protocol and targets in the [AI Assessment](07-responsible-ai-assessment.md) |
-| Duplicate detection quality | Precision and recall on labelled pairs, if implemented | Criteria centralised in the [AI Assessment](07-responsible-ai-assessment.md#4-provisional-criteria) |
+| Triage quality | Model, rules and combined system | Protocol and targets in the [AI Assessment](06-responsible-ai-assessment.md) |
+| Duplicate detection quality | Precision and recall on labelled pairs, if implemented | Criteria centralised in the [AI Assessment](06-responsible-ai-assessment.md#4-provisional-criteria) |
 | Acceptance without editing | Percentage and correctness audit | Does not independently equate to trust |
 | Impact-confirmation use | Confirmations, withdrawals and separate repeat reports on published issues, in prototype tests | Diagnostic for §6; no target until research exists |
 | Continuity | AI disabled and calendar unavailable | Reporting and triage continue; pending/manual scheduling is explicit |
@@ -225,6 +225,6 @@ The aim is to make it easier to respond to water, lighting and lift faults, redu
 | v0.4, 2026-10-19 (DISC-03-03) | Value proposition compared with each alternative and stated without exclusivity claims | 02 §2–§6; S05, S17, S20, S24 |
 | | Personas and J1–J3 linked to secondary findings and to the hypotheses still open | 03 §7.2 (PS-01–PS-08); 01 §7 |
 | | Smallest credible experiment stated; IoT excluded from the MVP; conditions for optional features | DEC-01 [BA/PO proposal]; assignment §3, §7.1.3 |
-| | Approval, acceptance, booking confirmation, completion report, closure and impact confirmation defined as distinct steps | DEC-10; 08 §3 |
+| | Approval, acceptance, booking confirmation, completion report, closure and impact confirmation defined as distinct steps | DEC-10; 07 §3 |
 | | Primary metric defined with a 30% threshold, guards, measurement conditions and baseline limitations | DEC-08 [BA/PO proposal] |
 | | Impact-confirmation mechanism reviewed against the five §5.5 questions | DEC-07; access matrix |

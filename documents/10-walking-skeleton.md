@@ -53,6 +53,6 @@ Apply this checklist when the implementation is scheduled; these unchecked items
 
 ## 5. Evolution
 
-Evolution after the skeleton follows the [Sprint 2 milestones](05-product-roadmap.md#3-sprint-2--proposed-sequence). Each increment updates the [design](08-technical-design.md), contracts and [DoD](governance/definition-of-done.md).
+Evolution after the skeleton is guided by the [product backlog](05-product-backlog.md); the implementation sequence remains to be confirmed. Each increment updates the [design](07-technical-design.md), contracts and [DoD](governance/definition-of-done.md).
 
-Items: EN-01/02/03 and US-01 in the [backlog](06-product-backlog.md). This document will be the entry point for actual execution instructions when they exist.
+Items: EN-01/02/03 and US-01 in the [backlog](05-product-backlog.md). This document will be the entry point for actual execution instructions when they exist.
