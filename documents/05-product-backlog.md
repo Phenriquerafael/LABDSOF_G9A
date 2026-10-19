@@ -191,7 +191,7 @@ As an administrator, I want to synchronise with the calendar used in operations.
 
 ## 5. Won't in this baseline / alternatives
 
-Photos and visual analysis, cost charts/summaries, payments, marketplace, native apps, automatic approval and subscriptions. IoT is an **alternative awaiting a decision in DEC-01**; no implementation commitment is made until the scope is reviewed.
+Photos and visual analysis, cost charts/summaries, payments, marketplace, native apps, automatic approval and subscriptions. IoT, monitoring and prediction are **excluded from the MVP** (DEC-01, BA/PO proposal of 2026-10-19 in [vision §4.2](04-product-vision.md#42-iot-decision-dec-01), team agreement pending); reopening requires a scope review.
 
 ## 6. Stakeholder validation and release
 

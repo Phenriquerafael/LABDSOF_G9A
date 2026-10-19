@@ -1,6 +1,6 @@
 # Building Maintenance Coordinator — Strategy
 
-**Status:** proposal v0.2 · **Current stage:** Sprint 1 · **Reviewed:** 2026-10-07
+**Status:** proposal v0.3 · **Current stage:** Sprint 1 · **Reviewed:** 2026-10-19 (DISC-03-03)
 
 This document summarises the product direction. Detailed scope belongs in the [vision](04-product-vision.md), priorities in the [backlog](05-product-backlog.md) and open choices in the [decision register](planning/decisions-and-feedback.md). This documentation revision does not represent team or lecturer approval.
 
@@ -9,6 +9,8 @@ This document summarises the product direction. Detailed scope belongs in the [v
 **[Hypothesis]** Reports scattered across calls, messages and emails increase the effort of coordinating faults in some condominiums. Frequency, impact and alternatives already in use need investigation.
 
 > BMC helps condominium administrators turn fault reports into tracked interventions, reducing coordination work and keeping residents informed.
+
+BMC claims no exclusivity in reporting, AI triage or human approval: competitors already claim AI classification, urgency scoring and assignment (S05), other AI assistance such as incident descriptions (S17) and human approval of AI decisions (S20) ([02](02-market-and-competitor-analysis.md#6-differentiation-hypothesis)). The proposition depends on the measured effort reduction in section 3; the comparison with each alternative is in the [vision](04-product-vision.md#1-vision-and-value-proposition).
 
 The target community is residential condominiums in Portugal. Faults affecting water, electricity, lifts or shared spaces disrupt everyday life and align the product with the resilience challenge.
 
@@ -32,14 +34,15 @@ Willingness to pay and buyer identity are unvalidated. Interviews with volunteer
 - Approval authorises the request; a booking is confirmed only after contractor acceptance and calendar registration, or explicit manual confirmation.
 - One notification channel, “This affects me too” participation, history and optional basic cost.
 - The administrator closes the issue after contractor-reported completion, or with recorded justification.
+- Approval, acceptance, booking confirmation, completion report and closure are distinct recorded steps ([vision §4.3](04-product-vision.md#43-distinct-steps-dec-10)).
 
 **Sprint 1:** discovery, decisions and design. The evaluator clarified that the walking skeleton is optional; the team decided not to develop it this sprint (DEC-11, recorded on 2026-10-10). **Sprint 2:** first operational version of the cycle. **Sprint 3:** complete, evaluate and strengthen the same MVP.
 
-Photos, AI visual analysis, cost charts and narrative summaries are **post-MVP** candidates, without a Sprint 3 commitment. Automatic expense approval is outside the baseline. IoT is an open alternative (DEC-01), not an automatically added requirement.
+Photos, AI visual analysis, cost charts and narrative summaries are **post-MVP** candidates, without a Sprint 3 commitment. Automatic expense approval is outside the baseline. IoT is excluded from the MVP (DEC-01, BA/PO proposal of 2026-10-19, team agreement pending); reopening it requires a scope review ([vision §4.2](04-product-vision.md#42-iot-decision-dec-01)).
 
 ## 3. Value and measurement
 
-Proposed primary metric: **the administrator's active time to triage and prepare an intervention**, comparing equivalent tasks. Time until dispatch, acceptance and resolution are separate metrics; resolution also depends on external factors.
+Proposed primary metric: **the administrator's active time to triage and prepare an intervention**, comparing equivalent tasks. Proposed success threshold (DEC-08, team agreement pending): a reduction of at least 30% in the median of participant medians, BMC versus the current process, on the same scripted tasks, with no lower completion and no missed critical scenario. Definition, measurement conditions and baseline limitations are in the [vision](04-product-vision.md#51-primary-success-criterion-dec-08). Time until dispatch, acceptance and resolution are separate metrics; resolution also depends on external factors.
 
 Classification quality, duplicate-linking errors, latency and cost are evaluated in the [AI plan](06-responsible-ai-assessment.md). Targets are not results. Perfect detection of critical situations is not promised.
 
