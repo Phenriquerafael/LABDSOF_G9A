@@ -45,8 +45,8 @@ Assignable candidate work, proposed owners/reviewers and deliverable traceabilit
 | Activity | Artefact | Status | Proposed role |
 |---|---|---|---|
 | Scope, personas and workflow | [04 Vision](../04-product-vision.md) | Harmonised proposal | BA/PO |
-| Epics and backlog | [06 Backlog](../06-product-backlog.md) | Proposed priorities and criteria | BA/PO + team |
-| Domain model | [08 Design](../08-technical-design.md) | Proposed conceptual model | Tech Lead |
+| Epics and backlog | [05 Backlog](../05-product-backlog.md) | Proposed priorities and criteria | BA/PO + team |
+| Domain model | [07 Design](../07-technical-design.md) | Proposed conceptual model | Tech Lead |
 | MoSCoW with customer | [Decisions/feedback](decisions-and-feedback.md) | Discussion not yet recorded | BA/PO + lecturers |
 | Sprint B with DoR | [Sprint B](sprint-b-backlog.md) | Candidates; no Ready commitments | Team |
 
@@ -64,10 +64,10 @@ Assignable candidate work, proposed owners/reviewers and deliverable traceabilit
 | 2 — Market and Competitor Analysis | [02](../02-market-and-competitor-analysis.md) | Preliminary; sources and comparison |
 | 3 — User Research | [03](../03-user-research.md) | Plan; collection, findings and decisions |
 | 4 — Product Vision | [04](../04-product-vision.md) | Proposal; stakeholder review |
-| 5 — Product Backlog | [06](../06-product-backlog.md) | Proposal; validated priority, estimates and release discussion |
-| 6 — Responsible AI Opportunity Assessment | [07](../07-responsible-ai-assessment.md) | Proposal; value, dataset and criteria to validate |
-| 7 — Technical Design | [08](../08-technical-design.md) | Proposal; stack/contracts/deployment to consolidate |
-| 8 — ADRs | [Index](../adr/README.md) | Initial proposed ADR; decisions not yet accepted |
+| 5 — Product Backlog | [05](../05-product-backlog.md) | Proposal; validated priority, estimates and release discussion |
+| 6 — Responsible AI Opportunity Assessment | [06](../06-responsible-ai-assessment.md) | Proposal; value, dataset and criteria to validate |
+| 7 — Technical Design | [07](../07-technical-design.md) | Proposal; stack/contracts/deployment to consolidate |
+| 8 — ADRs | [08](../08-architecture-decision-records.md) | Initial proposed ADR; decisions not yet accepted |
 | 9 — Security and Privacy Assessment | [09](../09-security-privacy.md) | Initial assessment; review and policies pending |
 | 10 — Walking Skeleton | [10](../10-walking-skeleton.md) | Optional per evaluator; team will not develop it in Sprint 1 (DEC-11). Plan retained for later implementation |
 

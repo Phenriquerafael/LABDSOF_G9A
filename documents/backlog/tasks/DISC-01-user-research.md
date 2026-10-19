@@ -6,7 +6,7 @@
 - Allocation: see the [backlog README](../README.md).
 - Horizon: S1; dates/estimate: to be agreed. Do not add parent estimates to child totals.
 - Source: [Assignment](../../../LABDSOF-26-27-Assignment.md) §5.1, §5.3; §7.1.2 items 1 and 3.
-- Scope/priority baseline: [Product backlog](../../06-product-backlog.md).
+- Scope/priority baseline: [Product backlog](../../05-product-backlog.md).
 
 ## Objective
 

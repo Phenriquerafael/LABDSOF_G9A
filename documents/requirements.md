@@ -6,7 +6,7 @@ Sources: [assignment](../LABDSOF-26-27-Assignment.md), [hypotheses P1–P7](01-p
 
 ## Functional requirements
 
-See the [epics table in the Product Backlog](06-product-backlog.md#2-epics) for the scope and items associated with each epic.
+See the [epics table in the Product Backlog](05-product-backlog.md#2-epics) for the scope and items associated with each epic.
 
 | ID | Proposed requirement | Source | Backlog / epic |
 |---|---|---|---|
@@ -44,9 +44,9 @@ The numerical targets below are proposals for discussion (DEC-08), not results o
 
 ## Priorities, acceptance and traceability
 
-The [backlog](06-product-backlog.md) contains proposed MoSCoW priorities and item-level criteria. A need identified through research must reference E/F in the evidence register and update this table. A significant technical change requires an ADR.
+The [backlog](05-product-backlog.md) contains proposed MoSCoW priorities and item-level criteria. A need identified through research must reference E/F in the evidence register and update this table. A significant technical change requires an ADR.
 
-Model and states: [technical design](08-technical-design.md). Access/data policies: [security](09-security-privacy.md).
+Model and states: [technical design](07-technical-design.md). Access/data policies: [security](09-security-privacy.md).
 
 ## Open decisions
 

@@ -6,7 +6,7 @@
 - Allocation: see the [backlog README](../README.md).
 - Horizon: S1, with project-level feedback follow-up in S2/S3 as needed; dates/estimate: to be agreed. Do not add parent estimates to child totals.
 - Source: [Assignment](../../../LABDSOF-26-27-Assignment.md) §5.4–§5.5, §5.7, §8.1–§8.2; §7.1.2 items 4 and 5.
-- Scope/priority baseline: [Product backlog](../../06-product-backlog.md).
+- Scope/priority baseline: [Product backlog](../../05-product-backlog.md).
 
 ## Objective
 
@@ -29,7 +29,6 @@ Make scope, collaboration and delivery planning explicit and review the proposal
 ## Evidence and dependencies
 
 - [Vision](../../04-product-vision.md)
-- [Roadmap](../../05-product-roadmap.md)
 - [Decisions and feedback](../../planning/decisions-and-feedback.md)
 - [Team agreement](../../governance/team-working-agreement.md)
 

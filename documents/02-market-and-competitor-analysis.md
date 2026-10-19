@@ -60,7 +60,7 @@ IDs refer to the [register](#5-source-and-findings-register). Everything below i
 
 ## 3. Comparison matrix
 
-Each cell is “**Claimed** (source ID)” or **UC**. “Claimed” means the vendor or an advertising text states it; nothing was tested. “Not described” in a cited source is still UC, not absence. The BMC column describes **plans**, not implemented capabilities; scope and priorities are in [04 Vision](04-product-vision.md) and [06 Backlog](06-product-backlog.md). Interpretation of this matrix belongs to DISC-02-02.
+Each cell is “**Claimed** (source ID)” or **UC**. “Claimed” means the vendor or an advertising text states it; nothing was tested. “Not described” in a cited source is still UC, not absence. The BMC column describes **plans**, not implemented capabilities; scope and priorities are in [04 Vision](04-product-vision.md) and [05 Backlog](05-product-backlog.md). Interpretation of this matrix belongs to DISC-02-02.
 
 | Criterion | SolidSoft GC | Gecond | Unitify | Fixflo (Block) | Infraspeak | Freshdesk | Zaask | Proposed BMC |
 |---|---|---|---|---|---|---|---|---|
@@ -167,4 +167,4 @@ If competitors cover the essentials, revisit positioning using evidence; do not 
 2. DISC-02-02: interpret the matrix, complete strengths/weaknesses and UX per §5.2, and state differentiation as supported conclusions or remaining hypotheses.
 3. Decide whether to request demos of SolidSoft GC, Gecond or Unitify; document observed tasks and access limits.
 4. Cross-check with [user research](03-user-research.md) which tools participants actually use (Q6).
-5. Revise vision and priorities; record decisions under [DEC-02](planning/decisions-and-feedback.md) and work under DISC-02 in the [backlog](06-product-backlog.md).
+5. Revise vision and priorities; record decisions under [DEC-02](planning/decisions-and-feedback.md) and work under DISC-02 in the [backlog](05-product-backlog.md).

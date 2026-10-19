@@ -213,4 +213,4 @@ Use the [recording template](templates/research-record.md) for each actual inter
 
 Until primary records exist, DISC-01-02 is only partially complete through secondary research; no adoption, problem-frequency or AI-value claim may be presented as validated.
 
-Before collection, assign an owner and resolve access/retention in DEC-07. Dates depend on DEC-03. Findings inform [requirements](requirements.md) and [backlog](06-product-backlog.md) prioritisation.
+Before collection, assign an owner and resolve access/retention in DEC-07. Dates depend on DEC-03. Findings inform [requirements](requirements.md) and [backlog](05-product-backlog.md) prioritisation.

@@ -6,7 +6,7 @@
 - Allocation: see the [backlog README](../README.md).
 - Horizon: S1; dates/estimate: to be agreed. Do not add parent estimates to child totals.
 - Source: [Assignment](../../../LABDSOF-26-27-Assignment.md) §6; §7.1.2 items 7–9.
-- Scope/priority baseline: [Product backlog](../../06-product-backlog.md).
+- Scope/priority baseline: [Product backlog](../../05-product-backlog.md).
 
 ## Objective
 
@@ -28,7 +28,7 @@ Provide a coherent, justified technical direction for the next implementation cy
 
 ## Evidence and dependencies
 
-- [Technical design](../../08-technical-design.md)
+- [Technical design](../../07-technical-design.md)
 - [ADRs](../../adr/README.md)
 - [Security/privacy assessment](../../09-security-privacy.md)
 

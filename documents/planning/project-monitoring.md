@@ -8,8 +8,8 @@ The [assignment](../../LABDSOF-26-27-Assignment.md) requires the evidence below.
 
 | Assignment requirement | Reference | Chosen evidence and location |
 |---|---|---|
-| Prioritised backlog and acceptance criteria | §7.1.2, §8.2 | [Product backlog](../06-product-backlog.md), linked to board items with priority and acceptance criteria |
-| Sprint planning, goals and initial release plan | §7.1.2, §8.2 | Sprint dates, selected items and goal in the [sprint plan](sprint-1-plan.md) / sprint backlog; release milestones in the [roadmap](../05-product-roadmap.md) |
+| Prioritised backlog and acceptance criteria | §7.1.2, §8.2 | [Product backlog](../05-product-backlog.md), linked to board items with priority and acceptance criteria |
+| Sprint planning, goals and initial release plan | §7.1.2, §8.2 | Sprint dates, selected items and goal in the [sprint plan](sprint-1-plan.md) / sprint backlog; release milestones remain to be confirmed |
 | Assign and track work; monitor progress | §8.2 | Owners and current statuses on the board; sprint goal outcome and a dated progress chart in the sprint review. Section 4 explains the chart choices |
 | Record decisions and stakeholder feedback | §8.2 | [Decisions and feedback](decisions-and-feedback.md), with source, date, rationale and affected items |
 | Revise at least one product or technical decision following lecturer/investor feedback | §5.7 | Actual previous → revised decision and rationale, using the [review template](../templates/investor-review.md); a scheduled meeting is not evidence |
