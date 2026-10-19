@@ -21,7 +21,7 @@ Excluded: Autonomous approvals, unreviewed report merges and a general-purpose c
 
 - [ ] [AI-01 — Assess the AI opportunity and define evaluation](../tasks/AI-01-assess-ai-opportunity.md)
 
-[US-03 and US-05](../../06-product-backlog.md) remain future implementation items. Their issue drafts are outside this Sprint 1 package.
+[US-03 and US-05](../../05-product-backlog.md) remain future implementation items. Their issue drafts are outside this Sprint 1 package.
 
 ## Completion criterion
 

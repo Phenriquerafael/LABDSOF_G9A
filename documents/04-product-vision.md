@@ -2,7 +2,7 @@
 
 **Status:** proposal v0.3 · **Sprint:** 1 · **Reviewed:** 2026-10-09
 
-Personas, priorities and targets are hypotheses. This is the **source of the proposed functional scope**; changes must be reflected in the [backlog](06-product-backlog.md), [requirements](requirements.md) and [decisions](planning/decisions-and-feedback.md).
+Personas, priorities and targets are hypotheses. This is the **source of the proposed functional scope**; changes must be reflected in the [backlog](05-product-backlog.md), [requirements](requirements.md) and [decisions](planning/decisions-and-feedback.md).
 
 ## 1. Vision and value proposition
 
@@ -63,7 +63,7 @@ The administrator views aggregates and trends; figures are calculated from recor
 | Contractor response and calendar integration | Additional notification channel | Automatic expense approval |
 | Notifications through one channel, closure and enforced authorisation | | Native apps and subscription management |
 
-Basic cost may remain “not provided” and does not block closure. The [backlog](06-product-backlog.md) distinguishes Must/Should/Could/Won't; priorities await discussion with the customer/lecturers.
+Basic cost may remain “not provided” and does not block closure. The [backlog](05-product-backlog.md) distinguishes Must/Should/Could/Won't; priorities await discussion with the customer/lecturers.
 
 ## 5. Metrics and success
 
@@ -73,8 +73,8 @@ Basic cost may remain “not provided” and does not block closure. The [backlo
 | Time until request sent | Receipt to dispatch to the contractor | Separate waiting from active time |
 | Time until acceptance | Dispatch to contractor response | Do not confuse dispatch with confirmation |
 | Time until resolution | Receipt to closure | Exploratory; simulation does not prove real impact |
-| Triage quality | Model, rules and combined system | Protocol and targets in the [AI Assessment](07-responsible-ai-assessment.md) |
-| Duplicate detection quality | Precision and recall on labelled pairs, if implemented | Criteria centralised in the [AI Assessment](07-responsible-ai-assessment.md#4-provisional-criteria) |
+| Triage quality | Model, rules and combined system | Protocol and targets in the [AI Assessment](06-responsible-ai-assessment.md) |
+| Duplicate detection quality | Precision and recall on labelled pairs, if implemented | Criteria centralised in the [AI Assessment](06-responsible-ai-assessment.md#4-provisional-criteria) |
 | Acceptance without editing | Percentage and correctness audit | Does not independently equate to trust |
 | Continuity | AI disabled and calendar unavailable | Reporting and triage continue; pending/manual scheduling is explicit |
 

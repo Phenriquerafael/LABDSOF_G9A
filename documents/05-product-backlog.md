@@ -2,7 +2,7 @@
 
 **Status:** proposal v0.2 · **Sprint:** 1 · **Priority:** not yet validated with the customer/lecturers
 
-Corresponds to deliverable 5 in §7.1.2. The [roadmap](05-product-roadmap.md) defines horizons; this document defines items. No remote issues, estimates, assignments or implementations are assumed.
+Corresponds to deliverable 5 in §7.1.2. This document defines the product backlog items. No remote issues, estimates, assignments or implementations are assumed.
 
 ## 1. Conventions and prioritisation
 
@@ -41,7 +41,7 @@ Detailed issue bodies and child tasks for [DISC-01](backlog/tasks/DISC-01-user-r
 
 ## 4. Stories and criteria
 
-The criteria below apply the needs to each delivery. Detailed definitions are maintained in the [AI assessment](07-responsible-ai-assessment.md#4-provisional-criteria), [domain states](08-technical-design.md#3-states-and-business-rules), [access matrix](09-security-privacy.md#2-proposed-access-matrix) and [NFRs](requirements.md#non-functional-requirements--constraints). Changes to those definitions require a review of the affected stories.
+The criteria below apply the needs to each delivery. Detailed definitions are maintained in the [AI assessment](06-responsible-ai-assessment.md#4-provisional-criteria), [domain states](07-technical-design.md#3-states-and-business-rules), [access matrix](09-security-privacy.md#2-proposed-access-matrix) and [NFRs](requirements.md#non-functional-requirements--constraints). Changes to those definitions require a review of the affected stories.
 
 ### US-01 — Record and view a report · Must · EP-01
 
@@ -74,7 +74,7 @@ As an administrator, I want a category and urgency suggestion to reduce triage e
 - Critical-signal rules run independently of AI; model output does not remove an alert or overwrite a later human decision.
 - Failure, timeout or invalid responses leave rules/manual triage available with a visible status.
 - Event redelivery does not duplicate suggestions or effects; exhausted attempts remain observable.
-- Evaluation compares AI, baseline and combined results on the versioned dataset against the agreed [AI criteria](07-responsible-ai-assessment.md#4-provisional-criteria).
+- Evaluation compares AI, baseline and combined results on the versioned dataset against the agreed [AI criteria](06-responsible-ai-assessment.md#4-provisional-criteria).
 
 **Source:** RF-03; NFR-03/04/10. **Dependencies:** US-01/02, DEC-05/08. **Horizon:** S2.
 
@@ -197,7 +197,7 @@ Photos and visual analysis, cost charts/summaries, payments, marketplace, native
 
 - MoSCoW session: **not held/recorded**; date and participants to be filled in.
 - Bring per-item value, estimated cost/risk and trade-offs; record changes and reasons in [feedback](planning/decisions-and-feedback.md).
-- Release objectives and plan in the [roadmap](05-product-roadmap.md#1-horizons); dates to be confirmed.
+- Release objectives and dates remain to be confirmed; see the [Sprint 1 plan](planning/sprint-1-plan.md).
 - [Sprint B](planning/sprint-b-backlog.md): selection only after DoR/capacity checks.
 - Templates and fields: [issue management](governance/issue-management.md).
 

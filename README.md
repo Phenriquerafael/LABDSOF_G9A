@@ -10,7 +10,7 @@
 
 1. Read the [assignment](LABDSOF-26-27-Assignment.md).
 2. Learn about the [strategy](documents/building-maintenance-coordinator-strategy.md) and [vision/scope](documents/04-product-vision.md).
-3. Consult the [Sprint 1 plan](documents/planning/sprint-1-plan.md), [backlog](documents/06-product-backlog.md) and [pending decisions](documents/planning/decisions-and-feedback.md).
+3. Consult the [Sprint 1 plan](documents/planning/sprint-1-plan.md), [backlog](documents/05-product-backlog.md) and [pending decisions](documents/planning/decisions-and-feedback.md).
 4. To contribute, use the [team working agreement](documents/governance/team-working-agreement.md), [DoR](documents/governance/definition-of-ready.md), [DoD](documents/governance/definition-of-done.md) and [Git workflow](documents/governance/git-workflow.md).
 
 ## Proposed product
@@ -33,7 +33,7 @@
 
 ## Product documents and Sprint 1 deliverables
 
-File numbering does not always match the assignment: **05 is the roadmap; 06 is the Product Backlog**.
+File numbering matches the assignment deliverables; document 08 links to the ADR folder and index.
 
 | Document | §7.1.2 | Documentation status | What remains for completion/validation |
 |---|---|---|---|
@@ -42,12 +42,11 @@ File numbering does not always match the assignment: **05 is the roadmap; 06 is 
 | [02 — Market and competitors](documents/02-market-and-competitor-analysis.md) | 2 | Preliminary survey | Verified sources and comparison |
 | [03 — Research](documents/03-user-research.md) | 3 | Plan and guides | Collection, findings, limitations and decisions |
 | [04 — Vision](documents/04-product-vision.md) | 4 | Proposal | Validation of personas, scope and metrics |
-| [05 — Roadmap](documents/05-product-roadmap.md) | Supporting; final roadmap in S3 | Proposal | Schedule/capacity and evidence-based review |
-| [06 — Product Backlog](documents/06-product-backlog.md) | 5 | Proposed epics, criteria and MoSCoW | Prioritise with stakeholders, estimate and assign |
+| [05 — Product Backlog](documents/05-product-backlog.md) | 5 | Proposed epics, criteria and MoSCoW | Prioritise with stakeholders, estimate and assign |
 | [Functional requirements and NFRs](documents/requirements.md) | Supports 4/5/7 | Initial list | Validate needs and targets |
-| [07 — Responsible AI Assessment](documents/07-responsible-ai-assessment.md) | 6 | Workflow and evaluation proposal | Validated need, provider, dataset and criteria |
-| [08 — Technical Design](documents/08-technical-design.md) | 7 | Conceptual model and initial contracts | Stack, details and technical decisions |
-| [ADRs](documents/adr/README.md) / [ADR-001](documents/adr/ADR-001-backend-boundaries.md) | 8 | One proposed ADR | Choices and consequences accepted with evidence |
+| [06 — Responsible AI Assessment](documents/06-responsible-ai-assessment.md) | 6 | Workflow and evaluation proposal | Validated need, provider, dataset and criteria |
+| [07 — Technical Design](documents/07-technical-design.md) | 7 | Conceptual model and initial contracts | Stack, details and technical decisions |
+| [08 — Architecture Decision Records](documents/08-architecture-decision-records.md) / [ADR-001](documents/adr/ADR-001-backend-boundaries.md) | 8 | One proposed ADR | Choices and consequences accepted with evidence |
 | [09 — Security and privacy](documents/09-security-privacy.md) | 9 | Initial assessment | Policies/review; controls in implementation |
 | [10 — Walking Skeleton](documents/10-walking-skeleton.md) | 10, optional per evaluator | Not selected for Sprint 1 (DEC-11) | Plan retained for later implementation; not a Sprint 1 blocker |
 | [Original notes](NOTAS.md) | Exploration | Ideas preserved and contextualised | Validate suggestions and provider information |

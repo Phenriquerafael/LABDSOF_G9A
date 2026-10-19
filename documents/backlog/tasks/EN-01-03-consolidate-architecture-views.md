@@ -27,7 +27,7 @@ Excluded: Container builds, live dashboards, deployment or a walking skeleton.
 
 ## Deliverables and evidence
 
-- [Technical design](../../08-technical-design.md) — update the relevant sections and link the change/review evidence.
+- [Technical design](../../07-technical-design.md) — update the relevant sections and link the change/review evidence.
 - [Requirements/NFRs](../../requirements.md) — update the relevant sections and link the change/review evidence.
 - [ADRs](../../adr/README.md) — update the relevant sections and link the change/review evidence.
 

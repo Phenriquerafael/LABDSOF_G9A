@@ -59,7 +59,7 @@ Issue history may reflect Dispatch events with a delay; show the update timestam
 
 ## 4. Initial API (no executable contract yet)
 
-The [access matrix](09-security-privacy.md#2-proposed-access-matrix) defines policy; the table below shows its application to endpoints. Functional criteria remain in the [backlog](06-product-backlog.md#4-stories-and-criteria).
+The [access matrix](09-security-privacy.md#2-proposed-access-matrix) defines policy; the table below shows its application to endpoints. Functional criteria remain in the [backlog](05-product-backlog.md#4-stories-and-criteria).
 
 | Proposed operation | Authorisation / result |
 |---|---|
@@ -83,7 +83,7 @@ Define OpenAPI contracts/schemas after stack selection: 400/401/403 errors or 40
 
 1. Issue persists the report/issue and event record in the same transaction (proposed outbox).
 2. The publisher sends ReportSubmitted; broker failure preserves the event for retry.
-3. The worker validates schema, ID and version and applies the [AI/baseline/fallback workflow](07-responsible-ai-assessment.md#2-baseline-and-fallback), with the timeout defined in NFR-03.
+3. The worker validates schema, ID and version and applies the [AI/baseline/fallback workflow](06-responsible-ai-assessment.md#2-baseline-and-fallback), with the timeout defined in NFR-03.
 4. The result reaches Issue's authorised internal interface; an old result does not replace a human correction.
 5. Change events feed projections/notifications; consumers deduplicate by eventId.
 6. Dispatch manages approval/acceptance and issues a calendar request only when eligible.

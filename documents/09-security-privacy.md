@@ -31,7 +31,7 @@ Check in the backend for each operation; hiding buttons is insufficient. Mock au
 |---|---|---|---|
 | T-01 | Change ID to read another building | Membership/resource authorisation and data projection | Negative API/list/search tests |
 | T-02 | Contractor approves expenses or reads another request | Permissions and assignment checked on the server | Matrix tests |
-| T-03 | Text induces AI to act/disclose | Apply [AI controls](07-responsible-ai-assessment.md#5-controls-and-communication) | [Adversarial cases and protocol](07-responsible-ai-assessment.md#3-proposed-dataset-and-protocol) |
+| T-03 | Text induces AI to act/disclose | Apply [AI controls](06-responsible-ai-assessment.md#5-controls-and-communication) | [Adversarial cases and protocol](06-responsible-ai-assessment.md#3-proposed-dataset-and-protocol) |
 | T-04 | Retry duplicates request/booking | Idempotency, versioning and reconciliation | Failures after external effects and repeated events |
 | T-05 | Malicious text in UI | Safe rendering, input validation | Non-executable content tests |
 | T-06 | Logs/payloads expose data | Minimisation, sanitisation and restricted access | Log and payload inspection |
@@ -65,4 +65,4 @@ A participant code is not anonymisation if the person remains identifiable. Do n
 - In S3: review threats/implemented controls, dependencies, results and residual risk; record limitations.
 - Before a real pilot: review applicable obligations and policies; synthetic data does not prove suitability for real operation.
 
-Traceability: [NFR-01/02/04/09](requirements.md), [backlog](06-product-backlog.md), [research](03-user-research.md).
+Traceability: [NFR-01/02/04/09](requirements.md), [backlog](05-product-backlog.md), [research](03-user-research.md).
