@@ -23,7 +23,7 @@
 - AI: correctable suggestions, with a non-AI baseline and fallback; actions approved by the authorised user.
 - Proposed MVP: text, small catalogue, one notification channel, calendar/simulator, states and history.
 - Post-MVP: photos, cost analytics and narrative summaries.
-- **IoT remains undecided**; it is not automatically included in the MVP baseline.
+- **IoT is proposed as excluded from the MVP** (DEC-01, BA/PO proposal of 2026-10-19, team agreement pending).
 
 <!-- ## How to interpret statuses
 

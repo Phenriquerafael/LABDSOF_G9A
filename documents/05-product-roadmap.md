@@ -63,7 +63,7 @@ Photos, cost charts and narrative summaries **are not Sprint 3 commitments**.
 | Advanced ranking and embeddings | Should; simplify while retaining selection and manual confirmation |
 | Real calendar | Could; retain a realistic simulator |
 | Photos, analytics and summaries | Post-MVP, dependent on research |
-| IoT in one scenario | DEC-01; review scope and integration before adding |
+| IoT in one scenario | Excluded from the MVP (DEC-01 proposal, [vision §4.2](04-product-vision.md#42-iot-decision-dec-01)); only through a new scope review |
 | Comprehensive monitoring, prediction, payments, subscriptions | Outside the baseline |
 
 Do not remove mandatory requirements to accommodate extras. Update the vision, requirements, backlog and decisions together.
