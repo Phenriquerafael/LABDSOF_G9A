@@ -15,7 +15,7 @@ Personas, priorities and targets are hypotheses unless a finding is cited. This 
 | Compared with | What BMC proposes to do differently | Evidence status |
 |---|---|---|
 | Informal channels (calls, messages, groups, spreadsheets) | Structured status, ownership and history for each issue | Hypothesis; current tools are interview question Q6. PS-03 and PS-05 show responsibility, elapsed time and record-keeping as recurring concerns in UK social-housing casework, not in the target segment |
-| Portuguese condominium suites (SolidSoft GC, Gecond, Unitify) | Focus on coordination with external contractors, keeping approval, acceptance, booking confirmation and closure as separate recorded steps (§4.3) | Suites claim reporting (S01, S02, S09) and AI triage or assignment (S05, S17); the external acceptance → booking chain is **unconfirmed, not absent** in the sources opened ([02 §6](02-market-and-competitor-analysis.md#6-differentiation-hypothesis)) |
+| Portuguese condominium suites (SolidSoft GC, Gecond, Unitify) | Focus on coordination with external contractors, keeping approval, acceptance, booking confirmation and closure as separate recorded steps (§4.3) | Suites claim reporting (S01, S02, S09). Unitify claims AI classification, urgency scoring and automatic assignment (S05); SolidSoft GC claims AI incident descriptions from photographs and quote suggestions (S17), not triage or assignment. The external acceptance → booking chain is **unconfirmed, not absent** in the sources opened ([02 §6](02-market-and-competitor-analysis.md#6-differentiation-hypothesis)) |
 | Comparable maintenance products (Fixflo, Infraspeak) | Small residential buildings in Portugal | Fixflo Block targets the UK with a 50-property minimum (S11, S22); Infraspeak's listed sectors exclude residential condominiums (S13). Supplier claims |
 | Service marketplace (Zaask) | Coordination and history after a contractor is chosen, not contractor discovery | Zaask covers quotes and selection (S15); tracking after hiring is unconfirmed |
 
@@ -79,7 +79,9 @@ The administrator views aggregates and trends; figures are calculated from recor
 
 ### 4.1 Smallest credible experiment
 
-In one building community with synthetic data, a resident report becomes an administrator-confirmed triage, an approved request, a contractor response, a confirmed — or explicitly pending — booking and a validated closure, with history and one notification channel. The experiment tests one claim: **this chain reduces the administrator's active effort compared with the current process** (§5.1). Everything outside that chain is conditional or post-MVP. This is the team's answer to the Sprint 1 investor question (assignment §7.1.3), pending review.
+In one building community with synthetic data, a resident's text report becomes an administrator-confirmed triage (AI suggestion, independent rules and manual fallback), a contractor selected by rules from a small catalogue, an approved request, a contractor response, a confirmed — or explicitly pending — booking through the calendar simulator and a validated closure, with states, history, one notification channel and authorisation enforced in the backend. Alongside this chain, the administrator can publish a shared summary on which other residents of the same building make impact confirmations (§6).
+
+The experiment tests one claim: **the coordination chain reduces the administrator's active effort compared with the current process** (§5.1). The shared summary and impact confirmation are also mandatory, because the assignment requires an engagement mechanism (§5.5), but they are not part of the measured claim. The baseline column below lists exactly these elements; everything else is conditional or post-MVP. This is the team's answer to the Sprint 1 investor question (assignment §7.1.3), pending review.
 
 | Baseline (Must) | Conditional candidates (§4.4) | Outside the MVP / post-MVP |
 |---|---|---|
@@ -137,10 +139,27 @@ Documents and UI use the qualified terms “booking confirmation” and “impac
 
 **Definition.** The time an administrator spends actively working to take a new fault report from receipt to an approved request sent to an eligible contractor (J2 steps 1–5): reading, classifying, checking related reports, choosing a contractor and sending the request. Waiting time, such as waiting for a contractor's reply, is excluded and measured separately (§5.2).
 
-**Success threshold.** The BMC median active time is **at least 30% lower** than the current-process median on the same task set, and both guards hold:
+**Answer key (recorded before any test session).** For each scripted scenario, the protocol records the expected category and urgency, whether the scenario is critical, the eligible contractor(s), the minimum content of a correct request and a time cap (proposal: 15 minutes). The key is versioned with the protocol and is not changed after the first session.
 
-- Task completion is no lower than in the current process. A task is complete when the correct request is sent to an eligible contractor.
-- No critical-urgency scenario is left untriaged or downgraded at the end of a BMC task, consistent with the critical-set criterion in the [AI assessment](06-responsible-ai-assessment.md#4-provisional-criteria).
+**Task outcome (same rules in both conditions).**
+
+- *Observation:* one participant performing one scripted scenario in one condition. Practice tasks and the AI-disabled BMC run are excluded from the threshold and reported separately.
+- *Complete:* within the time cap and without facilitator help beyond the scripted instructions, a request matching the answer key is sent to an eligible contractor with the expected urgency or a higher one.
+- *Incomplete:* the cap is reached, the request is wrong or sent to an ineligible contractor, the urgency is lower than the key, or the facilitator had to help. An incomplete task is **recorded at the time cap** in the timing comparison; it is never dropped.
+
+**Calculation.**
+
+1. For each participant and condition, take the median time of that participant's observations (the participant median).
+2. For each condition, take the median of the participant medians: *M*<sub>current</sub> and *M*<sub>BMC</sub>. Each participant therefore weighs the same, whatever the number of scenarios.
+3. reduction = (*M*<sub>current</sub> − *M*<sub>BMC</sub>) / *M*<sub>current</sub>.
+
+**Success threshold.** The criterion is met only if all three conditions hold:
+
+- reduction ≥ 0.30;
+- *completion guard:* the BMC completion rate (complete observations ÷ all observations, pooled across participants) is not lower than the current-process completion rate;
+- *critical guard:* every BMC observation of a critical scenario ends with the issue triaged at the key's urgency or higher, consistent with the critical-set criterion in the [AI assessment](06-responsible-ai-assessment.md#4-provisional-criteria). A single violation fails the criterion.
+
+*Illustrative example, not data:* participant medians of 10, 8 and 12 minutes (current) and 6, 7 and 5 minutes (BMC) give *M*<sub>current</sub> = 10, *M*<sub>BMC</sub> = 6 and a reduction of 0.40, which passes if both guards hold. Pooled medians and per-participant reductions are reported for transparency but do not decide the result.
 
 **Measurement conditions** (to freeze before the evaluation in EN-04):
 
@@ -151,7 +170,7 @@ Documents and UI use the qualified terms “booking confirmation” and “impac
 | Current-process condition | The participant's usual tools (phone, messages, email or spreadsheet) with simulated contacts; if not reproducible, a documented paper or spreadsheet equivalent |
 | BMC condition | The Sprint 2/3 increment with AI enabled, plus a rules/manual run with AI disabled to separate the AI contribution |
 | Design | Within-subject, counterbalanced order, one practice task per condition, observer timing with the start and stop events defined above; contractor replies simulated instantly |
-| Reporting | Per-participant and per-task times, medians, completion, errors and assistance needed; sample, environment and limitations. No generalisation to production |
+| Reporting | Raw time and outcome per observation, participant medians, the calculation above, completion rates, errors and assistance needed; answer-key version, sample, environment and limitations. No generalisation to production |
 
 **Rationale for 30% (team judgement, not a sourced benchmark).** With three to five participants, order, learning and individual differences can produce sizeable differences in timed tasks; a threshold well above small differences makes a positive result less likely to come from noise alone, although it does not make it statistically significant. Adopting a new tool has training and migration costs (P4), so a marginal reduction is unlikely to justify leaving free informal channels or a suite already in use. A 20% threshold was rejected as hard to distinguish from noise in this sample; 50% was rejected as likely to fail on factors outside the product, such as scenario design and participant familiarity. The threshold is fixed before measurement; any change after observing results must be documented and the evaluation repeated.
 
@@ -199,7 +218,7 @@ The mechanism must respect the separation between the private report and the pub
 |---|---|
 | Segment shows no interest | Investigate specific episodes, current tools and willingness to test |
 | No primary research before scope is frozen | Personas and scope stay marked as hypotheses; DISC-01 findings can change the baseline and are recorded as decisions |
-| Competitors already claim AI triage and human approval (S05, S17, S20) | Claim no exclusivity; justify BMC by the measured effort reduction (§5.1) |
+| Competitors already claim AI classification, urgency scoring and assignment (S05), other AI assistance such as incident descriptions (S17) and human approval of AI decisions (S20) | Claim no exclusivity; justify BMC by the measured effort reduction (§5.1) |
 | Baseline cannot be measured in real conditions | Simulated equivalent tasks with frozen protocol and disclosed limitations (§5.1) |
 | AI adds no value | Compare the baseline and review the task; retain the required meaningful workflow |
 | Critical urgency goes unrecognised | Independent rules and review; no guarantee of perfect detection |
@@ -222,9 +241,9 @@ The aim is to make it easier to respond to water, lighting and lift faults, redu
 
 | Version | Change | Basis |
 |---|---|---|
-| v0.4, 2026-10-19 (DISC-03-03) | Value proposition compared with each alternative and stated without exclusivity claims | 02 §2–§6; S05, S17, S20, S24 |
+| v0.4, 2026-10-19 (DISC-03-03) | Value proposition compared with each alternative and stated without exclusivity claims; each AI capability attributed to its own source | 02 §2–§6; S05, S17, S20, S24 |
 | | Personas and J1–J3 linked to secondary findings and to the hypotheses still open | 03 §7.2 (PS-01–PS-08); 01 §7 |
 | | Smallest credible experiment stated; IoT excluded from the MVP; conditions for optional features | DEC-01 [BA/PO proposal]; assignment §3, §7.1.3 |
 | | Approval, acceptance, booking confirmation, completion report, closure and impact confirmation defined as distinct steps | DEC-10; 07 §3 |
-| | Primary metric defined with a 30% threshold, guards, measurement conditions and baseline limitations | DEC-08 [BA/PO proposal] |
+| | Primary metric defined with a 30% threshold, an answer key, a reproducible calculation, guards, measurement conditions and baseline limitations | DEC-08 [BA/PO proposal]; review of PR #40 |
 | | Impact-confirmation mechanism reviewed against the five §5.5 questions | DEC-07; access matrix |
