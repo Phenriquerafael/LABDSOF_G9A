@@ -1263,5 +1263,175 @@
         "sprint": null
       }
     ]
+  },
+  {
+    "date": "2026-10-20T03:32:16.591Z",
+    "issues": [
+      {
+        "id": 1,
+        "status": "Ready",
+        "sprint": "Sprint A"
+      },
+      {
+        "id": 2,
+        "status": "Ready",
+        "sprint": "Sprint A"
+      },
+      {
+        "id": 3,
+        "status": "Ready",
+        "sprint": "Sprint A"
+      },
+      {
+        "id": 4,
+        "status": "Ready",
+        "sprint": "Sprint A"
+      },
+      {
+        "id": 5,
+        "status": "Ready",
+        "sprint": "Sprint A"
+      },
+      {
+        "id": 6,
+        "status": "Ready",
+        "sprint": "Sprint A"
+      },
+      {
+        "id": 7,
+        "status": "In review",
+        "sprint": "Sprint A"
+      },
+      {
+        "id": 8,
+        "status": "In progress",
+        "sprint": "Sprint A"
+      },
+      {
+        "id": 9,
+        "status": "In progress",
+        "sprint": "Sprint A"
+      },
+      {
+        "id": 10,
+        "status": "Done",
+        "sprint": "Sprint A"
+      },
+      {
+        "id": 11,
+        "status": "Done",
+        "sprint": "Sprint A"
+      },
+      {
+        "id": 12,
+        "status": "Done",
+        "sprint": "Sprint A"
+      },
+      {
+        "id": 13,
+        "status": "In review",
+        "sprint": "Sprint A"
+      },
+      {
+        "id": 14,
+        "status": "Done",
+        "sprint": "Sprint A"
+      },
+      {
+        "id": 15,
+        "status": "In progress",
+        "sprint": "Sprint A"
+      },
+      {
+        "id": 16,
+        "status": "In progress",
+        "sprint": "Sprint A"
+      },
+      {
+        "id": 17,
+        "status": "Ready",
+        "sprint": "Sprint A"
+      },
+      {
+        "id": 18,
+        "status": "Ready",
+        "sprint": "Sprint A"
+      },
+      {
+        "id": 19,
+        "status": "In review",
+        "sprint": "Sprint A"
+      },
+      {
+        "id": 20,
+        "status": "In progress",
+        "sprint": "Sprint A"
+      },
+      {
+        "id": 21,
+        "status": "In progress",
+        "sprint": "Sprint A"
+      },
+      {
+        "id": 22,
+        "status": "Ready",
+        "sprint": "Sprint A"
+      },
+      {
+        "id": 26,
+        "status": "In progress",
+        "sprint": null
+      },
+      {
+        "id": 28,
+        "status": "Done",
+        "sprint": null
+      },
+      {
+        "id": 31,
+        "status": "Backlog",
+        "sprint": null
+      },
+      {
+        "id": 32,
+        "status": "Backlog",
+        "sprint": null
+      },
+      {
+        "id": 33,
+        "status": "Backlog",
+        "sprint": null
+      },
+      {
+        "id": 34,
+        "status": "Backlog",
+        "sprint": null
+      },
+      {
+        "id": 35,
+        "status": "Backlog",
+        "sprint": null
+      },
+      {
+        "id": 36,
+        "status": "Backlog",
+        "sprint": null
+      },
+      {
+        "id": 37,
+        "status": "Backlog",
+        "sprint": null
+      },
+      {
+        "id": 38,
+        "status": "Backlog",
+        "sprint": null
+      },
+      {
+        "id": 39,
+        "status": "Backlog",
+        "sprint": null
+      }
+    ]
   }
 ]
