@@ -42,11 +42,11 @@ Reviewed on 2026-10-19 for EN-01-02 ([Issue: 20](https://github.com/Phenriqueraf
 | Issue | `id`, `buildingId`, `areaId`, state, `version`, category, urgency, triage source, optional published summary, resolution (kind, reason, actor, time), projection of the active intervention (`interventionId`, state, last applied `aggregateVersion`) | 1:N reports; J1 step 4, J2 |
 | Triage job | `id`, `issueId`, `issueVersion`, status, attempts, lease expiry | Created with the report; claimed by the worker (ADR-003 in [Issue: 30](https://github.com/Phenriquerafael/LABDSOF_GX/issues/30)) |
 | Triage suggestion | `issueId`, source issue version, category, urgency, rationale, origin (`ai`, `rules` or `fallback`), model/prompt/rules versions, time | Labelled unverified until a triage decision have been made ([AI Responsibility  Section: 2](06-responsible-ai-assessment.md#2-baseline-and-fallback)) |
-| Triage decision | `issueId`, category, urgency, actor, reason, resulting version, time | The [DEC-10]((decisions-and-feedback.md)) “triage decision”; distinct from the suggestion |
+| Triage decision | `issueId`, category, urgency, actor, reason, resulting version, time | The [DEC-10](planning/decisions-and-feedback.md#1-open-decisions) “triage decision”; distinct from the suggestion |
 | Impact confirmation | Unique (`issueId`, `userId`), time; withdrawal deletes the row | J1 step 4; never changes urgency (RF-04) |
 | Issue history entry | `issueId`, sequence, type, visibility (`public` or `internal`), actor role, time; includes projected Dispatch events | J1 step 4 and J2; residents see only public entries |
 | Audit event | Actor, action, target, resulting version, time, `correlationId`; no free text | [T-10](09-security-privacy.md) |
-| Notification | Unique (`eventId`, `recipientUserId`, channel), delivery state | [US-10](05-product-backlog.md), in-app channel [DEC-06](decisions-and-feedback.md) |
+| Notification | Unique (`eventId`, `recipientUserId`, channel), delivery state | [US-10](05-product-backlog.md), in-app channel [DEC-06](planning/decisions-and-feedback.md#1-open-decisions) |
 
 ### 2.2 Dispatch Service
 
@@ -54,9 +54,9 @@ Reviewed on 2026-10-19 for EN-01-02 ([Issue: 20](https://github.com/Phenriqueraf
 |---|---|---|
 | Contractor | `id`, `userId` (reference to an Issue account), specialisations, coverage (building IDs), active flag | Synthetic catalogue [US-06](05-product-backlog.md); the `userId` link is how a contractor's login maps to assignments |
 | Intervention | `id`, `issueId`, `buildingId` (snapshot taken from the authorisation context, 4.3), `contractorId`, state, `version`, current and approved proposal versions | Issue 0:N interventions; at most one non-terminal intervention per issue |
-| Proposal version | `interventionId`, version number, author (`administrator` or `contractor`), sanitised scope extract, proposed window, terms, optional cost estimate, status | A counterproposal is a new version [DEC-10](decisions-and-feedback.md). The extract is written by the administrator; raw report text is never copied |
-| Contractor response | `interventionId`, proposal version, decision (`accept`, `decline`, `counterpropose`), reason, time | The [DEC-10]((decisions-and-feedback.md)) “acceptance” |
-| Booking | `id` (also the external request ID), `interventionId`, window, state, source (`calendar` or `manual`), external reference, attempts, last reconciliation time | Intervention 0:N bookings, at most one active; the [DEC-10](decisions-and-feedback.md) “booking confirmation” |
+| Proposal version | `interventionId`, version number, author (`administrator` or `contractor`), sanitised scope extract, proposed window, terms, optional cost estimate, status | A counterproposal is a new version [DEC-10](planning/decisions-and-feedback.md#1-open-decisions). The extract is written by the administrator; raw report text is never copied |
+| Contractor response | `interventionId`, proposal version, decision (`accept`, `decline`, `counterpropose`), reason, time | The [DEC-10](planning/decisions-and-feedback.md#1-open-decisions) “acceptance” |
+| Booking | `id` (also the external request ID), `interventionId`, window, state, source (`calendar` or `manual`), external reference, attempts, last reconciliation time | Intervention 0:N bookings, at most one active; the [DEC-10](planning/decisions-and-feedback.md#1-open-decisions) “booking confirmation” |
 | Completion report | `interventionId`, notes, optional proposed cost, time | The DEC-10 “completion report”; does not close the issue |
 | Cost record | `interventionId`, amount ≥ 0 or empty, currency, source, confirming actor; corrections audited | US-11 [Should](requirements.md) |
 | Audit event | As in Issue, for Dispatch actions | [T-10](09-security-privacy.md) |
@@ -71,7 +71,7 @@ Both services also hold technical tables for the asynchronous workflow (outbox, 
 
 - `buildingId` never changes for an issue, so Dispatch may keep it as a snapshot for filtering and audit. Memberships are not copied: they are checked against Issue for each administrator command [Section: 4.3](#43-how-dispatch-obtains-trustworthy-authorisation-context).
 
-Changes from the previous draft, found in the journey review: areas made explicit (J1 step 1); a contractor-to-account link added so J3 assignment can be checked; proposal versions separated from the intervention (J3 step 2); triage decision separated from triage suggestion and completion report from cost record [DEC-10](decisions-and-feedback.md); issue history made a projection that includes Dispatch events.
+Changes from the previous draft, found in the journey review: areas made explicit (J1 step 1); a contractor-to-account link added so J3 assignment can be checked; proposal versions separated from the intervention (J3 step 2); triage decision separated from triage suggestion and completion report from cost record [DEC-10](planning/decisions-and-feedback.md#1-open-decisions); issue history made a projection that includes Dispatch events.
 
 ## 3. States and business rules
 
