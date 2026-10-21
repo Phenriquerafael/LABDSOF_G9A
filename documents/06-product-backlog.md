@@ -1,6 +1,6 @@
 # Product Backlog
 
-**Status:** proposal v0.2 · **Sprint:** 1 · **Priority:** not yet validated with the customer/lecturers
+**Status:** proposal v0.3 · **Sprint:** 1 · **Priority:** not yet validated with the customer/lecturers
 
 Corresponds to deliverable 5 in §7.1.2. The [roadmap](05-product-roadmap.md) defines horizons; this document defines items. No remote issues, estimates, assignments or implementations are assumed.
 
@@ -8,7 +8,7 @@ Corresponds to deliverable 5 in §7.1.2. The [roadmap](05-product-roadmap.md) de
 
 MoSCoW refers to the **academic release**: Must = essential for the cycle/obligations; Should = valuable but can be simplified; Could = optional; Won't = outside this release. This is a proposal for the prioritisation session, not its outcome.
 
-All items are in **Backlog**, with **estimates and confirmed owners/reviewers pending, and no issue URLs recorded**; none has been declared Ready. Team role assignments are confirmed in the [agreement](governance/team-working-agreement.md), but do not automatically assign individual backlog items. The [Sprint 1 issue drafts](backlog/README.md) propose owners/reviewers, task breakdowns, acceptance criteria and evidence links for team review. Capacity and DoR discussion: [Sprint B](planning/sprint-b-backlog.md).
+All items remain in **Backlog** in this local snapshot; no issue URLs or Ready declarations are recorded. Sandro Dias owns PLAN-01 preparation, as instructed by the user; implementation owners, independent reviewers, estimates and capacity are agreed during planning. Team role assignments are confirmed in the [agreement](governance/team-working-agreement.md), but do not automatically assign individual implementation items. The [issue drafts](backlog/README.md) contain task/story criteria, allocation and evidence references. Capacity and DoR discussion: [Sprint B](planning/sprint-b-backlog.md).
 
 **Scope update recorded on 2026-10-10 (DEC-11):** the evaluator clarified that the walking skeleton is optional in Sprint 1. The team will not develop it this sprint. EN-02 is retained as a foundation for later implementation planning; its technical outcomes support the Sprint 2 delivery requirements.
 
@@ -19,7 +19,7 @@ Initial order: DISC/EN discovery and foundations → US-01/02 → US-03/04 → U
 | ID | Outcome / boundary | Items | Source |
 |---|---|---|---|
 | [EP-00](backlog/epics/EP-00-discovery-and-planning.md) | Justifiable discovery and planning | DISC-01–03 | §5.1–5.5, §5.7 |
-| [EP-01](backlog/epics/EP-01-reporting-and-tracking.md) | Residents report and track issues with appropriate visibility | US-01/02/04/10 | J1, P1/P5 |
+| [EP-01](backlog/epics/EP-01-reporting-and-tracking.md) | Residents report and track issues with appropriate visibility | PLAN-01 (preparation); US-01/02/04/10 | J1, P1/P5 |
 | [EP-02](backlog/epics/EP-02-assisted-triage.md) | Assisted triage and reviewed links | AI-01 (S1 assessment), US-03/05 | §5.6; J2, P2/P3/P7 |
 | [EP-03](backlog/epics/EP-03-intervention-and-closure.md) | Intervention from request to closure | US-06–09/11–13 | J2–J3, P6 |
 | [EP-04](backlog/epics/EP-04-engineering-and-quality.md) | Deliverable, secure, observable and evaluable system | EN-01–04 | §6–§8 |
@@ -33,6 +33,7 @@ Detailed issue bodies and child tasks for [DISC-01](backlog/tasks/DISC-01-user-r
 | DISC-01 / Must | Gather evidence: actual method/participants recorded; findings linked to P1–P7; explicit limitations and decisions. If access fails, document attempts and alternative evidence without claiming validation | Research plan, access/retention | S1 |
 | DISC-02 / Must | Complete comparison: exact, dated sources; §5.2 criteria; include an informal alternative and a comparable maintenance/helpdesk product; conclusion separates evidence from inference | Selection of comparables | S1 |
 | DISC-03 / Must | Ratify organisation and review scope/priorities: roles/board/DoR/DoD; DEC-01/03/09 and DEC-10 discussion; actual feedback recorded. Document at least one decision revised following lecturer feedback during the project | Team and stakeholder availability | S1, follow-up S2/S3 |
+| [PLAN-01](backlog/tasks/PLAN-01-prepare-reporting-and-tracking-stories.md) / Must candidate | Prepare detailed US-01/02/04/10 drafts under EP-01; preserve IDs/priorities, link dependencies and identify technical refinements. Sandro Dias owns preparation; independent review/PR evidence completes the task, not the stories | Existing scope/requirements; unresolved technical details tracked against EN-01 in the [refinement register](backlog/ep01-technical-refinement.md) | S1 drafting for S2/S3; no implementation commitment |
 | [AI-01](backlog/tasks/AI-01-assess-ai-opportunity.md) / Must | Review the AI opportunity: user-need evidence/limitations, workflow, representative/adverse examples, evaluation criteria and dataset plan, baseline/fallback, human control and cost assumptions; DEC-05/08 updated. Design assessment only; no executed evaluation required | DISC-01 synthesis, reviewed vision; supports US-03 | S1 |
 | EN-01 / Must | Consolidate design: context, components, model, API/events, data ownership, deployment and threats; ADRs record alternatives and actual decisions | DEC-04/07, vision | S1 |
 | EN-02 / Must for later implementation foundations; optional in S1 | Walking skeleton: client→backend→persistence→query after restart; automated build, initial test and containers with reproducible instructions; linked evidence. Not selected for Sprint 1 (DEC-11) | EN-01 | S2 planning candidate; no Sprint 1 commitment |
@@ -43,7 +44,11 @@ Detailed issue bodies and child tasks for [DISC-01](backlog/tasks/DISC-01-user-r
 
 The criteria below apply the needs to each delivery. Detailed definitions are maintained in the [AI assessment](07-responsible-ai-assessment.md#4-provisional-criteria), [domain states](08-technical-design.md#3-states-and-business-rules), [access matrix](09-security-privacy.md#2-proposed-access-matrix) and [NFRs](requirements.md#non-functional-requirements--constraints). Changes to those definitions require a review of the affected stories.
 
+PLAN-01 expands EP-01's existing stories into individual drafts linked below. This section retains the scope/priority overview; detailed scenarios live in the story files. The [refinement register](backlog/ep01-technical-refinement.md) tracks technical decisions to close after stack/architecture selection. S2 delivery and S3 refinement refer to the same stories and are not duplicate estimates or work items.
+
 ### US-01 — Record and view a report · Must · EP-01
+
+**Detailed draft:** [US-01](backlog/tasks/US-01-record-and-view-report.md).
 
 As a resident, I want to report a fault in my building so that management can track it.
 
@@ -56,6 +61,8 @@ As a resident, I want to report a fault in my building so that management can tr
 **Source:** RF-01; NFR-01/02/05/07/09. **Dependencies:** EN-01/02, DEC-07. **Horizon:** S2, minimal slice in the skeleton.
 
 ### US-02 — Triage manually and track states · Must · EP-01
+
+**Detailed draft:** [US-02](backlog/tasks/US-02-triage-manually-and-track-states.md).
 
 As an administrator, I want to review issues and their history to decide the next step.
 
@@ -79,6 +86,8 @@ As an administrator, I want a category and urgency suggestion to reduce triage e
 **Source:** RF-03; NFR-03/04/10. **Dependencies:** US-01/02, DEC-05/08. **Horizon:** S2.
 
 ### US-04 — Publish a shared issue and confirm impact · Must · EP-01
+
+**Detailed draft:** [US-04](backlog/tasks/US-04-publish-shared-issue-and-confirm-impact.md).
 
 As a resident, I want to confirm that a shared problem affects me to provide useful information without repeating the report.
 
@@ -148,6 +157,8 @@ As an administrator, I want to verify completion to close the issue with a histo
 **Source:** RF-09; NFR-01/09. **Dependencies:** US-02/07/08, DEC-10. **Horizon:** S2, refined in S3.
 
 ### US-10 — Notify changes · Must · EP-01
+
+**Detailed draft:** [US-10](backlog/tasks/US-10-notify-changes.md).
 
 As a participant, I want to receive authorised updates to track the issue.
 

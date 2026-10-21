@@ -1,23 +1,23 @@
-# Epic and Sprint 1 task issue drafts
+# Epic, planning task and user story drafts
 
 **Status:** draft package prepared on 2026-10-10; epic coverage completed on 2026-10-15. No GitHub issue URLs are recorded here; remote publication/status has not been verified in this review. EP-00 ownership and reviews are distributed across the whole team independently of functional roles. Proposed allocations are not sprint commitments; estimates and readiness still require planning. Local items remain Backlog until readiness and any remote status are recorded.
 
-This folder contains **5 epic drafts, 4 parent-task drafts and 15 delivery-task drafts**: all product epics and the detailed Sprint 1 research, planning and design tasks. The [product backlog](../06-product-backlog.md) remains the scope and priority overview. Existing product documents hold the deliverables; these files specify the work and its completion evidence.
+This folder contains **5 epic drafts, 4 parent-task drafts, 15 original Sprint 1 delivery-task drafts, 1 PLAN-01 preparation-task record and 4 EP-01 user-story drafts**. The [product backlog](../06-product-backlog.md) remains the scope and priority overview. Existing product documents hold the deliverables; these files specify the work and its completion evidence. PLAN-01 adds detailed future-story drafts, not application implementation.
 
-The walking skeleton (EN-02) is excluded from Sprint 1 under DEC-11. EP-01/EP-03 now have epic drafts for later implementation; their US stories are defined in the product backlog but do not yet have separate issue draft files here. EP-02/EP-04 also span later sprints; their Sprint 1 tasks do not complete the entire epic. Drafting or publishing a future epic does not commit implementation to Sprint 1.
+The walking skeleton (EN-02) is excluded from Sprint 1 under DEC-11. EP-01 now has separate US-01/02/04/10 drafts for S2 delivery and S3 refinement/evaluation; their technical details are completed after stack/architecture decisions. EP-02/EP-03 implementation stories remain in the product backlog without individual files in this package. EP-02/EP-04 also span later sprints; their Sprint 1 tasks do not complete the entire epic. Drafting or publishing a future story does not commit implementation to Sprint 1.
 
 ## Hierarchy and issue index
 
 Use epic → parent task → delivery task for broad discovery/engineering items. AI-01 is a direct task under EP-02. Stable IDs are local identifiers, not GitHub issue numbers.
 
-For implementation, use epic → user story → implementation subtask when needed. Keep dependency links separate from parent/child relationships. This package currently has 24 issue drafts, excluding this README; reconcile with existing remote issues by stable ID before publishing to avoid duplicates.
+For implementation, use epic → user story → implementation subtask when needed. Keep dependency links separate from parent/child relationships. PLAN-01 is a direct preparation task under EP-01, alongside the stories it prepares. This package currently has 29 issue draft/record files in `epics/` and `tasks/`; reconcile with existing remote issues by stable ID before publishing to avoid duplicates. The technical-refinement register is supporting documentation, not an additional issue or six extra tasks.
 
 | Epic draft | Parent/direct item | Purpose |
 |---|---|---|
 | [EP-00](epics/EP-00-discovery-and-planning.md) | [DISC-01](tasks/DISC-01-user-research.md) | Gather user evidence and document the problem |
 | [EP-00](epics/EP-00-discovery-and-planning.md) | [DISC-02](tasks/DISC-02-market-comparison.md) | Complete the market and competitor comparison |
 | [EP-00](epics/EP-00-discovery-and-planning.md) | [DISC-03](tasks/DISC-03-organisation-and-product-planning.md) | Agree organisation, product scope and priorities |
-| [EP-01](epics/EP-01-reporting-and-tracking.md) | [US-01/02/04/10](../06-product-backlog.md#4-stories-and-criteria), story drafts pending | Reporting, manual triage, shared impact and notifications; S2 implementation |
+| [EP-01](epics/EP-01-reporting-and-tracking.md) | [PLAN-01](tasks/PLAN-01-prepare-reporting-and-tracking-stories.md); [US-01](tasks/US-01-record-and-view-report.md), [US-02](tasks/US-02-triage-manually-and-track-states.md), [US-04](tasks/US-04-publish-shared-issue-and-confirm-impact.md), [US-10](tasks/US-10-notify-changes.md) | Story preparation; S2 reporting/triage/shared impact/notifications, S3 refinement |
 | [EP-02](epics/EP-02-assisted-triage.md) | [AI-01](tasks/AI-01-assess-ai-opportunity.md) | Assess the AI opportunity and define evaluation |
 | [EP-03](epics/EP-03-intervention-and-closure.md) | [US-06–09/11–13](../06-product-backlog.md#4-stories-and-criteria), story drafts pending | Contractor selection through closure; S2 core, conditional extensions |
 | [EP-04](epics/EP-04-engineering-and-quality.md) | [EN-01](tasks/EN-01-technical-design.md) | Consolidate technical design, ADRs and security |
@@ -57,6 +57,20 @@ This README is the single local source for task ownership and review allocation.
 | [EN-01](tasks/EN-01-technical-design.md) | Ricardo | Martim |
 
 For AI-01, Ricardo supports review of interface assumptions and Martim supports review of data handling as needed; Afonso remains the proposed primary reviewer.
+
+## EP-01 story drafts and planning allocation
+
+| Item | Preparation owner | Independent reviewer | Implementation allocation |
+|---|---|---|---|
+| [PLAN-01](tasks/PLAN-01-prepare-reporting-and-tracking-stories.md) | Sandro | Pedro | Documentation only; no implementation assignment |
+| [US-01](tasks/US-01-record-and-view-report.md) | Select during story refinement  | Select during story refinement | Owner, reviewer, estimate and capacity assigned before Ready |
+| [US-02](tasks/US-02-triage-manually-and-track-states.md) | Select during story refinement  | Select during story refinement | Owner, reviewer, estimate and capacity assigned before Ready |
+| [US-04](tasks/US-04-publish-shared-issue-and-confirm-impact.md) | Select during story refinement  | Select during story refinement | Owner, reviewer, estimate and capacity assigned before Ready |
+| [US-10](tasks/US-10-notify-changes.md) | Select during story refinement  | Select during story refinement | Owner, reviewer, estimate and capacity assigned before Ready |
+
+These stories preserve their existing local IDs and Must priorities; none is Ready or implemented. Use the [EP-01 technical-refinement register](ep01-technical-refinement.md) for open EN-01 decisions and closure evidence. It covers stack/boundaries, data/API contracts, identity/access, state/audit/concurrency, event/notification semantics and the verification environment. Close applicable entries before implementation readiness; do not invent a selected stack to complete a draft.
+
+S2 is the proposed initial delivery horizon, with S3 refinement/evaluation. Confirm the configured milestone during planning without assuming that narrative sprint names and remote milestone names are interchangeable. A drafting assignment to Sandro does not automatically assign all implementation to him. Keep the authored preparation record separate from independent review, actual PR/merge and implementation evidence.
 
 ## Sprint 1 deliverable coverage
 

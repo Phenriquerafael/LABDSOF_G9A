@@ -33,12 +33,16 @@ Reporting, viewing and manual triage remain usable when AI is unavailable. Notif
 
 ## Child stories
 
-These are existing [product backlog stories](../../06-product-backlog.md#4-stories-and-criteria), not additional work items. Their detailed acceptance criteria remain there until reviewed issue publication; individual story draft files and GitHub links are not yet recorded in this package.
+These are existing [product backlog stories](../../06-product-backlog.md#4-stories-and-criteria), expanded into individual drafts by PLAN-01 without creating additional copies of implementation work. The product backlog retains their scope/priority overview; the files below contain the detailed scenarios. No remote story issue URLs are recorded here.
 
-- [ ] US-01 — Record and view a report · Must · S2 · RF-01.
-- [ ] US-02 — Triage manually and track states · Must · S2 · RF-02.
-- [ ] US-04 — Publish a shared issue and confirm impact · Must · S2 · RF-04 / §5.5.
-- [ ] US-10 — Notify changes · Must · S2 · RF-10.
+- [ ] [US-01 — Record and view a report](../tasks/US-01-record-and-view-report.md) · Must · S2 · RF-01.
+- [ ] [US-02 — Triage manually and track states](../tasks/US-02-triage-manually-and-track-states.md) · Must · S2 · RF-02.
+- [ ] [US-04 — Publish a shared issue and confirm impact](../tasks/US-04-publish-shared-issue-and-confirm-impact.md) · Must · S2 · RF-04 / §5.5.
+- [ ] [US-10 — Notify changes](../tasks/US-10-notify-changes.md) · Must · S2 · RF-10.
+
+Preparation task: [PLAN-01 — Prepare Sprint 2/3 user stories for reporting and tracking](../tasks/PLAN-01-prepare-reporting-and-tracking-stories.md), owned by Sandro Dias. PLAN-01 and the implementation stories are direct children of EP-01; the stories are not children of PLAN-01. Drafting completion does not complete the stories or this epic.
+
+Before implementation readiness, close the applicable entries in the [technical-refinement register](../ep01-technical-refinement.md) using EN-01 decisions/contracts. Initial delivery remains S2; S3 refines/evaluates the same stories without duplicating them.
 
 Once published, attach each story as a sub-issue of this epic and link its actual issue URL. Record any implementation subtasks beneath the relevant story. Count selected delivery work once, excluding parent roll-ups.
 
