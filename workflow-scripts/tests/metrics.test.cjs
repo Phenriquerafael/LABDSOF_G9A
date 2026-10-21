@@ -58,7 +58,7 @@ test('completed status is case insensitive and validates input', () => {
 async function collect({fail=false}={}) {
   const source=fs.readFileSync(path.join(directory,'snapshot.js'),'utf8').replace(/main\(\)\.catch\([\s\S]*$/, '');
   const writes=new Map(), queries=[];
-  const item=(id,sprint,repository='Phenriquerafael/LABDSOF_GX')=>({content:{__typename:'Issue',number:id,title:'Issue '+id,repository:{nameWithOwner:repository}},status:{name:'Ready'},sprint});
+  const item=(id,sprint,repository='Phenriquerafael/LABDSOF_G9A')=>({content:{__typename:'Issue',number:id,title:'Issue '+id,repository:{nameWithOwner:repository}},status:{name:'Ready'},sprint});
   const responses=[{user:{projectV2:{id:'p9',number:9,title:'Project'}}},{node:{items:{nodes:[item(1,{name:'Sprint A'}),item(2,{title:'B'}),item(99,{name:'C'},'other/repo')],pageInfo:{hasNextPage:true,endCursor:'next'}}}},{node:{items:{nodes:[item(3,{text:' C '}),item(4,null)],pageInfo:{hasNextPage:false}}}}];
   const fakeFs={existsSync:()=>true,readFileSync:()=>JSON.stringify([snapshot('2026-10-10',[{id:1,status:'Ready'}])]),mkdirSync:()=>{},writeFileSync:(file,text)=>writes.set(file,JSON.parse(text)),renameSync:(a,b)=>{writes.set(b,writes.get(a));writes.delete(a);}};
   let calls=0;
