@@ -62,6 +62,28 @@ The published cron was midnight UTC. The local workflow now schedules daily coll
 
 Publish the workflow change to main, then check Actions for an event labelled schedule after the next daily window. A successful manual run is not proof that scheduling has recovered. If no scheduled run appears, investigate the scheduler/actor with GitHub support rather than changing the working token or collector without evidence.
 
+### Controlled scheduler test (22-23 October 2026)
+
+The diagnostic branch adds a `diagnostic_only` boolean input to Metrics Snapshot. Set it to `true` when running manually to execute only `schedule-probe`; the collector job must be skipped. The probe needs no checkout, PAT or repository write permission. Its log and job summary record the event, cron, actual runner time in UTC/Lisbon, ref, SHA and run URL. Runner time is not the scheduled due time; compare it with the API's `created_at` and job `started_at` to distinguish trigger delay from runner queueing.
+
+Temporary schedules provide two independent trigger samples on 22 and 23 October:
+
+| Probe | Cron | Timezone | Expected job |
+|---|---|---|---|
+| Control | `17 * 22,23 10 *` | UTC default | schedule-probe only |
+| Comparison | `47 * 22,23 10 *` | Europe/Lisbon | schedule-probe only |
+| Normal collection | `0 12 * * *` | Europe/Lisbon | snapshot only |
+
+Both probes run hourly, at different minutes to identify the source and avoid overlap. A single sample cannot establish whether timezone handling differs: GitHub scheduling may delay or drop individual events. Compare several opportunities. Do not infer that cron ran from a successful manual dispatch.
+
+1. Run the diagnostic manually on the branch to validate workflow syntax, job conditions and runner execution without metrics writes.
+2. Review and merge the change to `main`: GitHub only uses default-branch schedules. A branch-only test cannot validate automatic triggering.
+3. Inspect `gh run list --repo Phenriquerafael/LABDSOF_G9A --workflow metrics.yml --event schedule --limit 20`. For each run, open its summary and confirm the cron and skipped collector. Check creation and job-start timestamps in the API if delayed.
+4. If both probes fire, scheduling works during the test; this does not prove why earlier triggers were missed. If only the UTC probe fires repeatedly, investigate the timezone-aware path. If neither fires but manual diagnostics pass, investigate scheduler registration/actor/platform state with GitHub Support. A queued or failed run instead points to runner/execution conditions, not absence of a trigger.
+5. Remove the two probe cron entries after collecting evidence (no later than the end of 23 October). Cron has no year field: these dates would recur annually if left in place. Keep normal noon collection. The optional manual diagnostic can remain available.
+
+Keep the noon schedule unchanged during the experiment. Logs contain no secrets and neither probe calls the collector. The shared concurrency group serialises diagnostic and collection runs; probes have a two-minute limit. Capture actual run URLs and outcomes before declaring scheduling recovered. Sources: [GitHub scheduling](https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax#onschedule) and [trigger troubleshooting](https://docs.github.com/en/actions/how-tos/troubleshoot-workflows), accessed 22 October 2026.
+
 ## 4. Charts and flow measures
 
 These are ways to satisfy progress monitoring, not additional assignment requirements. Use burndown as the main sprint chart; use the others only where they help explain progress.
