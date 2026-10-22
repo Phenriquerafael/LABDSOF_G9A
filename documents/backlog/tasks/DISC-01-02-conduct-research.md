@@ -1,8 +1,8 @@
 # [DISC-01-02] Conduct research and record source evidence
 
-- Publication: Published as [#22](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/22); verified closed on 2026-10-22.
-- Delivery: integrated through [PR #37](https://github.com/Phenriquerafael/LABDSOF_G9A/pull/37). No GitHub review entries recorded as checked on 2026-10-22; independent approval is not inferred. Live status belongs to GitHub.
-- Horizon: Sprint 1; no remote milestone assigned when checked; team estimate/DoR confirmation not recorded.
+- Publication: [#22](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/22).
+- Evidence and review snapshot: [completion record](#completion-record).
+- Horizon: Sprint 1; no remote milestone assigned when checked on 2026-10-22.
 - Type: task; suggested labels: `type:task`, `area:product`, `phase:2`, `priority:must`.
 - Parent: [DISC-01](DISC-01-user-research.md); epic: [EP-00](../epics/EP-00-discovery-and-planning.md).
 - Allocation: see the [backlog README](../README.md).
@@ -14,7 +14,7 @@
 
 Record research material about maintenance coordination with traceable methods, coverage and limitations. Reuse the eight existing simulated interviews and the public-source register. The plan records that the lecturer permits real or simulated interviews; this delivery uses the simulated route and does not claim real participant evidence.
 
-The original published description asks for real incidents and restricted notes. This local revision makes the simulated route explicit and aligns storage with the already documented DEC-07 choice of anonymous answers in Git. This alignment was included in PR #37. Its merge and issue closure are recorded above; neither is substituted for independent review evidence.
+PR #37 aligned the original real-incident/restricted-note wording with the accepted simulated route and DEC-07 anonymous Git storage.
 
 Excluded: presenting invented incidents or estimates as observations, representative claims, purchase commitments, or completion of the separate DISC-01-03 synthesis.
 
@@ -25,29 +25,26 @@ Excluded: presenting invented incidents or estimates as observations, representa
 - [ ] Apply DEC-07 storage rules and link suitable records; mark consent/session fields not applicable for fiction and retain no participant identities or restricted notes in Git.
 - [ ] Record achieved coverage, counterexamples, missing activities and public alternatives. If recruitment attempts exist, report them accurately; otherwise do not claim recruitment failure or empirical validation.
 
-Boxes remain unchecked until independent review; the table below records author-side verification, not approval.
-
 ## Deliverables and evidence
 
-- [Research plan, actual counts and source register](../../03-user-research.md#7-findings).
+- [Research plan, actual counts and source register](../../03-user-research.md#3-findings).
 - [Simulation inventory and provenance](../../research/answers/README.md), linking all eight original records and their questions.
 - [Research record template](../../templates/research-record.md), distinguishing simulation metadata from actual sessions.
 - [Decision/method record and limitations](../../planning/decisions-and-feedback.md#disc-01-02-simulated-research-record).
 
 ## Verification
 
-Trace each inventory entry to its answer file and guide; verify 4 × 14 administrator answers, 2 × 6 resident answers and 2 × 5 contractor answers. Check segment distinction, fictional values, contradictory scenarios, privacy and relative links. Review the method alignment against the existing lecturer clarification. No code tests are applicable.
+Trace each inventory entry to its answer file and guide; verify 4 × 14 administrator answers, 2 × 6 resident answers and 2 × 5 contractor answers. Check segment distinction, fictional values, contradictory scenarios, privacy and relative links. Review the method alignment against the existing lecturer clarification.
 
 ## Completion record
 
-| Criterion | Work checked on 2026-10-22 | Review checks recorded before integration |
-|---|---|---|
-| Method/provenance | Eight existing records dated 2026-10-21, four separate segments, prior commit reference; generation tool/process unknown and disclosed | Independent content/method review |
-| Coordination material | 78 simulated answers; question-level coverage is now maintained in research sections 7.2.1-7.2.3 | Reviewer samples source-to-matrix links |
-| Handling | Explicit fictional labels and non-applicable consent/session metadata; author-side inspection found no participant identifiers | Independent handling review |
-| Limits/alternatives | Zero real participants or survey responses; no recruitment attempt evidence; S1–S9 historical review retained; LIM-01/LIM-04 open | Review limitations and synthesis handoff |
+Author-side verification on 2026-10-22; [PR #37](https://github.com/Phenriquerafael/LABDSOF_G9A/pull/37) merged and issue #22 verified closed on that date. No GitHub review entries were found; the checks below are not independent acceptance.
 
-- No new interviews, survey, source access, prototype tests or measurements were performed. Existing answer content was preserved; the missing index and collection traceability were added.
-- No product decision or hypothesis was empirically validated. DISC-01-03 receives material for synthesis; primary validation and measured baseline remain future work, not fictitious evidence needed to fill a checklist.
-- [ ] Team DoR record/estimate confirmed; no retrospective planning meeting asserted.
-- [ ] Independent acceptance review and applicable [DoD](../../governance/definition-of-done.md) evidenced through PR. PR #37 is merged and #22 is closed; independent review evidence remains unrecorded locally.
+| Acceptance criterion | Evidence checked | Result / remaining gap |
+|---|---|---|
+| Method and provenance | [Method](../../03-user-research.md#2-method-and-evidence-coverage) and [inventory](../../research/answers/README.md) | Eight records dated 2026-10-21 across four segments; generation tool/process unknown and disclosed |
+| Coordination material | Eight originals compared with the three guides; [source/question references](../../03-user-research.md#33-scenario-synthesis-disc-01-03) | 78 simulated answers (4 × 14 + 2 × 6 + 2 × 5); effort/counts are fictional |
+| Handling | All eight originals read for simulation labels, metadata and direct/indirect identifiers | No participant names, contacts, exact addresses, companies, recordings, signatures, consent attachments or identity maps found; consent/session metadata not applicable |
+| Coverage, counterexamples and limits | [Inventory contrasts](../../research/answers/README.md#inventário-e-cobertura-dos-segmentos), [source register](../../03-user-research.md#31-public-sources-reviewed), LIM-01/LIM-04 | Public sources retain access date 2026-10-14; real collection and recruitment attempts unrecorded |
+
+Team estimate/DoR confirmation and independent review remain unevidenced. Their absence is recorded separately from the observed integration, under the [DoR](../../governance/definition-of-ready.md) and [DoD](../../governance/definition-of-done.md).

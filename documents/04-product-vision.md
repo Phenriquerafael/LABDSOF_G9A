@@ -2,11 +2,9 @@
 
 **Status:** proposal v0.4 (DISC-03-03) · **Sprint:** 1 · **Reviewed:** 2026-10-19
 
-Personas, priorities and targets remain proposals; citing a finding does not by itself validate them. Distinguish public context, simulated scenarios and empirical observations. This is the **source of the proposed functional scope**; changes must be reflected in the [backlog](05-product-backlog.md), [requirements](requirements.md) and [decisions](planning/decisions-and-feedback.md).
+This is the **source of the proposed functional scope**; changes must be reflected in the [backlog](05-product-backlog.md), [requirements](requirements.md) and [decisions](planning/decisions-and-feedback.md).
 
-**Evidence basis on 2026-10-19.** No interview, survey, observation or prototype test has been recorded ([03 §7](03-user-research.md#7-findings)), and the DISC-01-03 synthesis is still open. This revision cites only the secondary findings PS-01–PS-08 ([03 §7.2](03-user-research.md#72-findings)) and the competitor sources S01–S28 ([02 §5](02-market-and-competitor-analysis.md#5-source-and-findings-register)). PS findings make workflow concepts plausible; they do not establish local frequency, effort, adoption or willingness to pay. S01–S28 always refer to the 02 register and are supplier claims unless marked otherwise there; the public sources behind PS findings (S1–S9 in 03) are cited only through their PS IDs. Choices marked **[BA/PO proposal]** were proposed by Afonso (BA/PO) on 2026-10-19 under [DISC-03-03 (#14)](https://github.com/Phenriquerafael/LABDSOF_GX/issues/14) and await team agreement in review; they are not stakeholder or lecturer approval.
-
-**Synthesis update (2026-10-22, pending review):** [SF-01 to SF-07](03-user-research.md#721-scenario-synthesis-disc-01-03) add contrasting fictional scenarios to the historical evidence basis above. They inform the personas, J1-J3 and evaluation cases, without empirically validating them. [SP-01 to SP-05](planning/decisions-and-feedback.md#disc-01-03-synthesis-proposals) explain why scope is retained: fragmented versus structured administration, digital versus assisted participation, conditional contractor adoption and limited AI value. The existing metric/protocol stays canonical here; scenario times do not measure its task window.
+**Evidence basis (2026-10-22; synthesis pending review):** [PS-01–PS-08](03-user-research.md#32-public-source-findings) provide public context, [SF-01–SF-07](03-user-research.md#33-scenario-synthesis-disc-01-03) interpret fictional scenarios, and [S01–S28](02-market-and-competitor-analysis.md#5-source-and-findings-register) identify competitor sources (supplier claims unless marked otherwise). This competitor namespace is separate from the research register's S1–S9. Personas, journeys and targets remain proposals; [SP-01–SP-05](planning/decisions-and-feedback.md#disc-01-03-synthesis-proposals) explain their qualification and retained scope. Choices marked **[BA/PO proposal]** originate in the [2026-10-19 scope proposals](planning/decisions-and-feedback.md#product-scope-proposals--disc-03-03) and await team agreement.
 
 ## 1. Vision and value proposition
 
@@ -101,7 +99,7 @@ Basic cost may remain “not provided” and never blocks closure. The [backlog]
 **[BA/PO proposal]** **IoT is excluded from the MVP; the academic release is coordination-only.** Reasons:
 
 1. The assignment asks for coordination of information, decisions, people or resources (§3); sensing is not a common requirement.
-2. No research question or finding identifies a decision that sensor data would improve; the IoT question in [03 §4.4](03-user-research.md#44-optional-exploratory-questions) is exploratory and unanswered.
+2. No [research finding](03-user-research.md#3-findings) identifies a decision that sensor data would improve.
 3. A suite marketed in Portugal already bundles meters and building hardware (S04), so an IoT feature would not test BMC's own proposition.
 4. A device simulator and ingestion path would compete with the Must cycle for three-sprint capacity.
 
@@ -233,7 +231,7 @@ DEC-01 to DEC-11 are in the [register](planning/decisions-and-feedback.md). Thes
 
 ## 8. Business model
 
-**[Hypothesis]** SaaS per building or unit, with terms suitable for property management companies. Buyer, willingness to pay and adoption costs need validation in DEC-02 and the [administrator interview guide](03-user-research.md#41-administrator-professional-or-volunteer). Competitor price points are references, not a BMC price: SolidSoft GC from €200/year for one condominium to €1,990/year (S17), Unitify €0.50–€1.50 per apartment per month (S19), and Fixflo Block £75/month plus a quoted price with a 50-property minimum (S22). Contractor commissions/partnerships are only a future hypothesis and do not expand the MVP.
+**[Hypothesis]** SaaS per building or unit, with terms suitable for property management companies. Buyer, willingness to pay and adoption costs need validation in DEC-02 and the [administrator interview guide](templates/interviews/administrador.md). Competitor price points are references, not a BMC price: SolidSoft GC from €200/year for one condominium to €1,990/year (S17), Unitify €0.50–€1.50 per apartment per month (S19), and Fixflo Block £75/month plus a quoted price with a 50-property minimum (S22). Contractor commissions/partnerships are only a future hypothesis and do not expand the MVP.
 
 ## 9. Expected community benefit
 
@@ -244,7 +242,7 @@ The aim is to make it easier to respond to water, lighting and lift faults, redu
 | Version | Change | Basis |
 |---|---|---|
 | v0.4, 2026-10-19 (DISC-03-03) | Value proposition compared with each alternative and stated without exclusivity claims; each AI capability attributed to its own source | 02 §2–§6; S05, S17, S20, S24 |
-| | Personas and J1–J3 linked to secondary findings and to the hypotheses still open | 03 §7.2 (PS-01–PS-08); 01 §7 |
+| | Personas and J1–J3 linked to secondary findings and to the hypotheses still open | 03 §3.2 (PS-01–PS-08); 01 §7 |
 | | Smallest credible experiment stated; IoT excluded from the MVP; conditions for optional features | DEC-01 [BA/PO proposal]; assignment §3, §7.1.3 |
 | | Approval, acceptance, booking confirmation, completion report, closure and impact confirmation defined as distinct steps | DEC-10; 07 §3 |
 | | Primary metric defined with a 30% threshold, an answer key, a reproducible calculation, guards, measurement conditions and baseline limitations | DEC-08 [BA/PO proposal]; review of PR #40 |

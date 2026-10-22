@@ -46,18 +46,18 @@ Reduce administrators' active effort when triaging and preparing an intervention
 
 ## 5. Problem evidence
 
-**Synthesis dated 2026-10-22:** eight fictional interview records and nine previously registered public sources; zero real participants. The simulated method is permitted by the clarification recorded in the research plan. It supports academic scenario analysis, not claims of market prevalence, actual adoption or measured savings. No new external-source review was performed; public-source access dates remain 2026-10-14.
+**Evidence basis:** public-source findings (PS) and interpretations of simulated interviews (SF). The [research report](03-user-research.md#2-method-and-evidence-coverage) records the method, coverage and limits.
 
 | ID | Evidence type / reference | Implication for the problem | Assumptions |
 |---|---|---|---|
-| E1 | Historical public findings [PS-03/04/05](03-user-research.md#72-findings), based on S3-S5 | Repair coordination, communication and records warrant investigation; UK housing casework does not establish prevalence in Portuguese condominiums. | P1/P3 |
-| E2 | Vendor descriptions [PS-02/06/07/08](03-user-research.md#72-findings), S2/S6-S9 | Existing tools already address coordination; availability and marketing claims do not demonstrate local switching demand or differentiation. | P1/P4/P6 |
-| E3 | Scenario interpretations [SF-01/04](03-user-research.md#721-scenario-synthesis-disc-01-03), four administrator documents, zero participants | Focus on fragmented processes; structured professional and low-volume volunteer cases challenge universal need. | P1/P4 |
-| E4 | Scenario interpretations SF-02/05, four administrator and two resident documents, zero participants | Duplicates and non-reporting require different responses; preserve separate reporting and voluntary participation. | P2/P5 |
-| E5 | Scenario interpretations SF-03/07, four administrator documents, zero participants | Uncertainty is not proof of poor triage; explainable suggestions are not proof of AI value or trust. | P3/P7 |
-| E6 | Scenario interpretation SF-06, two contractor and four administrator documents, zero participants | Approval, acceptance, booking and closure must not be conflated; contractor adoption remains uncertain. | P6 |
+| E1 | Historical public findings [PS-03/04/05](03-user-research.md#32-public-source-findings), based on S3-S5 | Repair coordination, communication and records warrant investigation; UK housing casework does not establish prevalence in Portuguese condominiums. | P1/P3 |
+| E2 | Vendor descriptions [PS-02/06/07/08](03-user-research.md#32-public-source-findings), S2/S6-S9 | Existing tools already address coordination; availability and marketing claims do not demonstrate local switching demand or differentiation. | P1/P4/P6 |
+| E3 | Scenario interpretations [SF-01/04](03-user-research.md#33-scenario-synthesis-disc-01-03) | Focus on fragmented processes; structured professional and low-volume volunteer cases challenge universal need. | P1/P4 |
+| E4 | Scenario interpretations SF-02/05 | Duplicates and non-reporting require different responses; preserve separate reporting and voluntary participation. | P2/P5 |
+| E5 | Scenario interpretations SF-03/07 | Uncertainty is not proof of poor triage; explainable suggestions are not proof of AI value or trust. | P3/P7 |
+| E6 | Scenario interpretation SF-06 | Approval, acceptance, booking and closure must not be conflated; contractor adoption remains uncertain. | P6 |
 
-SF references resolve to the [source-linked synthesis table](03-user-research.md#721-scenario-synthesis-disc-01-03); counts overlap between findings and must not be summed as independent support. Government guidance PS-01 is contextual, not Portuguese condominium law. No legal rule or spending limit is asserted here.
+SF references resolve to the [source-linked synthesis table](03-user-research.md#33-scenario-synthesis-disc-01-03). Government guidance PS-01 is contextual, not Portuguese condominium law. No legal rule or spending limit is asserted here.
 
 ### Stakeholder implications
 
@@ -69,7 +69,7 @@ SF references resolve to the [source-linked synthesis table](03-user-research.md
 
 ### Effort baseline and decision consequence
 
-No empirical baseline is available. The fictional per-occurrence times neither measure real effort nor isolate the product metric's receipt-to-approved-request window. See the [canonical effort extraction and limitations](03-user-research.md#723-coordination-effort-baseline); the evaluation protocol remains in vision section 5.1.
+No empirical effort baseline is available; the [research extraction](03-user-research.md#35-coordination-effort-baseline) explains the fictional values and task-window mismatch. The [vision](04-product-vision.md#51-primary-success-criterion-dec-08) defines the evaluation protocol.
 
 The [SP-01 to SP-05 proposals](planning/decisions-and-feedback.md#disc-01-03-synthesis-proposals) narrow the framing and retain the bounded MVP with explicit reasons; no new integration, marketplace or autonomous decision is committed.
 
@@ -92,7 +92,7 @@ The [SP-01 to SP-05 proposals](planning/decisions-and-feedback.md#disc-01-03-syn
 | P6 | Contractors will accept requests and scheduling through the platform | Dispatch remains manual |
 | P7 | Administrators trust AI-assisted recommendations if they are explainable and subject to approval | AI is underused or rejected |
 
-The [P1-P7 disposition table](03-user-research.md#722-hypothesis-disposition-and-next-tests) records each hypothesis as empirically unresolved, identifies scenario support/counterexamples and specifies the next test. No hypothesis is confirmed merely because a fictional profile expresses it.
+The [P1-P7 disposition table](03-user-research.md#34-hypothesis-disposition-and-next-tests) records each hypothesis as empirically unresolved, identifies scenario support/counterexamples and specifies the next test.
 
 | Risk | Likelihood | Impact | Mitigation |
 |---|---|---|---|

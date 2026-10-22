@@ -1,11 +1,7 @@
 # 3. User Research
 
-**Project:** Building Maintenance Coordinator
-**Sprint:** 1 · **Status:** eight simulated answer records inventoried and checked for DISC-01-02; DISC-01-03 synthesis drafted for independent review; no real participant collection. · **Revision:** 2026-10-22
-
-> **Research method:** interviews may be real or simulated, as clarified by the lecturer. Identify simulated responses as such and distinguish them from real participant evidence.
-
----
+**Project:** Building Maintenance Coordinator · **Sprint:** 1 · **Revision:** 2026-10-22
+**Status:** synthesis prepared for independent review; acceptance and integration evidence in [DISC-01-03](backlog/tasks/DISC-01-03-synthesise-findings.md#completion-record).
 
 ## 1. Research objectives
 
@@ -21,141 +17,23 @@
 | Q8 | What prompts residents to report, or not report, an issue? | P5 |
 | Q9 | What does a contractor need to know about a request, and how do they manage scheduling? | P6 |
 
-### Guide review against P1–P7 (DISC-01-01)
+## 2. Method and evidence coverage
 
-Reviewed against the [problem hypotheses](01-problem-and-opportunity-report.md#7-assumptions-and-risks). References below identify questions in sections 4 and 5, not collected evidence.
+Sprint 1 uses eight written simulated interviews and the historical public-source review. The reported lecturer clarification permits real or simulated interviews; its date and meeting record were not supplied. This exercise analyses fictional scenarios, not empirical validation.
 
-| Hypothesis | Existing coverage and preparation change | Evidence sought / limit |
+| Material | Actual coverage | Canonical record |
 |---|---|---|
-| P1 — administrative effort | Administrator 3, 11; add a breakdown of active work versus waiting | One recent case, steps and approximate effort; recollections are estimates, not measured baselines |
-| P2 — duplicates | Administrator 6; add frequency, period and an example of reports that were distinct | Estimate duplicates relative to total reports in the same period; do not presume duplication is common |
-| P3 — urgency | Administrator 5; add what worked and what failed | Concrete priority decision, decision-maker and consequences; no presumption that current triage is poor |
-| P4 — administrator adoption | Administrator 9, 12, 14; add switching barriers | Existing tools, purchase authority, training and migration constraints; interest is not adoption or a purchase |
-| P5 — resident reporting | Resident 1–6 and survey 1–8; add ability to use the proposed channel | Past reporting/non-reporting and accessibility barriers; stated willingness does not validate actual use |
-| P6 — contractor adoption | Administrator 7–8 and contractor 1–5; add a recent request and refusal conditions | Information needs, acceptance, availability and rescheduling; administrators cannot prove contractor willingness |
-| P7 — trust in assisted recommendations | Administrator 10; add correction, disagreement and unavailability probes | Exploratory trust conditions now; task-based prototype evaluation later, without claiming trust is validated |
+| Simulated answers | Two fictional profiles per segment: professional administrators, volunteer administrators, residents and contractors; 78 written answers | [Inventory, creation dates and provenance](research/answers/README.md) |
+| Public sources | Nine sources, accessed 2026-10-14; no new source visits for this synthesis | [Source register](#31-public-sources-reviewed) |
+| Real collection | Zero participants, sessions, survey responses, observations or prototype tests recorded; no documented recruitment attempts | Unexecuted [collection procedure and guides](templates/research-collection.md) |
 
-Q6 provides context about alternatives rather than proving a product hypothesis. Seek counterexamples for each hypothesis and record which questions were actually asked. A skipped question supplies no evidence.
+Consent, interviewer and session date/duration do not apply to fictional profiles. Preparation, collection checks and synthesis acceptance are recorded in [DISC-01-01](backlog/tasks/DISC-01-01-prepare-research.md#completion-record), [DISC-01-02](backlog/tasks/DISC-01-02-conduct-research.md#completion-record) and [DISC-01-03](backlog/tasks/DISC-01-03-synthesise-findings.md#completion-record), respectively.
 
-## 2. Methods
+<a id="7-findings"></a>
 
-**Method used in Sprint 1:** written simulated interviews with eight fictional profiles, plus synthesis of the historical public-source register. The [inventory](research/answers/README.md) owns record IDs, segment coverage and provenance; section 7 owns findings and interpretation. Simulated answers are design material, not empirical observations.
+## 3. Findings
 
-**Original preparation for possible real collection:** the table and targets below are retained for reuse. Real interviews, the survey and prototype testing were not executed and are not additional completion requirements for DISC-01-03. Future empirical validation requires separately planned work and the safeguards in section 3.
-
-| Method | Purpose | Participants | Effort |
-|---|---|---|---|
-| Semi-structured interviews (30–40 min) | Q1–Q7, Q9 | Administrators, contractors | Primary method |
-| Short online survey | Q8, validate problem frequency | Residents | Low |
-| Review of documented experiences (articles, forums, app reviews) | Q1, Q6 | Public sources | Low |
-| Public competitor documentation / demos | Q6 | n/a | Low |
-| Prototype testing (late Sprint 1 or Sprint 2) | Q7, usability | Administrators, residents | Medium |
-
-### Target sample for future real collection
-
-| Group | Target | Note |
-|---|---|---|
-| Professional administrators | 2 | Personal introductions and public business contact channels |
-| Resident / volunteer administrators | 3 | Relatives, neighbours or acquaintances |
-| Residents | 8 (survey) | Forwarded invitation through personal networks |
-| Contractors | 2 | Electricians, plumbers or maintenance companies |
-
-These figures are **targets for real collection**, not results. The current simulated route contains two fictional records per segment (eight documents), with zero real participants. It does not fulfil these recruitment targets or constitute the planned resident survey; see the [actual inventory](research/answers/README.md).
-
-This is a purposive convenience sample chosen for access and contrasting roles, not statistical representation. Start with one administrator and one contractor interview to check guide clarity, then adjust effort with the team. Do not claim saturation from the target counts.
-
-Keep professional administrators (paid work, potentially multiple buildings and company purchasing processes) separate from resident/volunteer administrators (elected or unpaid work, typically a single building). Ask about actual role and remuneration rather than inferring the segment from a title. Record mixed roles explicitly. Volunteers offer useful contrasts but do not replace evidence about the primary professional segment in DEC-02. Report counts, effort estimates and adoption constraints by segment; insufficient professional access leaves DEC-02 unvalidated. Residents and contractors provide complementary perspectives, not substitutes for administrator evidence.
-
-## 3. Recruitment and ethics
-
-The repository contains reusable blank templates and eight simulated answer records. The recruitment, consent and participant-data procedures below apply to future real interviews; no real participants, sessions or permissions are claimed for the simulations.
-
-Do not collect names, contact lists, signatures, exact addresses, unit numbers, company names, photographs, recordings or identity mappings. Record broad role segments and anonymous document IDs only. An ID identifies an answer record, not a participant identity; do not create a lookup table. Remove identifying combinations of incident details, dates, location and role, even when no name is given. If the research team can still reasonably identify someone from an answer record, generalise or omit that material before saving it in Git.
-
-### Consent text (template)
-
-> We are students developing the academic project Building Maintenance Coordinator, which explores maintenance coordination in residential buildings. Participation is voluntary, and you may skip any question or end the conversation at any time. We retain only anonymous answers, without names, contact details, addresses or information identifying the building or company. We do not make recordings. Answers will be reviewed to remove identifying details and stored in the project's Git repository for analysis and academic assessment. Anyone with access to the repository will be able to read them; if the repository is public or becomes public, anyone will be able to read them. Git retains historical versions, and copies may exist: we cannot promise to delete all versions after publication. You may withdraw or correct an answer during the session, before your final confirmation; once the answers are anonymised, we do not keep a record linking them to your identity. Do you agree to participate and allow your answers to be used under these conditions?
-
-Obtain an affirmative verbal answer before an interview, or an affirmative opt-in before survey questions. Record only `participation and anonymous Git storage authorised: yes/no`, without a name, signature or consent attachment. If declined, stop and do not retain answers. Use paraphrases by default; a direct quotation needs separate permission and must pass the same anonymity check. Sandro is the research-record owner; project contact: 1201244@isep.ipp.pt.
-
-### 3.1 Recruitment and session procedure
-
-| Segment | Recruitment route | Selection and safeguards |
-|---|---|---|
-| Professional administrators | Personal introductions or public business contact channels | Seek people involved in actual maintenance coordination; no contact database |
-| Volunteer administrators | Relatives, neighbours or acquaintances forward an invitation | Voluntary participation; distinguish paid and unpaid roles |
-| Residents | Forwarded invitation or in-person approach | Adult volunteers; no resident lists, names, units or addresses |
-| Contractors | Personal introductions or public business contact channels | People receiving/scheduling maintenance work; no customer records |
-
-Pedro coordinates invitations through existing contact channels, without copying contacts, messages or identity-linked schedules into research records. Use at most one reminder after five working days; close an unanswered invitation after ten working days. Invitations are not participant commitments. Record only aggregate recruitment counts and limitations.
-
-### 3.2 Access failures and withdrawal
-
-- If professional access fails after the ten-working-day invitation window, record the limitation. Volunteers and public sources do not prove professional adoption or purchasing behaviour.
-- If a group is unavailable, leave its hypotheses unresolved. Record source/date for public-source review and do not call it participant research.
-- If someone declines or cancels, do not retain their identity or claim a completed session. Reschedule only with their agreement.
-- If no interview pair is available, use the replacements or reschedule; no solo sessions.
-- If Git is unavailable, prepare only anonymous Markdown locally and perform the same check before its first commit. Do not switch to recordings or identifiable notes.
-- Accept corrections/removal during the session before final confirmation. After anonymisation, do not claim that a participant can be located by identity. Remove problematic published content from the current version if discovered, and assess repository history/copy exposure separately; a deletion commit alone does not erase it.
-
-## 4. Interview guides
-
-The interview questions are maintained only in the interview template folder. The templates remain blank; completed simulated records are stored separately. Question numbers in the P1–P7 coverage table refer to those templates.
-
-### 4.1 Administrator (professional or volunteer)
-
-Use the [administrator template](templates/interviews/administrador.md), including the neutral probes on effort, duplicates, urgency, adoption and AI trust.
-
-### 4.2 Resident
-
-Use the [resident template](templates/interviews/morador.md), including reporting barriers, privacy, digital access and alternative channels.
-
-### 4.3 Contractor
-
-Use the [maintenance contractor template](templates/interviews/prestador-manutencao.md), including request acceptance, missing information, scheduling and completion.
-
-### 4.4. Optional exploratory questions
-
-Photographs and IoT are outside the interview core and are not presented as MVP commitments. Do not request real photographs or device/customer records.
-
-### 4.5. Prototype testing
-
-Task-based prototype testing is separate from this preparation. During later testing, record completion, errors, time and assistance, and compare an equivalent current-process task. Stated interest alone does not validate benefit or adoption.
-
-## 5. Short resident survey (template)
-
-The resident survey remains an unexecuted real-collection option. DISC-01-02 currently uses the simulated interview route recorded above; the two fictional resident interviews are not survey responses. Use the resident interview template to explore P5 in depth.
-
-Pedro implements the survey in Microsoft Forms using the consent and safeguards defined in section 3; confirm survey settings before launch. No survey is launched by this preparation. Open answers must not request names, contacts, exact addresses or third-party details; review them privately before synthesis.
-
-1. Do you live in a building with condominium administration? (Yes/No)
-2. Have you reported a maintenance issue in the last 12 months? (Yes/No)
-3. If so, through which channel? (call, WhatsApp, email, caretaker, other)
-4. Did you receive status feedback? (Always / Sometimes / Never)
-5. How long did resolution take? (<1 day / 1–3 days / 4–7 days / >1 week / still unresolved)
-6. What difficulty did you experience? (Open answer)
-7. Would you use an app or web page to report? (Yes/Maybe/No, and why)
-8. What information would you like to see? (status, expected date, contractor, other)
-
-## 6. Analysis
-
-For the completed simulated exercise, use the method and source-to-finding table in section 7.2.1. The following procedure is retained for future real collection.
-
-- Transcribe or summarise each interview in **structured notes** immediately after the session.
-- Code by theme (urgency, duplicates, costs, channels, trust in AI…).
-- Record **quotes** only with permission and without identifying details.
-- Each empirical finding must state the actual supporting participant/source count. Scenario interpretations must instead cite simulated record IDs and question numbers, with **zero real participants**; never count fictional profiles as respondents.
-- Clearly distinguish **what was said** from **the team's interpretation**.
-
-## 7. Findings
-
-### 7.1 Actual collection and simulation register
-
-Checked on **2026-10-22**: zero real participants, sessions, survey responses, observations or prototype tests are recorded. No recruitment attempts are documented, so recruitment failure is not asserted. The eight existing records are fictional written answers created on 2026-10-21, not interview sessions.
-
-The [canonical inventory](research/answers/README.md#inventário-e-cobertura-dos-segmentos) links the eight records: two fictional profiles per segment, with 78 written answers in total. Creation dates and provenance are recorded there; the synthesis follows in sections 7.2.1-7.3. Public sources remain separate from fictional answers.
-
-### 7.1.1 Public sources reviewed
+### 3.1 Public sources reviewed
 
 | Code | Source type and publisher | Publication/access date | Scope and evidence reviewed | Limitations |
 |---|---|---|---|---|
@@ -169,28 +47,27 @@ The [canonical inventory](research/answers/README.md#inventário-e-cobertura-dos
 | S8 | Vendor product documentation, Property Meld | Last modified 2025-06-13; accessed 2026-10-14 | [Maintenance communication](https://propertymeld.com/maintenance-communication/): describes resident responses, missing work-order information, vendor follow-up, investor approvals and tracking communication volume/response speed. | Supplier marketing content; does not establish that these problems occur in the project's local target segment. |
 | S9 | Vendor product documentation, Property Meld | Last modified 2025-10-02; accessed 2026-10-14 | [Oversight and data](https://propertymeld.com/maintenance-data/): presents metrics for technician performance, vendor efficiency, coordinator effectiveness, communication, scheduling, staffing and profitability. | Supplier marketing content; benchmark availability and metric definitions require independent verification. |
 
-### 7.2 Findings
+### 3.2 Public-source findings
 
-| ID | Finding | Number of supporting participants | Assumption confirmed, refuted or adjusted | Evidence (codes) |
-|---|---|---|---|---|
-| PS-01 | Public repair guidance makes reporting, expected timing and escalation visible parts of the process. | 0 participants; supported by S1 | Supports investigating status visibility and escalation as workflow requirements; does not validate local need or frequency. | S1 |
-| PS-02 | A commercial maintenance platform positions centralized records, work orders, vendor coordination and resident updates as a product baseline. | 0 participants; supported by S2 | Supports treating traceable history, dispatch and status communication as competitor capabilities to compare; does not prove differentiation or value. | S2 |
-| PS-03 | Public ombudsman casework identifies responsibility, elapsed time and record-keeping as recurring repair-complaint themes. | 0 participants; supported by S3 | Supports making ownership, due dates, status history and escalation explicit workflow concepts; does not establish local complaint frequency. | S3 |
-| PS-04 | Recent ombudsman casework links repair outcomes with trust, communication, complaint handling and contractor relationships, and recommends more proactive maintenance. | 0 participants; supported by S4 | Supports evaluating resident-facing updates, contractor coordination and preventive follow-up as separate workflow concerns; does not validate the proposed AI approach. | S4 |
-| PS-05 | Ombudsman information-management guidance treats data creation, storage, sharing and use as service controls, not just record retention. | 0 participants; supported by S5 | Supports an auditable issue history with controlled visibility and usable information for decisions; supports DEC-07 concerns without confirming the final policy. | S5 |
-| PS-06 | Competitor documentation commonly exposes request intake, ownership, due dates, timestamps, recurring work and status visibility. | 0 participants; supported by S6 | Establishes a baseline feature set that the product must compare against; does not show which capabilities users value or use. | S6 |
-| PS-07 | Property Meld frames scheduling and assignment cycle time, vendor performance and bottleneck visibility as core maintenance-management concerns. | 0 participants; supported by S7 and S9 | Supports measuring time-to-assign, time-to-schedule, completion and handoff bottlenecks if primary data becomes available; no local baseline exists. | S7, S9 |
-| PS-08 | Competitor documentation treats communication gaps, missing request information, follow-up and approval visibility as operational problems. | 0 participants; supported by S8 | Supports testing minimum request information, approval states and communication history in later usability work; vendor claims do not validate severity. | S8 |
+| ID | Public-source finding | Implication / limit | Sources |
+|---|---|---|---|
+| PS-01 | Public repair guidance makes reporting, expected timing and escalation visible parts of the process. | Supports investigating status visibility and escalation as workflow requirements; does not validate local need or frequency. | S1 |
+| PS-02 | A commercial maintenance platform positions centralized records, work orders, vendor coordination and resident updates as a product baseline. | Supports treating traceable history, dispatch and status communication as competitor capabilities to compare; does not prove differentiation or value. | S2 |
+| PS-03 | Public ombudsman casework identifies responsibility, elapsed time and record-keeping as recurring repair-complaint themes. | Supports making ownership, due dates, status history and escalation explicit workflow concepts; does not establish local complaint frequency. | S3 |
+| PS-04 | Recent ombudsman casework links repair outcomes with trust, communication, complaint handling and contractor relationships, and recommends more proactive maintenance. | Supports evaluating resident-facing updates, contractor coordination and preventive follow-up as separate workflow concerns; does not validate the proposed AI approach. | S4 |
+| PS-05 | Ombudsman information-management guidance treats data creation, storage, sharing and use as service controls, not just record retention. | Supports an auditable issue history with controlled visibility and usable information for decisions; supports DEC-07 concerns without confirming the final policy. | S5 |
+| PS-06 | Competitor documentation commonly exposes request intake, ownership, due dates, timestamps, recurring work and status visibility. | Establishes a baseline feature set that the product must compare against; does not show which capabilities users value or use. | S6 |
+| PS-07 | Property Meld frames scheduling and assignment cycle time, vendor performance and bottleneck visibility as core maintenance-management concerns. | Supports measuring time-to-assign, time-to-schedule, completion and handoff bottlenecks if primary data becomes available; no local baseline exists. | S7, S9 |
+| PS-08 | Competitor documentation treats communication gaps, missing request information, follow-up and approval visibility as operational problems. | Supports testing minimum request information, approval states and communication history in later usability work; vendor claims do not validate severity. | S8 |
 
-### 7.2.1 Scenario synthesis (DISC-01-03)
+### 3.3 Scenario synthesis (DISC-01-03)
 
-**Analysed on 2026-10-22; independent review pending.** Inputs are the eight existing simulated answer records introduced in [PR #35](https://github.com/Phenriquerafael/LABDSOF_G9A/pull/35), inventoried in [PR #37](https://github.com/Phenriquerafael/LABDSOF_G9A/pull/37), and the historical public-source findings PS-01 to PS-08 above. No new interviews, responses or source visits were performed. Public-source access dates remain 2026-10-14.
+Compare answers by effort, duplication, urgency, adoption, access, dispatch and AI trust, retaining contrasts within each segment. Counts below describe fictional documents, not supporting participants; question numbers refer to each record's guide, not Q1–Q9. Public findings provide context, not independent corroboration of a scenario.
 
-Method: compare the recorded answers by effort, duplication, urgency, adoption, access, dispatch and AI trust; retain contrasting cases within each segment; separate the content of a fictional answer from the interpretation below. Counts are document coverage, **not supporting participants**: four administrator records (two professional and two volunteer), two resident records and two contractor records; zero real participants throughout. Question numbers below refer to each record's guide, not Q1-Q9. Fictional accounts cannot independently corroborate each other or the public sources.
 
 | ID / topic | Recorded scenario content and exact references | Interpretation and counterexample | Context from public findings |
 |---|---|---|---|
-| SF-01 / effort | [SIM-ADM-P-01](research/answers/SIM-ADM-P-01.md), questions 3/11: fragmented contacts; [SIM-ADM-P-02](research/answers/SIM-ADM-P-02.md), 3/11: an existing structured tool; [SIM-ADM-V-01](research/answers/SIM-ADM-V-01.md), 3/11: several contacts and access coordination; [SIM-ADM-V-02](research/answers/SIM-ADM-V-02.md), 3/11: low-volume direct coordination. Four fictional records; constructed times are extracted once in section 7.2.3. | Coordination effort may depend on process maturity and contact volume, not role alone. Focus the experiment on fragmented coordination; low-effort cases challenge a universal value claim. Waiting for a contractor is not active administration. | PS-03 and PS-07 motivate examining handoffs; they supply no local effort baseline. |
+| SF-01 / effort | [SIM-ADM-P-01](research/answers/SIM-ADM-P-01.md), questions 3/11: fragmented contacts; [SIM-ADM-P-02](research/answers/SIM-ADM-P-02.md), 3/11: an existing structured tool; [SIM-ADM-V-01](research/answers/SIM-ADM-V-01.md), 3/11: several contacts and access coordination; [SIM-ADM-V-02](research/answers/SIM-ADM-V-02.md), 3/11: low-volume direct coordination. Four fictional records; constructed times are extracted once in section 3.5. | Coordination effort may depend on process maturity and contact volume, not role alone. Focus the experiment on fragmented coordination; low-effort cases challenge a universal value claim. Waiting for a contractor is not active administration. | PS-03 and PS-07 motivate examining handoffs; they supply no local effort baseline. |
 | SF-02 / duplicates | All four administrator records, question 6: P-01 describes six repeated communications out of 20 and two apparently similar but distinct faults; P-02 one out of 15; V-01 two repeated messages out of five; V-02 none out of three. [SIM-MOR-01](research/answers/SIM-MOR-01.md) and [SIM-MOR-02](research/answers/SIM-MOR-02.md), question 3, describe not reporting when someone else may have done so. | Duplicate volume is not uniformly high even within fiction. Different denominators and invented periods prohibit pooling rates. Preserve separate reports and human review of links; silence does not show lack of impact. | PS-06 concerns feature availability, not proof of duplicate frequency. |
 | SF-03 / urgency | Four administrator records, question 5: P-01/V-01/V-02 seek technical input when uncertain; P-02 describes triage that worked. | Missing context and uncertainty deserve explicit handling, but poor current triage is not established. Retain manual judgement and independent critical-signal rules; do not promise diagnosis or safety. | PS-03/04 concern repair outcomes, not AI classification accuracy. |
 | SF-04 / administrator adoption | Four administrator records, questions 9/12/14: P-01 considers a limited pilot without migration; P-02 requires demonstrated integration; V-01 wants simplicity and collective cost approval; V-02 sees little reason to add a paid tool. | Conditional interest is not adoption. Keep professionals as the primary experiment segment, but compare process maturity within it; volunteers cannot validate business purchasing. Integration is a barrier to test, not a commitment to build integrations now. | PS-02/06 show existing alternatives; supplier feature claims do not establish switching demand. |
@@ -198,7 +75,7 @@ Method: compare the recorded answers by effort, duplication, urgency, adoption, 
 | SF-06 / dispatch and closure | [SIM-PRE-01](research/answers/SIM-PRE-01.md) and [SIM-PRE-02](research/answers/SIM-PRE-02.md), questions 1-5, distinguish scope approval, acceptance, availability, access and completion. PRE-01 accepts a simple request but keeps its own calendar; PRE-02 rejects another mandatory app and automatic penalties. Administrator records, questions 7-8, provide four additional fictional process perspectives. | Retain distinct approval, response, booking, completion and closure steps. A calendar event cannot prove contractor availability. Preserve refusal, rescheduling and a manual coordination option; no assumed contractor adoption. | PS-07/08 motivate scheduling and approval visibility, without validating this local workflow. |
 | SF-07 / AI value and trust | Four administrator records, question 10: P-01/V-01 ask for reasons, correction and a manual route; P-02 sees limited need for routine classification; V-02 would not adopt for AI. | Explainability and review are design conditions, not demonstrated trust or usefulness. Keep assisted classification as the academic experiment, compare it with rules/manual triage, and allow suggestions to be ignored. | None of PS-01 to PS-08 evaluates the proposed AI or proves its benefit. |
 
-### 7.2.2 Hypothesis disposition and next tests
+### 3.4 Hypothesis disposition and next tests
 
 All P1-P7 remain **empirically unresolved**. Support or contradiction below applies only to the constructed scenarios; no hypothesis is marked confirmed or refuted about the target population.
 
@@ -212,13 +89,14 @@ All P1-P7 remain **empirically unresolved**. Support or contradiction below appl
 | P6 | Conditional request acceptance with calendar/app resistance (SF-06). | Test accept/refuse/reschedule and change-of-scope tasks with contractors; check actual willingness to maintain the proposed channel. |
 | P7 | Correction/explanation requested, but some profiles see little AI value (SF-07). | Compare task outcomes with rules/manual and AI suggestions, including wrong and unavailable suggestions; record corrections and harmful reliance. |
 
-### 7.2.3 Coordination-effort baseline
+### 3.5 Coordination-effort baseline
 
 **No empirical baseline estimate is available.** SF-01 contains invented case times of 45, 10, about 60 and 15 active minutes. The corresponding question-11 ranges are 30-60, 10-15, 40-70 and 15-20 minutes within those fictional profiles. Do not average these into a user baseline, use them to calibrate a reduction target, or interpret elapsed repair time as effort saved.
 
-Retain the [vision's measurement protocol](04-product-vision.md#51-primary-success-criterion-dec-08) as a proposal: equivalent tasks, active-time measurement, correctness/assistance guards and a frozen protocol before evaluation. Its 30% target is a proposed success threshold, not a result derived from these records. A later measured simulation can establish controlled-task performance, not operational savings. DEC-08 and LIM-04 remain open. The answers also describe different per-occurrence activities and do not isolate the receipt-to-approved-request window measured in the vision. Even hypothetical comparisons must use matching start/stop events; no conversion to that window can be inferred from these records.
+The answers describe different per-occurrence activities and do not isolate the receipt-to-approved-request window in the [vision's measurement protocol](04-product-vision.md#51-primary-success-criterion-dec-08). No conversion to that window can be inferred. DEC-08 and LIM-04 remain open.
 
-### 7.3 Resulting product decisions
+
+## 4. Resulting product decisions
 
 The [decision register](planning/decisions-and-feedback.md#disc-01-03-synthesis-proposals) is canonical for proposal wording, rationale, review status and affected product artefacts. The mapping below connects findings to those proposals without maintaining a second decision record.
 
@@ -230,40 +108,10 @@ The [decision register](planning/decisions-and-feedback.md#disc-01-03-synthesis-
 | SF-06 | SP-04 / DEC-10 | Keep approval, acceptance, booking and closure distinct |
 | SF-01/07 | SP-05 / DEC-08 | Evaluate equivalent tasks without using fictional times as a baseline |
 
-## 8. Limitations
+## 5. Limitations
 
-Current limitations after the 2026-10-22 synthesis (public-source review remains dated 2026-10-14):
+- The scenarios contain constructed incidents, counts and effort values. They may reflect the product already imagined by their authors; adding fictional counterexamples does not remove that design bias. They cannot establish real frequency, adoption, trust or savings. All P1–P7 remain empirically unresolved.
+- The nine public sources provide contextual guidance, casework and supplier claims. This is not a systematic literature review, representative market study or independent competitor audit; source-specific limits remain in section 3.1.
+- Original simulation generation tooling/process and the record of the lecturer clarification are unavailable. See the [inventory provenance](research/answers/README.md#método-e-proveniência). The absence of recruitment records is not evidence that recruitment failed.
 
-- No real participant research is recorded; eight simulated interviews explore scenarios only. Their counts, incidents and effort values are constructed, not measured. Profiles may reflect the product already imagined by their authors; adding contrasting fictional profiles does not remove that design bias. Problem frequency, effort, adoption and AI-value claims remain hypotheses.
-- The public review contains nine sources: government guidance, ombudsman casework summaries and vendor documentation. It is still not a systematic literature review, representative market study or independent competitor audit.
-- No recruitment attempts are documented; the simulated route is used under the clarification already recorded in this plan, not as evidence of failed recruitment. Consent and restricted participant notes are not applicable to fictional profiles.
-- The inventory distinguishes two fictional records per segment from zero real participants. No participant measurements or authorised quotations exist. Scenarios may inform provisional design options in DISC-01-03; they cannot validate participant-dependent claims or a real effort baseline. Original generation tooling/process and the date/record of the lecturer clarification are not supplied.
-
-Risks to revisit if future real collection is undertaken:
-
-- **Small convenience sample**, not representative.
-- Limited access to **professional administrators**; probable bias towards volunteers.
-- Risk of **confirmation bias**: interviewers know the proposed solution. Mitigate with open questions about past experiences before showing the idea.
-- Participants may know the students (politeness, social desirability bias).
-- Stated willingness to pay or adopt does not always translate into behaviour.
-- No access to real incident data; AI evaluation will use synthetic data.
-
-## 9. Activity sequence
-
-| When | Activity |
-|---|---|
-| DISC-01-01 | Define the plan, consent, roles, storage rules and blank templates |
-| Before DISC-01-02 recruitment | Check anonymous templates, Git readership/visibility and survey settings; |
-| DISC-01-02 (2026-10-22 check) | Inventory and verify the eight existing simulated interviews; PR #37 merged; real collection and survey remain unexecuted |
-| DISC-01-03 | Synthesis drafted in this branch; review and integration remain outstanding |
-| Later task-based testing | Evaluate usability/adoption against concrete tasks |
-
-## 10. Records and decisions
-
-Use the [recording template](templates/research-record.md) for each actual interview, survey administration, observation, prototype test or public source. Findings remain in section 7; requirements and the problem report reference their IDs. Section 7.3 links to the [decision register](planning/decisions-and-feedback.md), which stores rationale, participants and decision status without duplicating meeting notes.
-
-DISC-01-02 now has a traceable simulated collection package and the historical public-source register. The collection package was integrated through [PR #37](https://github.com/Phenriquerafael/LABDSOF_G9A/pull/37); issue #22 was verified closed on 2026-10-22. Review evidence is tracked in the [collection task](backlog/tasks/DISC-01-02-conduct-research.md#completion-record). Real participant collection is not claimed; no adoption, problem-frequency or AI-value claim may be presented as validated.
-
-For any future real collection, apply the ownership, access and retention defined in DEC-07 and section 3. Pedro schedules collection under DISC-01-02; no sessions are scheduled by this preparation. Findings inform [requirements](requirements.md) and [backlog](05-product-backlog.md) prioritisation.
-
-Store only reviewed anonymous answers in `documents/research/answers/`; no identity maps, contact lists or consent attachments. Link anonymous record IDs to findings without creating a participant lookup. Preparation evidence is tracked in [DISC-01-01](backlog/tasks/DISC-01-01-prepare-research.md#completion-record); the simulated collection inventory is tracked in [DISC-01-02](backlog/tasks/DISC-01-02-conduct-research.md#completion-record), with synthesis recorded in [DISC-01-03](backlog/tasks/DISC-01-03-synthesise-findings.md#completion-record), pending independent review.
+The [hypothesis table](#34-hypothesis-disposition-and-next-tests) identifies next evidence needed; future collection risks and procedures belong in the [reusable preparation](templates/research-collection.md#5-analysis-and-later-prototype-tests).

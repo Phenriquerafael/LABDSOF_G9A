@@ -2,9 +2,7 @@
 
 **Status:** proposal v0.2 · Sprint 1, Phases 2–3 · reviewed 2026-10-19 (DISC-03-03) · validation pending
 
-Sources: [assignment](../LABDSOF-26-27-Assignment.md), [hypotheses P1–P7](01-problem-and-opportunity-report.md), [secondary findings PS-01–PS-08](03-user-research.md#72-findings) and [vision J1–J3](04-product-vision.md). No requirements have yet been confirmed through interviews; PS findings support workflow concepts only. “Must” in the backlog is a proposed priority for the academic release, not customer approval.
-
-**Synthesis traceability (2026-10-22, pending review):** [SF-01 to SF-07](03-user-research.md#721-scenario-synthesis-disc-01-03) are scenario interpretations, not validated user requirements. The [SP decision mapping](planning/decisions-and-feedback.md#disc-01-03-synthesis-proposals) links them to RF-01/04/05 (participation), RF-02/03 (manual and assisted triage), and RF-07/08/09 (dispatch/closure), with NFR-03/10/11. Scope remains unchanged for the reasons recorded there.
+**Evidence basis (2026-10-22; synthesis pending review):** the [assignment](../LABDSOF-26-27-Assignment.md), [P1–P7 hypotheses](01-problem-and-opportunity-report.md#7-assumptions-and-risks), [public findings PS-01–PS-08](03-user-research.md#32-public-source-findings), [scenario interpretations SF-01–SF-07](03-user-research.md#33-scenario-synthesis-disc-01-03) and [vision J1–J3](04-product-vision.md) inform these proposals. The [SP decision mapping](planning/decisions-and-feedback.md#disc-01-03-synthesis-proposals) connects findings to affected RF/NFR and backlog items and explains retained scope. Requirements and priorities are not empirically validated; “Must” denotes proposed academic-release priority.
 
 ## Functional requirements
 
