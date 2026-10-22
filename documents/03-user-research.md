@@ -1,7 +1,7 @@
 # 3. User Research
 
 **Project:** Building Maintenance Coordinator
-**Sprint:** 1 · **Status:** anonymous-answer research plan (v0.6); collection not started. · **Revision:** 2026-10-15
+**Sprint:** 1 · **Status:** research plan and eight simulated answer records; no real participant collection. · **Revision:** 2026-10-22
 
 > **Research method:** interviews may be real or simulated, as clarified by the lecturer. Identify simulated responses as such and distinguish them from real participant evidence.
 
@@ -64,7 +64,7 @@ Keep professional administrators (paid work, potentially multiple buildings and 
 
 ## 3. Recruitment and ethics
 
-Only anonymous answers are retained, following the user's storage decision. The repository contains blank templates and, after real collection and review, anonymous answer records in `documents/research/answers/`. No interviews are conducted by this preparation.
+The repository contains reusable blank templates and eight simulated answer records. The recruitment, consent and participant-data procedures below apply to future real interviews; no real participants, sessions or permissions are claimed for the simulations.
 
 Do not collect names, contact lists, signatures, exact addresses, unit numbers, company names, photographs, recordings or identity mappings. Record broad role segments and anonymous document IDs only. An ID identifies an answer record, not a participant identity; do not create a lookup table. Remove identifying combinations of incident details, dates, location and role, even when no name is given. If the research team can still reasonably identify someone from an answer record, generalise or omit that material before saving it in Git.
 
@@ -85,26 +85,7 @@ Obtain an affirmative verbal answer before an interview, or an affirmative opt-i
 
 Pedro coordinates invitations through existing contact channels, without copying contacts, messages or identity-linked schedules into research records. Use at most one reminder after five working days; close an unanswered invitation after ten working days. Invitations are not participant commitments. Record only aggregate recruitment counts and limitations.
 
-Pedro interviews and Ricardo writes anonymous answers directly from the relevant template. Explain the purpose and obtain permission before recording any answer. Ask about real experiences first. Do not write identifying details even in a Git working copy: if volunteered, omit them or paraphrase immediately. At the end, read back the recorded answers so the participant can correct or remove them before confirming use. The interviewer and note-taker then check anonymity before the first commit; Martim reviews the record again before merge. No audio/video, automatic transcription or AI processing of interview material.
-
-### 3.2 Collection arrangements
-
-| Arrangement | Operating decision | Responsibility |
-|---|---|---|
-| Research-record owner | Sandro; backup Martim | Maintain template consistency, anonymity checks and repository evidence |
-| Storage | Anonymous Markdown answers under `documents/research/answers/`; blank templates under `documents/templates/interviews/` | Pedro/Ricardo prepare answers; no separate OneDrive archive |
-| Identity and contact data | Not collected in research records; no names, signatures, identity maps or consent attachments | All researchers omit direct and indirect identifiers |
-| Access | Repository readers can read committed anonymous answers; repository contributors use the normal branch/PR workflow | Sandro/Martim check actual repository visibility before collection; explain public availability where applicable |
-| Retention | Anonymous answers retained with the academic project and Git history; no fixed deletion date or promise of erasing clones/history | Sandro documents corrections through normal commits; personal data must never be committed |
-| Withdrawal | Participant may stop, correct or remove answers during the session before final confirmation; no identity lookup retained afterwards | Pedro reads back the record and obtains final confirmation before anonymised retention |
-| Permission evidence | Anonymous yes/no field for participation and Git storage; separate field for quotations | No answer record is retained when permission is refused |
-| Session roles | Pedro interviews, Ricardo takes notes; Afonso replaces Pedro and Sandro replaces Ricardo | Record researcher names, broad segment and document ID; reschedule if no pair is available |
-| Review | Interviewer/note-taker check before first commit; Martim checks again before merge; Afonso checks method/P1–P7 | Remove identifying facts and combinations, not just name fields |
-| Survey | Microsoft Forms under Pedro's institutional account, without name/email recording, login requirement or file uploads; no contact questions | Pedro tests with synthetic answers before launch; do not launch if anonymous response settings are unavailable |
-
-Survey exports must not be committed as-is: exclude timestamps, response-account identifiers, IP/device metadata and any accidental identifiers in free text. Keep only the anonymous answers and broad segment in Markdown. Delete working exports after this check; delete responses from the survey tool within seven days of the checked export. Do not create an identifiable-response archive. If the tool cannot avoid participant identification in the collected answers, use the interview template instead.
-
-### 3.3 Access failures and withdrawal
+### 3.2 Access failures and withdrawal
 
 - If professional access fails after the ten-working-day invitation window, record the limitation. Volunteers and public sources do not prove professional adoption or purchasing behaviour.
 - If a group is unavailable, leave its hypotheses unresolved. Record source/date for public-source review and do not call it participant research.
@@ -113,15 +94,9 @@ Survey exports must not be committed as-is: exclude timestamps, response-account
 - If Git is unavailable, prepare only anonymous Markdown locally and perform the same check before its first commit. Do not switch to recordings or identifiable notes.
 - Accept corrections/removal during the session before final confirmation. After anonymisation, do not claim that a participant can be located by identity. Remove problematic published content from the current version if discovered, and assess repository history/copy exposure separately; a deletion commit alone does not erase it.
 
-### 3.4 Review procedure and decision evidence
-
-Martim and Afonso check question coverage and segment separation. Pedro explains anonymous Git retention and obtains participation permission. Pedro/Ricardo check the answer record before the first commit; Martim checks it before merge. Check names, addresses, companies, exact dates, unusual events and combinations of role/context that could reveal identity. Broaden ranges or omit distinctive details; if anonymity cannot be achieved, do not publish the answer. Record actual reviewer/date/PR evidence in the answer record and task.
-
-The research rules are recorded in [DEC-07](planning/decisions-and-feedback.md#dec-07-research-preparation-disc-01-01). Production data policies are separate.
-
 ## 4. Interview guides
 
-The interview questions are maintained only in the [interview template folder](templates/interviews/README.md). Collection is deferred; all templates remain blank. Question numbers in the P1–P7 coverage table refer to those templates.
+The interview questions are maintained only in the interview template folder. The templates remain blank; completed simulated records are stored separately. Question numbers in the P1–P7 coverage table refer to those templates.
 
 ### 4.1 Administrator (professional or volunteer)
 
@@ -168,8 +143,6 @@ Pedro implements the survey in Microsoft Forms using the consent and settings de
 
 ## 7. Findings
 
-> **To be completed.** Identify whether each finding comes from a real interview or a simulation.
-
 ### 7.1 Actual participants
 
 | Answer record ID | Broad segment | Month (if non-identifying) | Mode | Approximate duration | Anonymous evidence reference |
@@ -204,7 +177,7 @@ Expected limitations, to confirm or adjust:
 | When | Activity |
 |---|---|
 | DISC-01-01 | Define the plan, consent, roles, storage rules and blank templates |
-| Before DISC-01-02 recruitment | Check anonymous templates, Git readership/visibility and survey settings; record Martim's review |
+| Before DISC-01-02 recruitment | Check anonymous templates, Git readership/visibility and survey settings; |
 | DISC-01-02 (deferred) | Recruit and schedule participants; conduct interviews and resident survey |
 | DISC-01-03 | Analyse actual evidence, document limitations and resulting decisions |
 | Later task-based testing | Evaluate usability/adoption against concrete tasks |
