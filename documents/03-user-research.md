@@ -1,7 +1,7 @@
 # 3. User Research
 
 **Project:** Building Maintenance Coordinator
-**Sprint:** 1 · **Status:** eight simulated answer records inventoried and checked for DISC-01-02; independent review and DISC-01-03 synthesis pending; no real participant collection. · **Revision:** 2026-10-22
+**Sprint:** 1 · **Status:** eight simulated answer records inventoried and checked for DISC-01-02; DISC-01-03 synthesis drafted for independent review; no real participant collection. · **Revision:** 2026-10-22
 
 > **Research method:** interviews may be real or simulated, as clarified by the lecturer. Identify simulated responses as such and distinguish them from real participant evidence.
 
@@ -156,7 +156,7 @@ Checked on **2026-10-22**: zero real participants, sessions, survey responses, o
 
 The [inventory and verification record](research/answers/README.md) identifies provenance, 78 simulated answers, question-level P1–P7 coverage, contrasting scenarios and coordination topics. Dates are document dates; interviewers, session duration and consent are not applicable. The agent checked the existing records; no team member is credited with a real session. Original generation tooling/process is not documented.
 
-This is the collection handoff for DISC-01-03, not the final synthesis. The public findings below remain separate; no simulated answer is counted as independent confirmation of a public source or real-world hypothesis.
+This is the collection inventory used by the DISC-01-03 synthesis in sections 7.2.1-7.3. The public findings below remain separate; no simulated answer is counted as independent confirmation of a public source or real-world hypothesis.
 
 ### 7.1.1 Public sources reviewed
 
@@ -185,11 +185,55 @@ This is the collection handoff for DISC-01-03, not the final synthesis. The publ
 | PS-07 | Property Meld frames scheduling and assignment cycle time, vendor performance and bottleneck visibility as core maintenance-management concerns. | 0 participants; supported by S7 and S9 | Supports measuring time-to-assign, time-to-schedule, completion and handoff bottlenecks if primary data becomes available; no local baseline exists. | S7, S9 |
 | PS-08 | Competitor documentation treats communication gaps, missing request information, follow-up and approval visibility as operational problems. | 0 participants; supported by S8 | Supports testing minimum request information, approval states and communication history in later usability work; vendor claims do not validate severity. | S8 |
 
+### 7.2.1 Scenario synthesis (DISC-01-03)
+
+**Analysed on 2026-10-22; independent review pending.** Inputs are the eight existing simulated answer records introduced in [PR #35](https://github.com/Phenriquerafael/LABDSOF_G9A/pull/35), inventoried in [PR #37](https://github.com/Phenriquerafael/LABDSOF_G9A/pull/37), and the historical public-source findings PS-01 to PS-08 above. No new interviews, responses or source visits were performed. Public-source access dates remain 2026-10-14.
+
+Method: compare the recorded answers by effort, duplication, urgency, adoption, access, dispatch and AI trust; retain contrasting cases within each segment; separate the content of a fictional answer from the interpretation below. Counts are document coverage, **not supporting participants**: four administrator records (two professional and two volunteer), two resident records and two contractor records; zero real participants throughout. Question numbers below refer to each record's guide, not Q1-Q9. Fictional accounts cannot independently corroborate each other or the public sources.
+
+| ID / topic | Recorded scenario content and exact references | Interpretation and counterexample | Context from public findings |
+|---|---|---|---|
+| SF-01 / effort | [SIM-ADM-P-01](research/answers/SIM-ADM-P-01.md), questions 3/11: 45 active minutes in the example; [SIM-ADM-P-02](research/answers/SIM-ADM-P-02.md), 3/11: 10 minutes with an existing tool; [SIM-ADM-V-01](research/answers/SIM-ADM-V-01.md), 3/11: about one hour; [SIM-ADM-V-02](research/answers/SIM-ADM-V-02.md), 3/11: 15 minutes. Four fictional records; all numbers constructed. | Coordination effort may depend on process maturity and contact volume, not role alone. Focus the experiment on fragmented coordination; low-effort cases challenge a universal value claim. Waiting for a contractor is not active administration. | PS-03 and PS-07 motivate examining handoffs; they supply no local effort baseline. |
+| SF-02 / duplicates | All four administrator records, question 6: P-01 describes six repeated communications out of 20 and two apparently similar but distinct faults; P-02 one out of 15; V-01 two repeated messages out of five; V-02 none out of three. [SIM-MOR-01](research/answers/SIM-MOR-01.md) and [SIM-MOR-02](research/answers/SIM-MOR-02.md), question 3, describe not reporting when someone else may have done so. | Duplicate volume is not uniformly high even within fiction. Different denominators and invented periods prohibit pooling rates. Preserve separate reports and human review of links; silence does not show lack of impact. | PS-06 concerns feature availability, not proof of duplicate frequency. |
+| SF-03 / urgency | Four administrator records, question 5: P-01/V-01/V-02 seek technical input when uncertain; P-02 describes triage that worked. | Missing context and uncertainty deserve explicit handling, but poor current triage is not established. Retain manual judgement and independent critical-signal rules; do not promise diagnosis or safety. | PS-03/04 concern repair outcomes, not AI classification accuracy. |
+| SF-04 / administrator adoption | Four administrator records, questions 9/12/14: P-01 considers a limited pilot without migration; P-02 requires demonstrated integration; V-01 wants simplicity and collective cost approval; V-02 sees little reason to add a paid tool. | Conditional interest is not adoption. Keep professionals as the primary experiment segment, but compare process maturity within it; volunteers cannot validate business purchasing. Integration is a barrier to test, not a commitment to build integrations now. | PS-02/06 show existing alternatives; supplier feature claims do not establish switching demand. |
+| SF-05 / resident access and privacy | Two resident records, questions 4-6: MOR-01 wants receipt/status with a short mobile flow and private, optional impact confirmation; MOR-02 prefers telephone/help and rejects mandatory digital participation. | A simple page alone may not include everyone. Retain private reports, administrator-published summaries and optional impact confirmation; evaluate an assisted reporting route before claiming accessibility. These are two fictional perspectives, not a usability test. | PS-01/05 support investigating communication and controlled information sharing in other contexts. |
+| SF-06 / dispatch and closure | [SIM-PRE-01](research/answers/SIM-PRE-01.md) and [SIM-PRE-02](research/answers/SIM-PRE-02.md), questions 1-5, distinguish scope approval, acceptance, availability, access and completion. PRE-01 accepts a simple request but keeps its own calendar; PRE-02 rejects another mandatory app and automatic penalties. Administrator records, questions 7-8, provide four additional fictional process perspectives. | Retain distinct approval, response, booking, completion and closure steps. A calendar event cannot prove contractor availability. Preserve refusal, rescheduling and a manual coordination option; no assumed contractor adoption. | PS-07/08 motivate scheduling and approval visibility, without validating this local workflow. |
+| SF-07 / AI value and trust | Four administrator records, question 10: P-01/V-01 ask for reasons, correction and a manual route; P-02 sees limited need for routine classification; V-02 would not adopt for AI. | Explainability and review are design conditions, not demonstrated trust or usefulness. Keep assisted classification as the academic experiment, compare it with rules/manual triage, and allow suggestions to be ignored. | None of PS-01 to PS-08 evaluates the proposed AI or proves its benefit. |
+
+### 7.2.2 Hypothesis disposition and next tests
+
+All P1-P7 remain **empirically unresolved**. Support or contradiction below applies only to the constructed scenarios; no hypothesis is marked confirmed or refuted about the target population.
+
+| Hypothesis | Scenario disposition / finding | Next evidence that could change the decision |
+|---|---|---|
+| P1 | Mixed: high-contact cases support investigating effort; low-effort cases challenge universal significance (SF-01). | Compare equivalent current-process and BMC tasks by active time, errors and assistance, including a structured-process counterexample; validate operational relevance separately. |
+| P2 | Mixed: duplication exists in some scenarios and is absent/rare in others (SF-02). | Real anonymised reports with common period/denominator for frequency; separately annotated same-fault versus different-fault pairs for duplicate-link evaluation. |
+| P3 | Mixed: uncertain cases coexist with working triage (SF-03). | Expert-reviewed cases, reasons for priority and errors under manual/rules/AI conditions; no safety guarantee from a small dataset. |
+| P4 | Conditional interest and resistance, not buying intent (SF-04). | Professional administrators complete a trial task and explain actual purchasing/integration constraints; distinguish stated interest from continued use. |
+| P5 | Digital willingness in one profile and telephone preference in another (SF-05). | Task-based reporting with people of differing digital access, recording completion, errors, assistance and privacy comprehension. |
+| P6 | Conditional request acceptance with calendar/app resistance (SF-06). | Test accept/refuse/reschedule and change-of-scope tasks with contractors; check actual willingness to maintain the proposed channel. |
+| P7 | Correction/explanation requested, but some profiles see little AI value (SF-07). | Compare task outcomes with rules/manual and AI suggestions, including wrong and unavailable suggestions; record corrections and harmful reliance. |
+
+### 7.2.3 Coordination-effort baseline
+
+**No empirical baseline estimate is available.** SF-01 contains invented case times of 45, 10, about 60 and 15 active minutes. The corresponding question-11 ranges are 30-60, 10-15, 40-70 and 15-20 minutes within those fictional profiles. Do not average these into a user baseline, use them to calibrate a reduction target, or interpret elapsed repair time as effort saved.
+
+Retain the [vision's measurement protocol](04-product-vision.md#51-primary-success-criterion-dec-08) as a proposal: equivalent tasks, active-time measurement, correctness/assistance guards and a frozen protocol before evaluation. Its 30% target is a proposed success threshold, not a result derived from these records. A later measured simulation can establish controlled-task performance, not operational savings. DEC-08 and LIM-04 remain open.
+
 ### 7.3 Resulting product decisions
 
-| Finding | Decision taken | Where reflected (backlog, vision, ADR) |
+These are synthesis proposals for independent/team review, not lecturer feedback, stakeholder approval or implemented changes. Full rationale and affected artefacts are in the [decision record](planning/decisions-and-feedback.md#disc-01-03-synthesis-proposals).
+
+| Finding | Proposal and reason | Affected artefacts |
 |---|---|---|
-| | | |
+| SF-01/04 | SP-01: qualify the problem by fragmented process/contact volume; retain professionals as primary and volunteers as contrast. Do not broaden to a marketplace or promise universal savings. | DEC-02; [problem sections 2/4/8](01-problem-and-opportunity-report.md); [vision personas/J2](04-product-vision.md); US-02/06 |
+| SF-02/05 | SP-02: retain simple reporting, controlled shared status and optional impact confirmation; keep reviewed duplicate suggestions optional (Should), without automatic merging or urgency changes. | DEC-07; [RF-01/04/05](requirements.md#functional-requirements); [US-01/04/05/10](05-product-backlog.md#4-stories-and-criteria); vision J1/participation |
+| SF-03/07 | SP-03: retain reviewed AI classification and manual/rules fallback for the academic experiment; usefulness remains a test question. No expansion to autonomous diagnosis. | DEC-05; [RF-02/03 and NFR-03/10](requirements.md); US-02/03, AI-01; vision J2 |
+| SF-06 | SP-04: retain the five-step separation of approval, acceptance, booking confirmation, completion and closure. Do not add compulsory contractor app adoption to the MVP. | DEC-10; [RF-07/08/09 and NFR-11](requirements.md); US-07/08/09; vision J3 and section 4.3 |
+| SF-01/07 | SP-05: retain the evaluation protocol and provisional target without treating fictional times as baseline evidence; include low-effort and incorrect-suggestion cases. | DEC-08; vision section 5.1; EN-04 and AI-01 |
+
+The existing MVP and MoSCoW priorities are retained because the synthesis supplies test cases and boundary conditions, not empirical evidence warranting expansion or reprioritisation. The problem framing is narrowed explicitly; assisted reporting is a design/testing question, not a silently added implementation commitment. No statutory approval limits or emergency guarantees are inferred from fictional answers.
 
 ## 8. Limitations (review after collection)
 
@@ -227,4 +271,4 @@ DISC-01-02 now has a traceable simulated collection package and the historical p
 
 For any future real collection, apply the ownership, access and retention defined in DEC-07 and section 3. Pedro schedules collection under DISC-01-02; no sessions are scheduled by this preparation. Findings inform [requirements](requirements.md) and [backlog](05-product-backlog.md) prioritisation.
 
-Store only reviewed anonymous answers in `documents/research/answers/`; no identity maps, contact lists or consent attachments. Link anonymous record IDs to findings without creating a participant lookup. Preparation evidence is tracked in [DISC-01-01](backlog/tasks/DISC-01-01-prepare-research.md#completion-record); the simulated collection inventory is tracked in [DISC-01-02](backlog/tasks/DISC-01-02-conduct-research.md#completion-record), with synthesis remaining DISC-01-03.
+Store only reviewed anonymous answers in `documents/research/answers/`; no identity maps, contact lists or consent attachments. Link anonymous record IDs to findings without creating a participant lookup. Preparation evidence is tracked in [DISC-01-01](backlog/tasks/DISC-01-01-prepare-research.md#completion-record); the simulated collection inventory is tracked in [DISC-01-02](backlog/tasks/DISC-01-02-conduct-research.md#completion-record), with synthesis recorded in [DISC-01-03](backlog/tasks/DISC-01-03-synthesise-findings.md#completion-record), pending independent review.

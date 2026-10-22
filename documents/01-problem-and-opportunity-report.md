@@ -1,9 +1,9 @@
 # 1. Problem and Opportunity Report
 
 **Project:** Building Maintenance Coordinator
-**Sprint:** 1 · **Status:** draft v0.3 (to be reviewed after interviews) · **Revision:** 2026-10-09
+**Sprint:** 1 · **Status:** synthesis revision; independent review pending · **Revision:** 2026-10-22
 
-> Assumptions and benefits not yet demonstrated are hypotheses. Primary evidence belongs in [User Research](03-user-research.md); competitor sources belong in [document 02](02-market-and-competitor-analysis.md). This report links that evidence to the problem without duplicating the findings.
+> Assumptions and benefits not yet demonstrated are hypotheses. Public-source findings and explicitly simulated scenario interpretations belong in [User Research](03-user-research.md); competitor sources belong in [document 02](02-market-and-competitor-analysis.md). This report links that evidence to the problem without duplicating the findings.
 
 ---
 
@@ -18,7 +18,7 @@ The community includes residents and property owners, as well as maintenance con
 
 ## 2. Problem
 
-> **[Hypothesis]** In some residential buildings, reports scattered across calls, messages and emails increase the effort required for triage, contractor contact and follow-up. The frequency of duplicates, triage quality and limitations of current records still require evidence.
+> **[Hypothesis]** In some residential buildings, reports scattered across calls, messages and emails increase the effort required for triage, contractor contact and follow-up. The opportunity is conditional on fragmented coordination: an already structured process or low request volume may offer little benefit from another tool (SF-01/04). Duplicate frequency, triage quality and local process limitations remain empirically unresolved.
 
 ### Connection to the project theme (community resilience)
 
@@ -46,22 +46,32 @@ Reduce administrators' active effort when triaging and preparing an intervention
 
 ## 5. Problem evidence
 
-**Current status: no primary evidence collected.** Complete this section only with real, cited sources.
+**Synthesis dated 2026-10-22:** eight fictional interview records and nine previously registered public sources; zero real participants. The simulated method is permitted by the clarification recorded in the research plan. It supports academic scenario analysis, not claims of market prevalence, actual adoption or measured savings. No new external-source review was performed; public-source access dates remain 2026-10-14.
 
-### Sources to consult
+| ID | Evidence type / reference | Implication for the problem | Assumptions |
+|---|---|---|---|
+| E1 | Historical public findings [PS-03/04/05](03-user-research.md#72-findings), based on S3-S5 | Repair coordination, communication and records warrant investigation; UK housing casework does not establish prevalence in Portuguese condominiums. | P1/P3 |
+| E2 | Vendor descriptions [PS-02/06/07/08](03-user-research.md#72-findings), S2/S6-S9 | Existing tools already address coordination; availability and marketing claims do not demonstrate local switching demand or differentiation. | P1/P4/P6 |
+| E3 | Scenario interpretations [SF-01/04](03-user-research.md#721-scenario-synthesis-disc-01-03), four administrator documents, zero participants | Focus on fragmented processes; structured professional and low-volume volunteer cases challenge universal need. | P1/P4 |
+| E4 | Scenario interpretations SF-02/05, four administrator and two resident documents, zero participants | Duplicates and non-reporting require different responses; preserve separate reporting and voluntary participation. | P2/P5 |
+| E5 | Scenario interpretations SF-03/07, four administrator documents, zero participants | Uncertainty is not proof of poor triage; explainable suggestions are not proof of AI value or trust. | P3/P7 |
+| E6 | Scenario interpretation SF-06, two contractor and four administrator documents, zero participants | Approval, acceptance, booking and closure must not be conflated; contractor adoption remains uncertain. | P6 |
 
-- Interviews with administrators and residents (plan in deliverable 3).
-- Public reports or articles on maintenance and condominium management in Portugal (consumer associations, industry associations, media). *Research pending; record the source and date of each reference.*
-- Public competitor documentation (deliverable 2).
-- Legal framework for condominium administration in Portugal. *Confirm using an official source before citing legal provisions.*
+SF references resolve to the [source-linked synthesis table](03-user-research.md#721-scenario-synthesis-disc-01-03); counts overlap between findings and must not be summed as independent support. Government guidance PS-01 is contextual, not Portuguese condominium law. No legal rule or spending limit is asserted here.
 
-### Evidence register (to be completed)
+### Stakeholder implications
 
-Reference finding IDs from document 03 and sources from document 02; retain only their implications for the problem here. Domain sources not recorded in those documents must include the exact URL and date.
+- **Professional administrators:** compare fragmented and already organised processes within the segment. Purchase authority, integration and migration barriers may outweigh a feature benefit (SF-01/04).
+- **Volunteers:** simplicity and low volume can make existing tools sufficient. Their scenarios do not validate professional buying behaviour (SF-01/04).
+- **Residents:** receipt/status and privacy need evaluation alongside telephone/assisted participation; non-reporting is not absence of need (SF-02/05).
+- **Contractors:** request clarity must coexist with refusal, own calendars, rescheduling and separate approval of changed scope (SF-06).
+- **Caretakers, assemblies and insurers:** no dedicated scenario or participant record exists; their table entries remain untested stakeholder hypotheses. Do not infer their authority or needs from contractor answers.
 
-| ID | Type | Finding/source reference and date | Implication for the problem | Assumption affected |
-|---|---|---|---|---|
-| E1 (to be completed) | — | — | — | — |
+### Effort baseline and decision consequence
+
+No measured baseline or real participant estimate is available. The four administrator scenario cases contain 45, 10, about 60 and 15 active minutes; these invented values are not a sample mean or an operational benchmark. See [baseline limits](03-user-research.md#723-coordination-effort-baseline). Retain DEC-08's proposed controlled-task protocol and target without claiming achieved savings.
+
+The [SP-01 to SP-05 proposals](planning/decisions-and-feedback.md#disc-01-03-synthesis-proposals) narrow the framing and retain the bounded MVP with explicit reasons; no new integration, marketplace or autonomous decision is committed.
 
 ## 6. Consequences of leaving the problem unresolved
 
@@ -82,6 +92,8 @@ Reference finding IDs from document 03 and sources from document 02; retain only
 | P6 | Contractors will accept requests and scheduling through the platform | Contractor interviews | Dispatch remains manual |
 | P7 | Administrators trust AI-assisted recommendations if they are explainable and subject to approval | Prototype testing | AI is underused or rejected |
 
+The [P1-P7 disposition table](03-user-research.md#722-hypothesis-disposition-and-next-tests) records each hypothesis as empirically unresolved, identifies scenario support/counterexamples and specifies the next test. No hypothesis is confirmed merely because a fictional profile expresses it.
+
 | Risk | Likelihood | Impact | Mitigation |
 |---|---|---|---|
 | Limited access to professional administrators | High | High | Also involve volunteers; document the limitation |
@@ -92,7 +104,7 @@ Reference finding IDs from document 03 and sources from document 02; retain only
 
 ## 8. Opportunity
 
-Turn an informal, fragmented process into a traceable chain: **report → triage → dispatch → resolution → history**, with urgency as a central concern and AI as support, never the final decision-maker. P1 is central to the opportunity. P2 and P3 determine the value of duplicate detection and assisted triage; negative findings should change those capabilities. Adoption (P4–P6), AI usefulness (P7) and differentiation require their own evaluation.
+For buildings where coordination is fragmented and repeated handoffs create material effort, test a traceable chain: **report → triage → dispatch → resolution → history**, with urgency as a central concern and AI as support, never the final decision-maker. P1 is central to the opportunity. P2 and P3 determine the value of duplicate detection and assisted triage; negative findings should change those capabilities. Adoption (P4–P6), AI usefulness (P7) and differentiation require their own evaluation.
 
 ## 9. Investor question (Sprint 1)
 

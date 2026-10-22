@@ -58,6 +58,22 @@ A provisional baseline enables consistent documents; it does not mean approval. 
 - **DEC-07 input:** the impact-confirmation review adds neutral count wording, no confirmation list for administrators and an open option on exact counts in very small buildings; the policy itself stays with DEC-07.
 - **Affected documents:** [vision](../04-product-vision.md), [strategy](../building-maintenance-coordinator-strategy.md), [requirements](../requirements.md), [backlog §5](../05-product-backlog.md#5-wont-in-this-baseline--alternatives), [README](../../README.md). The IoT row of the former roadmap is carried by backlog §5 since the roadmap was removed in #16. US-04 criteria are unchanged; the counter wording is a refinement for the US-04 owner to consider.
 
+### DISC-01-03 synthesis proposals
+
+**Recorded 2026-10-22 for [#21](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/21).** Proposed by the agent during implementation; independent/team approval pending. Allocation remains in the backlog README. This is research synthesis, not lecturer feedback or evidence of meeting the separate feedback obligation.
+
+Evidence: [SF-01 to SF-07 and PS-01 to PS-08](../03-user-research.md#721-scenario-synthesis-disc-01-03). Existing fictional answers are unchanged. All P1-P7 remain empirically unresolved; public sources supply context only.
+
+| Proposal / existing decision | Before and proposed outcome | Rationale / alternative considered | Affected artefacts |
+|---|---|---|---|
+| SP-01 / DEC-02 | Broad coordination opportunity -> explicitly conditional on fragmentation/contact volume; retain professionals as primary | SF-01/04 show contrasting structured/low-volume scenarios. Reject extrapolating volunteer interest to business demand; do not commit new integrations. | [Problem sections 2/4/5/8](../01-problem-and-opportunity-report.md), [vision personas/J2](../04-product-vision.md), [US-02/06](../05-product-backlog.md#4-stories-and-criteria) |
+| SP-02 / DEC-07 | Retain controlled shared status and optional participation; US-05 remains Should | SF-02/05 include low duplication, distinct faults and telephone preference. Automatic merging and mandatory digital participation are not justified. Assisted reporting needs design/testing before implementation commitment. | [RF-01/04/05](../requirements.md#functional-requirements), US-01/04/05/10, vision J1/participation |
+| SP-03 / DEC-05 | Retain correctable AI with rules/manual fallback as an experiment | SF-03/07 do not establish poor current triage or trust. Reject autonomous diagnosis; compare against the existing manual/rules baseline before claiming benefit. | RF-02/03, NFR-03/10, US-02/03, AI-01, vision J2 |
+| SP-04 / DEC-10 | Retain separate approval, acceptance, booking confirmation, completion and closure | SF-06 challenges automatic availability and compulsory extra apps. Retain manual coordination and refusal/rescheduling; no new contractor-app requirement. | RF-07/08/09, NFR-11, US-07/08/09, [vision section 4.3](../04-product-vision.md#43-distinct-steps-dec-10) |
+| SP-05 / DEC-08 | Retain provisional controlled-task protocol/threshold; no empirical baseline supplied | SF-01 times are fictional; SF-07 requires wrong/unavailable-suggestion cases. Reject averaging invented times or claiming operational savings. Include low-effort process counterexamples. | [Vision section 5.1](../04-product-vision.md#51-primary-success-criterion-dec-08), EN-04, AI-01, LIM-04 |
+
+Requirement and story IDs refer to [requirements](../requirements.md) and the [product backlog](../05-product-backlog.md). Existing priorities and MVP boundaries are retained; this synthesis changes the problem's qualification and evidence traceability, not the implementation scope. Independent review should assess the source-to-interpretation links and the rationale for retaining scope. LIM-01 remains a real-world validation limitation, not a requirement to invent interviews to complete the accepted simulated exercise.
+
 ## 2. Editorial harmonisation
 
 These are neither investor feedback nor user-validated choices.
@@ -88,7 +104,7 @@ Use the [template](../templates/investor-review.md). At least one decision must 
 
 | ID | Limitation | Impact | Next action | Owner |
 |---|---|---|---|---|
-| LIM-01 | No real participant research; eight simulated records inventoried on 2026-10-22 | Scenarios do not validate value, frequency or adoption | DISC-01-03 separates scenario synthesis from empirical claims; real validation remains future work | See DISC-01 allocation |
+| LIM-01 | No real participant research; eight simulated records inventoried on 2026-10-22 | Scenarios do not validate value, frequency or adoption | DISC-01-03 records SF-01 to SF-07 and P1-P7 dispositions; empirical validation remains future work | See DISC-01 allocation |
 | LIM-02 | Incomplete competitor sources | Differentiation not demonstrated | DISC-02 | To be assigned |
 | LIM-03 | No application code, CI or deployment in this baseline | Later technical requirements not yet demonstrated; optional skeleton excluded from Sprint 1 by DEC-11 | EN-01 design; EN-02 considered in later implementation planning | To be assigned |
 | LIM-04 | No measured baseline for the primary metric; the current-process condition will be simulated | An effort reduction can be shown only in controlled tasks, not in real operation | DISC-01-02 scenario times are fictional, not a baseline; obtain empirical estimates or controlled task measurements and freeze the protocol/threshold before EN-04 | Afonso (BA/PO) |
