@@ -3,7 +3,7 @@
 **Project:** Building Maintenance Coordinator
 **Sprint:** 1 · **Status:** anonymous-answer research plan (v0.6); collection not started. · **Revision:** 2026-10-15
 
-> **Assignment rule:** do not fabricate research evidence. This document contains the research plan and references the blank interview templates. Findings sections remain **blank until real data exists**. If interviewing real users is not possible, state this in the limitations section.
+> **Research method:** interviews may be real or simulated, as clarified by the lecturer. Identify simulated responses as such and distinguish them from real participant evidence.
 
 ---
 
@@ -168,7 +168,7 @@ Pedro implements the survey in Microsoft Forms using the consent and settings de
 
 ## 7. Findings
 
-> **To be completed.** Do not enter findings without real data.
+> **To be completed.** Identify whether each finding comes from a real interview or a simulation.
 
 ### 7.1 Actual participants
 
