@@ -39,6 +39,10 @@ Q6 provides context about alternatives rather than proving a product hypothesis.
 
 ## 2. Methods
 
+**Method used in Sprint 1:** written simulated interviews with eight fictional profiles, plus synthesis of the historical public-source register. The [inventory](research/answers/README.md) owns record IDs, segment coverage and provenance; section 7 owns findings and interpretation. Simulated answers are design material, not empirical observations.
+
+**Original preparation for possible real collection:** the table and targets below are retained for reuse. Real interviews, the survey and prototype testing were not executed and are not additional completion requirements for DISC-01-03. Future empirical validation requires separately planned work and the safeguards in section 3.
+
 | Method | Purpose | Participants | Effort |
 |---|---|---|---|
 | Semi-structured interviews (30–40 min) | Q1–Q7, Q9 | Administrators, contractors | Primary method |
@@ -47,7 +51,7 @@ Q6 provides context about alternatives rather than proving a product hypothesis.
 | Public competitor documentation / demos | Q6 | n/a | Low |
 | Prototype testing (late Sprint 1 or Sprint 2) | Q7, usability | Administrators, residents | Medium |
 
-### Target sample
+### Target sample for future real collection
 
 | Group | Target | Note |
 |---|---|---|
@@ -135,6 +139,8 @@ Pedro implements the survey in Microsoft Forms using the consent and safeguards 
 
 ## 6. Analysis
 
+For the completed simulated exercise, use the method and source-to-finding table in section 7.2.1. The following procedure is retained for future real collection.
+
 - Transcribe or summarise each interview in **structured notes** immediately after the session.
 - Code by theme (urgency, duplicates, costs, channels, trust in AI…).
 - Record **quotes** only with permission and without identifying details.
@@ -147,16 +153,7 @@ Pedro implements the survey in Microsoft Forms using the consent and safeguards 
 
 Checked on **2026-10-22**: zero real participants, sessions, survey responses, observations or prototype tests are recorded. No recruitment attempts are documented, so recruitment failure is not asserted. The eight existing records are fictional written answers created on 2026-10-21, not interview sessions.
 
-| Segment | Simulated documents | Real participants | Record references |
-|---|---|---|---|
-| Professional administrators | 2 | 0 | [SIM-ADM-P-01](research/answers/SIM-ADM-P-01.md), [SIM-ADM-P-02](research/answers/SIM-ADM-P-02.md) |
-| Volunteer administrators | 2 | 0 | [SIM-ADM-V-01](research/answers/SIM-ADM-V-01.md), [SIM-ADM-V-02](research/answers/SIM-ADM-V-02.md) |
-| Residents | 2 | 0 | [SIM-MOR-01](research/answers/SIM-MOR-01.md), [SIM-MOR-02](research/answers/SIM-MOR-02.md) |
-| Contractors | 2 | 0 | [SIM-PRE-01](research/answers/SIM-PRE-01.md), [SIM-PRE-02](research/answers/SIM-PRE-02.md) |
-
-The [inventory and verification record](research/answers/README.md) identifies provenance, 78 simulated answers, question-level P1–P7 coverage, contrasting scenarios and coordination topics. Dates are document dates; interviewers, session duration and consent are not applicable. The agent checked the existing records; no team member is credited with a real session. Original generation tooling/process is not documented.
-
-This is the collection inventory used by the DISC-01-03 synthesis in sections 7.2.1-7.3. The public findings below remain separate; no simulated answer is counted as independent confirmation of a public source or real-world hypothesis.
+The [canonical inventory](research/answers/README.md#inventário-e-cobertura-dos-segmentos) links the eight records: two fictional profiles per segment, with 78 written answers in total. Creation dates and provenance are recorded there; the synthesis follows in sections 7.2.1-7.3. Public sources remain separate from fictional answers.
 
 ### 7.1.1 Public sources reviewed
 
@@ -193,7 +190,7 @@ Method: compare the recorded answers by effort, duplication, urgency, adoption, 
 
 | ID / topic | Recorded scenario content and exact references | Interpretation and counterexample | Context from public findings |
 |---|---|---|---|
-| SF-01 / effort | [SIM-ADM-P-01](research/answers/SIM-ADM-P-01.md), questions 3/11: 45 active minutes in the example; [SIM-ADM-P-02](research/answers/SIM-ADM-P-02.md), 3/11: 10 minutes with an existing tool; [SIM-ADM-V-01](research/answers/SIM-ADM-V-01.md), 3/11: about one hour; [SIM-ADM-V-02](research/answers/SIM-ADM-V-02.md), 3/11: 15 minutes. Four fictional records; all numbers constructed. | Coordination effort may depend on process maturity and contact volume, not role alone. Focus the experiment on fragmented coordination; low-effort cases challenge a universal value claim. Waiting for a contractor is not active administration. | PS-03 and PS-07 motivate examining handoffs; they supply no local effort baseline. |
+| SF-01 / effort | [SIM-ADM-P-01](research/answers/SIM-ADM-P-01.md), questions 3/11: fragmented contacts; [SIM-ADM-P-02](research/answers/SIM-ADM-P-02.md), 3/11: an existing structured tool; [SIM-ADM-V-01](research/answers/SIM-ADM-V-01.md), 3/11: several contacts and access coordination; [SIM-ADM-V-02](research/answers/SIM-ADM-V-02.md), 3/11: low-volume direct coordination. Four fictional records; constructed times are extracted once in section 7.2.3. | Coordination effort may depend on process maturity and contact volume, not role alone. Focus the experiment on fragmented coordination; low-effort cases challenge a universal value claim. Waiting for a contractor is not active administration. | PS-03 and PS-07 motivate examining handoffs; they supply no local effort baseline. |
 | SF-02 / duplicates | All four administrator records, question 6: P-01 describes six repeated communications out of 20 and two apparently similar but distinct faults; P-02 one out of 15; V-01 two repeated messages out of five; V-02 none out of three. [SIM-MOR-01](research/answers/SIM-MOR-01.md) and [SIM-MOR-02](research/answers/SIM-MOR-02.md), question 3, describe not reporting when someone else may have done so. | Duplicate volume is not uniformly high even within fiction. Different denominators and invented periods prohibit pooling rates. Preserve separate reports and human review of links; silence does not show lack of impact. | PS-06 concerns feature availability, not proof of duplicate frequency. |
 | SF-03 / urgency | Four administrator records, question 5: P-01/V-01/V-02 seek technical input when uncertain; P-02 describes triage that worked. | Missing context and uncertainty deserve explicit handling, but poor current triage is not established. Retain manual judgement and independent critical-signal rules; do not promise diagnosis or safety. | PS-03/04 concern repair outcomes, not AI classification accuracy. |
 | SF-04 / administrator adoption | Four administrator records, questions 9/12/14: P-01 considers a limited pilot without migration; P-02 requires demonstrated integration; V-01 wants simplicity and collective cost approval; V-02 sees little reason to add a paid tool. | Conditional interest is not adoption. Keep professionals as the primary experiment segment, but compare process maturity within it; volunteers cannot validate business purchasing. Integration is a barrier to test, not a commitment to build integrations now. | PS-02/06 show existing alternatives; supplier feature claims do not establish switching demand. |
@@ -219,32 +216,30 @@ All P1-P7 remain **empirically unresolved**. Support or contradiction below appl
 
 **No empirical baseline estimate is available.** SF-01 contains invented case times of 45, 10, about 60 and 15 active minutes. The corresponding question-11 ranges are 30-60, 10-15, 40-70 and 15-20 minutes within those fictional profiles. Do not average these into a user baseline, use them to calibrate a reduction target, or interpret elapsed repair time as effort saved.
 
-Retain the [vision's measurement protocol](04-product-vision.md#51-primary-success-criterion-dec-08) as a proposal: equivalent tasks, active-time measurement, correctness/assistance guards and a frozen protocol before evaluation. Its 30% target is a proposed success threshold, not a result derived from these records. A later measured simulation can establish controlled-task performance, not operational savings. DEC-08 and LIM-04 remain open.
+Retain the [vision's measurement protocol](04-product-vision.md#51-primary-success-criterion-dec-08) as a proposal: equivalent tasks, active-time measurement, correctness/assistance guards and a frozen protocol before evaluation. Its 30% target is a proposed success threshold, not a result derived from these records. A later measured simulation can establish controlled-task performance, not operational savings. DEC-08 and LIM-04 remain open. The answers also describe different per-occurrence activities and do not isolate the receipt-to-approved-request window measured in the vision. Even hypothetical comparisons must use matching start/stop events; no conversion to that window can be inferred from these records.
 
 ### 7.3 Resulting product decisions
 
-These are synthesis proposals for independent/team review, not lecturer feedback, stakeholder approval or implemented changes. Full rationale and affected artefacts are in the [decision record](planning/decisions-and-feedback.md#disc-01-03-synthesis-proposals).
+The [decision register](planning/decisions-and-feedback.md#disc-01-03-synthesis-proposals) is canonical for proposal wording, rationale, review status and affected product artefacts. The mapping below connects findings to those proposals without maintaining a second decision record.
 
-| Finding | Proposal and reason | Affected artefacts |
+| Findings | Proposal | Consequence |
 |---|---|---|
-| SF-01/04 | SP-01: qualify the problem by fragmented process/contact volume; retain professionals as primary and volunteers as contrast. Do not broaden to a marketplace or promise universal savings. | DEC-02; [problem sections 2/4/8](01-problem-and-opportunity-report.md); [vision personas/J2](04-product-vision.md); US-02/06 |
-| SF-02/05 | SP-02: retain simple reporting, controlled shared status and optional impact confirmation; keep reviewed duplicate suggestions optional (Should), without automatic merging or urgency changes. | DEC-07; [RF-01/04/05](requirements.md#functional-requirements); [US-01/04/05/10](05-product-backlog.md#4-stories-and-criteria); vision J1/participation |
-| SF-03/07 | SP-03: retain reviewed AI classification and manual/rules fallback for the academic experiment; usefulness remains a test question. No expansion to autonomous diagnosis. | DEC-05; [RF-02/03 and NFR-03/10](requirements.md); US-02/03, AI-01; vision J2 |
-| SF-06 | SP-04: retain the five-step separation of approval, acceptance, booking confirmation, completion and closure. Do not add compulsory contractor app adoption to the MVP. | DEC-10; [RF-07/08/09 and NFR-11](requirements.md); US-07/08/09; vision J3 and section 4.3 |
-| SF-01/07 | SP-05: retain the evaluation protocol and provisional target without treating fictional times as baseline evidence; include low-effort and incorrect-suggestion cases. | DEC-08; vision section 5.1; EN-04 and AI-01 |
+| SF-01/04 | SP-01 / DEC-02 | Qualify the opportunity by process fragmentation and contact volume |
+| SF-02/05 | SP-02 / DEC-07 | Retain controlled sharing and optional participation |
+| SF-03/07 | SP-03 / DEC-05 | Retain reviewed AI as an experiment with a manual/rules alternative |
+| SF-06 | SP-04 / DEC-10 | Keep approval, acceptance, booking and closure distinct |
+| SF-01/07 | SP-05 / DEC-08 | Evaluate equivalent tasks without using fictional times as a baseline |
 
-The existing MVP and MoSCoW priorities are retained because the synthesis supplies test cases and boundary conditions, not empirical evidence warranting expansion or reprioritisation. The problem framing is narrowed explicitly; assisted reporting is a design/testing question, not a silently added implementation commitment. No statutory approval limits or emergency guarantees are inferred from fictional answers.
+## 8. Limitations
 
-## 8. Limitations (review after collection)
+Current limitations after the 2026-10-22 synthesis (public-source review remains dated 2026-10-14):
 
-Current limitations after the 2026-10-22 inventory check (public-source review remains dated 2026-10-14):
-
-- No real participant research is recorded; eight simulated interviews explore scenarios only. Their counts, incidents and effort values are constructed, not measured. Problem frequency, effort, adoption and AI-value claims remain hypotheses.
+- No real participant research is recorded; eight simulated interviews explore scenarios only. Their counts, incidents and effort values are constructed, not measured. Profiles may reflect the product already imagined by their authors; adding contrasting fictional profiles does not remove that design bias. Problem frequency, effort, adoption and AI-value claims remain hypotheses.
 - The public review contains nine sources: government guidance, ombudsman casework summaries and vendor documentation. It is still not a systematic literature review, representative market study or independent competitor audit.
 - No recruitment attempts are documented; the simulated route is used under the clarification already recorded in this plan, not as evidence of failed recruitment. Consent and restricted participant notes are not applicable to fictional profiles.
 - The inventory distinguishes two fictional records per segment from zero real participants. No participant measurements or authorised quotations exist. Scenarios may inform provisional design options in DISC-01-03; they cannot validate participant-dependent claims or a real effort baseline. Original generation tooling/process and the date/record of the lecturer clarification are not supplied.
 
-Expected limitations once collection occurs:
+Risks to revisit if future real collection is undertaken:
 
 - **Small convenience sample**, not representative.
 - Limited access to **professional administrators**; probable bias towards volunteers.
@@ -259,15 +254,15 @@ Expected limitations once collection occurs:
 |---|---|
 | DISC-01-01 | Define the plan, consent, roles, storage rules and blank templates |
 | Before DISC-01-02 recruitment | Check anonymous templates, Git readership/visibility and survey settings; |
-| DISC-01-02 (2026-10-22 check) | Inventory and verify the eight existing simulated interviews; real collection and survey remain unexecuted; independent review pending |
-| DISC-01-03 | Synthesise public evidence and simulated scenarios separately; document limitations and proposed decisions |
+| DISC-01-02 (2026-10-22 check) | Inventory and verify the eight existing simulated interviews; PR #37 merged; real collection and survey remain unexecuted |
+| DISC-01-03 | Synthesis drafted in this branch; review and integration remain outstanding |
 | Later task-based testing | Evaluate usability/adoption against concrete tasks |
 
 ## 10. Records and decisions
 
 Use the [recording template](templates/research-record.md) for each actual interview, survey administration, observation, prototype test or public source. Findings remain in section 7; requirements and the problem report reference their IDs. Section 7.3 links to the [decision register](planning/decisions-and-feedback.md), which stores rationale, participants and decision status without duplicating meeting notes.
 
-DISC-01-02 now has a traceable simulated collection package and the historical public-source register. Independent review of this method alignment and PR integration remain pending. Real participant collection is not claimed; no adoption, problem-frequency or AI-value claim may be presented as validated.
+DISC-01-02 now has a traceable simulated collection package and the historical public-source register. The collection package was integrated through [PR #37](https://github.com/Phenriquerafael/LABDSOF_G9A/pull/37); issue #22 was verified closed on 2026-10-22. Review evidence is tracked in the [collection task](backlog/tasks/DISC-01-02-conduct-research.md#completion-record). Real participant collection is not claimed; no adoption, problem-frequency or AI-value claim may be presented as validated.
 
 For any future real collection, apply the ownership, access and retention defined in DEC-07 and section 3. Pedro schedules collection under DISC-01-02; no sessions are scheduled by this preparation. Findings inform [requirements](requirements.md) and [backlog](05-product-backlog.md) prioritisation.
 

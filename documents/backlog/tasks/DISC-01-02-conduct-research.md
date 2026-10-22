@@ -1,7 +1,7 @@
 # [DISC-01-02] Conduct research and record source evidence
 
-- Publication: Published as [#22](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/22); verified open on 2026-10-22.
-- Delivery: existing simulated research inventoried and checked on 2026-10-22; independent review and PR integration pending. This local record does not change the live board status.
+- Publication: Published as [#22](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/22); verified closed on 2026-10-22.
+- Delivery: integrated through [PR #37](https://github.com/Phenriquerafael/LABDSOF_G9A/pull/37). No GitHub review entries recorded as checked on 2026-10-22; independent approval is not inferred. Live status belongs to GitHub.
 - Horizon: Sprint 1; no remote milestone assigned when checked; team estimate/DoR confirmation not recorded.
 - Type: task; suggested labels: `type:task`, `area:product`, `phase:2`, `priority:must`.
 - Parent: [DISC-01](DISC-01-user-research.md); epic: [EP-00](../epics/EP-00-discovery-and-planning.md).
@@ -14,7 +14,7 @@
 
 Record research material about maintenance coordination with traceable methods, coverage and limitations. Reuse the eight existing simulated interviews and the public-source register. The plan records that the lecturer permits real or simulated interviews; this delivery uses the simulated route and does not claim real participant evidence.
 
-The original published description asks for real incidents and restricted notes. This local revision makes the simulated route explicit and aligns storage with the already documented DEC-07 choice of anonymous answers in Git. The reviewer must assess this alignment; the original remote issue is not silently marked complete.
+The original published description asks for real incidents and restricted notes. This local revision makes the simulated route explicit and aligns storage with the already documented DEC-07 choice of anonymous answers in Git. This alignment was included in PR #37. Its merge and issue closure are recorded above; neither is substituted for independent review evidence.
 
 Excluded: presenting invented incidents or estimates as observations, representative claims, purchase commitments, or completion of the separate DISC-01-03 synthesis.
 
@@ -30,7 +30,7 @@ Boxes remain unchecked until independent review; the table below records author-
 ## Deliverables and evidence
 
 - [Research plan, actual counts and source register](../../03-user-research.md#7-findings).
-- [Simulation inventory, coverage matrix and verification](../../research/answers/README.md), linking all eight original records and their questions.
+- [Simulation inventory and provenance](../../research/answers/README.md), linking all eight original records and their questions.
 - [Research record template](../../templates/research-record.md), distinguishing simulation metadata from actual sessions.
 - [Decision/method record and limitations](../../planning/decisions-and-feedback.md#disc-01-02-simulated-research-record).
 
@@ -40,14 +40,14 @@ Trace each inventory entry to its answer file and guide; verify 4 × 14 administ
 
 ## Completion record
 
-| Criterion | Work checked on 2026-10-22 | Remaining gate |
+| Criterion | Work checked on 2026-10-22 | Review checks recorded before integration |
 |---|---|---|
 | Method/provenance | Eight existing records dated 2026-10-21, four separate segments, prior commit reference; generation tool/process unknown and disclosed | Independent content/method review |
-| Coordination material | 78 simulated answers; question-level matrix covers P1–P7, incidents, effort, tools, approvals and scheduling | Reviewer samples source-to-matrix links |
+| Coordination material | 78 simulated answers; question-level coverage is now maintained in research sections 7.2.1-7.2.3 | Reviewer samples source-to-matrix links |
 | Handling | Explicit fictional labels and non-applicable consent/session metadata; author-side inspection found no participant identifiers | Independent handling review |
 | Limits/alternatives | Zero real participants or survey responses; no recruitment attempt evidence; S1–S9 historical review retained; LIM-01/LIM-04 open | Review limitations and synthesis handoff |
 
 - No new interviews, survey, source access, prototype tests or measurements were performed. Existing answer content was preserved; the missing index and collection traceability were added.
 - No product decision or hypothesis was empirically validated. DISC-01-03 receives material for synthesis; primary validation and measured baseline remain future work, not fictitious evidence needed to fill a checklist.
 - [ ] Team DoR record/estimate confirmed; no retrospective planning meeting asserted.
-- [ ] Independent acceptance review and applicable [DoD](../../governance/definition-of-done.md) evidenced through PR. Issue #22 remains open pending review/integration.
+- [ ] Independent acceptance review and applicable [DoD](../../governance/definition-of-done.md) evidenced through PR. PR #37 is merged and #22 is closed; independent review evidence remains unrecorded locally.

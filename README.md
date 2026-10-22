@@ -66,7 +66,7 @@ File numbering matches the assignment deliverables; document 08 links to the ADR
 | [Decisions and feedback](documents/planning/decisions-and-feedback.md) | Evaluator clarification and team decisions recorded; other questions remain open |
 | [Story](.github/ISSUE_TEMPLATE/user-story.md), [epic](.github/ISSUE_TEMPLATE/epic.md), [task/spike](.github/ISSUE_TEMPLATE/task.md), [bug](.github/ISSUE_TEMPLATE/bug.md) | Local GitHub templates; labels/milestones to select after setup |
 | [Pull request](.github/pull_request_template.md) | Local template |
-| [ADR](documents/templates/adr.md), [research](documents/templates/research-record.md), [review](documents/templates/investor-review.md) | Templates to copy and complete with real data |
+| [ADR](documents/templates/adr.md), [research](documents/templates/research-record.md), [review](documents/templates/investor-review.md) | Templates to complete with explicitly identified real, simulated or public-source material |
 
 ## Sprint 1 phase progress
 

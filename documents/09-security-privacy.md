@@ -58,7 +58,7 @@ A code alone does not anonymise an answer if its content still identifies someon
 
 ### 4.1 Research data handling (DISC-01-01)
 
-**Decision:** retain only anonymous answers in Git, following the user's clarification. The [research plan](03-user-research.md#32-collection-arrangements) defines the consent and review procedure. No OneDrive archive, participant database or identity mapping is used.
+**Decision:** retain only anonymous answers in Git, following the user's clarification. The [research plan](03-user-research.md#3-recruitment-and-ethics) defines the consent and review procedure. No OneDrive archive, participant database or identity mapping is used.
 
 | Data | Collection and storage | Retention/access |
 |---|---|---|
@@ -68,7 +68,7 @@ A code alone does not anonymise an answer if its content still identifies someon
 | Survey answers | No identifying questions, login, name/email collection or uploads; reviewed Markdown export only | Strip timestamps/metadata; delete working exports after checking and tool responses within seven days of checked export |
 | Synthesis | Counts, limitations and decisions linked to anonymous answer IDs | Retained in Git; avoid combinations that identify a person/building |
 
-Sandro owns research-record quality; Pedro interviews, Ricardo takes notes, Afonso owns method/synthesis and Martim reviews anonymity. Afonso and Sandro replace Pedro and Ricardo respectively. Everyone with repository read access can read the answers; do not describe Git as restricted raw-data storage. Check repository visibility and communicate potential public access before participation. No fixed deletion deadline applies to retained anonymous answers: Git history, forks and clones prevent a promise of complete erasure.
+Sandro owns research-record quality; Pedro interviews, Ricardo takes notes, the BA/PO role provides methodological input and Martim reviews anonymity. Task ownership and synthesis review follow the [backlog allocation](backlog/README.md). Afonso and Sandro replace Pedro and Ricardo respectively. Everyone with repository read access can read the answers; do not describe Git as restricted raw-data storage. Check repository visibility and communicate potential public access before participation. No fixed deletion deadline applies to retained anonymous answers: Git history, forks and clones prevent a promise of complete erasure.
 
 | Risk | Control | Verification |
 |---|---|---|
