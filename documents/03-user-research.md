@@ -1,9 +1,9 @@
 # 3. User Research
 
 **Project:** Building Maintenance Coordinator
-**Sprint:** 1 · **Status:** secondary-source review performed (v0.5). **No interviews or survey findings.** · **Revision:** 2026-10-14
+**Sprint:** 1 · **Status:** research plan and eight simulated answer records; no real participant collection. · **Revision:** 2026-10-22
 
-> **Assignment rule:** do not fabricate research evidence. This document contains the plan, interview guides and recording templates. Findings sections remain **blank until real data exists**. If interviewing real users is not possible, state this in the limitations section.
+> **Research method:** interviews may be real or simulated, as clarified by the lecturer. Identify simulated responses as such and distinguish them from real participant evidence.
 
 ---
 
@@ -21,6 +21,22 @@
 | Q8 | What prompts residents to report, or not report, an issue? | P5 |
 | Q9 | What does a contractor need to know about a request, and how do they manage scheduling? | P6 |
 
+### Guide review against P1–P7 (DISC-01-01)
+
+Reviewed against the [problem hypotheses](01-problem-and-opportunity-report.md#7-assumptions-and-risks). References below identify questions in sections 4 and 5, not collected evidence.
+
+| Hypothesis | Existing coverage and preparation change | Evidence sought / limit |
+|---|---|---|
+| P1 — administrative effort | Administrator 3, 11; add a breakdown of active work versus waiting | One recent case, steps and approximate effort; recollections are estimates, not measured baselines |
+| P2 — duplicates | Administrator 6; add frequency, period and an example of reports that were distinct | Estimate duplicates relative to total reports in the same period; do not presume duplication is common |
+| P3 — urgency | Administrator 5; add what worked and what failed | Concrete priority decision, decision-maker and consequences; no presumption that current triage is poor |
+| P4 — administrator adoption | Administrator 9, 12, 14; add switching barriers | Existing tools, purchase authority, training and migration constraints; interest is not adoption or a purchase |
+| P5 — resident reporting | Resident 1–6 and survey 1–8; add ability to use the proposed channel | Past reporting/non-reporting and accessibility barriers; stated willingness does not validate actual use |
+| P6 — contractor adoption | Administrator 7–8 and contractor 1–5; add a recent request and refusal conditions | Information needs, acceptance, availability and rescheduling; administrators cannot prove contractor willingness |
+| P7 — trust in assisted recommendations | Administrator 10; add correction, disagreement and unavailability probes | Exploratory trust conditions now; task-based prototype evaluation later, without claiming trust is validated |
+
+Q6 provides context about alternatives rather than proving a product hypothesis. Seek counterexamples for each hypothesis and record which questions were actually asked. A skipped question supplies no evidence.
+
 ## 2. Methods
 
 | Method | Purpose | Participants | Effort |
@@ -31,94 +47,82 @@
 | Public competitor documentation / demos | Q6 | n/a | Low |
 | Prototype testing (late Sprint 1 or Sprint 2) | Q7, usability | Administrators, residents | Medium |
 
-### Target sample (proposal to adjust to capacity)
+### Target sample
 
 | Group | Target | Note |
 |---|---|---|
-| Professional administrators | 2–3 | Access may be difficult; use personal or university contacts |
-| Resident / volunteer administrators | 3–5 | Easier access through relatives, neighbours or acquaintances |
-| Residents | 8–15 (survey) | Distribute through personal networks |
-| Contractors | 2–3 | Electricians, plumbers, maintenance companies |
+| Professional administrators | 2 | Personal introductions and public business contact channels |
+| Resident / volunteer administrators | 3 | Relatives, neighbours or acquaintances |
+| Residents | 8 (survey) | Forwarded invitation through personal networks |
+| Contractors | 2 | Electricians, plumbers or maintenance companies |
 
 These figures are **targets**, not results. Record the actual numbers obtained.
 
+This is a purposive convenience sample chosen for access and contrasting roles, not statistical representation. Start with one administrator and one contractor interview to check guide clarity, then adjust effort with the team. Do not claim saturation from the target counts.
+
+Keep professional administrators (paid work, potentially multiple buildings and company purchasing processes) separate from resident/volunteer administrators (elected or unpaid work, typically a single building). Ask about actual role and remuneration rather than inferring the segment from a title. Record mixed roles explicitly. Volunteers offer useful contrasts but do not replace evidence about the primary professional segment in DEC-02. Report counts, effort estimates and adoption constraints by segment; insufficient professional access leaves DEC-02 unvalidated. Residents and contractors provide complementary perspectives, not substitutes for administrator evidence.
+
 ## 3. Recruitment and ethics
 
-- Explain the study's **purpose** before starting (assignment section 11).
-- Obtain **consent**, recorded in notes or in writing, for note-taking and, where applicable, audio recording.
-- **Do not collect unnecessary personal data.** Identify participants by codes (A1, A2, C1…). Codes are pseudonyms if a link to identity exists; store that link separately and outside Git.
-- Do not ask participants to share real residents' data, home photographs or internal documents.
-- Allow withdrawal at any time. Store notes with access restricted to the team.
-- Before collecting data, define responsibility, access and retention under the [data lifecycle policy](09-security-privacy.md#4-data-lifecycle-and-minimisation). Do not publish raw records; use only summaries without identifying details.
+The repository contains reusable blank templates and eight simulated answer records. The recruitment, consent and participant-data procedures below apply to future real interviews; no real participants, sessions or permissions are claimed for the simulations.
+
+Do not collect names, contact lists, signatures, exact addresses, unit numbers, company names, photographs, recordings or identity mappings. Record broad role segments and anonymous document IDs only. An ID identifies an answer record, not a participant identity; do not create a lookup table. Remove identifying combinations of incident details, dates, location and role, even when no name is given. If the research team can still reasonably identify someone from an answer record, generalise or omit that material before saving it in Git.
 
 ### Consent text (template)
 
-> We are students developing an academic project about maintenance issue management in residential buildings. We would like to ask about your experience (around 30 minutes). Participation is voluntary and you may stop at any time. We will use your responses only for this project and publish only summaries without identifying details. May we take notes? Recording is optional and requires separate permission; before recording, we will explain who can access it, where it will be stored and when it will be deleted.
+> We are students developing the academic project Building Maintenance Coordinator, which explores maintenance coordination in residential buildings. Participation is voluntary, and you may skip any question or end the conversation at any time. We retain only anonymous answers, without names, contact details, addresses or information identifying the building or company. We do not make recordings. Answers will be reviewed to remove identifying details and stored in the project's Git repository for analysis and academic assessment. Anyone with access to the repository will be able to read them; if the repository is public or becomes public, anyone will be able to read them. Git retains historical versions, and copies may exist: we cannot promise to delete all versions after publication. You may withdraw or correct an answer during the session, before your final confirmation; once the answers are anonymised, we do not keep a record linking them to your identity. Do you agree to participate and allow your answers to be used under these conditions?
+
+Obtain an affirmative verbal answer before an interview, or an affirmative opt-in before survey questions. Record only `participation and anonymous Git storage authorised: yes/no`, without a name, signature or consent attachment. If declined, stop and do not retain answers. Use paraphrases by default; a direct quotation needs separate permission and must pass the same anonymity check. Sandro is the research-record owner; project contact: 1201244@isep.ipp.pt.
+
+### 3.1 Recruitment and session procedure
+
+| Segment | Recruitment route | Selection and safeguards |
+|---|---|---|
+| Professional administrators | Personal introductions or public business contact channels | Seek people involved in actual maintenance coordination; no contact database |
+| Volunteer administrators | Relatives, neighbours or acquaintances forward an invitation | Voluntary participation; distinguish paid and unpaid roles |
+| Residents | Forwarded invitation or in-person approach | Adult volunteers; no resident lists, names, units or addresses |
+| Contractors | Personal introductions or public business contact channels | People receiving/scheduling maintenance work; no customer records |
+
+Pedro coordinates invitations through existing contact channels, without copying contacts, messages or identity-linked schedules into research records. Use at most one reminder after five working days; close an unanswered invitation after ten working days. Invitations are not participant commitments. Record only aggregate recruitment counts and limitations.
+
+### 3.2 Access failures and withdrawal
+
+- If professional access fails after the ten-working-day invitation window, record the limitation. Volunteers and public sources do not prove professional adoption or purchasing behaviour.
+- If a group is unavailable, leave its hypotheses unresolved. Record source/date for public-source review and do not call it participant research.
+- If someone declines or cancels, do not retain their identity or claim a completed session. Reschedule only with their agreement.
+- If no interview pair is available, use the replacements or reschedule; no solo sessions.
+- If Git is unavailable, prepare only anonymous Markdown locally and perform the same check before its first commit. Do not switch to recordings or identifiable notes.
+- Accept corrections/removal during the session before final confirmation. After anonymisation, do not claim that a participant can be located by identity. Remove problematic published content from the current version if discovered, and assess repository history/copy exposure separately; a deletion commit alone does not erase it.
 
 ## 4. Interview guides
 
-Start with real experiences and only then present the proposal. Core questions are below; optional extensions are separate to avoid implying a fixed scope or lengthening every interview.
+The interview questions are maintained only in the interview template folder. The templates remain blank; completed simulated records are stored separately. Question numbers in the P1–P7 coverage table refer to those templates.
 
 ### 4.1 Administrator (professional or volunteer)
 
-**Context**
-
-1. How many buildings/units do you manage? For how long? Is this your main occupation?
-2. Is there a caretaker or building attendant?
-
-**Current workflow**
-
-3. Tell me about the last maintenance issue you resolved. How did you hear about it, and what did you do next? If it required several contacts, where was most time spent?
-4. Which channels do you use to receive reports and contact contractors?
-5. How did you decide urgency in the last case? Has priority ever needed to change? What prompted that change?
-6. Do several people report the same problem? What do you do in those cases?
-
-**Contractors and costs**
-
-7. How do you select a contractor? Do you request several quotes? Who approves expenditure, and above what amount?
-8. How do you record costs and history? Do you use them to make decisions, such as repairs or replacements? Who confirms the date and completion? How do you handle rejection, unavailability or rescheduling (DEC-10)?
-
-**Tools and AI**
-
-9. What software or tools do you use? What is missing?
-10. If a system suggested urgency and a contractor, what would you need to see to trust it? Would you approve with one click? When would you not?
-
-**Closing**
-
-11. On average, how much time do you spend per issue? What is the most frustrating part?
-12. What tools do you already pay for or have you purchased? Who decides that purchase? What would justify testing another solution? Only then explore payment models and distinguish intention from commitment.
-13. What information can be shared with the building, and what must remain private (DEC-07)? How do you receive reports from residents without digital access?
-14. Would you be available for a task-based test in a second session? Record actual commitment separately from stated interest.
+Use the [administrator template](templates/interviews/administrador.md), including the neutral probes on effort, duplicates, urgency, adoption and AI trust.
 
 ### 4.2 Resident
 
-1. When did you last report a problem in your building? What happened?
-2. How did you report it (to whom, through which channel)? Did you receive a response? How long did it take?
-3. Have you ever noticed a problem and not reported it? Why?
-4. What would you like to know after reporting?
-5. What information about you or your home would you prefer not to share? What difficulties would you have using a page/app, and what alternative would you need?
-6. Would you confirm a problem already reported by a neighbour (“This affects me too”)? Would being identified concern you?
+Use the [resident template](templates/interviews/morador.md), including reporting barriers, privacy, digital access and alternative channels.
 
 ### 4.3 Contractor
 
-1. How do you receive requests today? What information is usually missing?
-2. How do you manage your schedule? Have you used a digital calendar? Who confirms the date, and how do you communicate rejections or changes?
-3. What information do you need to estimate price and duration before visiting?
-4. How are payments and approvals handled? What are the main difficulties? How do you communicate completion, and who validates it?
-5. Would you accept requests and appointments through a platform? What would make you refuse?
+Use the [maintenance contractor template](templates/interviews/prestador-manutencao.md), including request acceptance, missing information, scheduling and completion.
 
 ### 4.4. Optional exploratory questions
 
-- **Photographs, post-MVP:** would they help explain the problem? Under what conditions would participants agree to send them?
-- **IoT, DEC-01:** are sensors/devices monitored? What concrete decision would benefit from their data?
-
-Do not present these capabilities as included in the MVP.
+Photographs and IoT are outside the interview core and are not presented as MVP commitments. Do not request real photographs or device/customer records.
 
 ### 4.5. Prototype testing
 
-After understanding the current process, propose a concrete task and observe completion, errors, time and assistance needed. Compare with an equivalent task in the current process, varying order where possible. Record sample and context; adoption intentions or politeness do not prove benefit or purchasing commitment.
+Task-based prototype testing is separate from this preparation. During later testing, record completion, errors, time and assistance, and compare an equivalent current-process task. Stated interest alone does not validate benefit or adoption.
 
 ## 5. Short resident survey (template)
+
+The resident survey is a collection activity under DISC-01-02. Use the resident interview template to explore P5 in depth.
+
+Pedro implements the survey in Microsoft Forms using the consent and settings defined in section 3.2. No survey is launched by this preparation. Open answers must not request names, contacts, exact addresses or third-party details; review them privately before synthesis.
 
 1. Do you live in a building with condominium administration? (Yes/No)
 2. Have you reported a maintenance issue in the last 12 months? (Yes/No)
@@ -139,11 +143,9 @@ After understanding the current process, propose a concrete task and observe com
 
 ## 7. Findings
 
-> **Execution check — 2026-10-14:** No interviews, survey, observation or prototype test were conducted. A bounded review of two public sources was completed and is recorded below. These sources support workflow hypotheses only; they do not establish local frequency, effort, adoption, willingness to pay or representative user needs.
-
 ### 7.1 Actual participants
 
-| Code | Group | Date | Mode (in person/online) | Duration | Notes stored at |
+| Answer record ID | Broad segment | Month (if non-identifying) | Mode | Approximate duration | Anonymous evidence reference |
 |---|---|---|---|---|---|
 | | | | | | |
 
@@ -198,14 +200,15 @@ Expected limitations once collection occurs:
 - Stated willingness to pay or adopt does not always translate into behaviour.
 - No access to real incident data; AI evaluation will use synthetic data.
 
-## 9. Suggested schedule
+## 9. Activity sequence
 
 | When | Activity |
 |---|---|
-| Phase 1 / start of Phase 2 | Finalise guides, identify and contact participants |
-| Phase 2 | Administrator and contractor interviews |
-| Phase 2, subject to capacity | Resident survey |
-| Phases 2–3 | Analysis, persona updates, decisions and prototype testing |
+| DISC-01-01 | Define the plan, consent, roles, storage rules and blank templates |
+| Before DISC-01-02 recruitment | Check anonymous templates, Git readership/visibility and survey settings; |
+| DISC-01-02 (deferred) | Recruit and schedule participants; conduct interviews and resident survey |
+| DISC-01-03 | Analyse actual evidence, document limitations and resulting decisions |
+| Later task-based testing | Evaluate usability/adoption against concrete tasks |
 
 ## 10. Records and decisions
 
@@ -213,4 +216,6 @@ Use the [recording template](templates/research-record.md) for each actual inter
 
 Until primary records exist, DISC-01-02 is only partially complete through secondary research; no adoption, problem-frequency or AI-value claim may be presented as validated.
 
-Before collection, assign an owner and resolve access/retention in DEC-07. Dates depend on DEC-03. Findings inform [requirements](requirements.md) and [backlog](05-product-backlog.md) prioritisation.
+Apply the ownership, access and retention defined in DEC-07 and section 3.2. Pedro schedules collection under DISC-01-02; no sessions are scheduled by this preparation. Findings inform [requirements](requirements.md) and [backlog](06-product-backlog.md) prioritisation.
+
+Store only reviewed anonymous answers in `documents/research/answers/`; no identity maps, contact lists or consent attachments. Link anonymous record IDs to findings without creating a participant lookup. Preparation evidence is tracked in [DISC-01-01](backlog/tasks/DISC-01-01-prepare-research.md#completion-record); collection and synthesis remain DISC-01-02/03.

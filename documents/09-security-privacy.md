@@ -49,18 +49,42 @@ Assess likelihood and impact with the team after defining deployment; do not ass
 | Demo fixtures | Synthetic, without real people/addresses | Reproducible reset; retain only necessary fixtures |
 | Reports/interventions | Minimal text and area reference; restricted private details | Period and rules to be finalised in DEC-07 before a pilot |
 | Logs/audit | Necessary metadata, without full text/secrets | Period, access and deletion to be defined with the environment |
-| Interviews | Minimal coded notes; optional recording with separate permission | Location, owner and deletion date defined before collection |
-| Participant identities | Separate code→identity mapping, if needed | Outside Git; delete when no longer necessary |
+| Interviews | Anonymous answers only; no recordings, identity links or identifying metadata | Reviewed Markdown in Git; retained with academic project/history |
+| Participant identities | Not collected in research records; no code-to-identity mapping | No participant database or identity archive |
 | Data sent to a provider | Only what is necessary; synthetic during development | Review provider terms, configuration and retention before use |
 | Backups | Restricted access and restore test | Define rotation and the effect of deletion requests |
 
-A participant code is not anonymisation if the person remains identifiable. Do not publish raw notes, contacts, recordings or consent forms in the repository. Recruitment procedure and [consent text](03-user-research.md#consent-text-template) are maintained in the research plan.
+A code alone does not anonymise an answer if its content still identifies someone. Git stores only anonymous answers after a check before the first commit; contacts, recordings, identifiable notes and consent attachments are excluded. Recruitment procedure and [consent text](03-user-research.md#consent-text-template) are maintained in the research plan.
+
+### 4.1 Research data handling (DISC-01-01)
+
+**Decision:** retain only anonymous answers in Git, following the user's clarification. The [research plan](03-user-research.md#32-collection-arrangements) defines the consent and review procedure. No OneDrive archive, participant database or identity mapping is used.
+
+| Data | Collection and storage | Retention/access |
+|---|---|---|
+| Interview answers | Anonymous Markdown in `documents/research/answers/`; broad segment and record ID, no identity lookup | Retained with academic project/Git history; visible to repository readers, potentially public |
+| Participation permission | Anonymous yes/no field for participation and Git storage; separate quotation permission | Same record, no signed consent forms or attachments |
+| Names, contacts, addresses, companies, recordings | Not collected in research records | Never committed; distinctive contextual details omitted/generalised |
+| Survey answers | No identifying questions, login, name/email collection or uploads; reviewed Markdown export only | Strip timestamps/metadata; delete working exports after checking and tool responses within seven days of checked export |
+| Synthesis | Counts, limitations and decisions linked to anonymous answer IDs | Retained in Git; avoid combinations that identify a person/building |
+
+Sandro owns research-record quality; Pedro interviews, Ricardo takes notes, Afonso owns method/synthesis and Martim reviews anonymity. Afonso and Sandro replace Pedro and Ricardo respectively. Everyone with repository read access can read the answers; do not describe Git as restricted raw-data storage. Check repository visibility and communicate potential public access before participation. No fixed deletion deadline applies to retained anonymous answers: Git history, forks and clones prevent a promise of complete erasure.
+
+| Risk | Control | Verification |
+|---|---|---|
+| Answers reveal identity without a name | Omit exact locations, companies, distinctive incidents and role/date combinations | Interviewer/note-taker check before first commit; Martim reviews before merge |
+| Permission does not cover Git publication | Explain retention, readers/public visibility and history before questions | Affirmative anonymous participation/storage permission; no answer retained if refused |
+| Survey export contains identifying metadata | No identifier collection; no unreviewed CSV/attachments | Synthetic settings test; strip timestamps, identifiers and incidental personal details |
+| A code is mistaken for anonymisation | Document ID has no identity map; omit identifying context | Review content as well as fields; omit an answer if it remains identifiable |
+| Deletion promise conflicts with Git history | Permit in-session corrections before confirmation; explain anonymous retention and copy limits | Consent and templates contain no identity-based post-publication withdrawal promise |
+
+If identifying content is discovered, stop publication, remove it from working copies and inform Sandro/Martim. If already committed, assess history/copies and coordinate appropriate cleanup rather than treating a deletion commit as erasure. This policy does not authorise identifiable notes in Git. Actual interviews and independent reviews have not been performed by this documentation edit.
 
 ## 5. Open questions and review plan
 
 - DEC-07: shared/private area boundary, summary publication, retention, deletion and participant access.
 - DEC-04/05/06: identity, secrets and provider configuration.
-- Before collecting data: confirm purpose, owner and secure location.
+- Before collecting data: check Git visibility/readership, anonymous collection and participation permission; Martim records the review.
 - Before S2: isolation tests and approval workflow review.
 - In S3: review threats/implemented controls, dependencies, results and residual risk; record limitations.
 - Before a real pilot: review applicable obligations and policies; synthetic data does not prove suitability for real operation.
