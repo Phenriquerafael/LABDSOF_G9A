@@ -1,11 +1,17 @@
 # Anonymous research answer record — [ID]
 
-**Status:** blank template / collected / reviewed / analysed
+**Status:** blank template / collected / simulated / reviewed / analysed
 **Segment:** professional administrator / volunteer administrator / resident / contractor
-**Interviewer / note-taker:** Pedro / Ricardo; replacements Afonso / Sandro
+**Actual interviewer / note-taker:** fill only for a real session; not applicable to simulations
 **Collection period:** month only; omit if it could identify someone
-**Method:** interview / survey / observation / prototype / public source
+**Method:** real interview / simulated written interview / survey / observation / prototype / public source
 **Questions / hypotheses:** Q1–Q9 / P1–P7
+
+## Simulated records
+
+If this is a simulation, prominently label the title, profile and every answer as fictional. Record document creation date and actual author/tool/version where known; otherwise state that provenance is unknown. Mark real participant count as zero and interviewer, session duration/date and consent as not applicable. Do not credit planned interviewers with a session that did not happen.
+
+Identify the guide and question numbers, contrasting scenario, fictional effort/counts and remaining gaps. Constructed values are neither participant estimates nor measurements. Link the [simulation inventory](../research/answers/README.md) and keep scenario interpretations separate from empirical findings. The handling/participation fields below apply to real collection, not fictitious consent.
 
 ## Handling
 

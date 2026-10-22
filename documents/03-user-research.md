@@ -1,7 +1,7 @@
 # 3. User Research
 
 **Project:** Building Maintenance Coordinator
-**Sprint:** 1 · **Status:** research plan and eight simulated answer records; no real participant collection. · **Revision:** 2026-10-22
+**Sprint:** 1 · **Status:** eight simulated answer records inventoried and checked for DISC-01-02; independent review and DISC-01-03 synthesis pending; no real participant collection. · **Revision:** 2026-10-22
 
 > **Research method:** interviews may be real or simulated, as clarified by the lecturer. Identify simulated responses as such and distinguish them from real participant evidence.
 
@@ -56,7 +56,7 @@ Q6 provides context about alternatives rather than proving a product hypothesis.
 | Residents | 8 (survey) | Forwarded invitation through personal networks |
 | Contractors | 2 | Electricians, plumbers or maintenance companies |
 
-These figures are **targets**, not results. Record the actual numbers obtained.
+These figures are **targets for real collection**, not results. The current simulated route contains two fictional records per segment (eight documents), with zero real participants. It does not fulfil these recruitment targets or constitute the planned resident survey; see the [actual inventory](research/answers/README.md).
 
 This is a purposive convenience sample chosen for access and contrasting roles, not statistical representation. Start with one administrator and one contractor interview to check guide clarity, then adjust effort with the team. Do not claim saturation from the target counts.
 
@@ -120,9 +120,9 @@ Task-based prototype testing is separate from this preparation. During later tes
 
 ## 5. Short resident survey (template)
 
-The resident survey is a collection activity under DISC-01-02. Use the resident interview template to explore P5 in depth.
+The resident survey remains an unexecuted real-collection option. DISC-01-02 currently uses the simulated interview route recorded above; the two fictional resident interviews are not survey responses. Use the resident interview template to explore P5 in depth.
 
-Pedro implements the survey in Microsoft Forms using the consent and settings defined in section 3.2. No survey is launched by this preparation. Open answers must not request names, contacts, exact addresses or third-party details; review them privately before synthesis.
+Pedro implements the survey in Microsoft Forms using the consent and safeguards defined in section 3; confirm survey settings before launch. No survey is launched by this preparation. Open answers must not request names, contacts, exact addresses or third-party details; review them privately before synthesis.
 
 1. Do you live in a building with condominium administration? (Yes/No)
 2. Have you reported a maintenance issue in the last 12 months? (Yes/No)
@@ -138,16 +138,25 @@ Pedro implements the survey in Microsoft Forms using the consent and settings de
 - Transcribe or summarise each interview in **structured notes** immediately after the session.
 - Code by theme (urgency, duplicates, costs, channels, trust in AI…).
 - Record **quotes** only with permission and without identifying details.
-- Each finding must state **how many participants** support it, e.g. “4 of 6 administrators”.
+- Each empirical finding must state the actual supporting participant/source count. Scenario interpretations must instead cite simulated record IDs and question numbers, with **zero real participants**; never count fictional profiles as respondents.
 - Clearly distinguish **what was said** from **the team's interpretation**.
 
 ## 7. Findings
 
-### 7.1 Actual participants
+### 7.1 Actual collection and simulation register
 
-| Answer record ID | Broad segment | Month (if non-identifying) | Mode | Approximate duration | Anonymous evidence reference |
-|---|---|---|---|---|---|
-| | | | | | |
+Checked on **2026-10-22**: zero real participants, sessions, survey responses, observations or prototype tests are recorded. No recruitment attempts are documented, so recruitment failure is not asserted. The eight existing records are fictional written answers created on 2026-10-21, not interview sessions.
+
+| Segment | Simulated documents | Real participants | Record references |
+|---|---|---|---|
+| Professional administrators | 2 | 0 | [SIM-ADM-P-01](research/answers/SIM-ADM-P-01.md), [SIM-ADM-P-02](research/answers/SIM-ADM-P-02.md) |
+| Volunteer administrators | 2 | 0 | [SIM-ADM-V-01](research/answers/SIM-ADM-V-01.md), [SIM-ADM-V-02](research/answers/SIM-ADM-V-02.md) |
+| Residents | 2 | 0 | [SIM-MOR-01](research/answers/SIM-MOR-01.md), [SIM-MOR-02](research/answers/SIM-MOR-02.md) |
+| Contractors | 2 | 0 | [SIM-PRE-01](research/answers/SIM-PRE-01.md), [SIM-PRE-02](research/answers/SIM-PRE-02.md) |
+
+The [inventory and verification record](research/answers/README.md) identifies provenance, 78 simulated answers, question-level P1–P7 coverage, contrasting scenarios and coordination topics. Dates are document dates; interviewers, session duration and consent are not applicable. The agent checked the existing records; no team member is credited with a real session. Original generation tooling/process is not documented.
+
+This is the collection handoff for DISC-01-03, not the final synthesis. The public findings below remain separate; no simulated answer is counted as independent confirmation of a public source or real-world hypothesis.
 
 ### 7.1.1 Public sources reviewed
 
@@ -184,12 +193,12 @@ Pedro implements the survey in Microsoft Forms using the consent and settings de
 
 ## 8. Limitations (review after collection)
 
-Current limitations after the 2026-10-14 evidence check:
+Current limitations after the 2026-10-22 inventory check (public-source review remains dated 2026-10-14):
 
-- No primary research is recorded; the problem, effort, adoption and AI-value claims remain hypotheses.
+- No real participant research is recorded; eight simulated interviews explore scenarios only. Their counts, incidents and effort values are constructed, not measured. Problem frequency, effort, adoption and AI-value claims remain hypotheses.
 - The public review contains nine sources: government guidance, ombudsman casework summaries and vendor documentation. It is still not a systematic literature review, representative market study or independent competitor audit.
-- No recruitment attempt log, consent record or restricted research note was supplied, so the reason for the missing collection and the achieved coverage cannot be assessed.
-- No participant register, participant measurements or authorised quotations exist. Participant-dependent findings and any final product decisions in section 7.3 must remain provisional until primary records are created and reviewed.
+- No recruitment attempts are documented; the simulated route is used under the clarification already recorded in this plan, not as evidence of failed recruitment. Consent and restricted participant notes are not applicable to fictional profiles.
+- The inventory distinguishes two fictional records per segment from zero real participants. No participant measurements or authorised quotations exist. Scenarios may inform provisional design options in DISC-01-03; they cannot validate participant-dependent claims or a real effort baseline. Original generation tooling/process and the date/record of the lecturer clarification are not supplied.
 
 Expected limitations once collection occurs:
 
@@ -206,16 +215,16 @@ Expected limitations once collection occurs:
 |---|---|
 | DISC-01-01 | Define the plan, consent, roles, storage rules and blank templates |
 | Before DISC-01-02 recruitment | Check anonymous templates, Git readership/visibility and survey settings; |
-| DISC-01-02 (deferred) | Recruit and schedule participants; conduct interviews and resident survey |
-| DISC-01-03 | Analyse actual evidence, document limitations and resulting decisions |
+| DISC-01-02 (2026-10-22 check) | Inventory and verify the eight existing simulated interviews; real collection and survey remain unexecuted; independent review pending |
+| DISC-01-03 | Synthesise public evidence and simulated scenarios separately; document limitations and proposed decisions |
 | Later task-based testing | Evaluate usability/adoption against concrete tasks |
 
 ## 10. Records and decisions
 
 Use the [recording template](templates/research-record.md) for each actual interview, survey administration, observation, prototype test or public source. Findings remain in section 7; requirements and the problem report reference their IDs. Section 7.3 links to the [decision register](planning/decisions-and-feedback.md), which stores rationale, participants and decision status without duplicating meeting notes.
 
-Until primary records exist, DISC-01-02 is only partially complete through secondary research; no adoption, problem-frequency or AI-value claim may be presented as validated.
+DISC-01-02 now has a traceable simulated collection package and the historical public-source register. Independent review of this method alignment and PR integration remain pending. Real participant collection is not claimed; no adoption, problem-frequency or AI-value claim may be presented as validated.
 
-Apply the ownership, access and retention defined in DEC-07 and section 3.2. Pedro schedules collection under DISC-01-02; no sessions are scheduled by this preparation. Findings inform [requirements](requirements.md) and [backlog](06-product-backlog.md) prioritisation.
+For any future real collection, apply the ownership, access and retention defined in DEC-07 and section 3. Pedro schedules collection under DISC-01-02; no sessions are scheduled by this preparation. Findings inform [requirements](requirements.md) and [backlog](05-product-backlog.md) prioritisation.
 
-Store only reviewed anonymous answers in `documents/research/answers/`; no identity maps, contact lists or consent attachments. Link anonymous record IDs to findings without creating a participant lookup. Preparation evidence is tracked in [DISC-01-01](backlog/tasks/DISC-01-01-prepare-research.md#completion-record); collection and synthesis remain DISC-01-02/03.
+Store only reviewed anonymous answers in `documents/research/answers/`; no identity maps, contact lists or consent attachments. Link anonymous record IDs to findings without creating a participant lookup. Preparation evidence is tracked in [DISC-01-01](backlog/tasks/DISC-01-01-prepare-research.md#completion-record); the simulated collection inventory is tracked in [DISC-01-02](backlog/tasks/DISC-01-02-conduct-research.md#completion-record), with synthesis remaining DISC-01-03.
