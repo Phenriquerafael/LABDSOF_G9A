@@ -4,8 +4,6 @@ Project idea
 
 v.2026.09.08 
 
-**Disclaimer** _(1) Parts of this document have been generated using AI models. (2) This is to be consider a “seed” document for each team to develop its own product_ 
-
 ## 1 Project Overview 
 
 Communities depend on digital services to coordinate activities, share reliable information, manage resources, and respond to disruptions. These communities may include municipalities, university campuses, neighbourhoods, residential complexes, company campuses, voluntary organizations, or other groups with shared needs. 

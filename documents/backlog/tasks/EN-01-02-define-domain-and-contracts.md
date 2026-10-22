@@ -27,7 +27,7 @@ Excluded: Production-complete OpenAPI, migrations and executable integration tes
 
 ## Deliverables and evidence
 
-- [Technical design](../../08-technical-design.md) — update the relevant sections and link the change/review evidence.
+- [Technical design](../../07-technical-design.md) — update the relevant sections and link the change/review evidence.
 - [Requirements](../../requirements.md) — update the relevant sections and link the change/review evidence.
 - [Security access matrix](../../09-security-privacy.md) — update the relevant sections and link the change/review evidence.
 

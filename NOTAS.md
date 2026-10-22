@@ -6,7 +6,7 @@
 > - The suggestion attributed to Gemini is an exploratory recommendation, not evidence of suitability or a team decision.
 > - Table sources/values require dated confirmation before guiding implementation or budgeting.
 >
-> See [pending decisions](documents/planning/decisions-and-feedback.md), [harmonised vision](documents/04-product-vision.md) and [AI Assessment](documents/07-responsible-ai-assessment.md).
+> See [pending decisions](documents/planning/decisions-and-feedback.md), [harmonised vision](documents/04-product-vision.md) and [AI Assessment](documents/06-responsible-ai-assessment.md).
 
 # Assignment analysis
 

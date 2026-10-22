@@ -1,4 +1,4 @@
-﻿# Project monitoring
+# Project monitoring
 
 **Status:** collector and chart paths configured; live project access, workflow execution and real measurements remain to be verified.
 
@@ -8,8 +8,8 @@ The [assignment](../../LABDSOF-26-27-Assignment.md) requires the evidence below.
 
 | Assignment requirement | Reference | Chosen evidence and location |
 |---|---|---|
-| Prioritised backlog and acceptance criteria | §7.1.2, §8.2 | [Product backlog](../06-product-backlog.md), linked to board items with priority and acceptance criteria |
-| Sprint planning, goals and initial release plan | §7.1.2, §8.2 | Sprint dates, selected items and goal in the [sprint plan](sprint-1-plan.md) / sprint backlog; release milestones in the [roadmap](../05-product-roadmap.md) |
+| Prioritised backlog and acceptance criteria | §7.1.2, §8.2 | [Product backlog](../05-product-backlog.md), linked to board items with priority and acceptance criteria |
+| Sprint planning, goals and initial release plan | §7.1.2, §8.2 | Sprint dates, selected items and goal in the [sprint plan](sprint-1-plan.md) / sprint backlog; release milestones remain to be confirmed |
 | Assign and track work; monitor progress | §8.2 | Owners and current statuses on the board; sprint goal outcome and a dated progress chart in the sprint review. Section 4 explains the chart choices |
 | Record decisions and stakeholder feedback | §8.2 | [Decisions and feedback](decisions-and-feedback.md), with source, date, rationale and affected items |
 | Revise at least one product or technical decision following lecturer/investor feedback | §5.7 | Actual previous → revised decision and rationale, using the [review template](../templates/investor-review.md); a scheduled meeting is not evidence |
@@ -34,14 +34,14 @@ Files: [snapshot.js](../../workflow-scripts/snapshot.js), [metrics.yml](../../.g
 
 ### Implemented configuration
 
-- Repository: `Phenriquerafael/LABDSOF_GX`; project number: `9`. These values are constants at the top of `snapshot.js`, not placeholders. The collector queries personal project `9` directly under user `Phenriquerafael`; a repository link is not required. The token must have access to the project. Confirm the owner and number in the project URL (`https://github.com/users/Phenriquerafael/projects/9`). In the supplied URL ending `/projects/9/views/3`, `9` is the project number and `3` is a view ID; the collector reads the project without applying view-specific filters.
+- Repository: `Phenriquerafael/LABDSOF_G9A`; project number: `9`. These values are constants at the top of `snapshot.js`, not placeholders. The collector queries personal project `9` directly under user `Phenriquerafael`; a repository link is not required. The token must have access to the project. Confirm the owner and number in the project URL (`https://github.com/users/Phenriquerafael/projects/9`). In the supplied URL ending `/projects/9/views/3`, `9` is the project number and `3` is a view ID; the collector reads the project without applying view-specific filters.
 - The collector runs as CommonJS on Node 20 without requiring a root `package.json`. Run it from the repository root with `node workflow-scripts/snapshot.js`, with `GITHUB_TOKEN` supplied through the environment.
 - All output paths are resolved relative to the script: `workflow-scripts/data/history.json` holds timestamped issue/status snapshots; `workflow-scripts/data/raw/` holds one consolidated export per successful collection, matching `example.json`: `data.repository.projectsV2.nodes[]` contains project metadata and `items.nodes[]`, with issue `content.number`, `content.title`, `sprint` and `fieldValues.nodes[]` containing the Status and assigned Sprint values with their field names. Each issue in `history.json` has `{ id, status, sprint }`; `sprint` preserves the board label or is `null` when unassigned. All item pages are combined; only issues from the configured repository are included. These are normalized exports, not verbatim API responses; unrelated fields and empty field objects are omitted. Each new raw export includes a top-level `date` in ISO 8601 UTC, identical to its history entry. Its filename uses the same timestamp with colons replaced by hyphens, followed by the process ID: `2026-10-10T14-30-00.123Z-2358.json`. Older raw files retain their original format. Existing history is appended, not reset.
 - The project is resolved directly by owner and number; its items are paginated. Status and Sprint are retrieved directly by field name rather than from a limited field list, using [GitHub's project field API](https://docs.github.com/en/graphql/reference/projects).
 - Only issues from the configured repository are counted; PRs, draft items and issues from other repositories are excluded. The collector queries active project items: preserve review evidence before archiving/removing items. It collects the whole project, including each issue?s Sprint assignment, so the page can filter without recollecting data. The `sprintFieldName` constant defaults to `Sprint`; single-select, iteration and text fields are supported. A missing field or unassigned value is saved as `null` and logged. Configure the board field and assign values before collecting sprint measurements. Old snapshots are not backfilled from current assignments.
 - HTTP/GraphQL errors, inaccessible items, missing Status values, invalid pagination and empty collections stop the run without appending to history. Invalid existing history is not overwritten. History is replaced only after the complete snapshot has been written to a temporary file.
 - Both HTML pages use `./data/history.json`. `chart.html` renders stacked status counts; `burndown.html` defaults to all issues and filters by predefined sprint, plots remaining/ideal/scope lines, shows an issue list and daily table, supports local JSON selection and exports daily CSV data. Filters refresh automatically; no manual issue-number list is required.
-- The workflow runs daily at `00:00 UTC` or manually, checks out `main`, runs the collector and commits `workflow-scripts/data/` back to `main`. Concurrent workflow runs are serialised. A rebase incorporates intervening commits before pushing; commit/push failures remain visible.
+- The workflow runs daily at `12:00 Europe/Lisbon` (with automatic daylight-saving adjustment) or manually, checks out `main`, runs the collector and commits `workflow-scripts/data/` back to `main`. Concurrent workflow runs are serialised. A rebase incorporates intervening commits before pushing; commit/push failures remain visible.
 
 ### Checks still required before automated collection
 
@@ -53,6 +53,38 @@ Files: [snapshot.js](../../workflow-scripts/snapshot.js), [metrics.yml](../../.g
 6. Serve `workflow-scripts/` through HTTP and open either chart. Alternatively, open `burndown.html` directly and select a local history file. Select a sprint and completed status; review the issue list and missing-data messages.
 
 The collector, workflow paths and chart defaults are aligned. Configuration is implemented; successful local checks do not constitute evidence of live collection or completed project work.
+
+### Scheduled-run investigation (22 October 2026)
+
+Observed through the GitHub API: the repository is not a fork or archived, its default branch is main, and Metrics Snapshot is active. The workflow was registered in LABDSOF_G9A on 21 October 2026 at 17:22:21 UTC. At inspection, its two recorded runs were manual; the latest [manual run](https://github.com/Phenriquerafael/LABDSOF_G9A/actions/runs/39652644707) succeeded, including collection and pushing data. No scheduled run was recorded. This confirms that manual execution works but does not identify why the scheduler missed a trigger.
+
+The published cron was midnight UTC. The local workflow now schedules daily collection at 12:00 Lisbon local time to test the scheduled trigger, using cron `0 12 * * *` with `timezone: Europe/Lisbon`. The schedule follows daylight-saving changes and remains at the start of an hour. See [GitHub timezone-aware schedule syntax](https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax#onschedule), accessed 22 October 2026. GitHub documents that scheduled events can be delayed or dropped under load; this is a possible explanation, not a confirmed cause here. A changed cron also refreshes the associated scheduling actor once published. See [GitHub troubleshooting guidance](https://docs.github.com/en/actions/how-tos/troubleshoot-workflows), accessed 22 October 2026.
+
+Publish the workflow change to main, then check Actions for an event labelled schedule after the next daily window. A successful manual run is not proof that scheduling has recovered. If no scheduled run appears, investigate the scheduler/actor with GitHub support rather than changing the working token or collector without evidence.
+
+### Controlled scheduler test (22-23 October 2026)
+
+The diagnostic branch adds a `diagnostic_only` boolean input to Metrics Snapshot. Set it to `true` when running manually to execute only `schedule-probe`; the collector job must be skipped. The probe needs no checkout, PAT or repository write permission. Its log and job summary record the event, cron, actual runner time in UTC/Lisbon, ref, SHA and run URL. Runner time is not the scheduled due time; compare it with the API's `created_at` and job `started_at` to distinguish trigger delay from runner queueing.
+
+Temporary schedules provide two independent trigger samples on 22 and 23 October:
+
+| Probe | Cron | Timezone | Expected job |
+|---|---|---|---|
+| Control | `17 * 22,23 10 *` | UTC default | schedule-probe only |
+| Comparison | `47 * 22,23 10 *` | Europe/Lisbon | schedule-probe only |
+| Normal collection | `0 12 * * *` | Europe/Lisbon | snapshot only |
+
+Both probes run hourly, at different minutes to identify the source and avoid overlap. A single sample cannot establish whether timezone handling differs: GitHub scheduling may delay or drop individual events. Compare several opportunities. Do not infer that cron ran from a successful manual dispatch.
+
+1. Run the diagnostic manually on the branch to validate workflow syntax, job conditions and runner execution without metrics writes.
+2. Review and merge the change to `main`: GitHub only uses default-branch schedules. A branch-only test cannot validate automatic triggering.
+3. Inspect `gh run list --repo Phenriquerafael/LABDSOF_G9A --workflow metrics.yml --event schedule --limit 20`. For each run, open its summary and confirm the cron and skipped collector. Check creation and job-start timestamps in the API if delayed.
+4. If both probes fire, scheduling works during the test; this does not prove why earlier triggers were missed. If only the UTC probe fires repeatedly, investigate the timezone-aware path. If neither fires but manual diagnostics pass, investigate scheduler registration/actor/platform state with GitHub Support. A queued or failed run instead points to runner/execution conditions, not absence of a trigger.
+5. Remove the two probe cron entries after collecting evidence (no later than the end of 23 October). Cron has no year field: these dates would recur annually if left in place. Keep normal noon collection. The optional manual diagnostic can remain available.
+
+Observed manual diagnostic: [run 39807294532](https://github.com/Phenriquerafael/LABDSOF_G9A/actions/runs/39807294532) on branch `fix/DISC-03-02-schedule-diagnostics`, SHA `4d5097af27a034c7738f09f79c7fe06bcf9b88bb`, was created at 15:42:07 UTC on 22 October. The probe started at 15:42:11 UTC and completed successfully at 15:42:15 UTC; the snapshot job was skipped. This verifies workflow acceptance, manual execution and collector isolation. Scheduled triggering remains untested until the diagnostic schedules are on the default branch.
+
+Keep the noon schedule unchanged during the experiment. Logs contain no secrets and neither probe calls the collector. The shared concurrency group serialises diagnostic and collection runs; probes have a two-minute limit. Capture actual run URLs and outcomes before declaring scheduling recovered. Sources: [GitHub scheduling](https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax#onschedule) and [trigger troubleshooting](https://docs.github.com/en/actions/how-tos/troubleshoot-workflows), accessed 22 October 2026.
 
 ## 4. Charts and flow measures
 

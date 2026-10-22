@@ -2,8 +2,18 @@ name: Metrics Snapshot
 
 on:
   schedule:
-    - cron: "0 0 * * *" # Daily at 00:00 UTC
+    - cron: "0 12 * * *" # Daily at noon in Lisbon, including daylight saving time
+      timezone: "Europe/Lisbon"
+    # Temporary probes for 22-23 October; remove after the experiment.
+    - cron: "17 * 22,23 10 *" # UTC control
+    - cron: "47 * 22,23 10 *" # Timezone-aware comparison
+      timezone: "Europe/Lisbon"
   workflow_dispatch:
+    inputs:
+      diagnostic_only:
+        description: "Test workflow execution without collecting or committing metrics"
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -13,7 +23,39 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  schedule-probe:
+    if: >-
+      (github.event_name == 'workflow_dispatch' && inputs.diagnostic_only) ||
+      (github.event_name == 'schedule' && github.event.schedule != '0 12 * * *')
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    permissions: {}
+    steps:
+      - name: Record trigger evidence
+        shell: bash
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          SCHEDULE: ${{ github.event.schedule }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          HEAD_SHA: ${{ github.sha }}
+          REF_NAME: ${{ github.ref }}
+        run: |
+          {
+            echo "## Schedule probe"
+            echo "Event: $EVENT_NAME"
+            echo "Cron: ${SCHEDULE:-manual}"
+            echo "Runner UTC: $(date -u '+%Y-%m-%dT%H:%M:%SZ')"
+            echo "Runner Lisbon: $(TZ=Europe/Lisbon date '+%Y-%m-%dT%H:%M:%S%z')"
+            echo "Ref: $REF_NAME"
+            echo "SHA: $HEAD_SHA"
+            echo "Run: $RUN_URL"
+            echo "No checkout, PAT, collector or repository writes were used."
+          } | tee -a "$GITHUB_STEP_SUMMARY"
+
   snapshot:
+    if: >-
+      (github.event_name == 'workflow_dispatch' && !inputs.diagnostic_only) ||
+      (github.event_name == 'schedule' && github.event.schedule == '0 12 * * *')
     runs-on: ubuntu-latest
     timeout-minutes: 10
 

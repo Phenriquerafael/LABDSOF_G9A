@@ -37,8 +37,8 @@ Use the documentation/research checks appropriate to this task; implementation t
 
 ## Completion record
 
-- Result/findings and limitations: to be recorded after execution or verification of existing work.
-- Evidence/PR/review links: to be recorded; document presence alone is not completion evidence.
-- Decision/requirement changes: to be recorded, or explain why no change was needed.
+- Result/findings and limitations: Evidence check and extended public-source review performed on 2026-10-14. Sources S1–S9 are recorded with URLs, dates, observations and limitations in [research findings and source register](../../03-user-research.md#7-findings). No interview, survey, observation or prototype-test finding was asserted; recruitment attempts are not documented, so this task cannot claim recruitment failure or coverage limitations caused by a known attempt.
+- Evidence/PR/review links: [research findings and source register](../../03-user-research.md#7-findings), [decision register limitation LIM-01](../../planning/decisions-and-feedback.md#4-limitations-and-technical-debt). No restricted notes, consent records or raw evidence were added to Git.
+- Decision/requirement changes: Secondary evidence supports investigating status visibility, escalation, traceable history, dispatch, scheduling bottlenecks, approval visibility and controlled information sharing as workflow topics. It does not validate adoption, local problem frequency, effort or AI value; `LIM-01` remains open for primary research.
 - [ ] DoR reviewed with date, estimate, owner and reviewer confirmed.
-- [ ] Acceptance criteria and applicable [DoD](../../governance/definition-of-done.md) verified with evidence.
+- [ ] Acceptance criteria and applicable [DoD](../../governance/definition-of-done.md) verified with evidence. Secondary-source criteria are recorded; participant-based collection criteria remain incomplete.

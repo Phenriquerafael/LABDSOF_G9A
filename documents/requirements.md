@@ -1,28 +1,28 @@
 # Initial requirements and quality attributes
 
-**Status:** proposal v0.1 · Sprint 1, Phases 2–3 · validation pending
+**Status:** proposal v0.2 · Sprint 1, Phases 2–3 · reviewed 2026-10-19 (DISC-03-03) · validation pending
 
-Sources: [assignment](../LABDSOF-26-27-Assignment.md), [hypotheses P1–P7](01-problem-and-opportunity-report.md) and [vision J1–J3](04-product-vision.md). No requirements have yet been confirmed through interviews. “Must” in the backlog is a proposed priority for the academic release, not customer approval.
+Sources: [assignment](../LABDSOF-26-27-Assignment.md), [hypotheses P1–P7](01-problem-and-opportunity-report.md), [secondary findings PS-01–PS-08](03-user-research.md#72-findings) and [vision J1–J3](04-product-vision.md). No requirements have yet been confirmed through interviews; PS findings support workflow concepts only. “Must” in the backlog is a proposed priority for the academic release, not customer approval.
 
 ## Functional requirements
 
-See the [epics table in the Product Backlog](06-product-backlog.md#2-epics) for the scope and items associated with each epic.
+See the [epics table in the Product Backlog](05-product-backlog.md#2-epics) for the scope and items associated with each epic.
 
 | ID | Proposed requirement | Source | Backlog / epic |
 |---|---|---|---|
 | RF-01 | Record a text report in an authorised building and return a persistent ID | P1, P5 / J1 | US-01 / EP-01 |
-| RF-02 | View status and history, triage manually and control transitions | P1 / J1–J2 | US-02 / EP-01 |
+| RF-02 | View status and history, triage manually and control transitions | P1, PS-03, PS-05 / J1–J2 | US-02 / EP-01 |
 | RF-03 | Suggest category/urgency using AI with provenance, correction and fallback | P3, P7 / §5.6 | US-03 / EP-02 |
-| RF-04 | Publish a shared summary and allow impact confirmation/withdrawal without exposing identity | P2, P5 / §5.5 | US-04 / EP-01 |
+| RF-04 | Publish a shared summary and allow impact confirmation/withdrawal without exposing identity; the count never changes urgency | P2, P5 / §5.5, [vision §6](04-product-vision.md#6-ethical-participation-and-visibility) | US-04 / EP-01 |
 | RF-05 | Suggest and review links between similar reports while preserving originals | P2 / J2 | US-05 / EP-02 |
 | RF-06 | Browse the catalogue, filter eligibility and select a contractor | P1, P6 / J2 | US-06 / EP-03 |
-| RF-07 | Approve a request, receive acceptance/rejection/counterproposal and record review | P6 / J2–J3 | US-07 / EP-03 |
-| RF-08 | Synchronise an external calendar/simulator and record a pending state or manual confirmation | P6 / §6.5 | US-08 / EP-03 |
+| RF-07 | Approve a request, receive acceptance/rejection/counterproposal and record review | P6, PS-08 / J2–J3 | US-07 / EP-03 |
+| RF-08 | Synchronise an external calendar/simulator and record a pending state or manual booking confirmation | P6, PS-07 / §6.5 | US-08 / EP-03 |
 | RF-09 | Receive completion reports and let the administrator close/reopen with history | P1 / J2–J3 | US-09 / EP-03 |
-| RF-10 | Notify status changes through one channel and respect optional preferences | P5 / J1–J3 | US-10 / EP-01 |
+| RF-10 | Notify status changes through one channel and respect optional preferences | P5, PS-01, PS-04 / J1–J3 | US-10 / EP-01 |
 | RF-11 | Record an optional basic cost with source, currency and audited correction | P1 / J2–J3 | US-11 / EP-03 |
 
-Price/distance selection and embeddings are conditional refinements, not guaranteed available data. IoT and prediction are excluded from this list while DEC-01 remains open.
+Price/distance selection and embeddings are conditional refinements, not guaranteed available data ([vision §4.4](04-product-vision.md#44-conditions-for-optional-features)). IoT and prediction are excluded from the MVP and from this list (DEC-01, BA/PO proposal of 2026-10-19, team agreement pending). Approval, acceptance, booking confirmation, completion report and closure follow the step definitions in [vision §4.3](04-product-vision.md#43-distinct-steps-dec-10).
 
 ## Non-functional requirements / constraints
 
@@ -44,15 +44,15 @@ The numerical targets below are proposals for discussion (DEC-08), not results o
 
 ## Priorities, acceptance and traceability
 
-The [backlog](06-product-backlog.md) contains proposed MoSCoW priorities and item-level criteria. A need identified through research must reference E/F in the evidence register and update this table. A significant technical change requires an ADR.
+The [backlog](05-product-backlog.md) contains proposed MoSCoW priorities and item-level criteria. A need identified through research must reference E/F in the evidence register and update this table. A significant technical change requires an ADR.
 
-Model and states: [technical design](08-technical-design.md). Access/data policies: [security](09-security-privacy.md).
+Model and states: [technical design](07-technical-design.md). Access/data policies: [security](09-security-privacy.md).
 
 ## Open decisions
 
-- Quantitative targets and environment (DEC-08).
+- Technical targets and environment (DEC-08). The primary product threshold is proposed in [vision §5.1](04-product-vision.md#51-primary-success-criterion-dec-08).
 - Visible data, retention and ways to request deletion (DEC-07).
-- Scheduling and closure business rules (DEC-10).
+- Scheduling and closure business rules (DEC-10); step definitions proposed in vision §4.3, validation with administrators and contractors pending.
 - Support for private reports about individual units in the pilot; the baseline keeps raw reports restricted.
 - Assisted access for residents without digital access, to investigate before expanding the MVP.
 

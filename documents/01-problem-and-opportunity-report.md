@@ -30,7 +30,7 @@ Reduce administrators' active effort when triaging and preparing an intervention
 
 ## 3. Current practices (existing alternatives)
 
-**[Hypothesis]** Reports may arrive through calls, messages or neighbourhood groups; administrators and contractors coordinate through existing contacts and records in software, spreadsheets or paper. We need to observe where this process helps and where it requires additional effort. Advantages, limitations and products are compared in the [alternatives analysis](02-market-and-competitor-analysis.md#2-identified-alternatives).
+**[Hypothesis]** Reports may arrive through calls, messages or neighbourhood groups; administrators and contractors coordinate through existing contacts and records in software, spreadsheets or paper. We need to observe where this process helps and where it requires additional effort. Advantages, limitations and products are compared in the [alternatives analysis](02-market-and-competitor-analysis.md#2-selected-alternatives).
 
 ## 4. Stakeholders
 
