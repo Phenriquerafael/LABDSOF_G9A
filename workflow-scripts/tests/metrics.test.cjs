@@ -14,34 +14,34 @@ const snapshot = (day, issues) => ({ date: day.includes('T') ? day + 'T12:00:00Z
 const row = (rows, date) => rows.find(row => row.date === date);
 
 test('presets use confirmed dates, including the year boundary', () => {
-  assert.deepEqual(JSON.parse(JSON.stringify(context.periodFor('A'))), {start:'2026-10-11',end:'2026-10-31'});
+  assert.deepEqual(JSON.parse(JSON.stringify(context.periodFor('A'))), {start:'2026-10-10',end:'2026-10-31'});
   assert.deepEqual(JSON.parse(JSON.stringify(context.periodFor('B'))), {start:'2026-11-01',end:'2026-12-05'});
   const rows=build([snapshot('2026-12-06',[issue(1,'Ready','C')]),snapshot('2027-01-03',[issue(1,'Done','C')])],'C');
   assert.equal(rows.length,29);assert.equal(rows.at(-1).remaining,0);assert.equal(rows.at(-1).ideal,0);
 });
 test('sprint filtering accepts A and Sprint A, while all includes unassigned issues', () => {
-  const history=[snapshot('2026-10-11',[issue(1),issue(2,'Done',' sprint a '),issue(3,'Ready','B'),issue(4,'Ready',null)])];
+  const history=[snapshot('2026-10-10',[issue(1),issue(2,'Done',' sprint a '),issue(3,'Ready','B'),issue(4,'Ready',null)])];
   const filtered=build(history)[0];assert.equal(filtered.scope,2);assert.equal(filtered.done,1);assert.equal(filtered.remaining,1);
   assert.equal(build(history,'all')[0].scope,4);
 });
 test('daily scope reflects additions and transfers separately from completion', () => {
-  const rows=build([snapshot('2026-10-11',[issue(1)]),snapshot('2026-10-12',[issue(1),issue(2)]),snapshot('2026-10-13',[issue(1,'Ready','B'),issue(2)])]);
+  const rows=build([snapshot('2026-10-10',[issue(1)]),snapshot('2026-10-11',[issue(1),issue(2)]),snapshot('2026-10-12',[issue(1,'Ready','B'),issue(2)])]);
   assert.equal(rows[0].scope,1);assert.equal(rows[1].scope,2);assert.equal(rows[2].scope,1);assert.equal(rows[2].done,0);
-  assert.ok(rows[1].ideal<1); // Scope additions do not reset the reference line.
+  assert.ok(rows[2].ideal<1); // Scope additions do not reset the reference line.
 });
 test('latest daily snapshot wins, reopened work increases remaining', () => {
-  const rows=build([{date:'2026-10-11T08:00:00Z',issues:[issue(1)]},{date:'2026-10-11T18:00:00Z',issues:[issue(1,'Done')]},snapshot('2026-10-12',[issue(1)])]);
+  const rows=build([{date:'2026-10-10T08:00:00Z',issues:[issue(1)]},{date:'2026-10-10T18:00:00Z',issues:[issue(1,'Done')]},snapshot('2026-10-11',[issue(1)])]);
   assert.equal(rows[0].remaining,0);assert.equal(rows[1].remaining,1);assert.equal(rows[2].remaining,null);
 });
 test('legacy sprint membership is a gap, not zero or an inferred assignment', () => {
-  const history=[snapshot('2026-10-11',[{id:1,status:'Done'}])];
+  const history=[snapshot('2026-10-10',[{id:1,status:'Done'}])];
   assert.equal(build(history)[0].remaining,null);assert.match(build(history)[0].quality,/not recorded/);
   assert.equal(build(history,'all')[0].remaining,0);
 });
 test('unassigned issues give a known empty sprint; duplicates and unknown statuses give gaps', () => {
-  assert.equal(build([snapshot('2026-10-11',[issue(1,'Done',null)])])[0].scope,0);
-  assert.equal(build([snapshot('2026-10-11',[issue(1),issue(1)])])[0].remaining,null);
-  assert.equal(build([snapshot('2026-10-11',[issue(1,'Unknown')])])[0].remaining,null);
+  assert.equal(build([snapshot('2026-10-10',[issue(1,'Done',null)])])[0].scope,0);
+  assert.equal(build([snapshot('2026-10-10',[issue(1),issue(1)])])[0].remaining,null);
+  assert.equal(build([snapshot('2026-10-10',[issue(1,'Unknown')])])[0].remaining,null);
 });
 test('late reference starts at first non-empty observation and does not decrease over weekends', () => {
   const rows=build([snapshot('2026-10-15',[issue(1)])]);
@@ -50,9 +50,9 @@ test('late reference starts at first non-empty observation and does not decrease
   assert.equal(build([snapshot('2026-10-31',[issue(1)])]).at(-1).ideal,null);
 });
 test('completed status is case insensitive and validates input', () => {
-  assert.equal(build([snapshot('2026-10-11',[issue(1,' CLOSED ')])],'A','Closed')[0].done,1);
+  assert.equal(build([snapshot('2026-10-10',[issue(1,' CLOSED ')])],'A','Closed')[0].done,1);
   assert.throws(()=>build([], 'A'),/non-empty/);
-  assert.throws(()=>build([snapshot('2026-10-11',[{id:1,status:'Ready',sprint:7}])]),/string or null/);
+  assert.throws(()=>build([snapshot('2026-10-10',[{id:1,status:'Ready',sprint:7}])]),/string or null/);
 });
 
 async function collect({fail=false}={}) {
@@ -96,12 +96,12 @@ test('page loads local JSON, filters automatically and keeps tables/CSV without 
   const ctx=vm.createContext({document:{getElementById:get,createElement:element,body:element()},location:{protocol:'file:'},console});
   for(const script of html.matchAll(/<script(?: id="burndown-model")?>([\s\S]*?)<\/script>/g))vm.runInContext(script[1],ctx);
   assert.match(get('message').textContent,/Choose your/);
-  get('history-file').files=[{text:async()=>JSON.stringify([snapshot('2026-10-11',[issue(1),issue(2,'Done','B'),issue(3,'Custom done',null)])])}];
+  get('history-file').files=[{text:async()=>JSON.stringify([snapshot('2026-10-10',[issue(1),issue(2,'Done','B'),issue(3,'Custom done',null)])])}];
   await get('history-file').listeners.change();
   assert.equal(get('issue-rows').children.length,3);assert.equal(get('export').disabled,false);assert.match(get('message').textContent,/Chart.js could not load/);
   assert.ok(get('done-status').children.some(option=>option.value==='Custom done'));
   get('sprint').value='A';get('sprint').listeners.change();
-  assert.equal(get('issue-rows').children.length,1);assert.equal(get('rows').children.length,21);
+  assert.equal(get('issue-rows').children.length,1);assert.equal(get('rows').children.length,22);
   get('history-file').files=[{text:async()=>'{invalid'}];await get('history-file').listeners.change();
   assert.equal(get('message').className,'error');assert.equal(get('export').disabled,true);assert.equal(get('issue-rows').children.length,0);
 });

@@ -41,7 +41,7 @@ Files: [snapshot.js](../../workflow-scripts/snapshot.js), [metrics.yml](../../.g
 - Only issues from the configured repository are counted; PRs, draft items and issues from other repositories are excluded. The collector queries active project items: preserve review evidence before archiving/removing items. It collects the whole project, including each issue?s Sprint assignment, so the page can filter without recollecting data. The `sprintFieldName` constant defaults to `Sprint`; single-select, iteration and text fields are supported. A missing field or unassigned value is saved as `null` and logged. Configure the board field and assign values before collecting sprint measurements. Old snapshots are not backfilled from current assignments.
 - HTTP/GraphQL errors, inaccessible items, missing Status values, invalid pagination and empty collections stop the run without appending to history. Invalid existing history is not overwritten. History is replaced only after the complete snapshot has been written to a temporary file.
 - Both HTML pages use `./data/history.json`. `chart.html` renders stacked status counts; `burndown.html` defaults to all issues and filters by predefined sprint, plots remaining/ideal/scope lines, shows an issue list and daily table, supports local JSON selection and exports daily CSV data. Filters refresh automatically; no manual issue-number list is required.
-- The workflow runs daily at `00:00 UTC` or manually, checks out `main`, runs the collector and commits `workflow-scripts/data/` back to `main`. Concurrent workflow runs are serialised. A rebase incorporates intervening commits before pushing; commit/push failures remain visible.
+- The workflow runs daily at `12:00 Europe/Lisbon` (with automatic daylight-saving adjustment) or manually, checks out `main`, runs the collector and commits `workflow-scripts/data/` back to `main`. Concurrent workflow runs are serialised. A rebase incorporates intervening commits before pushing; commit/push failures remain visible.
 
 ### Checks still required before automated collection
 
@@ -53,6 +53,14 @@ Files: [snapshot.js](../../workflow-scripts/snapshot.js), [metrics.yml](../../.g
 6. Serve `workflow-scripts/` through HTTP and open either chart. Alternatively, open `burndown.html` directly and select a local history file. Select a sprint and completed status; review the issue list and missing-data messages.
 
 The collector, workflow paths and chart defaults are aligned. Configuration is implemented; successful local checks do not constitute evidence of live collection or completed project work.
+
+### Scheduled-run investigation (22 October 2026)
+
+Observed through the GitHub API: the repository is not a fork or archived, its default branch is main, and Metrics Snapshot is active. The workflow was registered in LABDSOF_G9A on 21 October 2026 at 17:22:21 UTC. At inspection, its two recorded runs were manual; the latest [manual run](https://github.com/Phenriquerafael/LABDSOF_G9A/actions/runs/39652644707) succeeded, including collection and pushing data. No scheduled run was recorded. This confirms that manual execution works but does not identify why the scheduler missed a trigger.
+
+The published cron was midnight UTC. The local workflow now schedules daily collection at 12:00 Lisbon local time to test the scheduled trigger, using cron `0 12 * * *` with `timezone: Europe/Lisbon`. The schedule follows daylight-saving changes and remains at the start of an hour. See [GitHub timezone-aware schedule syntax](https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax#onschedule), accessed 22 October 2026. GitHub documents that scheduled events can be delayed or dropped under load; this is a possible explanation, not a confirmed cause here. A changed cron also refreshes the associated scheduling actor once published. See [GitHub troubleshooting guidance](https://docs.github.com/en/actions/how-tos/troubleshoot-workflows), accessed 22 October 2026.
+
+Publish the workflow change to main, then check Actions for an event labelled schedule after the next daily window. A successful manual run is not proof that scheduling has recovered. If no scheduled run appears, investigate the scheduler/actor with GitHub support rather than changing the working token or collector without evidence.
 
 ## 4. Charts and flow measures
 
