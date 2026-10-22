@@ -40,7 +40,7 @@ File numbering matches the assignment deliverables; document 08 links to the ADR
 | [Strategy](documents/building-maintenance-coordinator-strategy.md) | Overview | Harmonised proposal | Scope and segment decisions |
 | [01 — Problem and opportunity](documents/01-problem-and-opportunity-report.md) | 1 | Draft | Problem evidence |
 | [02 — Market and competitors](documents/02-market-and-competitor-analysis.md) | 2 | Preliminary survey | Verified sources and comparison |
-| [03 — Research](documents/03-user-research.md) | 3 | Plan and guides | Collection, findings, limitations and decisions |
+| [03 — Research](documents/03-user-research.md) | 3 | Plan, public-source review and [eight simulated records inventoried](documents/research/answers/README.md); no real participants | Independent collection review, DISC-01-03 synthesis and empirical validation |
 | [04 — Vision](documents/04-product-vision.md) | 4 | Proposal | Validation of personas, scope and metrics |
 | [05 — Product Backlog](documents/05-product-backlog.md) | 5 | Proposed epics, criteria and MoSCoW | Prioritise with stakeholders, estimate and assign |
 | [Functional requirements and NFRs](documents/requirements.md) | Supports 4/5/7 | Initial list | Validate needs and targets |

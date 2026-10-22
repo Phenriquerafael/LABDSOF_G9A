@@ -28,8 +28,16 @@ A provisional baseline enables consistent documents; it does not mean approval. 
 - **Review:** record answers without identifiers from the start. Interviewer/note-taker check before first commit; Martim reviews before merge. Generalise distinctive role/location/date/incident combinations and omit any response that remains identifiable. Survey exports exclude timestamps/account metadata and are not committed as-is; delete working exports after checks and survey-tool responses within seven days of checked export.
 - **Sample/recruitment:** two professional administrators, three volunteers, eight residents and two contractors; invitations via existing introductions/public business channels, without copying contacts into research records. One reminder after five working days, close after ten without response. Counts are targets, not commitments or findings.
 - **Reason/alternatives:** anonymous answer records support traceability without a separate personal-data archive. Identifiable or merely pseudonymous records are excluded from this Git workflow. Professional evidence gaps still leave DEC-02 unvalidated.
-- **Traceability:** [plan](../03-user-research.md#32-collection-arrangements), [interview templates](../templates/interviews/README.md), [answer-record template](../templates/research-record.md), [security](../09-security-privacy.md#41-research-data-handling-disc-01-01), [task](../backlog/tasks/DISC-01-01-prepare-research.md#completion-record).
-- **Execution boundary:** interviews remain deferred and templates blank. No participant permissions, access checks, peer approvals or findings are claimed by this edit. Production permissions/retention belong to the technical design/security tasks.
+- **Traceability:** [plan](../03-user-research.md#3-recruitment-and-ethics), [interview templates](../templates/interviews/README.md), [answer-record template](../templates/research-record.md), [security](../09-security-privacy.md#41-research-data-handling-disc-01-01), [task](../backlog/tasks/DISC-01-01-prepare-research.md#completion-record).
+- **Execution boundary:** real interviews remain deferred and templates blank; eight separately labelled simulated records are inventoried under DISC-01-02 below. No real participant permissions, access checks or peer approvals are claimed. Production permissions/retention belong to the technical design/security tasks.
+
+### DISC-01-02 simulated research record
+
+- **Recorded:** 2026-10-22, during execution of [#22](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/22). This documents the method already stated in the research plan; it is not a new lecturer approval or team ratification.
+- **Basis:** the [plan](../03-user-research.md) records that the lecturer accepts real or simulated interviews. The clarification date, lecturer identity and meeting reference were not supplied. The assignment remains unchanged; fictional records must never be presented as real user evidence.
+- **Execution:** reuse and check eight explicitly simulated records created on 2026-10-21, covering two professional administrators, two volunteers, two residents and two contractors. The [inventory](../research/answers/README.md) records 78 written answers, provenance limits, question-level coverage, counterexamples and the author-side check. No real interviews or recruitment attempts are recorded.
+- **Handling:** consent, real session dates, interviewers and duration are not applicable to fiction. Existing DEC-07 safeguards still apply before any future real collection. Ownership remains in the backlog allocation.
+- **Consequence:** DISC-01-02 has a simulated collection package for independent review; DISC-01-03 must distinguish scenario interpretations from public-source findings and actual observations. DEC-02/08/10 are not validated by simulation; LIM-01 and LIM-04 remain open. No new product decision, baseline or confirmed participant commitment results from this inventory.
 
 ### Confirmed Sprint 1 scope decision — DEC-11
 
@@ -80,9 +88,9 @@ Use the [template](../templates/investor-review.md). At least one decision must 
 
 | ID | Limitation | Impact | Next action | Owner |
 |---|---|---|---|---|
-| LIM-01 | No primary research recorded | Value and adoption need validation | DISC-01 | To be assigned |
+| LIM-01 | No real participant research; eight simulated records inventoried on 2026-10-22 | Scenarios do not validate value, frequency or adoption | DISC-01-03 separates scenario synthesis from empirical claims; real validation remains future work | See DISC-01 allocation |
 | LIM-02 | Incomplete competitor sources | Differentiation not demonstrated | DISC-02 | To be assigned |
 | LIM-03 | No application code, CI or deployment in this baseline | Later technical requirements not yet demonstrated; optional skeleton excluded from Sprint 1 by DEC-11 | EN-01 design; EN-02 considered in later implementation planning | To be assigned |
-| LIM-04 | No measured baseline for the primary metric; the current-process condition will be simulated | An effort reduction can be shown only in controlled tasks, not in real operation | Collect interview time estimates (DISC-01-02); freeze the protocol and threshold before EN-04 | Afonso (BA/PO) |
+| LIM-04 | No measured baseline for the primary metric; the current-process condition will be simulated | An effort reduction can be shown only in controlled tasks, not in real operation | DISC-01-02 scenario times are fictional, not a baseline; obtain empirical estimates or controlled task measurements and freeze the protocol/threshold before EN-04 | Afonso (BA/PO) |
 
 Add implementation debt when it exists; future features are not automatically technical debt.
