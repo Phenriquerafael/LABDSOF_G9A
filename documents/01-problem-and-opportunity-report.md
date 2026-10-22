@@ -36,7 +36,7 @@ Reduce administrators' active effort when triaging and preparing an intervention
 
 | Stakeholder | Interest | Power / influence | Main pain point [Hypothesis] |
 |---|---|---|---|
-| Administrator (management company) | Resolve issues quickly, control costs, avoid complaints | High (decides and pays) | Contact volume, manual coordination, lack of traceability |
+| Administrator (management company) | Resolve issues quickly, control costs, avoid complaints | Potentially high; purchasing/spending authority to verify | Contact volume, manual coordination, lack of traceability |
 | Resident administrator (volunteer) | Resolve issues without spending too much time | Medium | Limited time and technical knowledge |
 | Resident / property owner | Know the problem was received and its current status | Medium (puts pressure on the administrator) | Lack of feedback, multiple channels |
 | Contractor | Clear requests, conflict-free schedule, timely payment | Medium | Incomplete information, wasted visits |
@@ -69,7 +69,7 @@ SF references resolve to the [source-linked synthesis table](03-user-research.md
 
 ### Effort baseline and decision consequence
 
-No measured baseline or real participant estimate is available. The four administrator scenario cases contain 45, 10, about 60 and 15 active minutes; these invented values are not a sample mean or an operational benchmark. See [baseline limits](03-user-research.md#723-coordination-effort-baseline). Retain DEC-08's proposed controlled-task protocol and target without claiming achieved savings.
+No empirical baseline is available. The fictional per-occurrence times neither measure real effort nor isolate the product metric's receipt-to-approved-request window. See the [canonical effort extraction and limitations](03-user-research.md#723-coordination-effort-baseline); the evaluation protocol remains in vision section 5.1.
 
 The [SP-01 to SP-05 proposals](planning/decisions-and-feedback.md#disc-01-03-synthesis-proposals) narrow the framing and retain the bounded MVP with explicit reasons; no new integration, marketplace or autonomous decision is committed.
 
@@ -82,15 +82,15 @@ The [SP-01 to SP-05 proposals](planning/decisions-and-feedback.md#disc-01-03-syn
 
 ## 7. Assumptions and risks
 
-| # | Assumption | How to validate | Risk if false |
-|---|---|---|---|
-| P1 | Administrators spend significant time coordinating maintenance issues | Interviews, time estimates per issue | No meaningful pain point, no product opportunity |
-| P2 | Duplicate reports occur in significant numbers | Ask administrators; analyse anonymised records if available | Duplicate detection loses value |
-| P3 | Urgency is poorly triaged today | Interviews and concrete cases | AI classification loses value |
-| P4 | Administrators are willing to adopt a new platform | Interviews and prototype testing | Low adoption |
-| P5 | Residents will report through an app/web page if it is simple | Interviews and prototype testing | Insufficient input |
-| P6 | Contractors will accept requests and scheduling through the platform | Contractor interviews | Dispatch remains manual |
-| P7 | Administrators trust AI-assisted recommendations if they are explainable and subject to approval | Prototype testing | AI is underused or rejected |
+| # | Assumption | Risk if false |
+|---|---|---|
+| P1 | Administrators spend significant time coordinating maintenance issues | No meaningful pain point, no product opportunity |
+| P2 | Duplicate reports occur in significant numbers | Duplicate detection loses value |
+| P3 | Urgency is poorly triaged today | AI classification loses value |
+| P4 | Administrators are willing to adopt a new platform | Low adoption |
+| P5 | Residents will report through an app/web page if it is simple | Insufficient input |
+| P6 | Contractors will accept requests and scheduling through the platform | Dispatch remains manual |
+| P7 | Administrators trust AI-assisted recommendations if they are explainable and subject to approval | AI is underused or rejected |
 
 The [P1-P7 disposition table](03-user-research.md#722-hypothesis-disposition-and-next-tests) records each hypothesis as empirically unresolved, identifies scenario support/counterexamples and specifies the next test. No hypothesis is confirmed merely because a fictional profile expresses it.
 

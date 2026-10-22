@@ -4,6 +4,8 @@
 
 Sources: [assignment](../LABDSOF-26-27-Assignment.md), [hypotheses P1–P7](01-problem-and-opportunity-report.md), [secondary findings PS-01–PS-08](03-user-research.md#72-findings) and [vision J1–J3](04-product-vision.md). No requirements have yet been confirmed through interviews; PS findings support workflow concepts only. “Must” in the backlog is a proposed priority for the academic release, not customer approval.
 
+**Synthesis traceability (2026-10-22, pending review):** [SF-01 to SF-07](03-user-research.md#721-scenario-synthesis-disc-01-03) are scenario interpretations, not validated user requirements. The [SP decision mapping](planning/decisions-and-feedback.md#disc-01-03-synthesis-proposals) links them to RF-01/04/05 (participation), RF-02/03 (manual and assisted triage), and RF-07/08/09 (dispatch/closure), with NFR-03/10/11. Scope remains unchanged for the reasons recorded there.
+
 ## Functional requirements
 
 See the [epics table in the Product Backlog](05-product-backlog.md#2-epics) for the scope and items associated with each epic.
@@ -44,7 +46,7 @@ The numerical targets below are proposals for discussion (DEC-08), not results o
 
 ## Priorities, acceptance and traceability
 
-The [backlog](05-product-backlog.md) contains proposed MoSCoW priorities and item-level criteria. A need identified through research must reference E/F in the evidence register and update this table. A significant technical change requires an ADR.
+The [backlog](05-product-backlog.md) contains proposed MoSCoW priorities and item-level criteria. Use E identifiers for problem implications, PS for public-source findings, SF for simulated-scenario interpretations and SP/DEC for proposals/decisions. A changed requirement must link its supporting finding and decision; a citation alone is not empirical validation. A significant technical change requires an ADR.
 
 Model and states: [technical design](07-technical-design.md). Access/data policies: [security](09-security-privacy.md).
 

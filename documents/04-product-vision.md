@@ -2,9 +2,11 @@
 
 **Status:** proposal v0.4 (DISC-03-03) · **Sprint:** 1 · **Reviewed:** 2026-10-19
 
-Personas, priorities and targets are hypotheses unless a finding is cited. This is the **source of the proposed functional scope**; changes must be reflected in the [backlog](05-product-backlog.md), [requirements](requirements.md) and [decisions](planning/decisions-and-feedback.md).
+Personas, priorities and targets remain proposals; citing a finding does not by itself validate them. Distinguish public context, simulated scenarios and empirical observations. This is the **source of the proposed functional scope**; changes must be reflected in the [backlog](05-product-backlog.md), [requirements](requirements.md) and [decisions](planning/decisions-and-feedback.md).
 
 **Evidence basis on 2026-10-19.** No interview, survey, observation or prototype test has been recorded ([03 §7](03-user-research.md#7-findings)), and the DISC-01-03 synthesis is still open. This revision cites only the secondary findings PS-01–PS-08 ([03 §7.2](03-user-research.md#72-findings)) and the competitor sources S01–S28 ([02 §5](02-market-and-competitor-analysis.md#5-source-and-findings-register)). PS findings make workflow concepts plausible; they do not establish local frequency, effort, adoption or willingness to pay. S01–S28 always refer to the 02 register and are supplier claims unless marked otherwise there; the public sources behind PS findings (S1–S9 in 03) are cited only through their PS IDs. Choices marked **[BA/PO proposal]** were proposed by Afonso (BA/PO) on 2026-10-19 under [DISC-03-03 (#14)](https://github.com/Phenriquerafael/LABDSOF_GX/issues/14) and await team agreement in review; they are not stakeholder or lecturer approval.
+
+**Synthesis update (2026-10-22, pending review):** [SF-01 to SF-07](03-user-research.md#721-scenario-synthesis-disc-01-03) add contrasting fictional scenarios to the historical evidence basis above. They inform the personas, J1-J3 and evaluation cases, without empirically validating them. [SP-01 to SP-05](planning/decisions-and-feedback.md#disc-01-03-synthesis-proposals) explain why scope is retained: fragmented versus structured administration, digital versus assisted participation, conditional contractor adoption and limited AI value. The existing metric/protocol stays canonical here; scenario times do not measure its task window.
 
 ## 1. Vision and value proposition
 

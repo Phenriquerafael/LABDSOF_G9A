@@ -1,6 +1,6 @@
 # Registo das entrevistas simuladas — DISC-01-02
 
-**Estado:** conjunto revisto pelo agente em 2026-10-22; revisão independente pendente. **Issue:** [#22](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/22). **Responsável e revisor:** consultar apenas a [distribuição do backlog](../../backlog/README.md).
+**Estado:** inventário integrado no [PR #37](https://github.com/Phenriquerafael/LABDSOF_G9A/pull/37); issue [#22](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/22) verificado fechado em 2026-10-22. Evidência de revisão no [registo da tarefa](../../backlog/tasks/DISC-01-02-conduct-research.md#completion-record). Responsabilidade: [backlog](../../backlog/README.md).
 
 ## Método e proveniência
 
@@ -25,30 +25,9 @@ O [plano de investigação](../../03-user-research.md) já regista a indicação
 
 Total verificado: **78 respostas simuladas** (4 × 14 + 2 × 6 + 2 × 5). Os dois registos de moradores são entrevistas simuladas, não oito respostas ao inquérito planeado. Os alvos do plano para participantes reais não foram atingidos nem substituídos por contagens fictícias.
 
-## Rastreabilidade para análise posterior
+## Análise e rastreabilidade
 
-Os números abaixo referem-se às perguntas dos registos, não às perguntas Q1–Q9 do plano. A matriz localiza material para DISC-01-03; não confirma nem refuta hipóteses no mundo real.
-
-| Hipótese | Registos / perguntas | Material e contraponto a analisar |
-|---|---|---|
-| P1 — esforço administrativo | ADM-P-01/02 e ADM-V-01/02, 3 e 11 | Trabalho ativo separado de espera; casos com vários contactos contrastam com processos simples ou já organizados |
-| P2 — duplicações | ADM-P-01/02 e ADM-V-01/02, 6; MOR-01/02, 3 | Repetições, ausência de duplicação, relatos semelhantes mas distintos e silêncio de moradores |
-| P3 — urgência | ADM-P-01/02 e ADM-V-01/02, 5 | Dúvida que exige apoio técnico e exemplo em que a triagem existente funciona |
-| P4 — adoção por administradores | ADM-P-01/02 e ADM-V-01/02, 9, 12 e 14 | Integração, aprendizagem, autoridade de compra, baixo volume e recusa de migração/teste |
-| P5 — participação dos moradores | MOR-01/02, 1–6; administradores, 13 | Recibo/estado, privacidade, não comunicação e alternativa por telefone |
-| P6 — participação dos prestadores | PRE-01/02, 1–5; administradores, 7–8 | Informação mínima, autorização, aceitação, confirmação de data, alterações e fecho; resistência a agenda/conta obrigatória |
-| P7 — confiança em sugestões | ADM-P-01/02 e ADM-V-01/02, 10 | Explicação, correção e opção manual; perfis que não valorizam a IA |
-
-Prefixos abreviados na matriz correspondem aos IDs `SIM-` do inventário. As referências aos registos e guiões permitem conferir cada resposta sem a duplicar neste índice.
-
-## Esforço, ferramentas e decisões de coordenação
-
-| Tema exigido pelo issue | Onde conferir | Natureza e limite |
-|---|---|---|
-| Incidente e sequência até à resolução | Administradores, 3 e 8; moradores, 1–2; prestadores, 1–2 | Casos construídos; não são incidentes reais observados |
-| Esforço ativo / espera | ADM-P-01, 3 e 11: 45 min no caso, intervalo 30–60 min; ADM-P-02: 10 min no caso, 10–15 min correntes; ADM-V-01: cerca de 60 min, intervalo 40–70 min; ADM-V-02: 15 min, intervalo 15–20 min | Todos os valores são inventados no cenário. Não calcular média de utilizadores, poupança ou baseline operacional a partir deles |
-| Ferramentas e barreiras | Administradores, 4 e 9; prestadores, 1–2 e 5 | Telefone, mensagens, email, folhas de cálculo, ferramenta existente e agenda própria são descrições fictícias |
-| Aprovação, marcação e fecho | Administradores, 7–8; prestadores, 2 e 4 | Distinguir autorização do administrador, aceitação do prestador, confirmação de data, comunicação de conclusão e validação do fecho |
+As referências às perguntas, os contrastes por hipótese e a interpretação estão na [síntese SF-01 a SF-07](../../03-user-research.md#721-scenario-synthesis-disc-01-03). Os valores de esforço e os seus limites estão na [secção de baseline](../../03-user-research.md#723-coordination-effort-baseline). Este índice conserva o inventário e a proveniência; não duplica as tabelas analíticas.
 
 ## Verificação realizada em 2026-10-22
 
@@ -59,6 +38,4 @@ Prefixos abreviados na matriz correspondem aos IDs `SIM-` do inventário. As ref
 
 ## Limites e passagem para DISC-01-03
 
-As respostas podem refletir o produto já imaginado e as escolhas de quem construiu os perfis. Os contraexemplos ampliam o exercício, mas não eliminam esse enviesamento. Não há amostra, saturação, prevalência, intenção de compra real, acessibilidade testada, confiança demonstrada ou benefício de IA medido. P1–P7, DEC-02, DEC-08 e DEC-10 continuam por validar empiricamente; LIM-01 e LIM-04 permanecem abertos.
-
-A [tarefa de síntese](../../backlog/tasks/DISC-01-03-synthesise-findings.md) deverá separar fontes públicas, cenários e interpretação; criar IDs de conclusões de cenário; preservar os contrastes; propor decisões e testes posteriores com referências às perguntas. Não se altera a visão, os requisitos ou as prioridades com base apenas neste inventário. A revisão independente dos critérios do DISC-01-02 e a integração via PR continuam pendentes.
+Os registos são fictícios e não validam frequência, adoção ou benefícios reais. Consultar as [limitações da investigação](../../03-user-research.md#8-limitations) e a [síntese do DISC-01-03](../../03-user-research.md#721-scenario-synthesis-disc-01-03). A recolha foi integrada pelo PR #37; a síntese tem um estado de revisão e integração separado no [issue #21](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/21).
