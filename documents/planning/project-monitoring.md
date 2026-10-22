@@ -41,7 +41,7 @@ Files: [snapshot.js](../../workflow-scripts/snapshot.js), [metrics.yml](../../.g
 - Only issues from the configured repository are counted; PRs, draft items and issues from other repositories are excluded. The collector queries active project items: preserve review evidence before archiving/removing items. It collects the whole project, including each issue?s Sprint assignment, so the page can filter without recollecting data. The `sprintFieldName` constant defaults to `Sprint`; single-select, iteration and text fields are supported. A missing field or unassigned value is saved as `null` and logged. Configure the board field and assign values before collecting sprint measurements. Old snapshots are not backfilled from current assignments.
 - HTTP/GraphQL errors, inaccessible items, missing Status values, invalid pagination and empty collections stop the run without appending to history. Invalid existing history is not overwritten. History is replaced only after the complete snapshot has been written to a temporary file.
 - Both HTML pages use `./data/history.json`. `chart.html` renders stacked status counts; `burndown.html` defaults to all issues and filters by predefined sprint, plots remaining/ideal/scope lines, shows an issue list and daily table, supports local JSON selection and exports daily CSV data. Filters refresh automatically; no manual issue-number list is required.
-- The workflow runs daily at `12:00 Europe/Lisbon` (with automatic daylight-saving adjustment) or manually, checks out `main`, runs the collector and commits `workflow-scripts/data/` back to `main`. Concurrent workflow runs are serialised. A rebase incorporates intervening commits before pushing; commit/push failures remain visible.
+- The workflow runs daily at `00:00 Europe/Lisbon` (with automatic daylight-saving adjustment) or manually, checks out `main`, runs the collector and commits `workflow-scripts/data/` back to `main`. Concurrent workflow runs are serialised. A rebase incorporates intervening commits before pushing; commit/push failures remain visible.
 
 ### Checks still required before automated collection
 
@@ -58,33 +58,11 @@ The collector, workflow paths and chart defaults are aligned. Configuration is i
 
 Observed through the GitHub API: the repository is not a fork or archived, its default branch is main, and Metrics Snapshot is active. The workflow was registered in LABDSOF_G9A on 21 October 2026 at 17:22:21 UTC. At inspection, its two recorded runs were manual; the latest [manual run](https://github.com/Phenriquerafael/LABDSOF_G9A/actions/runs/39652644707) succeeded, including collection and pushing data. No scheduled run was recorded. This confirms that manual execution works but does not identify why the scheduler missed a trigger.
 
-The published cron was midnight UTC. The local workflow now schedules daily collection at 12:00 Lisbon local time to test the scheduled trigger, using cron `0 12 * * *` with `timezone: Europe/Lisbon`. The schedule follows daylight-saving changes and remains at the start of an hour. See [GitHub timezone-aware schedule syntax](https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax#onschedule), accessed 22 October 2026. GitHub documents that scheduled events can be delayed or dropped under load; this is a possible explanation, not a confirmed cause here. A changed cron also refreshes the associated scheduling actor once published. See [GitHub troubleshooting guidance](https://docs.github.com/en/actions/how-tos/troubleshoot-workflows), accessed 22 October 2026.
+The workflow now schedules collection at midnight Lisbon time using cron `0 0 * * *` with `timezone: Europe/Lisbon`. It follows daylight-saving changes. Manual dispatch and scheduled runs both execute the snapshot job directly; no diagnostic input, probe job or cron-string job conditions remain. Publish this cleanup to `main` before relying on it.
 
-Publish the workflow change to main, then check Actions for an event labelled schedule after the next daily window. A successful manual run is not proof that scheduling has recovered. If no scheduled run appears, investigate the scheduler/actor with GitHub support rather than changing the working token or collector without evidence.
+The earlier [manual diagnostic](https://github.com/Phenriquerafael/LABDSOF_G9A/actions/runs/39807294532), created at 15:42:07 UTC on 22 October, succeeded with the collector skipped. This established manual execution only. The temporary UTC/Lisbon probes have now been removed; that cleanup does not establish that automatic scheduling has recovered.
 
-### Controlled scheduler test (22-23 October 2026)
-
-The diagnostic branch adds a `diagnostic_only` boolean input to Metrics Snapshot. Set it to `true` when running manually to execute only `schedule-probe`; the collector job must be skipped. The probe needs no checkout, PAT or repository write permission. Its log and job summary record the event, cron, actual runner time in UTC/Lisbon, ref, SHA and run URL. Runner time is not the scheduled due time; compare it with the API's `created_at` and job `started_at` to distinguish trigger delay from runner queueing.
-
-Temporary schedules provide two independent trigger samples on 22 and 23 October:
-
-| Probe | Cron | Timezone | Expected job |
-|---|---|---|---|
-| Control | `17 * 22,23 10 *` | UTC default | schedule-probe only |
-| Comparison | `47 * 22,23 10 *` | Europe/Lisbon | schedule-probe only |
-| Normal collection | `0 12 * * *` | Europe/Lisbon | snapshot only |
-
-Both probes run hourly, at different minutes to identify the source and avoid overlap. A single sample cannot establish whether timezone handling differs: GitHub scheduling may delay or drop individual events. Compare several opportunities. Do not infer that cron ran from a successful manual dispatch.
-
-1. Run the diagnostic manually on the branch to validate workflow syntax, job conditions and runner execution without metrics writes.
-2. Review and merge the change to `main`: GitHub only uses default-branch schedules. A branch-only test cannot validate automatic triggering.
-3. Inspect `gh run list --repo Phenriquerafael/LABDSOF_G9A --workflow metrics.yml --event schedule --limit 20`. For each run, open its summary and confirm the cron and skipped collector. Check creation and job-start timestamps in the API if delayed.
-4. If both probes fire, scheduling works during the test; this does not prove why earlier triggers were missed. If only the UTC probe fires repeatedly, investigate the timezone-aware path. If neither fires but manual diagnostics pass, investigate scheduler registration/actor/platform state with GitHub Support. A queued or failed run instead points to runner/execution conditions, not absence of a trigger.
-5. Remove the two probe cron entries after collecting evidence (no later than the end of 23 October). Cron has no year field: these dates would recur annually if left in place. Keep normal noon collection. The optional manual diagnostic can remain available.
-
-Observed manual diagnostic: [run 39807294532](https://github.com/Phenriquerafael/LABDSOF_G9A/actions/runs/39807294532) on branch `fix/DISC-03-02-schedule-diagnostics`, SHA `4d5097af27a034c7738f09f79c7fe06bcf9b88bb`, was created at 15:42:07 UTC on 22 October. The probe started at 15:42:11 UTC and completed successfully at 15:42:15 UTC; the snapshot job was skipped. This verifies workflow acceptance, manual execution and collector isolation. Scheduled triggering remains untested until the diagnostic schedules are on the default branch.
-
-Keep the noon schedule unchanged during the experiment. Logs contain no secrets and neither probe calls the collector. The shared concurrency group serialises diagnostic and collection runs; probes have a two-minute limit. Capture actual run URLs and outcomes before declaring scheduling recovered. Sources: [GitHub scheduling](https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax#onschedule) and [trigger troubleshooting](https://docs.github.com/en/actions/how-tos/troubleshoot-workflows), accessed 22 October 2026.
+After publication, check Actions for a run with event `schedule` after the next midnight in Lisbon, then verify that its snapshot job collected and committed data. GitHub documents that start-of-hour triggers can be delayed or dropped under load; the cause of the earlier missing triggers remains unconfirmed. Sources: [timezone-aware schedule syntax](https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax#onschedule) and [trigger troubleshooting](https://docs.github.com/en/actions/how-tos/troubleshoot-workflows), accessed 22 October 2026.
 
 ## 4. Charts and flow measures
 
