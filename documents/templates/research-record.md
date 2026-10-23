@@ -15,7 +15,7 @@ Identify the guide and question numbers, contrasting scenario, fictional effort/
 
 ## Handling
 
-Save only anonymous answers under `documents/research/answers/`, following the [plan](../03-user-research.md#3-recruitment-and-ethics). Do not include names, contacts, exact addresses, companies, identity links, signatures, consent attachments or exact session timestamps. The record ID identifies this document only; do not maintain an identity lookup. Generalise distinctive contextual combinations. Omit any answer that cannot be made anonymous.
+Save only reviewed anonymous answers under `documents/research/answers/`, applying the [security policy](../09-security-privacy.md#41-research-data-handling-disc-01-01). A document ID must have no identity lookup; omit any answer that cannot be made anonymous.
 
 ## Participation
 
@@ -25,7 +25,7 @@ Save only anonymous answers under `documents/research/answers/`, following the [
 - Direct anonymous quotations separately authorised (yes/no; otherwise paraphrase):
 - Answers read back for corrections/removal before final confirmation:
 
-No names, signatures or identifying permission records. Use the [consent text](../03-user-research.md#consent-text-template). Do not use audio/video or automatic transcription. For public-source review, mark participation fields not applicable and provide exact source URL, access date and source type; this is not an interview.
+Use the [consent and session procedure](research-collection.md#3-consent-and-session-procedure). For public-source review, mark participation fields not applicable and provide exact source URL, access date and source type; this is not an interview.
 
 ## Answers and evidence
 
@@ -55,4 +55,4 @@ Sample, context, questions omitted and what cannot be concluded:
 - Direct and indirect identifiers, timestamps and survey metadata excluded:
 - Synthesis reference:
 
-Retain anonymous records with project/Git history; no fixed deletion deadline or promise of erasing clones. Participation can stop and answers can be corrected/removed during the session before final confirmation. No identity mapping is retained afterwards. This blank template is not evidence of an interview, permission or review.
+This blank template is not evidence of collection, permission or review.

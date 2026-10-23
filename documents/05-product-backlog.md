@@ -8,7 +8,7 @@ Corresponds to deliverable 5 in §7.1.2. This document defines the product backl
 
 MoSCoW refers to the **academic release**: Must = essential for the cycle/obligations; Should = valuable but can be simplified; Could = optional; Won't = outside this release. This is a proposal for the prioritisation session, not its outcome.
 
-All items are in **Backlog**, with **estimates and confirmed owners/reviewers pending, and no issue URLs recorded**; none has been declared Ready. Team role assignments are confirmed in the [agreement](governance/team-working-agreement.md), but do not automatically assign individual backlog items. The [Sprint 1 issue drafts](backlog/README.md) propose owners/reviewers, task breakdowns, acceptance criteria and evidence links for team review. Capacity and DoR discussion: [Sprint B](planning/sprint-b-backlog.md).
+This document defines proposed scope and priorities, not live workflow status. Published research items and draft items coexist; use the [allocation and issue index](backlog/README.md) and linked GitHub issues for status, estimates and review evidence. Team roles do not override task allocation.
 
 **Scope update recorded on 2026-10-10 (DEC-11):** the evaluator clarified that the walking skeleton is optional in Sprint 1. The team will not develop it this sprint. EN-02 is retained as a foundation for later implementation planning; its technical outcomes support the Sprint 2 delivery requirements.
 

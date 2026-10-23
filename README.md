@@ -38,9 +38,9 @@ File numbering matches the assignment deliverables; document 08 links to the ADR
 | Document | §7.1.2 | Documentation status | What remains for completion/validation |
 |---|---|---|---|
 | [Strategy](documents/building-maintenance-coordinator-strategy.md) | Overview | Harmonised proposal | Scope and segment decisions |
-| [01 — Problem and opportunity](documents/01-problem-and-opportunity-report.md) | 1 | Draft | Problem evidence |
+| [01 — Problem and opportunity](documents/01-problem-and-opportunity-report.md) | 1 | Evidence register and qualified problem framing from DISC-01-03 | Independent review and empirical validation |
 | [02 — Market and competitors](documents/02-market-and-competitor-analysis.md) | 2 | Preliminary survey | Verified sources and comparison |
-| [03 — Research](documents/03-user-research.md) | 3 | Plan, public-source review and [eight simulated records inventoried](documents/research/answers/README.md); no real participants | Independent collection review, DISC-01-03 synthesis and empirical validation |
+| [03 — Research](documents/03-user-research.md) | 3 | Plan, public-source review and [eight simulated records inventoried](documents/research/answers/README.md); no real participants | DISC-01-03 synthesis documented; independent synthesis review and empirical validation pending |
 | [04 — Vision](documents/04-product-vision.md) | 4 | Proposal | Validation of personas, scope and metrics |
 | [05 — Product Backlog](documents/05-product-backlog.md) | 5 | Proposed epics, criteria and MoSCoW | Prioritise with stakeholders, estimate and assign |
 | [Functional requirements and NFRs](documents/requirements.md) | Supports 4/5/7 | Initial list | Validate needs and targets |
@@ -66,7 +66,7 @@ File numbering matches the assignment deliverables; document 08 links to the ADR
 | [Decisions and feedback](documents/planning/decisions-and-feedback.md) | Evaluator clarification and team decisions recorded; other questions remain open |
 | [Story](.github/ISSUE_TEMPLATE/user-story.md), [epic](.github/ISSUE_TEMPLATE/epic.md), [task/spike](.github/ISSUE_TEMPLATE/task.md), [bug](.github/ISSUE_TEMPLATE/bug.md) | Local GitHub templates; labels/milestones to select after setup |
 | [Pull request](.github/pull_request_template.md) | Local template |
-| [ADR](documents/templates/adr.md), [research](documents/templates/research-record.md), [review](documents/templates/investor-review.md) | Templates to copy and complete with real data |
+| [ADR](documents/templates/adr.md), [research](documents/templates/research-record.md), [review](documents/templates/investor-review.md) | Templates to complete with explicitly identified real, simulated or public-source material |
 
 ## Sprint 1 phase progress
 

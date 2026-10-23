@@ -1,6 +1,6 @@
 # Epic and Sprint 1 task issue drafts
 
-**Status:** draft package prepared on 2026-10-10; epic coverage completed on 2026-10-15. No GitHub issue URLs are recorded here; remote publication/status has not been verified in this review. EP-00 ownership and reviews are distributed across the whole team independently of functional roles. Proposed allocations are not sprint commitments; estimates and readiness still require planning. Local items remain Backlog until readiness and any remote status are recorded.
+**Status:** local issue specifications and allocation index, originally drafted in October 2026. Research issues #21-23 are published; their task records link to publication/integration evidence. GitHub owns live status, assignees and estimates. Functional roles do not override the task allocation below.
 
 This folder contains **5 epic drafts, 4 parent-task drafts and 15 delivery-task drafts**: all product epics and the detailed Sprint 1 research, planning and design tasks. The [product backlog](../05-product-backlog.md) remains the scope and priority overview. Existing product documents hold the deliverables; these files specify the work and its completion evidence.
 
@@ -95,7 +95,7 @@ DISC-03-05 covers the Sprint 1 investor review (§7.1.3), feedback and contribut
 6. Change the local publication field to Published and record its actual issue URL; update the product backlog/index links. Local workflow fields are the initial draft snapshot.
 7. After publication, GitHub Issues/Projects own live status, assignees, estimates and discussion. Keep local files as published draft records; do not maintain a competing live board here. Update product documents and the overview at reviews.
 
-This package prepares drafts only; no remote publication or configuration has been performed.
+Do not infer publication from file presence. Consult each item's publication link and GitHub for current state; drafts and published specifications coexist in this folder.
 
 ## Evidence and completion
 
