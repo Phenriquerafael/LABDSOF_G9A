@@ -11,15 +11,15 @@ Residents, administrators and contractors use a proposed responsive web client. 
 | Client | Forms, queues, states and corrections; no authority over permissions | Authenticated API |
 | Issue Service | Buildings/memberships for authorisation, reports, issues, triage, summaries and confirmations | API; publishes events; receives authorised results |
 | Dispatch Service | Catalogue, proposals, responses, bookings and costs | API; events; calendar adapter |
-| Triage worker | Processes events, calls AI/rules, delivers versioned suggestions | Queue and internal Issue Service interface; does not write to other components' tables |
+| Triage worker | Processes events, calls AI/rules, delivers versioned suggestions | Job claim and completion through the internal Issue Service interface (ADR-003 proposal); does not write to other components' tables |
 | Notification worker | Delivers idempotent notifications; final placement undecided | State events; proposed in-app channel |
-| Broker | Transport and redelivery | Authenticated publishing/consumption |
+| Outbox relay | Delivers each service's outbox rows to the other service, with retry and controlled replay (ADR-003 proposal; a broker remains a swap path) | Authenticated `POST /internal/events` |
 | Storage | Persistence; one proposed technology to limit complexity | Schemas and credentials by responsibility |
 | Calendar/simulator | Booking creation/query responses and simulatable failures | External contract with reference and idempotency key |
 
 Issue and Dispatch are the **two proposed independently deployable backend components**. Workers may have their own processes; final grouping depends on ADR/DEC-04.
 
-One database instance may host separate schemas in the academic environment; this does not authorise cross-writing. Make the shared operational dependency and compatible migrations explicit. Technology, queue and service-to-service authentication are undecided.
+One database instance may host separate schemas in the academic environment; this does not authorise cross-writing. Make the shared operational dependency and compatible migrations explicit. Technology, the asynchronous mechanism and service-to-service authentication are proposed in EN-01-01 (#15) and not yet accepted.
 
 ## 2. Domain model and data ownership
 
@@ -301,7 +301,7 @@ These values answer EN-01-01's open detail EN01-U7 (#15) as a starting proposal.
 ## 5. Asynchronous workflow and consistency
 
 1. Issue persists the report/issue and event record in the same transaction (proposed outbox).
-2. The publisher sends ReportSubmitted; broker failure preserves the event for retry.
+2. The relay delivers the outbox rows, and the worker claims the triage job; a failed delivery stays in the outbox for retry.
 3. The worker validates schema, ID and version and applies the [AI/baseline/fallback workflow](06-responsible-ai-assessment.md#2-baseline-and-fallback), with the timeout defined in NFR-03.
 4. The result reaches Issue's authorised internal interface; an old result does not replace a human correction.
 5. Change events feed projections/notifications; consumers deduplicate by eventId.
@@ -309,7 +309,7 @@ These values answer EN-01-01's open detail EN01-U7 (#15) as a starting proposal.
 
 Proposed envelope: eventId, eventType, schemaVersion, aggregateId, aggregateVersion, buildingId, occurredAt, correlationId and minimal payload. Received building identifiers are also validated; they do not suffice as authorisation.
 
-Retries use increasing delays and a configured limit; exhausted attempts go to a failure record/queue with controlled replay. Test crashes after persistence and before publication, repeated delivery and out-of-order events. Do not promise “exactly once” delivery; build idempotent effects.
+Retries use increasing delays and a configured limit; exhausted attempts become a `failed` outbox row with controlled replay. Test crashes after persistence and before publication, repeated delivery and out-of-order events. Do not promise “exactly once” delivery; build idempotent effects.
 
 ## 6. External integration and degraded mode
 
@@ -317,21 +317,21 @@ The calendar/simulator must support requests with stable IDs, query/reconciliati
 
 Timeout may occur after the external event is created; query/reconcile before retrying. Manual confirmation remains distinct from external synchronisation and suspends duplicate automatic creation until reconciliation. A calendar slot alone does not prove contractor availability.
 
-AI unavailable: rules + manual review. Broker/worker unavailable: persisted report and pending/manual triage. Calendar unavailable: pending/manual. Notification failure: status remains queryable. Database unavailable: explicit error without false acknowledgement.
+AI unavailable: rules + manual review. Relay or worker unavailable: persisted report and pending/manual triage. Calendar unavailable: pending/manual. Notification failure: status remains queryable. Database unavailable: explicit error without false acknowledgement.
 
 ## 7. Proposed deployment and operations
 
-- Containers: client, Issue, Dispatch, workers, broker, database and simulator according to the profile.
-- Expose only necessary endpoints; database/broker on an internal network.
+- Containers: client, Issue, Dispatch, workers, database and simulator according to the profile; no broker under the ADR-003 proposal.
+- Expose only necessary endpoints; database and internal endpoints on an internal network.
 - Configuration per environment; secrets injected outside Git; least-privilege service identities.
 - CI builds/tests/images; demonstration environment to be chosen (DEC-04); no Kubernetes commitment.
 - Migrations owned by each schema owner, health/readiness and compatible versions for independent deployment.
-- Structured logs with correlation ID; metrics for errors, latency, queue, retries, fallback, pending bookings and failed notifications.
+- Structured logs with correlation ID; metrics for errors, latency, outbox backlog, retries, fallback, pending bookings and failed notifications.
 - Initial dashboard in S2; backup/restore and rollback documented/exercised before release.
 
 ## 8. Gaps and validation
 
-Undecided: stack, broker, database, hosting, identity, publishing mechanism, final schemas and a dedicated rescheduling flow after a booking confirmation (3.2, DEC-10). Record alternatives and consequences in [ADRs](adr/README.md). The physical data model and executable contracts do not yet exist.
+Undecided until the EN-01-01 ADRs (#15) are accepted: stack, asynchronous mechanism (outbox relay proposed, broker as a swap path), database, hosting, identity; final schemas and a dedicated rescheduling flow after a booking confirmation (3.2, DEC-10). Record alternatives and consequences in [ADRs](adr/README.md). The physical data model and executable contracts do not yet exist.
 
 Differences from the DISC-03-06 workflow proposals ([#41](https://github.com/Phenriquerafael/LABDSOF_G9A/pull/41)) are listed as open DEC-10 items in the [decision register](planning/decisions-and-feedback.md#domain-and-contract-proposals--en-01-02). The workflows also introduce features that this domain model does not cover yet. They are outside EN-01-02 and must not be assumed to be covered:
 
