@@ -102,6 +102,8 @@ The figures in this section are BPMN 2.0 collaboration diagrams. Lanes show who 
 | Any open state | `POST /issues/{id}/cancellation` | Building administrator | `cancelled` | Reason required (for example duplicate or not actionable); same propagation |
 | `resolved` | `POST /issues/{id}/reopening` | Building administrator | `in_triage` | Reason required; earlier interventions stay closed in history; a new intervention is needed |
 
+Rows triggered by Dispatch events describe the normal order. When an event is late, duplicated or missing, Issue derives the state from the event's `interventionState` instead (3.3, “Applying Dispatch events”).
+
 “Open” means every state except `resolved` and `cancelled`. `cancelled` is terminal in this proposal: reopening it is rejected and a new report is created instead (to validate in DEC-10). The impact counter and notifications never change state.
 
 ### 3.2 Intervention states (owner: Dispatch)
@@ -145,8 +147,21 @@ The tables in 3.1 and 3.2 are allow-lists. Anything not listed is rejected witho
 | Wrong actor | `403`, or `404` when the resource is outside the actor's scope (no enumeration) |
 | Repeated command | Same `Idempotency-Key` and same body returns the original result with no new effect; same key with a different body returns `422` `IDEMPOTENCY_KEY_REUSED` (4.1) |
 | Duplicate event | Receiver records `eventId` in the same transaction as the effect; a duplicate is acknowledged with no effect |
-| Older event | Issue applies a Dispatch event to its projection only if `aggregateVersion` is greater than the last one applied for that intervention; an older one goes into history only. Events carry the full new intervention state, so a missing intermediate event does not corrupt the projection |
+| Older or missing event | Issue applies a Dispatch event only if its `aggregateVersion` is greater than the last one applied for that intervention; an older one goes into history only. Events carry the full new intervention state, and the issue state is derived from it (table below), so a late or missing intermediate event cannot leave the issue behind |
 | Late AI result | A suggestion based on an older issue version, or arriving after a triage decision, is stored but does not change category, urgency or state |
+
+**Applying Dispatch events.** The relay does not guarantee order across retries, so Issue does not depend on receiving every event in sequence. For an open issue whose `issueId` and `buildingId` match, an event with a newer `aggregateVersion` sets the issue state from the event's `interventionState`:
+
+| `interventionState` in the event | Issue state |
+|---|---|
+| `awaiting_approval`, `sent`, `scheduling_pending` | `in_coordination` |
+| `booked` | `scheduled` |
+| `in_progress` | `in_progress` |
+| `completion_reported` | `awaiting_validation` |
+| `declined`, `cancelled` | `triaged` |
+| `cancellation_pending`, `closed` | Unchanged; history shows the pending cancellation or the closure |
+
+The event must belong to the active intervention in Issue's projection, or the issue must be `triaged` with no active intervention, in which case the event's intervention becomes the active one. Events for a `resolved` or `cancelled` issue go into history only, because Dispatch is already cancelling or closing the intervention (`IssueResolved`, `IssueCancelled`). Anything else (for example an event for a second non-terminal intervention, or for an issue still in `received` or `in_triage`) becomes a `failed` row for inspection. For example, if `BookingConfirmed` (version 4) arrives before `InterventionApproved` (version 2), the issue moves from `triaged` to `scheduled`, and the late version 2 is stored in history only.
 
 Representative races and their outcomes:
 

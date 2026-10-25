@@ -283,7 +283,7 @@ The EN-01-02 verification asks the reviewer to walk one successful journey and t
 | W8 | Approval sent twice (double click, same key), and by two administrators (different keys) | Same key: same result. Different keys: one `200` and one `409`. One request is sent in both cases | 3.3 |
 | W9 | Contractor counterproposes | New version, `awaiting_approval`; approving it moves to `scheduling_pending` without a second acceptance | 3.2 |
 | W10 | Calendar returns a conflict | Booking `rejected`; intervention stays `scheduling_pending` with the reason; manual booking confirmation possible and shown as manual | 4.5 |
-| W11 | Calendar timeout after creation (1.5), and repeated delivery of `BookingConfirmed` to Issue | One booking; the duplicate `eventId` is acknowledged without effect | 4.5, 3.3, NFR-11 |
+| W11 | Calendar timeout after creation (1.5); repeated delivery of `BookingConfirmed` to Issue; `BookingConfirmed` (version 4) arriving before `InterventionApproved` (version 2) | One booking; the duplicate `eventId` is acknowledged without effect; the issue moves from `triaged` to `scheduled` and the late version 2 goes into history only | 4.5, 3.3 “Applying Dispatch events”, NFR-11 |
 | W12 | Simulator restarts and loses the booking | Reconciliation marks it `discrepancy` for the administrator; it is not silently recreated | 4.5 |
 | W13 | Administrator closes the issue manually while the intervention is `booked` | Issue `resolved` (manual); intervention `cancellation_pending` until the external cancellation succeeds, then `cancelled` | 3.1, 3.2 |
 | W14 | Validated closure attempted before `CompletionReported` arrives | `409` `INVALID_TRANSITION`; the UI shows the last update time | 3.3 |
