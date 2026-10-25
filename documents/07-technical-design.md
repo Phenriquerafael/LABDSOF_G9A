@@ -333,4 +333,14 @@ AI unavailable: rules + manual review. Broker/worker unavailable: persisted repo
 
 Undecided: stack, broker, database, hosting, identity, publishing mechanism, final schemas and a dedicated rescheduling flow after a booking confirmation (3.2, DEC-10). Record alternatives and consequences in [ADRs](adr/README.md). The physical data model and executable contracts do not yet exist.
 
+Differences from the DISC-03-06 workflow proposals ([#41](https://github.com/Phenriquerafael/LABDSOF_G9A/pull/41)) are listed as open DEC-10 items in the [decision register](planning/decisions-and-feedback.md#domain-and-contract-proposals--en-01-02). The workflows also introduce features that this domain model does not cover yet. They are outside EN-01-02 and must not be assumed to be covered:
+
+- Invitations: single use, valid for 7 days and bound to a unit (“fraction”); `Membership` has no unit reference yet, and an invitation entity with a hashed token is needed.
+- Contractor self-registration validated by the project team: the platform-team role, the registration status behind `active`, and who may validate are not in the access matrix.
+- Contractor profile data for matching: company, base address, price per visit or per hour, weekly schedule and blocked days. Availability would then have two sources (the profile and the calendar), which needs one owner.
+- Automatic contractor matching and the “proposal ready” notification: contractor data belongs to Dispatch, so matching and its ranked candidates belong there, not to the Issue triage worker; it is rules-based, not AI ([AI assessment](06-responsible-ai-assessment.md)).
+- A “temporary booking” when the administrator accepts: here no slot is held before the contractor accepts, so two requests may target the same slot until the calendar answers.
+- Notifications by email and resident opt-out: this design proposes the in-app channel only (DEC-06); email adds resident contact data (DEC-07).
+- A resident-facing reference number: issue IDs are opaque UUIDv7; a short display code would be a separate field.
+
 See [requirements](requirements.md), [security](09-security-privacy.md) and [walking skeleton](10-walking-skeleton.md).
