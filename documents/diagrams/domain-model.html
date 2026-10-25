@@ -73,7 +73,7 @@
 <body>
 <div id="canvas">
   <h1>BMC — domain model (DDD, level 3)</h1>
-  <p class="sub">Bounded contexts → domain groups → aggregates (root, entities, value objects) · EN-01-02 proposal, 2026-10-20 · rules in the technical design §2–§4</p>
+  <p class="sub">Bounded contexts → domain groups → aggregates (root, entities, value objects) · EN-01-02 proposal, 2026-10-19 · rules in the technical design §2–§4</p>
 
   <!-- ===================== ISSUE MANAGEMENT ===================== -->
   <div class="bc" id="BC_ISSUE">
@@ -151,7 +151,7 @@
         </div>
         <div class="agg" id="AGG_ISSUE" style="margin-top:22px">
           <div class="agg-name">Issue</div>
-          <div class="row center"><div class="cls root" id="Issue" style="width:300px"><div class="hd"><span class="st">«Aggregate root»</span><span class="nm">Issue</span></div>
+          <div class="row center"><div class="cls root" id="Issue" style="width:360px;max-width:none"><div class="hd"><span class="st">«Aggregate root»</span><span class="nm">Issue</span></div>
             <ul><li>issueId : IssueId</li><li>buildingId : BuildingId</li><li>areaId : AreaId</li><li>state : IssueState</li><li>version : int</li><li>classification : Classification [0..1]</li><li>publishedSummary : PublishedSummary [0..1]</li><li>resolution : Resolution [0..1]</li><li>activeIntervention : InterventionProjection [0..1]</li>
             <li class="inv">transitions only as listed in §3.1; stale version → 409</li></ul></div></div>
           <div class="row" style="margin-top:44px; gap:12px; justify-content:space-between">

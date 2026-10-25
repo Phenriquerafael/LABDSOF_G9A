@@ -27,7 +27,7 @@ Reviewed on 2026-10-19 for EN-01-02 ([Issue: 14](https://github.com/Phenriqueraf
 
 [![Figure 1 — BMC domain model (DDD level 3): the Issue Management and Intervention Coordination bounded contexts, their domain groups, and every aggregate with its root, entities, value objects and references](diagrams/domain-model.png)](diagrams/domain-model.png)
 
-*Figure 1 — Domain model, DDD level 3 ([editable HTML source](diagrams/domain-model.html); open the image for full size).* Each bounded context is one service with its own database. Domain groups collect related aggregates. A dashed frame is an aggregate, the consistency and transaction boundary: one root (yellow) plus its entities (blue) and value objects (green). Other aggregates are referenced by typed IDs only (grey dashed arrows); red arrows are the cross-context relations: IDs, the internal API (§4.3) or published events (§4.4), never shared tables. Two choices are deliberate. `ImpactConfirmation` and `TriageSuggestion` are separate aggregates, so concurrent confirmations and late AI results never conflict with the `Issue` version. `Booking` is separate from `Intervention`, so calendar retries and reconciliation do not lock the intervention. The tables below list the same entities with their journeys.
+*Figure 1 — Domain model, DDD level 3 ([editable HTML source](diagrams/domain-model.html); open the image for full size).* Each bounded context is one service with its own database. Domain groups collect related aggregates. A dashed frame is an aggregate, the consistency and transaction boundary: one root (yellow) plus its entities (blue) and value objects (green). Other aggregates are referenced by typed IDs only (grey dashed arrows); red arrows are the cross-context relations: IDs, the internal API (§4.3) or published events (§4.4), never shared tables. Two choices are deliberate. `ImpactConfirmation` and `TriageSuggestion` are separate aggregates, so concurrent confirmations and late AI results never conflict with the `Issue` version. `Booking` is separate from `Intervention`, so calendar retries and reconciliation do not lock the intervention. The tables below list the same entities with their journeys. Three figure names have no row of their own: `InterventionProjection` is the issue's projection of the active intervention (2.1), `AuthorisationSnapshot` is the snapshot stored by Dispatch (4.3 step 4), and `CalendarAdapter` is the calendar adapter (4.5).
 
 ### 2.1 Issue Service
 
@@ -41,7 +41,7 @@ Reviewed on 2026-10-19 for EN-01-02 ([Issue: 14](https://github.com/Phenriqueraf
 | Report | `id`, `issueId`, `buildingId`, `areaId`, `authorUserId`, private text, source (`resident` or `administrator_on_behalf`), `submittedAt` | J1 steps 1–2; raw text stays private ([access matrix](09-security-privacy.md#2-proposed-access-matrix)) |
 | Issue | `id`, `buildingId`, `areaId`, state, `version`, category, urgency, triage source, optional published summary, resolution (kind, reason, actor, time), projection of the active intervention (`interventionId`, state, last applied `aggregateVersion`, `contractorUserId` used only to address notifications) | 1:N reports; J1 step 4, J2 |
 | Triage job | `id`, `issueId`, `issueVersion`, status, attempts, lease expiry | Created with the report; claimed by the worker (ADR-003 in [Issue: 15](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/15)) |
-| Triage suggestion | `issueId`, source issue version, category, urgency, rationale, origin (`ai`, `rules` or `fallback`), model/prompt/rules versions, time | Labelled unverified until a triage decision have been made ([AI Responsibility  Section: 2](06-responsible-ai-assessment.md#2-baseline-and-fallback)) |
+| Triage suggestion | `issueId`, source issue version, category, urgency, rationale, origin (`ai`, `rules` or `fallback`), model/prompt/rules versions, time | Labelled unverified until a triage decision has been made ([AI Responsibility Section: 2](06-responsible-ai-assessment.md#2-baseline-and-fallback)) |
 | Triage decision | `issueId`, category, urgency, actor, reason, resulting version, time | The [DEC-10](planning/decisions-and-feedback.md#1-open-decisions) “triage decision”; distinct from the suggestion |
 | Impact confirmation | Unique (`issueId`, `userId`), time; withdrawal deletes the row | J1 step 4; never changes urgency (RF-04) |
 | Issue history entry | `issueId`, sequence, type, visibility (`public` or `internal`), actor role, time; includes projected Dispatch events | J1 step 4 and J2; residents see only public entries |
@@ -67,7 +67,7 @@ Both services also hold technical tables for the asynchronous workflow (outbox, 
 
 - Organisation 1:N buildings; building 1:N areas; users N:M buildings through memberships; issue 1:N reports, 0:N interventions (at most one non-terminal); intervention 1:N proposal versions and 0:N bookings (at most one active).
 
-- References across services are IDs only. Neither service reads or writes the other's database; Issue's state reflects Dispatch only through events that Issue validates and applies to its own data ([Section: 3.3](#33-invalid-and-concurrent-transitions),[Section: 4.4](#44-event-contracts)).
+- References across services are IDs only. Neither service reads or writes the other's database; Issue's state reflects Dispatch only through events that Issue validates and applies to its own data ([Section: 3.3](#33-invalid-and-concurrent-transitions), [Section: 4.4](#44-event-contracts)).
 
 - `buildingId` never changes for an issue, so Dispatch may keep it as a snapshot for filtering and audit. Memberships are not copied: they are checked against Issue for each administrator command [Section: 4.3](#43-how-dispatch-obtains-trustworthy-authorisation-context).
 
@@ -75,7 +75,7 @@ Changes from the previous draft, found in the journey review: areas made explici
 
 ## 3. States and business rules
 
-The rules below implement the step definitions in [Produc Vision Section 4.3](04-product-vision.md#43-distinct-steps-dec-10). They are proposals for DEC-10 and still need validation with administrators and contractors.
+The rules below implement the step definitions in [Product Vision Section 4.3](04-product-vision.md#43-distinct-steps-dec-10). They are proposals for DEC-10 and still need validation with administrators and contractors.
 
 ### 3.1 Issue states (owner: Issue)
 
@@ -292,7 +292,7 @@ These values answer EN-01-01's open detail EN01-U7 (#15) as a starting proposal.
 
 | Mechanism | Proposed value |
 |---|---|
-| Outbox relay | Poll every 1 s; backoff 2 s doubling up to 5 min; 10 attempts (about 24 min), then `failed` with controlled replay |
+| Outbox relay | Poll every 1 s; backoff 2 s doubling up to 5 min; 10 attempts (about 14 min of waiting: 2 + 4 + … + 256 + 300 s), then `failed` with controlled replay |
 | Triage job | Lease 45 s (two AI attempts at the 10 s NFR-03 timeout plus rules); 3 claims, then `failed` and visible manual triage |
 | Calendar call | 5 s timeout; 5 attempts with backoff 5 s doubling up to 2 min, reconciling before each re-send; then booking `failed` |
 | Dispatch → Issue context call | 2 s timeout; no retry inside the user request (`503`) |

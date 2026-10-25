@@ -38,7 +38,7 @@ Check in the backend for each operation; hiding buttons is insufficient. Mock au
 | T-01 | Change ID to read another building | Membership/resource authorisation and data projection | Negative API/list/search tests |
 | T-02 | Contractor approves expenses or reads another request | Permissions and assignment checked on the server | Matrix tests |
 | T-03 | Text induces AI to act/disclose | Apply [AI controls](06-responsible-ai-assessment.md#5-controls-and-communication) | [Adversarial cases and protocol](06-responsible-ai-assessment.md#3-proposed-dataset-and-protocol) |
-| T-04 | Retry duplicates request/booking | Idempotency, versioning and reconciliation ([design §3.3, §4.5](07-technical-design.md#33-invalid-and-concurrent-transitions)) | Failures after external effects and repeated events |
+| T-04 | Retry duplicates request/booking | Idempotency, versioning and reconciliation ([design §3.3](07-technical-design.md#33-invalid-and-concurrent-transitions), [§4.5](07-technical-design.md#45-calendarsimulator-contract-outline)) | Failures after external effects and repeated events |
 | T-05 | Malicious text in UI | Safe rendering, input validation | Non-executable content tests |
 | T-06 | Logs/payloads expose data | Minimisation, sanitisation and restricted access | Log and payload inspection |
 | T-07 | Tokens/secrets in Git | Environment injection, review/secret checks | CI and review evidence |

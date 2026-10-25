@@ -76,7 +76,7 @@ Idempotency-Key: 1f2e…
   "terms": "Inspect and repair; report cost if known." }
 ```
 
-Before writing, Dispatch asks Issue for the authorisation context ([Techical Design Section: 4.3](07-technical-design.md#43-how-dispatch-obtains-trustworthy-authorisation-context)):
+Before writing, Dispatch asks Issue for the authorisation context ([Technical Design Section: 4.3](07-technical-design.md#43-how-dispatch-obtains-trustworthy-authorisation-context)):
 
 ```http
 GET /internal/issues/0199f2a1-0000-7000-8000-000000002001/dispatch-context?actorId=0199f2a0-0000-7000-8000-000000000201
@@ -274,7 +274,7 @@ The EN-01-02 verification asks the reviewer to walk one successful journey and t
 
 | # | Scenario | Expected outcome | Rule |
 |---|---|---|---|
-| W1 | 1.1–1.6 end to end | Issue `received` → `triaged` → `in_coordination` → `scheduled` → `awaiting_validation` → `resolved`; intervention `awaiting_approval` → `sent` → `scheduling_pending` → `booked` → `completion_reported` → `closed`; one booking | Design 3.1, 3.2 |
+| W1 | 1.1–1.6 end to end | Issue `received` → `in_triage` → `triaged` → `in_coordination` → `scheduled` → `awaiting_validation` → `resolved`; intervention `awaiting_approval` → `sent` → `scheduling_pending` → `booked` → `completion_reported` → `closed`; one booking | Design 3.1, 3.2 |
 | W2 | AI times out during triage | Issue stays `received` or shows fallback; administrator triages manually; a late suggestion does not overwrite the decision | 3.1, 3.3, NFR-03 |
 | W3 | Resident of building B reads or confirms impact on an issue in building A | `404`; no count change | 4.1, [access matrix](09-security-privacy.md#2-proposed-access-matrix), T-01 |
 | W4 | Contractor calls approval, responds to an intervention not assigned to them, or reads `GET /issues/{id}` on Issue | `403` for approval; `404` for the unassigned intervention; `404` on Issue, where contractors have no membership (their view is `GET /interventions?assigned=me`) | 4.2, 4.3 step 2, T-02 |
