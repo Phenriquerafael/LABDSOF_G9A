@@ -29,6 +29,7 @@ Sprint 1 uses eight written simulated interviews and the historical public-sourc
 
 Consent, interviewer and session date/duration do not apply to fictional profiles. Preparation, collection checks and synthesis acceptance are recorded in [DISC-01-01](backlog/tasks/DISC-01-01-prepare-research.md#completion-record), [DISC-01-02](backlog/tasks/DISC-01-02-conduct-research.md#completion-record) and [DISC-01-03](backlog/tasks/DISC-01-03-synthesise-findings.md#completion-record), respectively.
 
+<!-- Preserve the former findings anchor used by the eight unchanged SIM-* source records. -->
 <a id="7-findings"></a>
 
 ## 3. Findings

@@ -15,7 +15,11 @@ Identify the guide and question numbers, contrasting scenario, fictional effort/
 
 ## Handling
 
+No names, contacts, exact addresses, companies, identity links/maps, signatures, consent attachments, exact session timestamps, audio/video or automatic transcription. Generalise identifying combinations or omit the answer.
+
 Save only reviewed anonymous answers under `documents/research/answers/`, applying the [security policy](../09-security-privacy.md#41-research-data-handling-disc-01-01). A document ID must have no identity lookup; omit any answer that cannot be made anonymous.
+
+Anonymous answers remain with the academic project without a fixed deletion deadline. Explain repository readership and possible public access before participation; Git history, forks and copies prevent a promise of complete erasure. Corrections/removal are possible during the session before final confirmation; no identity lookup is retained afterwards.
 
 ## Participation
 

@@ -1,8 +1,10 @@
 # 4. Product Vision
 
-**Status:** proposal v0.4 (DISC-03-03) · **Sprint:** 1 · **Reviewed:** 2026-10-19
+**Status:** proposal v0.5 (DISC-01-03) · **Sprint:** 1 · **Revised:** 2026-10-25 · independent synthesis acceptance pending
 
 This is the **source of the proposed functional scope**; changes must be reflected in the [backlog](05-product-backlog.md), [requirements](requirements.md) and [decisions](planning/decisions-and-feedback.md).
+
+No primary research exists. Personas, priorities and targets remain hypotheses unless a finding is cited; cited fictional scenarios do not validate them. These proposals are not stakeholder or lecturer approval.
 
 **Evidence basis (2026-10-22; synthesis pending review):** [PS-01–PS-08](03-user-research.md#32-public-source-findings) provide public context, [SF-01–SF-07](03-user-research.md#33-scenario-synthesis-disc-01-03) interpret fictional scenarios, and [S01–S28](02-market-and-competitor-analysis.md#5-source-and-findings-register) identify competitor sources (supplier claims unless marked otherwise). This competitor namespace is separate from the research register's S1–S9. Personas, journeys and targets remain proposals; [SP-01–SP-05](planning/decisions-and-feedback.md#disc-01-03-synthesis-proposals) explain their qualification and retained scope. Choices marked **[BA/PO proposal]** originate in the [2026-10-19 scope proposals](planning/decisions-and-feedback.md#product-scope-proposals--disc-03-03) and await team agreement.
 
@@ -241,6 +243,7 @@ The aim is to make it easier to respond to water, lighting and lift faults, redu
 
 | Version | Change | Basis |
 |---|---|---|
+| v0.5, 2026-10-25 (DISC-01-03, PR #39) | Qualify personas/journeys with scenario contrasts and link synthesis proposals; retain scope, priorities and the provisional measurement protocol; restore explicit evidence limits | SF-01–SF-07 and SP-01–SP-05; fictional scenarios, independent synthesis acceptance pending |
 | v0.4, 2026-10-19 (DISC-03-03) | Value proposition compared with each alternative and stated without exclusivity claims; each AI capability attributed to its own source | 02 §2–§6; S05, S17, S20, S24 |
 | | Personas and J1–J3 linked to secondary findings and to the hypotheses still open | 03 §3.2 (PS-01–PS-08); 01 §7 |
 | | Smallest credible experiment stated; IoT excluded from the MVP; conditions for optional features | DEC-01 [BA/PO proposal]; assignment §3, §7.1.3 |

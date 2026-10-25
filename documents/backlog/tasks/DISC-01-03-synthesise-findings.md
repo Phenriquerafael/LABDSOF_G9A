@@ -1,11 +1,12 @@
 # [DISC-01-03] Synthesise research and update the problem report
 
 - Publication: [#21](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/21).
-- Horizon: Sprint 1.
+- Milestone: Sprint A (verified on the linked issue on 2026-10-25); planning horizon: Sprint 1; dates/estimate: to be agreed.
 - Evidence and review snapshot: [completion record](#completion-record).
 - Type: task; suggested labels: `type:task`, `area:product`, `phase:2`, `priority:must`.
 - Parent: [DISC-01](DISC-01-user-research.md); epic: [EP-00](../epics/EP-00-discovery-and-planning.md).
 - Allocation: see the [backlog README](../README.md).
+- PR #39 contribution: Pedro (agent-assisted); allocated owner Ricardo and reviewer Sandro remain unchanged. A contribution does not establish an agreed reassignment or complete the DoR.
 - Source: [Assignment](../../../LABDSOF-26-27-Assignment.md) §5.1, §5.3; §7.1.2 items 1 and 3.
 - Dependencies for completion: [DISC-01-02](DISC-01-02-conduct-research.md)
 - Related decisions: DEC-02, DEC-08, DEC-10, in the [register](../../planning/decisions-and-feedback.md).
@@ -36,6 +37,8 @@ Excluded: Full product rewriting, statistical generalisation and implemented val
 Reviewer samples finding-to-source and finding-to-decision links and checks that no unsupported market claim became a fact.
 
 ## Completion record
+
+Revision 2026-10-25 in [PR #39](https://github.com/Phenriquerafael/LABDSOF_G9A/pull/39) addresses Ricardo's 2026-10-23 changes-requested review: evidence wording, historical records, privacy reminders, scope traceability and document indexes. Independent acceptance remains pending; this is not a completed DoD or an owner reassignment.
 
 Snapshot checked on 2026-10-22: issue #21 was open; [PR #38](https://github.com/Phenriquerafael/LABDSOF_G9A/pull/38) was closed without merging and had no recorded reviews. Live status belongs to GitHub.
 

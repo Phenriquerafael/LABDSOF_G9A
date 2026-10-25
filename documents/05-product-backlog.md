@@ -10,6 +10,8 @@ MoSCoW refers to the **academic release**: Must = essential for the cycle/obliga
 
 This document defines proposed scope and priorities, not live workflow status. Published research items and draft items coexist; use the [allocation and issue index](backlog/README.md) and linked GitHub issues for status, estimates and review evidence. Team roles do not override task allocation.
 
+None of these items is declared Ready by this document; the team must record the applicable DoR evidence.
+
 **Scope update recorded on 2026-10-10 (DEC-11):** the evaluator clarified that the walking skeleton is optional in Sprint 1. The team will not develop it this sprint. EN-02 is retained as a foundation for later implementation planning; its technical outcomes support the Sprint 2 delivery requirements.
 
 Initial order: DISC/EN discovery and foundations → US-01/02 → US-03/04 → US-06/07/08/09/10 → Should/Could according to evidence. EN-03 accompanies implementation and EN-04 evaluation.

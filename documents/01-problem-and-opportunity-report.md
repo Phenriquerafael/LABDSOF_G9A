@@ -48,6 +48,8 @@ Reduce administrators' active effort when triaging and preparing an intervention
 
 **Evidence basis:** public-source findings (PS) and interpretations of simulated interviews (SF). The [research report](03-user-research.md#2-method-and-evidence-coverage) records the method, coverage and limits.
 
+No primary evidence has been collected; E3–E6 interpret fictional scenarios.
+
 | ID | Evidence type / reference | Implication for the problem | Assumptions |
 |---|---|---|---|
 | E1 | Historical public findings [PS-03/04/05](03-user-research.md#32-public-source-findings), based on S3-S5 | Repair coordination, communication and records warrant investigation; UK housing casework does not establish prevalence in Portuguese condominiums. | P1/P3 |

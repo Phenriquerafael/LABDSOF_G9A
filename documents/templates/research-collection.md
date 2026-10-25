@@ -1,6 +1,8 @@
 # Research collection procedure
 
-**Status:** reusable preparation from DISC-01-01; real interviews, resident survey and prototype tests remain unexecuted. These are options for separately planned validation, not additional requirements for the accepted simulated exercise.
+**Status:** reusable preparation from DISC-01-01; real interviews, resident survey and prototype tests remain unexecuted. These are options for separately planned validation. The simulated exercise follows the reported lecturer clarification; no dated minutes or independent acceptance are recorded.
+
+Relocation recorded 2026-10-25 in PR #39: preparation guidance formerly in research report sections 2–6 and 9–10 is maintained here; this is not evidence that the planned activities occurred.
 
 The [research report](../03-user-research.md) records the method actually used and its findings. The [security policy](../09-security-privacy.md#41-research-data-handling-disc-01-01) governs storage, access, anonymity, review and retention; [DEC-07](../planning/decisions-and-feedback.md#dec-07-research-preparation-disc-01-01) records the rationale. Use the [answer-record template](research-record.md) for collection metadata and evidence.
 
@@ -24,9 +26,21 @@ Preparation mapping for [P1–P7](../01-problem-and-opportunity-report.md#7-assu
 | P6 — contractor adoption | Administrator 7–8 and contractor 1–5; a recent request and refusal conditions | Information needs, acceptance, availability and rescheduling; administrators cannot prove contractor willingness |
 | P7 — trust in assisted recommendations | Administrator 10; correction, disagreement and unavailability probes | Exploratory trust conditions now; task-based prototype evaluation later, without claiming trust is validated |
 
+Photographs and IoT are optional exploratory topics outside the interview core, not MVP commitments. Do not request real photographs or device/customer records.
+
 Q6 provides context about alternatives. Seek counterexamples, record omitted questions and never treat a skipped question as negative evidence.
 
 ## 2. Future sample and access
+
+The method options below preserve the DISC-01-01 plan. They are not executed participant research or a commitment to new collection; Q1–Q9 refer to the [research objectives](../03-user-research.md#1-research-objectives). Public-source review already has a separate historical register.
+
+| Method | Purpose | Participants | Effort |
+|---|---|---|---|
+| Semi-structured interviews (30–40 min) | Q1–Q7, Q9 | Administrators, contractors | Primary method |
+| Short online survey | Q8, explore reported frequency (non-representative) | Residents | Low |
+| Review of documented experiences (articles, forums, app reviews) | Q1, Q6 | Public sources | Low |
+| Public competitor documentation / demos | Q6 | n/a | Low |
+| Prototype testing (separately planned) | Q7, usability | Administrators, residents | Medium |
 
 Use semi-structured administrator/contractor interviews (30–40 minutes) and the optional resident survey below. Recruitment targets from preparation:
 
@@ -99,3 +113,21 @@ Risks to revisit when planning real collection:
 - Participants may know the students (politeness, social desirability bias).
 - Stated willingness to pay or adopt does not always translate into behaviour.
 - Check access to incident data separately; synthetic AI evaluation cannot establish real-world performance.
+
+## 6. Activity sequence
+
+| When | Activity |
+|---|---|
+| DISC-01-01 | Define the plan, consent, roles, storage rules and blank templates |
+| Before any real recruitment/collection | Check anonymous templates, Git readership/visibility and survey settings |
+| DISC-01-02 (2026-10-22 check) | Inventory and verify the eight existing simulated interviews; real collection and survey remain unexecuted; independent acceptance unevidenced |
+| DISC-01-03 | Synthesise public evidence and fictional scenarios separately; document limitations and proposed decisions; PR #39 awaits re-review |
+| Later task-based testing | Plan and evaluate usability/adoption against concrete tasks |
+
+## 7. Records and decisions
+
+Use the [record template](research-record.md) for each actual interview, survey administration, observation, prototype test or public source; label simulated records explicitly and never invent consent or session metadata. The [research findings](../03-user-research.md#3-findings) retain finding IDs; requirements and the problem report cite them. The [decision register](../planning/decisions-and-feedback.md) retains rationale, authors, dates and decision status without duplicating meeting notes.
+
+The collection inventory and author-side checks do not establish independent acceptance of DISC-01-02. No real collection or empirical validation of adoption, problem frequency or AI value is claimed. Pedro coordinates any future collection under the DEC-07 arrangements above; this procedure schedules no sessions. Findings inform [requirements](../requirements.md) and [backlog](../05-product-backlog.md) prioritisation.
+
+Store only reviewed anonymous answers in `documents/research/answers/`; no identity maps, contact lists or consent attachments. Link anonymous document IDs to findings without creating a participant lookup. Preparation evidence remains in [DISC-01-01](../backlog/tasks/DISC-01-01-prepare-research.md#completion-record), collection evidence in [DISC-01-02](../backlog/tasks/DISC-01-02-conduct-research.md#completion-record), and synthesis evidence in [DISC-01-03](../backlog/tasks/DISC-01-03-synthesise-findings.md#completion-record).

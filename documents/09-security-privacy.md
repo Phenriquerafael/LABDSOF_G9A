@@ -54,7 +54,7 @@ Assess likelihood and impact with the team after defining deployment; do not ass
 | Data sent to a provider | Only what is necessary; synthetic during development | Review provider terms, configuration and retention before use |
 | Backups | Restricted access and restore test | Define rotation and the effect of deletion requests |
 
-Research controls are specified below; [DEC-07](planning/decisions-and-feedback.md#dec-07-research-preparation-disc-01-01) records the storage decision and alternatives.
+A code alone does not anonymise an answer if its content still identifies someone. Git stores only anonymous answers after a check before the first commit; contacts, recordings, identifiable notes and consent attachments are excluded. Research controls are specified below; [DEC-07](planning/decisions-and-feedback.md#dec-07-research-preparation-disc-01-01) records the storage decision and alternatives.
 
 ### 4.1 Research data handling (DISC-01-01)
 
@@ -68,7 +68,7 @@ Research controls are specified below; [DEC-07](planning/decisions-and-feedback.
 | Survey answers | No identifying questions, login, name/email collection or uploads; reviewed Markdown export only | Strip timestamps/metadata; delete working exports after checking and tool responses within seven days of checked export |
 | Synthesis | Counts, limitations and decisions linked to anonymous answer IDs | Retained in Git; avoid combinations that identify a person/building |
 
-Sandro owns research-record quality and Martim reviews anonymity. Session arrangements belong to the [collection procedure](templates/research-collection.md#2-future-sample-and-access); task ownership and synthesis review follow the [backlog allocation](backlog/README.md). Everyone with repository read access can read the answers; do not describe Git as restricted raw-data storage. Check repository visibility and communicate potential public access before participation. No fixed deletion deadline applies to retained anonymous answers: Git history, forks and clones prevent a promise of complete erasure.
+Sandro owns research-record quality, Afonso owns method/synthesis under DEC-07, and Martim reviews anonymity. Session arrangements belong to the [collection procedure](templates/research-collection.md#2-future-sample-and-access); task ownership and synthesis review follow the [backlog allocation](backlog/README.md). Everyone with repository read access can read the answers; do not describe Git as restricted raw-data storage. Check repository visibility and communicate potential public access before participation. No fixed deletion deadline applies to retained anonymous answers: Git history, forks and clones prevent a promise of complete erasure.
 
 | Risk | Control | Verification |
 |---|---|---|
@@ -81,6 +81,8 @@ Sandro owns research-record quality and Martim reviews anonymity. Session arrang
 If identifying content is discovered, stop publication, remove it from working copies and inform Sandro/Martim. If already committed, assess history/copies and coordinate appropriate cleanup rather than treating a deletion commit as erasure. This policy does not authorise identifiable notes in Git.
 
 ## 5. Open questions and review plan
+
+No actual interviews, participant permissions or independent approval of collection arrangements are evidenced by this documentation edit. The independent synthesis review of PR #39 requested changes; it does not establish collection approval.
 
 - DEC-07: shared/private area boundary, summary publication, retention, deletion and participant access.
 - DEC-04/05/06: identity, secrets and provider configuration.

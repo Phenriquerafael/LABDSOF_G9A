@@ -2,7 +2,7 @@
 
 - Publication: [#22](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/22).
 - Evidence and review snapshot: [completion record](#completion-record).
-- Horizon: Sprint 1; no remote milestone assigned when checked on 2026-10-22.
+- Milestone: Sprint A (verified on the linked issue on 2026-10-25); planning horizon: Sprint 1. Historical snapshot: no remote milestone assigned when checked on 2026-10-22.
 - Type: task; suggested labels: `type:task`, `area:product`, `phase:2`, `priority:must`.
 - Parent: [DISC-01](DISC-01-user-research.md); epic: [EP-00](../epics/EP-00-discovery-and-planning.md).
 - Allocation: see the [backlog README](../README.md).
@@ -14,7 +14,7 @@
 
 Record research material about maintenance coordination with traceable methods, coverage and limitations. Reuse the eight existing simulated interviews and the public-source register. The plan records that the lecturer permits real or simulated interviews; this delivery uses the simulated route and does not claim real participant evidence.
 
-PR #37 aligned the original real-incident/restricted-note wording with the accepted simulated route and DEC-07 anonymous Git storage.
+PR #37 revised only this local specification using the reported lecturer clarification and DEC-07 anonymous Git storage. Checked on 2026-10-25: [issue #22](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/22) still describes real incidents and restricted notes and is closed with its published criteria unchecked; the remote record does not reflect the delivered simulated route. No dated lecturer minutes or independent acceptance of that route are recorded.
 
 Excluded: presenting invented incidents or estimates as observations, representative claims, purchase commitments, or completion of the separate DISC-01-03 synthesis.
 
@@ -37,6 +37,8 @@ Excluded: presenting invented incidents or estimates as observations, representa
 Trace each inventory entry to its answer file and guide; verify 4 × 14 administrator answers, 2 × 6 resident answers and 2 × 5 contractor answers. Check segment distinction, fictional values, contradictory scenarios, privacy and relative links. Review the method alignment against the existing lecturer clarification.
 
 ## Completion record
+
+Record revised 2026-10-25 in PR #39: links relocated and the local/remote specification mismatch clarified; original answer records and historical verification results unchanged. This revision does not certify the closed issue's acceptance criteria.
 
 Author-side verification on 2026-10-22; [PR #37](https://github.com/Phenriquerafael/LABDSOF_G9A/pull/37) merged and issue #22 verified closed on that date. No GitHub review entries were found; the checks below are not independent acceptance.
 

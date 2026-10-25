@@ -2,7 +2,7 @@
 
 - Publication: [#23](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/23).
 - Evidence and review snapshot: [completion record](#completion-record).
-- Milestone: S1 — Discover, Validate and Design; preparation revision: 2026-10-15; planning allowance: 6 person-hours (4 preparation, 1 setup/checks, 1 review), excluding collection.
+- Milestone: Sprint A (verified on the linked issue on 2026-10-25); planning horizon: Sprint 1; preparation revision: 2026-10-15; planning allowance: 6 person-hours (4 preparation, 1 setup/checks, 1 review), excluding collection.
 - Type: task; suggested labels: `type:task`, `area:product`, `phase:2`, `priority:must`.
 - Parent: [DISC-01](DISC-01-user-research.md); epic: [EP-00](../epics/EP-00-discovery-and-planning.md).
 - Allocation: see the [backlog README](../README.md).
@@ -36,6 +36,8 @@ Excluded: Executing interviews, claiming findings, and final production data pol
 Reviewer checks the guides and data-handling arrangements against the research questions before participant collection.
 
 ## Completion record
+
+Record revised 2026-10-25 in PR #39: preparation guidance and deliverable links relocated to the collection procedure; original evidence and historical verification results unchanged. This revision does not certify the closed issue's acceptance criteria.
 
 Preparation revised 2026-10-15; integration and review snapshot checked on 2026-10-22.
 

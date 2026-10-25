@@ -64,7 +64,7 @@ For AI-01, Ricardo supports review of interface assumptions and Martim supports 
 |---|---|---|---|
 | 1 | Problem and opportunity | DISC-01-02/03 | [Problem report](../01-problem-and-opportunity-report.md) |
 | 2 | Market and competitor analysis | DISC-02-01/02 | [Competitor analysis](../02-market-and-competitor-analysis.md) |
-| 3 | User research | DISC-01-01/02/03 | [Research plan and findings](../03-user-research.md) |
+| 3 | User research | DISC-01-01/02/03 | [Method, findings and limitations](../03-user-research.md); [collection procedure](../templates/research-collection.md) |
 | 4 | Product vision | DISC-03-03 | [Vision](../04-product-vision.md) |
 | 5 | Product backlog | DISC-03-01/02/04 | [Backlog](../05-product-backlog.md) and [Sprint 1 plan](../planning/sprint-1-plan.md) |
 | 6 | Responsible AI opportunity assessment | AI-01 | [AI assessment](../06-responsible-ai-assessment.md) |
