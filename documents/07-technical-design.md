@@ -39,14 +39,14 @@ Reviewed on 2026-10-19 for EN-01-02 ([Issue: 14](https://github.com/Phenriqueraf
 | User | `id`, display name, credentials (identity proposal: ADR-005 in [Issue: 15](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/15)) | A global account grants no access by itself |
 | Membership | `userId`, `buildingId`, role (`resident` or `administrator`), status, validity; unique per user, building and role | Users N:M buildings. Contractors are not building members (see Dispatch) |
 | Report | `id`, `issueId`, `buildingId`, `areaId`, `authorUserId`, private text, source (`resident` or `administrator_on_behalf`), `submittedAt` | J1 steps 1–2; raw text stays private ([access matrix](09-security-privacy.md#2-proposed-access-matrix)) |
-| Issue | `id`, `buildingId`, `areaId`, state, `version`, category, urgency, triage source, optional published summary, resolution (kind, reason, actor, time), projection of the active intervention (`interventionId`, state, last applied `aggregateVersion`) | 1:N reports; J1 step 4, J2 |
+| Issue | `id`, `buildingId`, `areaId`, state, `version`, category, urgency, triage source, optional published summary, resolution (kind, reason, actor, time), projection of the active intervention (`interventionId`, state, last applied `aggregateVersion`, `contractorUserId` used only to address notifications) | 1:N reports; J1 step 4, J2 |
 | Triage job | `id`, `issueId`, `issueVersion`, status, attempts, lease expiry | Created with the report; claimed by the worker (ADR-003 in [Issue: 15](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/15)) |
 | Triage suggestion | `issueId`, source issue version, category, urgency, rationale, origin (`ai`, `rules` or `fallback`), model/prompt/rules versions, time | Labelled unverified until a triage decision have been made ([AI Responsibility  Section: 2](06-responsible-ai-assessment.md#2-baseline-and-fallback)) |
 | Triage decision | `issueId`, category, urgency, actor, reason, resulting version, time | The [DEC-10](planning/decisions-and-feedback.md#1-open-decisions) “triage decision”; distinct from the suggestion |
 | Impact confirmation | Unique (`issueId`, `userId`), time; withdrawal deletes the row | J1 step 4; never changes urgency (RF-04) |
 | Issue history entry | `issueId`, sequence, type, visibility (`public` or `internal`), actor role, time; includes projected Dispatch events | J1 step 4 and J2; residents see only public entries |
 | Audit event | Actor, action, target, resulting version, time, `correlationId`; no free text | [T-10](09-security-privacy.md) |
-| Notification | Unique (`eventId`, `recipientUserId`, channel), delivery state | [US-10](05-product-backlog.md), in-app channel [DEC-06](planning/decisions-and-feedback.md#1-open-decisions) |
+| Notification | Unique (`eventId`, `recipientUserId`, channel), delivery state | [US-10](05-product-backlog.md), in-app channel [DEC-06](planning/decisions-and-feedback.md#1-open-decisions). Contractor recipients come from the `contractorUserId` in Dispatch events (4.4) |
 
 ### 2.2 Dispatch Service
 
@@ -196,7 +196,7 @@ The [access matrix](09-security-privacy.md#2-proposed-access-matrix) defines pol
 | Operation | Service | Actor | Result |
 |---|---|---|---|
 | `POST /reports` | Issue | Resident member; administrator on behalf (source recorded) | `201` with report and issue IDs and state `received` after persistence |
-| `GET /issues`, `GET /issues/{id}`, `GET /issues/{id}/history` | Issue | Members and assigned contractor per matrix | Filtered by membership; role-specific projection (residents: public history only) |
+| `GET /issues`, `GET /issues/{id}`, `GET /issues/{id}/history` | Issue | Building members per matrix | Filtered by membership; role-specific projection (residents: public history only). Contractors are not members and read their assignments only through Dispatch (`GET /interventions?assigned=me`) |
 | `POST /issues/{id}/triage` | Issue | Building administrator | Category, urgency and reason; `If-Match` |
 | `POST /issues/{id}/publication` | Issue | Building administrator | Sanitised summary visible to the same building |
 | `PUT` / `DELETE /issues/{id}/impact` | Issue | Resident of the building | One contribution per user; count only, no identities |
@@ -253,14 +253,14 @@ Envelope as in [5](#5-asynchronous-workflow-and-consistency). `schemaVersion` is
 | `IssueResolved` | Issue | Dispatch, notifications | Resolution kind (`validated` or `manual`), `activeInterventionId` |
 | `IssueCancelled` | Issue | Dispatch, notifications | `activeInterventionId` |
 | `IssueReopened` | Issue | Notifications | Reason code |
-| `InterventionApproved` | Dispatch | Issue | `issueId`, `contractorDisplayName`, approved version, `interventionState` |
+| `InterventionApproved` | Dispatch | Issue (projection and notifications) | `issueId`, `contractorUserId`, `contractorDisplayName`, approved version, `interventionState` |
 | `ContractorResponded` | Dispatch | Issue | Decision, proposal version, `interventionState` |
 | `InterventionDeclined`, `InterventionCancellationPending`, `InterventionCancelled` | Dispatch | Issue | Reason code, `interventionState` |
 | `BookingConfirmed` | Dispatch | Issue | Window, source (`calendar` or `manual`), `interventionState` |
 | `BookingStateChanged` | Dispatch | Issue | Non-confirmed booking state (`requested`, `uncertain`, `rejected`, `failed`, `discrepancy`), `interventionState` |
 | `InterventionStarted`, `CompletionReported`, `ReworkRequested` | Dispatch | Issue | `interventionState`; no cost to residents |
 
-Every Dispatch event carries `issueId`, `buildingId` and the full new `interventionState`, with the intervention as `aggregateId`, so Issue can apply it by version (3.3).
+Every Dispatch event carries `issueId`, `buildingId` and the full new `interventionState`, with the intervention as `aggregateId`, so Issue can apply it by version (3.3). Issue's notification module consumes the same events. `contractorUserId` lets it address the contractor (for example when a request is sent or cancelled); it grants no read access in Issue, where contractors have no membership.
 
 ### 4.5 Calendar/simulator contract outline
 

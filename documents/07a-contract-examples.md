@@ -123,12 +123,13 @@ Event delivered by the Dispatch relay to `POST /internal/events` on Issue, after
   "occurredAt": "2026-11-03T10:02:11Z",
   "correlationId": "c-81b0",
   "payload": { "issueId": "0199f2a1-0000-7000-8000-000000002001",
+               "contractorUserId": "0199f2a0-0000-7000-8000-000000000301",
                "contractorDisplayName": "Synthetic Plumbing Co.",
                "approvedProposalVersion": 1,
                "interventionState": "sent" } }
 ```
 
-Issue checks that `issueId` belongs to `buildingId`, records the `eventId` and moves the issue to `in_coordination` in one transaction.
+Issue checks that `issueId` belongs to `buildingId`, records the `eventId` and moves the issue to `in_coordination` in one transaction. It keeps `contractorUserId` in the projection only to address the contractor's notification for the sent request.
 
 ### 1.4 Contractor accepts (Dispatch, J3)
 
@@ -276,7 +277,7 @@ The EN-01-02 verification asks the reviewer to walk one successful journey and t
 | W1 | 1.1–1.6 end to end | Issue `received` → `triaged` → `in_coordination` → `scheduled` → `awaiting_validation` → `resolved`; intervention `awaiting_approval` → `sent` → `scheduling_pending` → `booked` → `completion_reported` → `closed`; one booking | Design 3.1, 3.2 |
 | W2 | AI times out during triage | Issue stays `received` or shows fallback; administrator triages manually; a late suggestion does not overwrite the decision | 3.1, 3.3, NFR-03 |
 | W3 | Resident of building B reads or confirms impact on an issue in building A | `404`; no count change | 4.1, [access matrix](09-security-privacy.md#2-proposed-access-matrix), T-01 |
-| W4 | Contractor calls approval, or responds to an intervention not assigned to them | `403` for approval; `404` for the unassigned intervention | 4.3 step 2, T-02 |
+| W4 | Contractor calls approval, responds to an intervention not assigned to them, or reads `GET /issues/{id}` on Issue | `403` for approval; `404` for the unassigned intervention; `404` on Issue, where contractors have no membership (their view is `GET /interventions?assigned=me`) | 4.2, 4.3 step 2, T-02 |
 | W5 | Client sends a `buildingId` it administers with an issue from another building | Ignored; Dispatch uses the Issue context, where `actorRoles` is empty, so `404` | 4.3 steps 1 and 3 |
 | W6 | Administrator membership revoked after the intervention was created | The next administrator command on it returns `404` | 4.3 step 4 |
 | W7 | Issue down during approval | `503` `DEPENDENCY_UNAVAILABLE`; nothing changes; contractor responses on other interventions still work | 4.3 steps 2 and 6 |
