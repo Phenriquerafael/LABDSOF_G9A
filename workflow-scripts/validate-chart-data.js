@@ -6,6 +6,7 @@ const SPRINTS = {
   B: { start: '2026-11-01', end: '2026-12-05' },
   C: { start: '2026-12-06', end: '2027-01-03' },
 };
+const { normalizeHistoryIdentity } = require('./history-identity.js');
 const MAX_AGE_HOURS = 26;
 const normalize = value => typeof value === 'string' ? value.trim().toLowerCase() : '';
 const sprintKey = value => /^(?:sprint\s+)?([abc])$/i.exec(typeof value === 'string' ? value.trim() : '')?.[1].toUpperCase() ?? null;
@@ -52,14 +53,18 @@ function validateHistory(history, now, statusOptions = null) {
     const age = (now.getTime()-latest.time)/3600000;
     if (age > MAX_AGE_HOURS) findings.push(finding('error','Freshness',`Latest valid snapshot is ${age.toFixed(1)} hours old (limit ${MAX_AGE_HOURS} hours): ${latest.date}.`));
     if (!latest.issues.length) findings.push(finding('warning','Scope','Latest snapshot contains zero issues.'));
-    for (const snapshot of valid) {
-      const unknownSprints = snapshot.issues.filter(issue=>!sprintKey(issue.sprint)).map(issue=>issue.id);
-      if (unknownSprints.length) findings.push(finding(snapshot===latest?'error':'warning','Sprint history',`${snapshot.date}: absent or unrecognised sprint assignments; historical values are not inferred.`,unknownSprints));
+    const gaps = valid.map(snapshot => ({ date: snapshot.date, ids: snapshot.issues.filter(issue=>!sprintKey(issue.sprint)).map(issue=>issue.id) })).filter(gap=>gap.ids.length);
+    if (gaps.length) {
+      const ids = [...new Set(gaps.flatMap(gap=>gap.ids))].sort((a,b)=>a-b);
+      const warning = finding('warning','Sprint history',
+        `Known data limitations in ${gaps.length} stored snapshots (${gaps[0].date} to ${gaps.at(-1).date}). These are recorded historical values, not evidence of a current missing assignment. Correct live data and collect a new snapshot; do not infer past sprints.`,ids);
+      warning.details = gaps;
+      findings.push(warning);
     }
     if (statusOptions) {
       const allowed = new Set(statusOptions.map(normalize));
       const unknown = latest.issues.filter(issue=>!allowed.has(normalize(issue.status))).map(issue=>issue.id);
-      if (unknown.length) findings.push(finding('error','Status history','Latest snapshot has statuses outside the current project options.',unknown));
+      if (unknown.length) findings.push(finding('warning','Status history','Stored snapshot has statuses outside current project options; verify historical configuration. Live candidate statuses are checked separately.',unknown));
     }
     if (valid.length > 1) {
       const current = new Set(latest.issues.map(issue=>issue.id));
@@ -74,9 +79,12 @@ function validateLive(live, now, latest) {
   const findings=[];
   if (!Array.isArray(live.statusOptions) || !live.statusOptions.length) findings.push(finding('error','Status','Project Status must be a single-select field with options.'));
   const allowed=new Set((live.statusOptions || []).map(normalize));
-  for (const issue of live.liveIssues) {
-    if (!sprintKey(issue.sprint)) findings.push(finding('error','Sprint','Open issue has no recognised sprint. Use A/Sprint A, B/Sprint B or C/Sprint C in project 9.',[issue.id]));
-    if (!normalize(issue.status) || ['unknown','no_status'].includes(normalize(issue.status)) || !allowed.has(normalize(issue.status))) findings.push(finding('error','Status','Open issue has no valid project Status.',[issue.id]));
+  const candidate = live.candidateIssues ?? live.liveIssues;
+  const issuesToCheck = new Map(candidate.map(issue => [issue.id, issue]));
+  for (const issue of live.liveIssues) if (!issuesToCheck.has(issue.id)) issuesToCheck.set(issue.id, issue);
+  for (const issue of issuesToCheck.values()) {
+    if (!sprintKey(issue.sprint)) findings.push(finding('error','Sprint','Issue has no recognised sprint in the current collection candidate. Use A/Sprint A, B/Sprint B or C/Sprint C in project 9.',[issue.id]));
+    if (!normalize(issue.status) || ['unknown','no_status'].includes(normalize(issue.status)) || !allowed.has(normalize(issue.status))) findings.push(finding('error','Status','Issue has no valid project Status in the current collection candidate.',[issue.id]));
   }
   for (const missing of live.missing.filter(issue=>issue.reason==='Not an active item in project 9')) findings.push(finding('error','Project membership','Open issue is not an active item in project 9.',[missing.number]));
   const localDay = new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Lisbon',year:'numeric',month:'2-digit',day:'2-digit'}).format(now);
@@ -96,12 +104,12 @@ async function audit({ historyText, now = new Date(), loadLive = () => checkSpri
   let live=null, latest=null;
   try { live=await loadLive(); } catch(error) { findings.push(finding('error','GitHub access',`Live checks incomplete: ${error.message}`)); }
   try {
-    const history=JSON.parse(historyText.replace(/^\uFEFF/,''));
+    const history=normalizeHistoryIdentity(JSON.parse(historyText.replace(/^\uFEFF/,'')));
     const result=validateHistory(history,now,live?.statusOptions);
     findings.push(...result.findings); latest=result.latest;
   } catch(error) { findings.push(finding('error','History',`Unable to validate history: ${error.message}`)); }
   if(live) findings.push(...validateLive(live,now,latest));
-  return { findings, latestDate:latest?.date ?? null, checked:live?.checked ?? null, now:now.toISOString() };
+  return { findings, latestDate:latest?.date ?? null, checked:live?.checked ?? null, candidateCount:live?.candidateIssues?.length ?? null, now:now.toISOString() };
 }
 
 function report(result) {
@@ -109,11 +117,18 @@ function report(result) {
   const warnings=result.findings.length-errors;
   const lines=['## Chart data validation','',`Checked at ${result.now}. Repository: Phenriquerafael/LABDSOF_G9A; project 9.`,
     `Open issues checked: ${result.checked ?? 'unavailable'}. Latest valid snapshot: ${result.latestDate ?? 'unavailable'}.`,
+    `Active project issues in collection candidate (including closed): ${result.candidateCount ?? 'unavailable'}.`,
     `${errors} error(s), ${warnings} warning(s).`,''];
   if(!result.findings.length) lines.push('All checks passed. This validates current data, not the future midnight snapshot.');
   else {
     lines.push('| Severity | Check | Details | Issues |','|---|---|---|---|');
     for(const f of result.findings) lines.push(`| ${f.level} | ${escapeMarkdown(f.check)} | ${escapeMarkdown(f.message)} | ${f.ids.map(id=>`[#${id}](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/${id})`).join(', ')} |`);
+  }
+  const historyGap = result.findings.find(f=>f.details);
+  if(historyGap) {
+    lines.push('', '<details><summary>Historical sprint gaps by snapshot (IDs mapped to the current repository)</summary>', '');
+    for(const gap of historyGap.details) lines.push(`- ${gap.date}: ${gap.ids.map(id=>'#'+id).join(', ')}`);
+    lines.push('', '</details>');
   }
   lines.push('','Errors fail the check. Scope/calendar warnings require review but do not fail it. Correct live assignments and rerun manually; retain historical evidence rather than inventing past values.');
   return lines.join('\n')+'\n';

@@ -96,6 +96,7 @@ async function checkSprints({ token, fetchImpl = fetch } = {}) {
   const assignments = new Map();
   const statuses = new Map();
   const activeNumbers = [];
+  const candidateIssues = [];
   for (const item of items) {
     if (!item?.content) throw new Error('An active project item is inaccessible; check is incomplete.');
     if (item.content.__typename !== 'Issue') continue;
@@ -105,6 +106,7 @@ async function checkSprints({ token, fetchImpl = fetch } = {}) {
     if (item.content.repository?.nameWithOwner?.toLowerCase() === `${config.owner}/${config.repository}`.toLowerCase()) {
       if (!Number.isSafeInteger(item.content.number) || item.content.number <= 0) throw new Error("Invalid project issue number.");
       activeNumbers.push(item.content.number);
+      candidateIssues.push({ id: item.content.number, sprint: assignments.get(item.content.id), status: statuses.get(item.content.id) });
     }
   }
   const missing = [], seen = new Set();
@@ -124,6 +126,7 @@ async function checkSprints({ token, fetchImpl = fetch } = {}) {
     checked: issues.length, missing: missing.sort((a, b) => a.number - b.number),
     liveIssues: issues.map(issue => ({ id: issue.number, sprint: assignments.get(issue.id) ?? null, status: statuses.get(issue.id) ?? null })),
     activeNumbers,
+    candidateIssues,
     statusOptions: project.statusField?.__typename === 'ProjectV2SingleSelectField' ? project.statusField.options?.map(option => option.name) : null,
   };
 }
