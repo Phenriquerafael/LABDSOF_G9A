@@ -105,3 +105,32 @@ test('page loads local JSON, filters automatically and keeps tables/CSV without 
   get('history-file').files=[{text:async()=>'{invalid'}];await get('history-file').listeners.change();
   assert.equal(get('message').className,'error');assert.equal(get('export').disabled,true);assert.equal(get('issue-rows').children.length,0);
 });
+test('CFD filters issue sprint assignments independently of dates and preserves unknown-data gaps', () => {
+  const cfd=fs.readFileSync(path.join(directory,'chart.html'),'utf8');
+  const script=cfd.match(/<script>([\s\S]*?)<\/script>/)[1];
+  const elements=new Map();
+  const get=id=>{if(!elements.has(id))elements.set(id,{value:id==='sprint'?'all':'',textContent:'',className:'',addEventListener(){}});return elements.get(id);};
+  const charts=[];
+  const ctx=vm.createContext({document:{getElementById:get},location:{protocol:'file:'},Chart:function(canvas,config){charts.push(config);this.destroy=()=>{};}});
+  vm.runInContext(script.replace(/main\(\);\s*$/, ''),ctx);
+  const history=[
+    {date:'2026-12-15T12:00:00Z',issues:[{id:1,status:'Done',sprint:' sprint a '},{id:2,status:'Ready',sprint:'B'},{id:3,status:'Ready',sprint:null}]},
+    {date:'2026-12-16T12:00:00Z',issues:[{id:1,status:'Done'}]},
+    {date:'2026-12-17T12:00:00Z',Ready:3},
+    {date:'2026-12-18T12:00:00Z',issues:[{id:2,status:'Ready',sprint:'B'}]}
+  ];
+  const filtered=ctx.filterSprint(history,'A');
+  assert.equal(filtered[0].issues.length,1);assert.equal(filtered[0].issues[0].id,1);
+  assert.equal(ctx.countByStatus(filtered[1],'Done'),null);
+  assert.equal(ctx.countByStatus(filtered[2],'Ready'),null);
+  assert.equal(ctx.countByStatus(filtered[3],'Ready'),0);
+  assert.equal(ctx.filterSprint(history,'all')[0].issues.length,3);
+  assert.equal(history[0].issues.length,3);
+  ctx.testHistory=history;vm.runInContext('loadedHistory = testHistory',ctx);
+  get('sprint').value='A';ctx.render();
+  assert.deepEqual(Array.from(charts.at(-1).data.datasets.find(d=>d.label==='Done').data),[1,null,null,0]);
+  get('sprint').value='B';ctx.render();
+  assert.deepEqual(Array.from(charts.at(-1).data.datasets.find(d=>d.label==='Ready').data),[1,null,null,1]);
+  get('sprint').value='all';ctx.render();
+  assert.deepEqual(Array.from(charts.at(-1).data.datasets.find(d=>d.label==='Ready').data),[2,0,3,1]);
+});
