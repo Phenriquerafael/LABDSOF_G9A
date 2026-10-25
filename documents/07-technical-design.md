@@ -134,7 +134,7 @@ Rows triggered by Dispatch events describe the normal order. When an event is la
 | `awaiting_approval`, `sent` | `POST …/cancellation`, or `IssueResolved` / `IssueCancelled` events | Building administrator, or Issue | `cancelled` | Reason recorded; the contractor is notified if the request was sent |
 | `scheduling_pending`, `booked`, `in_progress` | Same | Same | `cancellation_pending` → `cancelled` | If a booking exists or may exist (request in flight or uncertain), Dispatch cancels or reconciles it first; the pending state stays visible until then |
 
-Rescheduling after a booking confirmation is outside this baseline: the administrator cancels and creates a new intervention, or records a manual booking confirmation with the new window and source. Detailed rescheduling remains open in DEC-10. A contractor cannot cancel through the platform after acceptance; they contact the administrator (to validate, Q9).
+Rescheduling after a booking confirmation is outside this baseline. Manual booking confirmation applies only to a pending booking (`scheduling_pending`); to move a confirmed booking, the administrator cancels the intervention and creates a new one. There is no “change booking” operation. A dedicated rescheduling flow remains open in DEC-10. A contractor cannot cancel through the platform after acceptance; they contact the administrator (to validate, Q9).
 
 ### 3.3 Invalid and concurrent transitions
 
@@ -331,6 +331,6 @@ AI unavailable: rules + manual review. Broker/worker unavailable: persisted repo
 
 ## 8. Gaps and validation
 
-Undecided: stack, broker, database, hosting, identity, publishing mechanism, final schemas and rescheduling after a booking confirmation (3.2, DEC-10). Record alternatives and consequences in [ADRs](adr/README.md). The physical data model and executable contracts do not yet exist.
+Undecided: stack, broker, database, hosting, identity, publishing mechanism, final schemas and a dedicated rescheduling flow after a booking confirmation (3.2, DEC-10). Record alternatives and consequences in [ADRs](adr/README.md). The physical data model and executable contracts do not yet exist.
 
 See [requirements](requirements.md), [security](09-security-privacy.md) and [walking skeleton](10-walking-skeleton.md).

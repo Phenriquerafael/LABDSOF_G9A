@@ -52,7 +52,7 @@ Model, states, transition rules and contract outlines: [Technical Design Section
 
 - Technical targets and environment (DEC-08). The primary product threshold is proposed in [vision §5.1](04-product-vision.md#51-primary-success-criterion-dec-08).
 - Visible data, retention and ways to request deletion (DEC-07).
-- Scheduling and closure business rules (DEC-10); step definitions proposed in vision §4.3 and transition, cancellation and concurrency rules in [Technical Design Section: 3](07-technical-design.md#3-states-and-business-rules) (EN-01-02); rescheduling after a booking confirmation and contractor withdrawal remain open; validation with administrators and contractors pending.
+- Scheduling and closure business rules (DEC-10); step definitions proposed in vision §4.3 and transition, cancellation and concurrency rules in [Technical Design Section: 3](07-technical-design.md#3-states-and-business-rules) (EN-01-02); a confirmed booking is moved by cancelling and creating a new intervention, while a dedicated rescheduling flow and contractor withdrawal remain open; validation with administrators and contractors pending.
 - Support for private reports about individual units in the pilot; the baseline keeps raw reports restricted.
 - Assisted access for residents without digital access, to investigate before expanding the MVP.
 
