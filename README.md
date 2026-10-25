@@ -49,6 +49,7 @@ File numbering matches the assignment deliverables; document 08 links to the ADR
 | [08 — Architecture Decision Records](documents/08-architecture-decision-records.md) / [ADR-001](documents/adr/ADR-001-backend-boundaries.md) | 8 | One proposed ADR | Choices and consequences accepted with evidence |
 | [09 — Security and privacy](documents/09-security-privacy.md) | 9 | Initial assessment | Policies/review; controls in implementation |
 | [10 — Walking Skeleton](documents/10-walking-skeleton.md) | 10, optional per evaluator | Not selected for Sprint 1 (DEC-11) | Plan retained for later implementation; not a Sprint 1 blocker |
+| [BMC workflows](documents/workflows/bmc-workflows.md) | Supports 4, 5 and 6 | Proposal with decision diagrams; validation pending | Validation with administrators and contractors; decisions recorded in the DEC register |
 | [Original notes](NOTAS.md) | Exploration | Ideas preserved and contextualised | Validate suggestions and provider information |
 
 ## Organisation, planning and templates

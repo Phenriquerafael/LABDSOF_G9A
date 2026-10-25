@@ -1,6 +1,6 @@
-# LABDSOF_GX — agent instructions
+# LABDSOF_G9A — agent instructions
 
-**BMC — Building Maintenance Coordinator** (ISEP LABDSOF 26/27): platform to coordinate condominium faults. Repo `Phenriquerafael/LABDSOF_GX`, default branch `main`. Current stage: **Sprint 1 — discovery/validation/design**; there is no application code, tests, CI or deployment yet (walking skeleton excluded by DEC-11). These rules apply to every agent (opencode, Codex, Claude Code, T3 Code) working in this repository.
+**BMC — Building Maintenance Coordinator** (ISEP LABDSOF 26/27): platform to coordinate condominium faults. Repo `Phenriquerafael/LABDSOF_G9A`, default branch `main`. Current stage: **Sprint 1 — discovery/validation/design**; there is no application code, tests, CI or deployment yet (walking skeleton excluded by DEC-11). These rules apply to every agent (opencode, Codex, Claude Code, T3 Code) working in this repository.
 
 This file holds only the always-on rules. Details (where to find what, commits, branches, PRs, reviews, issues, labels, milestones, DoR/DoD, commands, pitfalls) live in the `labdsof-workflow` skill — load it before any commit, PR, review or issue work, and edit details there, not here.
 
