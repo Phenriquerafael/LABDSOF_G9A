@@ -1,0 +1,12 @@
+sequenceDiagram
+  participant A as GitHub Actions
+  participant G as GHCR
+  participant D as Dev environment
+  participant Z as OWASP ZAP
+  A->>G: Push image sha-sha (on merge to main)
+  A->>D: Deploy image
+  A->>D: Wait for health check
+  A->>Z: Start baseline scan against DEV URL
+  Z->>D: Crawl + attack
+  Z-->>A: Report (SARIF / HTML)
+  A->>A: Fail on high findings, upload report
