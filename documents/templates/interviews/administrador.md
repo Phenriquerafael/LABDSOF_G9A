@@ -2,7 +2,7 @@
 
 **Estado:** template em branco.
 **Duração prevista:** 30–40 minutos.
-**Referência:** [plano de investigação, secção 4.1](../../03-user-research.md#41-administrator-professional-or-volunteer).
+**Referência:** [cobertura dos guiões](../research-collection.md#1-guides-and-hypothesis-coverage).
 
 Seguir as [instruções de utilização](README.md). Guardar apenas respostas anónimas em `documents/research/answers/`, após explicar e obter autorização para esse uso. Não incluir detalhes identificáveis.
 

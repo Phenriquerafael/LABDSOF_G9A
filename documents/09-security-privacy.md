@@ -54,11 +54,11 @@ Assess likelihood and impact with the team after defining deployment; do not ass
 | Data sent to a provider | Only what is necessary; synthetic during development | Review provider terms, configuration and retention before use |
 | Backups | Restricted access and restore test | Define rotation and the effect of deletion requests |
 
-A code alone does not anonymise an answer if its content still identifies someone. Git stores only anonymous answers after a check before the first commit; contacts, recordings, identifiable notes and consent attachments are excluded. Recruitment procedure and [consent text](03-user-research.md#consent-text-template) are maintained in the research plan.
+A code alone does not anonymise an answer if its content still identifies someone. Git stores only anonymous answers after a check before the first commit; contacts, recordings, identifiable notes and consent attachments are excluded. Research controls are specified below; [DEC-07](planning/decisions-and-feedback.md#dec-07-research-preparation-disc-01-01) records the storage decision and alternatives.
 
 ### 4.1 Research data handling (DISC-01-01)
 
-**Decision:** retain only anonymous answers in Git, following the user's clarification. The [research plan](03-user-research.md#32-collection-arrangements) defines the consent and review procedure. No OneDrive archive, participant database or identity mapping is used.
+**Policy:** retain only anonymous answers in Git. The [collection procedure](templates/research-collection.md#3-consent-and-session-procedure) provides consent text and session steps; no participant database or identity mapping is used.
 
 | Data | Collection and storage | Retention/access |
 |---|---|---|
@@ -68,7 +68,7 @@ A code alone does not anonymise an answer if its content still identifies someon
 | Survey answers | No identifying questions, login, name/email collection or uploads; reviewed Markdown export only | Strip timestamps/metadata; delete working exports after checking and tool responses within seven days of checked export |
 | Synthesis | Counts, limitations and decisions linked to anonymous answer IDs | Retained in Git; avoid combinations that identify a person/building |
 
-Sandro owns research-record quality; Pedro interviews, Ricardo takes notes, Afonso owns method/synthesis and Martim reviews anonymity. Afonso and Sandro replace Pedro and Ricardo respectively. Everyone with repository read access can read the answers; do not describe Git as restricted raw-data storage. Check repository visibility and communicate potential public access before participation. No fixed deletion deadline applies to retained anonymous answers: Git history, forks and clones prevent a promise of complete erasure.
+Sandro owns research-record quality, Afonso owns method/synthesis under DEC-07, and Martim reviews anonymity. Session arrangements belong to the [collection procedure](templates/research-collection.md#2-future-sample-and-access); task ownership and synthesis review follow the [backlog allocation](backlog/README.md). Everyone with repository read access can read the answers; do not describe Git as restricted raw-data storage. Check repository visibility and communicate potential public access before participation. No fixed deletion deadline applies to retained anonymous answers: Git history, forks and clones prevent a promise of complete erasure.
 
 | Risk | Control | Verification |
 |---|---|---|
@@ -78,9 +78,11 @@ Sandro owns research-record quality; Pedro interviews, Ricardo takes notes, Afon
 | A code is mistaken for anonymisation | Document ID has no identity map; omit identifying context | Review content as well as fields; omit an answer if it remains identifiable |
 | Deletion promise conflicts with Git history | Permit in-session corrections before confirmation; explain anonymous retention and copy limits | Consent and templates contain no identity-based post-publication withdrawal promise |
 
-If identifying content is discovered, stop publication, remove it from working copies and inform Sandro/Martim. If already committed, assess history/copies and coordinate appropriate cleanup rather than treating a deletion commit as erasure. This policy does not authorise identifiable notes in Git. Actual interviews and independent reviews have not been performed by this documentation edit.
+If identifying content is discovered, stop publication, remove it from working copies and inform Sandro/Martim. If already committed, assess history/copies and coordinate appropriate cleanup rather than treating a deletion commit as erasure. This policy does not authorise identifiable notes in Git.
 
 ## 5. Open questions and review plan
+
+No actual interviews, participant permissions or independent approval of collection arrangements are evidenced by this documentation edit. The independent synthesis review of PR #39 requested changes; it does not establish collection approval.
 
 - DEC-07: shared/private area boundary, summary publication, retention, deletion and participant access.
 - DEC-04/05/06: identity, secrets and provider configuration.

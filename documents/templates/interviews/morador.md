@@ -1,7 +1,7 @@
 # Entrevista — morador
 
 **Estado:** template em branco.
-**Referência:** [plano de investigação, secção 4.2](../../03-user-research.md#42-resident).
+**Referência:** [cobertura dos guiões](../research-collection.md#1-guides-and-hypothesis-coverage).
 **Hipótese principal:** P5 — utilização de um canal simples para comunicar problemas.
 
 Seguir as [instruções de utilização](README.md). Guardar apenas respostas anónimas em `documents/research/answers/`, após explicar e obter autorização para esse uso. Não incluir detalhes identificáveis. Incluir também perspetivas de quem nunca comunicou um problema.

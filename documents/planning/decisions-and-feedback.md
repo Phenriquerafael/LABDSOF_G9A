@@ -1,6 +1,6 @@
 # Pending decisions and feedback
 
-**Status:** decision register and team updates · **Updated:** 2026-10-15
+**Status:** decision register and team updates · **Updated:** 2026-10-25
 
 A provisional baseline enables consistent documents; it does not mean approval. Named role holders are recorded in the [team agreement](../governance/team-working-agreement.md); item owners and deadlines still require assignment. When deciding, record evidence, author, date and affected documents. The recording dates below do not imply that the meetings occurred on those dates.
 
@@ -21,6 +21,8 @@ A provisional baseline enables consistent documents; it does not mean approval. 
 
 ### DEC-07 research preparation (DISC-01-01)
 
+Historical record restored 2026-10-25 in PR #39; the preparation link is relocated, with original roles, rationale and execution boundary preserved.
+
 - **Source:** the user specified that only answers, without participant data, are to be retained in Git. This supersedes the earlier OneDrive/storage and fixed-deletion choices.
 - **Decision:** anonymous Markdown answers in `documents/research/answers/`; no participant identities, contact database, identity mapping, recordings or consent attachments. Keep blank guides in the interview template folder. An answer ID identifies a document, not a known person.
 - **Roles:** Sandro owns research records; Pedro interviews/recruits, Ricardo takes notes; Afonso replaces Pedro and Sandro replaces Ricardo. Afonso owns method/synthesis; Martim reviews anonymity and handling.
@@ -28,13 +30,15 @@ A provisional baseline enables consistent documents; it does not mean approval. 
 - **Review:** record answers without identifiers from the start. Interviewer/note-taker check before first commit; Martim reviews before merge. Generalise distinctive role/location/date/incident combinations and omit any response that remains identifiable. Survey exports exclude timestamps/account metadata and are not committed as-is; delete working exports after checks and survey-tool responses within seven days of checked export.
 - **Sample/recruitment:** two professional administrators, three volunteers, eight residents and two contractors; invitations via existing introductions/public business channels, without copying contacts into research records. One reminder after five working days, close after ten without response. Counts are targets, not commitments or findings.
 - **Reason/alternatives:** anonymous answer records support traceability without a separate personal-data archive. Identifiable or merely pseudonymous records are excluded from this Git workflow. Professional evidence gaps still leave DEC-02 unvalidated.
-- **Traceability:** [plan](../03-user-research.md#3-recruitment-and-ethics), [interview templates](../templates/interviews/README.md), [answer-record template](../templates/research-record.md), [security](../09-security-privacy.md#41-research-data-handling-disc-01-01), [task](../backlog/tasks/DISC-01-01-prepare-research.md#completion-record).
+- **Traceability:** [plan](../templates/research-collection.md#3-consent-and-session-procedure), [interview templates](../templates/interviews/README.md), [answer-record template](../templates/research-record.md), [security](../09-security-privacy.md#41-research-data-handling-disc-01-01), [task](../backlog/tasks/DISC-01-01-prepare-research.md#completion-record).
 - **Execution boundary:** real interviews remain deferred and templates blank; eight separately labelled simulated records are inventoried under DISC-01-02 below. No real participant permissions, access checks or peer approvals are claimed. Production permissions/retention belong to the technical design/security tasks.
 
 ### DISC-01-02 simulated research record
 
+Historical record restored 2026-10-25 in PR #39; no new acceptance or lecturer approval is asserted.
+
 - **Recorded:** 2026-10-22, during execution of [#22](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/22). This documents the method already stated in the research plan; it is not a new lecturer approval or team ratification.
-- **Basis:** the [plan](../03-user-research.md) records that the lecturer accepts real or simulated interviews. The clarification date, lecturer identity and meeting reference were not supplied. The assignment remains unchanged; fictional records must never be presented as real user evidence.
+- **Basis:** the [research report](../03-user-research.md) records the reported lecturer clarification permitting real or simulated interviews. The clarification date, lecturer identity and meeting reference were not supplied. The assignment remains unchanged; fictional records must never be presented as real user evidence.
 - **Execution:** reuse and check eight explicitly simulated records created on 2026-10-21, covering two professional administrators, two volunteers, two residents and two contractors. The [inventory](../research/answers/README.md) records 78 written answers, provenance limits, question-level coverage, counterexamples and the author-side check. No real interviews or recruitment attempts are recorded.
 - **Handling:** consent, real session dates, interviewers and duration are not applicable to fiction. Existing DEC-07 safeguards still apply before any future real collection. Ownership remains in the backlog allocation.
 - **Consequence:** DISC-01-02 has a simulated collection package for independent review; DISC-01-03 must distinguish scenario interpretations from public-source findings and actual observations. DEC-02/08/10 are not validated by simulation; LIM-01 and LIM-04 remain open. No new product decision, baseline or confirmed participant commitment results from this inventory.
@@ -51,12 +55,28 @@ A provisional baseline enables consistent documents; it does not mean approval. 
 ### Product scope proposals — DISC-03-03
 
 - **Recorded:** 2026-10-19 by Afonso (BA/PO) for [#14](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/14). Team agreement is sought through the pull-request review (proposed reviewer: Martim); until then these are proposals, not stakeholder or lecturer approval, and not evidence for §5.7.
-- **Evidence used:** secondary findings PS-01–PS-08 ([03 §7.2](../03-user-research.md#72-findings)) and competitor sources S01–S28 ([02 §5](../02-market-and-competitor-analysis.md#5-source-and-findings-register)). No primary research exists; DISC-01-03 is open, so personas and journeys keep their remaining hypotheses explicit.
+- **Evidence used:** secondary findings PS-01–PS-08 ([Public-source findings](../03-user-research.md#32-public-source-findings)) and competitor sources S01–S28 ([02 §5](../02-market-and-competitor-analysis.md#5-source-and-findings-register)). No primary research exists; DISC-01-03 is open, so personas and journeys keep their remaining hypotheses explicit.
 - **DEC-01:** exclude IoT from the MVP. Reasons: not required by the assignment; no finding identifies a decision that sensor data would improve; a suite marketed in Portugal already bundles hardware (S04); capacity. Alternative considered: one simulated sensor scenario as Could — rejected because it would not test BMC's proposition.
 - **DEC-08:** primary threshold of a ≥ 30% reduction in active administrative time on equivalent scripted tasks, computed as the median of participant medians against a pre-recorded answer key, with incomplete tasks recorded at the time cap and completion and critical-case guards. Alternatives: 20% (hard to separate from noise in a three-to-five-person sample) and 50% (likely to fail on factors outside the product). The rationale is team judgement, not a sourced benchmark; baseline limitations are disclosed in the vision.
 - **DEC-10:** triage decision, approval, acceptance, booking confirmation, completion report, closure and impact confirmation defined as distinct steps, consistent with [07 §3](../07-technical-design.md#3-states-and-business-rules).
 - **DEC-07 input:** the impact-confirmation review adds neutral count wording, no confirmation list for administrators and an open option on exact counts in very small buildings; the policy itself stays with DEC-07.
 - **Affected documents:** [vision](../04-product-vision.md), [strategy](../building-maintenance-coordinator-strategy.md), [requirements](../requirements.md), [backlog §5](../05-product-backlog.md#5-wont-in-this-baseline--alternatives), [README](../../README.md). The IoT row of the former roadmap is carried by backlog §5 since the roadmap was removed in #16. US-04 criteria are unchanged; the counter wording is a refinement for the US-04 owner to consider.
+
+### DISC-01-03 synthesis proposals
+
+**Recorded 2026-10-22 for [#21](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/21).** Proposed by Pedro (agent-assisted); independent/team approval pending. Allocation remains in the backlog README. This is research synthesis, not lecturer feedback or evidence of meeting the separate feedback obligation.
+
+Evidence: [scenario interpretations SF-01 to SF-07](../03-user-research.md#33-scenario-synthesis-disc-01-03) and [public findings PS-01 to PS-08](../03-user-research.md#32-public-source-findings).
+
+| Proposal / existing decision | Before and proposed outcome | Rationale / alternative considered | Affected artefacts |
+|---|---|---|---|
+| SP-01 / DEC-02 | Broad coordination opportunity → explicitly conditional on fragmentation/contact volume; retain professionals as primary | SF-01/04 show contrasting structured/low-volume scenarios. Reject extrapolating volunteer interest to business demand; do not commit new integrations. | [Problem sections 2/4/5/8](../01-problem-and-opportunity-report.md), [vision personas/J2](../04-product-vision.md), [US-02/06](../05-product-backlog.md#4-stories-and-criteria) |
+| SP-02 / DEC-07 | Retain controlled shared status and optional participation; US-05 remains Should | SF-02/05 include low duplication, distinct faults and telephone preference. Automatic merging and mandatory digital participation are not justified. Assisted reporting needs design/testing before implementation commitment. | [RF-01/04/05](../requirements.md#functional-requirements), US-01/04/05/10, vision J1/participation |
+| SP-03 / DEC-05 | Retain correctable AI with rules/manual fallback as an experiment | SF-03/07 do not establish poor current triage or trust. Reject autonomous diagnosis; compare against the existing manual/rules baseline before claiming benefit. | RF-02/03, NFR-03/10, US-02/03, AI-01, vision J2 |
+| SP-04 / DEC-10 | Retain separate approval, acceptance, booking confirmation, completion and closure | SF-06 challenges automatic availability and compulsory extra apps. Retain manual coordination and refusal/rescheduling; no new contractor-app requirement. | RF-07/08/09, NFR-11, US-07/08/09, [vision section 4.3](../04-product-vision.md#43-distinct-steps-dec-10) |
+| SP-05 / DEC-08 | Retain provisional controlled-task protocol/threshold; no empirical baseline supplied | SF-01 times are fictional; SF-07 requires wrong/unavailable-suggestion cases. Reject averaging invented times or claiming operational savings. Include low-effort process counterexamples. | [Vision section 5.1](../04-product-vision.md#51-primary-success-criterion-dec-08), EN-04, AI-01, LIM-04 |
+
+Requirement and story IDs refer to [requirements](../requirements.md) and the [product backlog](../05-product-backlog.md). Existing priorities and MVP boundaries are retained; this synthesis changes the problem's qualification and evidence traceability, not the implementation scope. Independent review should assess source-to-interpretation links and the scope rationale.
 
 ## 2. Editorial harmonisation
 
@@ -88,7 +108,7 @@ Use the [template](../templates/investor-review.md). At least one decision must 
 
 | ID | Limitation | Impact | Next action | Owner |
 |---|---|---|---|---|
-| LIM-01 | No real participant research; eight simulated records inventoried on 2026-10-22 | Scenarios do not validate value, frequency or adoption | DISC-01-03 separates scenario synthesis from empirical claims; real validation remains future work | See DISC-01 allocation |
+| LIM-01 | No real participant research; eight simulated records inventoried on 2026-10-22 | Scenarios do not validate value, frequency or adoption | DISC-01-03 records SF-01 to SF-07 and P1-P7 dispositions; empirical validation remains future work | See DISC-01 allocation |
 | LIM-02 | Incomplete competitor sources | Differentiation not demonstrated | DISC-02 | To be assigned |
 | LIM-03 | No application code, CI or deployment in this baseline | Later technical requirements not yet demonstrated; optional skeleton excluded from Sprint 1 by DEC-11 | EN-01 design; EN-02 considered in later implementation planning | To be assigned |
 | LIM-04 | No measured baseline for the primary metric; the current-process condition will be simulated | An effort reduction can be shown only in controlled tasks, not in real operation | DISC-01-02 scenario times are fictional, not a baseline; obtain empirical estimates or controlled task measurements and freeze the protocol/threshold before EN-04 | Afonso (BA/PO) |
