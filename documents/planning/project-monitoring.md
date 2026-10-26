@@ -72,15 +72,15 @@ The workflow runs [validate-chart-data.js](../../workflow-scripts/validate-chart
 
 | Check | Behaviour |
 |---|---|
-| Missing or unrecognised Sprint | Error for open issues without A/Sprint A, B/Sprint B or C/Sprint C, case-insensitive. Issues outside the active project also fail. |
-| Missing or invalid Status | Error for open issues or the latest snapshot with missing/unusable values or statuses outside the current project's Status single-select options. |
+| Missing or unrecognised Sprint | Error for any issue in the live collection candidate (including closed issues still active in project 9) without A/Sprint A, B/Sprint B or C/Sprint C, case-insensitive. Open issues outside the active project also fail. |
+| Missing or invalid Status | Error for live candidate issues or open issues outside the active project with missing/unusable values or statuses outside the current Status options. Stored statuses outside current options generate a historical warning; structurally unusable status data still fails integrity validation. |
 | History integrity | Error for unreadable/invalid JSON, empty history, invalid UTC dates, dates more than five minutes into the future, duplicate timestamps, out-of-order snapshots, missing issue arrays, invalid/duplicate issue IDs, unusable statuses or invalid sprint types. |
-| Historical sprint coverage | Missing/unrecognised assignments in older snapshots warn; the latest valid snapshot fails. Historical assignments are never invented or backfilled automatically. |
+| Historical sprint coverage | Missing/unrecognised assignments across stored snapshots, including the latest, produce one consolidated historical warning with expandable per-snapshot details. They do not fail current preflight validation; missing assignments in the live candidate still fail. Historical values are never inferred or backfilled. |
 | Stale collection | Error when the newest structurally valid snapshot is older than 26 hours, or no valid snapshot exists. |
 | Scope reduction | Warning listing issues missing between the latest two valid snapshots, and issues from the latest snapshot no longer active in the live repository/project. Removals, archiving and transfers may be legitimate. |
 | Current sprint empty | Warning when open issues exist but none belongs to the sprint current in Lisbon's calendar. Also warns outside configured A/B/C dates; no open issues may legitimately mean all work is complete. |
 
-The validator uses the same A/B/C periods as the burndown; a regression test checks those dates remain aligned. Live Sprint is read from the project field, not issue milestones. Closed issues are excluded from the open-issue assignment audit but remain represented in historical data and the active project membership comparison. Single-select, iteration and text Sprint fields are supported.
+The validator uses the same A/B/C periods as the burndown; a regression test checks those dates remain aligned. Live Sprint is read from the project field, not issue milestones. Closed issues still active in the project are included in the collection candidate and validated alongside open issues. Open issues outside the project are additionally flagged. The candidate is built in memory from current project data; no snapshot is written. Single-select, iteration and text Sprint fields are supported.
 
 All results are combined in one job summary with issue links and Actions error/warning annotations. Errors fail the run; warnings alone do not. Missing token/access/API failures are reported as incomplete checks and do not prevent local history validation. The checker attempts live validation even if history cannot be read. Exit codes: 0 = no errors (warnings may exist), 1 = validation errors, 2 = unexpected execution failure. Warnings alone do not generate a failed-workflow notification.
 
@@ -89,6 +89,16 @@ Enable [Actions notifications](https://docs.github.com/en/subscriptions-and-noti
 After corrections, run **Validate chart data** manually. Project-field edits do not trigger it immediately. The 19:00 check validates current live data and existing history, not the future midnight snapshot. The collector retains its own write-time validations. Neither the validation schedule nor the midnight schedule can guarantee execution if GitHub's scheduler is unavailable; independent monitoring would be required for that case.
 
 Verification: `node --test workflow-scripts/tests/check-sprints.test.cjs workflow-scripts/tests/validate-chart-data.test.cjs workflow-scripts/tests/metrics.test.cjs`. Mocked tests cover API pagination/access failures, sprint/status validation, stale/future/invalid history, scope changes, current-sprint checks and chart regressions. Live workflow execution remains to be verified after publication.
+
+### Historical identity across the repository transfer
+
+The validator derives a comparison view of historical IDs using [issue-migration.json](../../workflow-scripts/config/issue-migration.json) and [history-identity.js](../../workflow-scripts/history-identity.js). It does not modify `history.json`, raw files, or recorded Sprint/Status values. The mapping applies only inside validation; HTML charts still read the original history.
+
+Evidence: all 33 issues in `2026-10-21T03-25-51.250Z-2346.json` have unique, exact title matches in `2026-10-25T22-48-45.110Z-2656.json`; 32 numbers changed, and old/new #17 is the same issue. All 33 mapped numbers/titles were also verified in `2026-10-21T18-26-07.504Z-2149.json`, the first observed new-repository snapshot. The manifest records source files and both boundary timestamps.
+
+Snapshots at/before the old boundary are interpreted in the old repository's namespace and mapped to current IDs. At/after the first new snapshot, IDs remain unchanged. A snapshot inside the unresolved interval, or an old ID without a verified mapping, fails validation rather than producing a potentially incorrect link or scope comparison. Old/new numbering is never matched by numeric equality alone.
+
+Missing historical sprints remain visible in one warning, with details retained in the summary. Current assignments cannot establish earlier sprint membership. The regression replay through the supplied 25 October 22:48 snapshot yields zero errors and one historical sprint warning when the latest raw assignments are used as the candidate; this is a local replay, not evidence of live GitHub state.
 
 ## 4. Charts and flow measures
 

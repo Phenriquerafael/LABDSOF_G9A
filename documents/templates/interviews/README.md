@@ -1,9 +1,9 @@
 # Guiões de investigação
 
-Os guiões [administrador](administrador.md), [morador](morador.md) e [prestador](prestador-manutencao.md) ficam em branco para reutilização. O [plano](../../03-user-research.md) define perguntas, segmentos e salvaguardas; o [modelo de registo](../research-record.md) distingue recolha real, simulação e fontes públicas.
+Os guiões [administrador](administrador.md), [morador](morador.md) e [prestador](prestador-manutencao.md) ficam em branco para reutilização. O [procedimento de recolha](../research-collection.md) reúne a cobertura P1–P7, a amostra futura, o recrutamento e o consentimento; o [modelo de registo](../research-record.md) separa respostas e interpretação.
 
-- Para simulação: identificar perfil e respostas fictícias; guardar um documento separado em `documents/research/answers/`; registar a data de criação e proveniência conhecida. Consentimento, entrevistador e duração de sessão são não aplicáveis. Não apresentar incidentes, tempos ou intenções construídos como dados reais.
-- Para uma sessão real: seguir o consentimento e as condições da secção 3 do plano antes de recolher respostas; guardar apenas conteúdo anónimo revisto. Não guardar nomes, contactos, moradas, identidade associada ao ID, gravações ou anexos de consentimento. Registar perguntas omitidas e separar observações de interpretação.
-- Para ambas: manter contrapontos e limites, referenciar o guião/perguntas, fazer verificação de conteúdo antes do commit e obter revisão independente antes da integração.
+- **Simulação:** identificar perfil e respostas fictícias, data de criação e proveniência conhecida. Consentimento e dados de sessão são não aplicáveis; guardar respostas num documento separado.
+- **Sessão real:** aplicar o [consentimento](../research-collection.md#consent-text-template) e a [política de dados](../../09-security-privacy.md#41-research-data-handling-disc-01-01) antes de recolher respostas.
+- **Ambas:** referenciar guião/perguntas, registar omissões e contrapontos, verificar o conteúdo antes do commit e obter revisão independente antes da integração.
 
-Os [oito registos simulados existentes](../../research/answers/README.md) são material do DISC-01-02. A síntese e as propostas de alteração do produto pertencem ao DISC-01-03.
+Consultar os [registos simulados existentes](../../research/answers/README.md) e a [síntese](../../03-user-research.md#33-scenario-synthesis-disc-01-03).

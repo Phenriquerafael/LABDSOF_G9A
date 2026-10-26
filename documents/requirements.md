@@ -2,7 +2,7 @@
 
 **Status:** proposal v0.3 · Sprint 1, Phases 2–3 · reviewed 2026-10-19 (DISC-03-03, EN-01-02) · validation pending
 
-Sources: [assignment](../LABDSOF-26-27-Assignment.md), [hypotheses P1–P7](01-problem-and-opportunity-report.md), [secondary findings PS-01–PS-08](03-user-research.md#72-findings) and [vision J1–J3](04-product-vision.md). No requirements have yet been confirmed through interviews; PS findings support workflow concepts only. “Must” in the backlog is a proposed priority for the academic release, not customer approval.
+**Evidence basis (2026-10-22; synthesis pending review):** the [assignment](../LABDSOF-26-27-Assignment.md), [P1–P7 hypotheses](01-problem-and-opportunity-report.md#7-assumptions-and-risks), [public findings PS-01–PS-08](03-user-research.md#32-public-source-findings), [scenario interpretations SF-01–SF-07](03-user-research.md#33-scenario-synthesis-disc-01-03) and [vision J1–J3](04-product-vision.md) inform these proposals. The [SP decision mapping](planning/decisions-and-feedback.md#disc-01-03-synthesis-proposals) connects findings to affected RF/NFR and backlog items and explains retained scope. Requirements and priorities are not empirically validated; “Must” denotes proposed academic-release priority.
 
 ## Functional requirements
 
@@ -44,7 +44,7 @@ The numerical targets below are proposals for discussion (DEC-08), not results o
 
 ## Priorities, acceptance and traceability
 
-The [backlog](05-product-backlog.md) contains proposed MoSCoW priorities and item-level criteria. A need identified through research must reference E/F in the evidence register and update this table. A significant technical change requires an ADR.
+The [backlog](05-product-backlog.md) contains proposed MoSCoW priorities and item-level criteria. Use E identifiers for problem implications, PS for public-source findings, SF for simulated-scenario interpretations and SP/DEC for proposals/decisions. A changed requirement must link its supporting finding and decision; a citation alone is not empirical validation. A significant technical change requires an ADR.
 
 Model, states, transition rules and contract outlines: [Technical Design Sections: 2–4](07-technical-design.md#2-domain-model-and-data-ownership), with examples in the [contract annex](07a-contract-examples.md). Access/data policies: [security](09-security-privacy.md).
 
