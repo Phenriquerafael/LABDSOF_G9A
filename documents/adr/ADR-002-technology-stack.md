@@ -71,4 +71,4 @@ A spike of at most one day (owners: Ricardo and Afonso; before Sprint B Ready) m
 
 ## Record
 
-2026-10-15 — proposed by Ricardo (Tech Lead) after a structured design interview for EN-01-01; drafting and source checks AI-assisted. Evidence: [evidence register](README.md#evidence-register-en-01-01) E01–E23, E31–E33; issue [#19](https://github.com/Phenriquerafael/LABDSOF_GX/issues/19); EN-01-01 pull request. Affected documents: [technical design](../08-technical-design.md), DEC-04. Final decision, date and participants: pending team review.
+2026-10-15 — proposed by Ricardo (Tech Lead) after a structured design interview for EN-01-01; drafting and source checks AI-assisted. Evidence: [evidence register](README.md#evidence-register-en-01-01) E01–E23, E31–E33; issue [#15](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/15); EN-01-01 pull request. Affected documents: [technical design](../07-technical-design.md), DEC-04. Final decision, date and participants: pending team review.

@@ -18,7 +18,7 @@ The topology has about six to eight containers: client (nginx), Issue, Dispatch,
 | B. Render free tier | Managed and free | Free services spin down after 15 minutes idle; free Postgres expires after 30 days (and the project uses MySQL); no persistent disks on free services | E25 |
 | C. Fly.io | Managed containers | No free tier for new organisations, trial only | E26 |
 | D. Railway | Managed; usage billing | Trial is a one-time USD 5 grant; Hobby USD 5/month; demo-day cost risk | E27 |
-| E. Kubernetes | Standard orchestration | Not committed in the design; operational burden | [design §7](../08-technical-design.md#7-proposed-deployment-and-operations) |
+| E. Kubernetes | Standard orchestration | Not committed in the design; operational burden | [design §7](../07-technical-design.md#7-proposed-deployment-and-operations) |
 
 ## Proposed or accepted decision
 
@@ -44,4 +44,4 @@ Before release: fresh clone → `docker compose up` → guided journey works on 
 
 ## Record
 
-2026-10-15 — proposed by Ricardo (Tech Lead) after a structured design interview for EN-01-01; drafting and source checks AI-assisted. Evidence: [evidence register](README.md#evidence-register-en-01-01) E08, E13, E24–E28; issue [#19](https://github.com/Phenriquerafael/LABDSOF_GX/issues/19); EN-01-01 pull request. Affected documents: [technical design §7](../08-technical-design.md#7-proposed-deployment-and-operations), DEC-04. Final decision, date and participants: pending team review.
+2026-10-15 — proposed by Ricardo (Tech Lead) after a structured design interview for EN-01-01; drafting and source checks AI-assisted. Evidence: [evidence register](README.md#evidence-register-en-01-01) E08, E13, E24–E28; issue [#15](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/15); EN-01-01 pull request. Affected documents: [technical design §7](../07-technical-design.md#7-proposed-deployment-and-operations), DEC-04. Final decision, date and participants: pending team review.

@@ -4,13 +4,13 @@
 
 ## Context
 
-§6.2 requires at least two independently deployable backend components; a modular alternative depends on justification and acceptance. BMC distinguishes issue/triage from intervention preparation and execution. EN-01-01 ([#19](https://github.com/Phenriquerafael/LABDSOF_GX/issues/19)) must decide boundaries, ownership, worker placement and integration approach and record the consequences of shared infrastructure.
+§6.2 requires at least two independently deployable backend components; a modular alternative depends on justification and acceptance. BMC distinguishes issue/triage from intervention preparation and execution. EN-01-01 ([#15](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/15)) must decide boundaries, ownership, worker placement and integration approach and record the consequences of shared infrastructure.
 
 ## Alternatives
 
 | Alternative | Expected advantages | Costs/risks | Evidence |
 |---|---|---|---|
-| A. Issue + Dispatch, with asynchronous triage worker | Explicit domain boundaries and external failures; separate deployment | Eventual consistency, contracts, tests and distributed operations | E31 §6.2; [design §1](../08-technical-design.md#1-context-and-boundaries) |
+| A. Issue + Dispatch, with asynchronous triage worker | Explicit domain boundaries and external failures; separate deployment | Eventual consistency, contracts, tests and distributed operations | E31 §6.2; [design §1](../07-technical-design.md#1-context-and-boundaries) |
 | B. Domain backend + independent worker | Fewer data boundaries; AI isolation | Justify worker autonomy/responsibility and suitability with lecturers | E31 §6.2 |
 | C. Modular monolith | Lower initial operational and transaction costs | Exception requires evidence and acceptance; modules must have verifiable boundaries | E31 §6.2 |
 | D. Service per role/subscription | Extensive separation | No demonstrated need; excessive cost for the MVP | — |
@@ -36,7 +36,7 @@
 - Issue, Dispatch, the worker and the simulator have their own builds, images, configuration and health checks; Issue and Dispatch also own migrations.
 - Shared infrastructure: the single MySQL instance and the Docker host are shared dependencies and single points of failure. Mitigations: separate database users and grants, health/readiness checks, restart policies, backup/restore exercise, compatible migrations so each service deploys independently.
 - The worker depends on Issue's internal API being available; claimed jobs time out and return to the queue if the worker dies.
-- Eventual consistency is visible: issue history may reflect Dispatch events with a delay ([design §3](../08-technical-design.md#3-states-and-business-rules)).
+- Eventual consistency is visible: issue history may reflect Dispatch events with a delay ([design §3](../07-technical-design.md#3-states-and-business-rules)).
 - Tests must cover worker unavailability, redelivery, out-of-order events and delayed updates (NFR-04).
 - Effort is higher than option C; accepted in exchange for meeting §6.2 without an exception. Re-estimate at Sprint B planning.
 
@@ -47,5 +47,5 @@ Service-to-service key handling details (EN-01-04), cancellation/reconciliation 
 ## Record
 
 - 2026-10-07: first proposal.
-- 2026-10-15: revised by Ricardo (Tech Lead) in a structured design interview for EN-01-01 (drafting and source checks AI-assisted; sources in the [evidence register](README.md#evidence-register-en-01-01)). Evidence: issue [#19](https://github.com/Phenriquerafael/LABDSOF_GX/issues/19) and the EN-01-01 pull request. Affected documents: [technical design](../08-technical-design.md), [ADR index](README.md), DEC-04/06.
+- 2026-10-15: revised by Ricardo (Tech Lead) in a structured design interview for EN-01-01 (drafting and source checks AI-assisted; sources in the [evidence register](README.md#evidence-register-en-01-01)). Evidence: issue [#15](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/15) and the EN-01-01 pull request. Affected documents: [technical design](../07-technical-design.md), [ADR index](README.md), DEC-04/06.
 - **Final decision / date / participants:** pending team review.

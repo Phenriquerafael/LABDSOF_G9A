@@ -134,7 +134,7 @@ Add implementation debt when it exists; future features are not automatically te
 
 ## 5. EN-01-01 unresolved details
 
-Recorded 2026-10-15 by Ricardo (Tech Lead) for [#19](https://github.com/Phenriquerafael/LABDSOF_GX/issues/19). Owners are proposals until the team review confirms them.
+Recorded 2026-10-15 by Ricardo (Tech Lead) for [#15](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/15). Owners are proposals until the team review confirms them.
 
 | ID | Open detail | Proposed owner | Impact if unresolved | Needed by |
 |---|---|---|---|---|

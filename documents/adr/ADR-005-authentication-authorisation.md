@@ -45,4 +45,4 @@ EN-01-04 reviews the design; tests cover the full access matrix, expired/forged/
 
 ## Record
 
-2026-10-15 — proposed by Ricardo (Tech Lead) after a structured design interview for EN-01-01; drafting and source checks AI-assisted. Evidence: [evidence register](README.md#evidence-register-en-01-01) E06, E10, E29, E31; issue [#19](https://github.com/Phenriquerafael/LABDSOF_GX/issues/19); EN-01-01 pull request. Affected documents: [security](../09-security-privacy.md), [technical design](../08-technical-design.md), DEC-04. Final decision, date and participants: pending team review.
+2026-10-15 — proposed by Ricardo (Tech Lead) after a structured design interview for EN-01-01; drafting and source checks AI-assisted. Evidence: [evidence register](README.md#evidence-register-en-01-01) E06, E10, E29, E31; issue [#15](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/15); EN-01-01 pull request. Affected documents: [security](../09-security-privacy.md), [technical design](../07-technical-design.md), DEC-04. Final decision, date and participants: pending team review.

@@ -8,7 +8,7 @@
 
 ## Context
 
-§6.3 requires at least one meaningful asynchronous workflow with retries, duplicate handling, failures and eventual consistency (E31); NFR-04 requires that redelivery does not duplicate effects, that retries are limited with an observable final failure, and that a crash between persistence and publication is tested. The [design](../08-technical-design.md#5-asynchronous-workflow-and-consistency) already proposes a transactional outbox and idempotent consumers. The assignment does not require a message broker. The team judged a broker to be implementation and operational complexity that the academic MVP does not need.
+§6.3 requires at least one meaningful asynchronous workflow with retries, duplicate handling, failures and eventual consistency (E31); NFR-04 requires that redelivery does not duplicate effects, that retries are limited with an observable final failure, and that a crash between persistence and publication is tested. The [design](../07-technical-design.md#5-asynchronous-workflow-and-consistency) already proposes a transactional outbox and idempotent consumers. The assignment does not require a message broker. The team judged a broker to be implementation and operational complexity that the academic MVP does not need.
 
 ## Alternatives
 
@@ -48,4 +48,4 @@ Required evidence when the first asynchronous slice is built: crash after commit
 
 ## Record
 
-2026-10-15 — proposed by Ricardo (Tech Lead) after a structured design interview for EN-01-01; drafting and source checks AI-assisted. Evidence: [evidence register](README.md#evidence-register-en-01-01) E14, E18–E20, E31; issue [#19](https://github.com/Phenriquerafael/LABDSOF_GX/issues/19); EN-01-01 pull request. Affected documents: [technical design §5](../08-technical-design.md#5-asynchronous-workflow-and-consistency), DEC-04/06. Final decision, date and participants: pending team review.
+2026-10-15 — proposed by Ricardo (Tech Lead) after a structured design interview for EN-01-01; drafting and source checks AI-assisted. Evidence: [evidence register](README.md#evidence-register-en-01-01) E14, E18–E20, E31; issue [#15](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/15); EN-01-01 pull request. Affected documents: [technical design §5](../07-technical-design.md#5-asynchronous-workflow-and-consistency), DEC-04/06. Final decision, date and participants: pending team review.
