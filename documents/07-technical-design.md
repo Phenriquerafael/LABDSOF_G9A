@@ -406,7 +406,7 @@ Degraded modes (§6.8 needs one in the demonstration; the calendar, broker and I
 | Client device offline | The installed app opens from its cached shell and shows “No connection — BMC needs internet to load and send data”; submit is disabled with that reason; nothing is queued or sent later ([ADR-011](adr/ADR-011-installable-pwa-client.md)) |
 | Database unavailable | Explicit error without false acknowledgement. One MySQL instance hosts every database, so its failure stops all services and Keycloak; this single point of failure is a stated limit of the academic release ([ADR-001](adr/ADR-001-backend-boundaries.md)) |
 
-How limitations reach users: one degraded-mode banner, shown when a capability relevant to the user's role is Unavailable after two consecutive failed checks or during maintenance, and the public `/status` page with the same capability names ([ADR-012](adr/ADR-012-health-and-status-page.md); banner component in [ADR-011](adr/ADR-011-installable-pwa-client.md)). Both are the visible part of the §6.8 demonstration; Grafana stays the operator view (7).
+How limitations reach users: one degraded-mode banner, shown when a capability relevant to the user's role is Unavailable after two consecutive failed checks (a proposed threshold, pending team review) or during maintenance, and the public `/status` page with the same capability names ([ADR-012](adr/ADR-012-health-and-status-page.md); banner component in [ADR-011](adr/ADR-011-installable-pwa-client.md)). Both are the visible part of the §6.8 demonstration; Grafana stays the operator view (7).
 
 ## 7. Proposed deployment and operations
 

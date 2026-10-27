@@ -198,7 +198,7 @@ As an administrator, I want to synchronise with the calendar used in operations.
 As a resident, I want to attach photos to my report so that the administrator can understand the fault more easily.
 
 - Two inputs: “Take photo” (opens the camera where the device offers one) and “Choose from gallery”.
-- Before upload the client re-encodes each photo to JPEG with a long edge of about 2048 px, including iPhone HEIC photos; exact values are tuned in the spike. The resident sees a preview of each photo and can remove it before sending.
+- Before upload the client re-encodes each photo to JPEG, including iPhone HEIC photos; a long edge of about 2048 px is a proposed starting value to tune in the spike. The resident sees a preview of each photo and can remove it before sending.
 - The server does not rely on the client processing: at most 5 photos per report, each at most 5 MB; only JPEG, PNG or WebP, verified by content rather than by the declared type; anything else is rejected with an understandable error.
 - EXIF and GPS metadata are removed before storage; stored objects have random keys.
 - Photos have the same visibility as the private report text: the author and the building's administrators; other residents, other buildings and contractors receive `404`, even through direct API calls. Sharing a photo into the contractor extract is outside this story.

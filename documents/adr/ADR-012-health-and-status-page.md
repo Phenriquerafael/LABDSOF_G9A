@@ -10,7 +10,7 @@
 
 - §6.7 asks for health checks, metrics and a dashboard, and §6.8 for a degraded-mode scenario in which the degraded state is communicated to users (E01). Grafana ([ADR-004](ADR-004-deployment-contract.md)) serves operators; users need a plain-language view.
 - Tech Lead requirement: every service exposes health, and the gateway serves a `/status` page with overall and per-component health.
-- DEVOPS-02 ([#42](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/42)) already plans `/healthz`, `/readyz` and `/status`. The endpoint names are Martim's decision; this ADR does not fix them and says “liveness and readiness endpoints, names per DEVOPS-02”. [ADR-004](ADR-004-deployment-contract.md) and the [technical design](../07-technical-design.md#7-proposed-deployment-and-operations) mention `/actuator/health` and Flask `/health` as the current sketch.
+- DEVOPS-02 ([#42](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/42)) already plans `/healthz`, `/readyz` and `/status`. The endpoint names are Martim's decision; this ADR does not fix them and says “liveness and readiness endpoints, names per DEVOPS-02”.
 - Services never call each other ([ADR-003](ADR-003-asynchronous-messaging-rabbitmq.md)), so an aggregator must live outside the business services. Only Traefik is exposed ([ADR-004](ADR-004-deployment-contract.md)).
 
 ## Alternatives
@@ -65,14 +65,14 @@ There are no “degraded/partial” levels because Gatus checks are up or down. 
 
 ### Capability → check mapping (proposal, to refine in EN-01-03)
 
-Capability names: Report a fault · Schedule interventions · Notifications · Suggestions · Calendar sync · Sign-in · Photo upload. Infrastructure (MySQL, RabbitMQ, Keycloak, Garage, Mailpit…) rolls up into the capability it breaks and is never listed by name.
+Capability names: Report a fault · Schedule interventions · Notifications · Suggestions · Calendar sync · Sign-in · Photo upload. Infrastructure (MySQL, RabbitMQ, Keycloak, Garage, Mailpit…) rolls up into the capability it breaks and is never listed by name. Service readiness covers the service's own database, not the broker, which the outbox absorbs (ADR-003).
 
 | Capability | Check |
 |---|---|
-| Report a fault | Issue readiness (database, broker) |
+| Report a fault | Issue readiness (its own database only; the broker is excluded because reports are accepted while it is down and events wait in the outbox, [design §5](../07-technical-design.md#5-asynchronous-workflow-and-consistency)) |
 | Schedule interventions | Dispatch readiness |
-| Notifications | Notification readiness + Mailpit/SMTP |
-| Suggestions | AI triage service health |
+| Notifications | Notification readiness + Mailpit/SMTP + RabbitMQ (with the broker down nothing is delivered until it recovers) |
+| Suggestions | AI triage service health + RabbitMQ (with the broker down no `TriageRequested` is delivered; manual triage still works) |
 | Calendar sync | Calendar simulator |
 | Sign-in | Keycloak ready + oauth2-proxy ready |
 | Photo upload | Garage health |
@@ -106,11 +106,11 @@ Startup order uses `depends_on` with `condition: service_healthy` (long syntax; 
 ## Consequences
 
 - One more container, and Gatus storage to back up or accept as losable (history only).
-- The status page reveals capability-level availability to anyone. Accepted: no internals are shown.
+- The status page reveals capability-level availability to anyone. This proposal carries that exposure and limits it to capability names and states; no internals are shown.
 - If Traefik, nginx or the client is down, the page itself is unreachable; Grafana and Prometheus alerts cover that case.
 - Banner and page share one data source, so their wording stays consistent; changing a capability name touches Gatus config, the page and the banner.
 - Ownership: Martim owns checks, Gatus configuration, incident notes and maintenance windows (procedure open, EN01-U15). Endpoint names and the relation of `/status` to DEVOPS-02 are EN01-U13.
-- The 2026-10-27 [technical design](../07-technical-design.md#7-proposed-deployment-and-operations) and ADR-004 name `/actuator/health` and `/health`; they must follow DEVOPS-02's names once chosen.
+- Service health endpoint names follow DEVOPS-02 once Martim chooses them; ADR-004, ADR-008 and the [technical design](../07-technical-design.md#7-proposed-deployment-and-operations) already defer to it.
 
 ## Verification and review
 

@@ -71,7 +71,7 @@ Not “mobile-first” overall. Resident and contractor journeys must be usable 
 ### Photos
 
 - Two controls: **Take photo** (`<input type="file" accept="image/*" capture="environment">`) and **Choose from gallery** (same input without `capture`). On iOS Safari `capture` does not force the camera but offers it (E67); desktop shows a file picker.
-- Every photo is re-encoded with `createImageBitmap` and canvas/`OffscreenCanvas` to JPEG, long edge about 2048 px, quality about 0.8, checking `blob.type` (E69). This also converts HEIC (E68). Preview and remove before sending. Values are tuned in the spike.
+- Every photo is re-encoded with `createImageBitmap` and canvas/`OffscreenCanvas` to JPEG, checking `blob.type` because an unsupported type falls back to PNG (E69). This also converts HEIC (E68). Proposed starting values, not sourced, to tune in the spike (item 13): long edge about 2048 px, quality about 0.8. Preview and remove before sending.
 - Client processing is a convenience, not a control: the server verifies type by content, enforces ≤ 5 photos × 5 MB and strips EXIF/GPS ([ADR-010](ADR-010-object-storage.md)).
 
 ### Web Push (next adapter, not built)
