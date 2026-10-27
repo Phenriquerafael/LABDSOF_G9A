@@ -57,7 +57,7 @@ adapters.out
 
 adapters.in
   NotificationRequestedListener   (RabbitMQ, queue notification.inbox)
-  NotificationsController         (GET /api/notifications/…)
+  NotificationsController         (GET /notifications, GET/PUT /preferences; reached at the edge as /api/notifications/…)
 ```
 
 `NotificationFacade.notify(request)` resolves the recipient's preferences, and for each enabled channel calls that channel's `NotificationChannel` implementation. Adding a channel means adding one adapter and its configuration; the facade, the producers and the event do not change. This is the adapter pattern, one of the instances of the port style in ADR-009.
@@ -76,7 +76,7 @@ Issue and Dispatch publish `NotificationRequested` to the `bmc.events` exchange 
 
 - Address lookup happens at send time: Notification asks Keycloak for the user's email by `sub` through its service account (`view-users`, client-credentials grant; E17). Addresses are not stored in messages (except invitations) and not persisted by Notification.
 - Templates are rendered server-side from `templateKey` and `params`; the client never supplies message text.
-- Preferences are per user, per event type and per channel. A resident can switch email off for an event type; the workflows say the resident can turn notifications off. Which notifications cannot be switched off (for example invitations, which have no account, and security-relevant ones) is an open item (EN01-U8).
+- Preferences are per user, per event type and per channel. Opt-out applies to **email only**, per event type: the in-app notification is always created, because it is the status record a resident can always look up. This is how the workflows' “the resident can turn notifications off” is read. Which email notifications cannot be switched off (for example invitations, which have no account, and security-relevant ones) is an open item (EN01-U8).
 
 ### Idempotency, delivery log and retries
 
@@ -88,7 +88,7 @@ Issue and Dispatch publish `NotificationRequested` to the `bmc.events` exchange 
 
 ### Channels
 
-- **In-app** (always on): the inbox, served by `GET /api/notifications/*` to the authenticated user's own notifications only; the Notification service is a resource server like the others ([ADR-005](ADR-005-authentication-authorisation.md)).
+- **In-app** (always on): the inbox, served at the edge path `/api/notifications/notifications` (service-relative `GET /notifications`) to the authenticated user's own notifications only; the Notification service is a resource server like the others ([ADR-005](ADR-005-authentication-authorisation.md)).
 - **Email**, SMTP through Spring Mail: **Mailpit** in dev and demo, which captures mail and shows it in a web UI (E52). A later adapter for a Gmail account would use an App Password, which requires 2-Step Verification, is not available for work or school accounts and is revoked when the account password changes (E53); the secret stays outside Git. Using a personal Gmail account for a university project is not decided here.
 
 ### Degraded mode

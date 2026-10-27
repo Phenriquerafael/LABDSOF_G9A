@@ -72,7 +72,7 @@ Keycloak self-registration and email verification are enabled. Domain onboarding
 | Flow | Keycloak | Service |
 |---|---|---|
 | Condominium registration (workflow 1) | The user registers, verifies the email address and logs in | Issue: an authenticated call (endpoint to define in EN-01-03) creates the organisation, building and administrator membership for the authenticated `sub` |
-| Resident e-invite (workflow 2) | The invitee registers or logs in | Issue: administrator creates an invitation (hashed single-use token, 7 days, bound to a unit); a `NotificationRequested` email carries the link; `POST /api/issue/invitations/{token}/acceptance` binds the membership to the `sub` |
+| Resident e-invite (workflow 2) | The invitee registers or logs in | Issue: administrator creates an invitation (hashed single-use token, 7 days, bound to a unit); a `NotificationRequested` email carries the link; `POST /api/issue/invitations/{token}/acceptance` binds the membership to the `sub`, only if the token's verified `email` matches the invitee address (a forwarded link is refused with `403`) |
 | Contractor registration (workflow 9) | The contractor registers and logs in | Dispatch: `POST /api/dispatch/contractor-registrations` creates a `pending` registration; a `platform_staff` user validates it |
 
 **Rejected: Issue creating Keycloak users through the Admin API and sending `execute-actions-email`.** Creating a user through the API sends no email by itself; `execute-actions-email` does (E29, community source). The approach would give Issue realm-management rights, couple its invitation flow to Keycloak's mail templates, and bypass the notification facade, so invitations would be the one email the platform could not retry, log or switch off in one place.
@@ -96,7 +96,7 @@ These flows are DISC-03-06 scope additions that still need DEC entries and stori
 ## Verification and review
 
 - EN-01-04 reviews cookie flags, the CSRF header, token and session lifetimes, cookie-secret rotation, RabbitMQ per-service permissions, the revocation delay of the Dispatch projection (EN01-U6).
-- Tests, written with the implementation: the full access matrix in each service; expired, forged and unsigned tokens; wrong issuer; wrong audience; missing custom CSRF header on a state-changing request; `401` (not a redirect) on an API call without a session; `404` for resources outside the caller's scope; invitation token reuse, expiry and wrong unit; contractor registration not usable before validation.
+- Tests, written with the implementation: the full access matrix in each service; expired, forged and unsigned tokens; wrong issuer; wrong audience; missing custom CSRF header on a state-changing request; `401` (not a redirect) on an API call without a session; `404` for resources outside the caller's scope; invitation token reuse, expiry, wrong unit and address mismatch; contractor registration not usable before validation.
 - Spike items (EN01-U2 in the [decision register](../planning/decisions-and-feedback.md)): **1** Keycloak 26.8 on MySQL 8.4 with realm import; **3** Traefik ForwardAuth → oauth2-proxy returns `401` to API calls and passes the bearer token. Also confirmed there: cookie size with the Keycloak tokens, `SameSite=Strict` through the login redirects, audience configuration. If item 3 fails, option B is adopted and this ADR and the setup guide are revised.
 - Revisit before any real-user pilot.
 

@@ -66,5 +66,5 @@ Open items: which Dispatch-driven events Dispatch notifies directly and which Is
 ## Record
 
 - 2026-10-07 — first proposal: Issue and Dispatch services with a triage worker.
-- 2026-10-15 — revised by Ricardo (Tech Lead) for EN-01-01: Issue + Dispatch + triage worker, notifications as an Issue module, synchronous HTTP for immediate answers, HTTP relay, no broker (E03).
+- 2026-10-15 — first proposed in EN-01-01 by Ricardo (Tech Lead), revising the 2026-10-07 draft: Issue + Dispatch + triage worker, notifications as an Issue module, synchronous HTTP for immediate answers, HTTP relay, no broker (E03).
 - 2026-10-27 — revised by Ricardo (Tech Lead) after a structured design interview; drafting and source checks AI-assisted. Reason: notifications and AI triage become separate deployables; all service-to-service communication moves to RabbitMQ; EN-01-02 §4.3 replaced by a Dispatch projection. Evidence: [evidence register](README.md#evidence-register-en-01-01) E01, E03, E27, E38; issue [#15](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/15). Affected documents: [technical design](../07-technical-design.md) §1, §2.1, §4.2–§4.4, [ADR index](README.md), DEC-04/06. Final decision, date and participants: pending team review.

@@ -31,7 +31,7 @@ B–D are rejected on the free-tier terms recorded in E60 (idle spin-down, trial
 | Route | Upstream | Middlewares |
 |---|---|---|
 | `/` | client nginx (static files) | Headers |
-| `/api/issue/*`, `/api/dispatch/*`, `/api/notifications/*` | the matching Spring service | ForwardAuth (oauth2-proxy), RateLimit, Headers |
+| `/api/issue/*`, `/api/dispatch/*`, `/api/notifications/*` | the matching Spring service, which serves service-relative paths | ForwardAuth (oauth2-proxy), StripPrefix (`/api/<service>`), RateLimit, Headers |
 | `/oauth2/*` | oauth2-proxy | RateLimit, Headers |
 | `/auth/*` | Keycloak | RateLimit, Headers |
 
@@ -47,7 +47,7 @@ Internal endpoints (Actuator beyond health where exposed, `/metrics`, the AI ser
 
 **Observability.** Health: Spring Actuator `/actuator/health` (liveness and readiness) and Flask `/health`. Prometheus scrapes Actuator/Micrometer, Flask `prometheus_client`, Traefik, RabbitMQ and oauth2-proxy (E36, E39, E58). The Grafana dashboard shows outbox lag, DLQ depth, consumer retries, AI fallback rate, pending bookings, error rate, notification failures and projection freshness. Correlation uses W3C `traceparent` and `correlationId` (CloudEvents extensions and HTTP headers). Traefik writes JSON access logs but has no built-in request-ID generator (E36), so the first Spring service generates a missing correlation ID (to confirm in the spike). Loki and Tempo are left to DEVOPS-02 (Martim, EN01-U12).
 
-**Runbook.** Start/stop, logs, migrations, rollback to the previous image tag, **DLQ replay** (management-UI shovel back to the source queue; [ADR-003](ADR-003-asynchronous-messaging-rabbitmq.md)), and **backup and restore**: MySQL dumps of each database to object storage (Garage, and an off-host copy such as R2, E49, because single-node Garage has no redundancy, E46), restore exercised with counts and integrity checks (NFR-09).
+**Runbook.** Start/stop, logs, migrations, rollback to the previous image tag, **DLQ replay** (management-UI shovel back to the source queue; [ADR-003](ADR-003-asynchronous-messaging-rabbitmq.md)), **projection rebuild** (Issue's snapshot job republishing memberships and issue states for Dispatch; [design §4.3](../07-technical-design.md#43-how-dispatch-obtains-trustworthy-authorisation-context)), and **backup and restore**: MySQL dumps of each database to object storage (Garage, and an off-host copy such as R2, E49, because single-node Garage has no redundancy, E46), restore exercised with counts and integrity checks (NFR-09).
 
 **Host.** College servers are expected, not confirmed (EN01-U3, Martim); the contract does not depend on the choice.
 

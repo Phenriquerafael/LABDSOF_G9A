@@ -112,10 +112,10 @@ Tokens carry `sub` (and the realm roles above); they never carry building roles.
 | 3 | Browser | The resident opens the link; the SPA shows the acceptance page and calls the API |
 | 4 | Traefik / oauth2-proxy | No session: `401`, then `/oauth2/start` keeping the invitation path in `rd` |
 | 5 | **Keycloak** | The resident registers (and verifies the email) or logs in |
-| 6 | **Issue** | `POST /api/issue/invitations/{token}/acceptance` with the session: the token is checked (valid, unused, unexpired), the membership is bound to the `sub`, the token is marked used |
+| 6 | **Issue** | `POST /api/issue/invitations/{token}/acceptance` with the session: the token is checked (valid, unused, unexpired) and the token's `email` claim must equal the invitee address with `email_verified` true (otherwise `403`); then the membership is bound to the `sub` and the token is marked used |
 | 7 | **Issue** | If the token is expired or used, the resident asks the administrator for a new one |
 
-Open: whether the account's verified email must match the address the invitation was sent to (a forwarded link would otherwise let someone else accept); EN-01-04.
+Proposed after review (2026-10-27): the verified email must match the invitation address, so a forwarded link cannot be accepted by another account; the administrator revokes and reissues an invitation sent to a wrong address. To confirm in the spike: the access token passed by oauth2-proxy carries `email` and `email_verified` (Keycloak's `email` client scope). EN-01-04 reviews the rule.
 
 ### Contractor registration (workflow 9)
 
