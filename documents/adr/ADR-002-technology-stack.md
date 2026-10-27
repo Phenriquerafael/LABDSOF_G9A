@@ -28,7 +28,7 @@ No application code exists yet. Five students deliver over three sprints; implem
 
 | Option | Benefits | Costs/risks | Evidence |
 |---|---|---|---|
-| **A. Python 3.14 + Flask 3.1 behind Gunicorn, pika consumer in the same image** (chosen) | Python for the AI provider SDKs and evaluation; small HTTP surface (`/health`, `/metrics`, `POST /classify`); Flask documents production WSGI servers, Gunicorn 26.2 | Second language and runtime; pika connections are not thread-safe, so the consumer is its own process; no DI library (manual composition root) | E20–E25, [ADR-008](ADR-008-ai-triage-service.md) |
+| **A. Python 3.14 + Flask 3.1 behind Gunicorn, pika consumer in the same image** (chosen) | Python for the AI provider SDKs and evaluation; small HTTP surface (health, `/metrics`, `POST /classify`); Flask documents production WSGI servers, Gunicorn 26.2 | Second language and runtime; pika connections are not thread-safe, so the consumer is its own process; no DI library (manual composition root) | E20–E25, [ADR-008](ADR-008-ai-triage-service.md) |
 | B. FastAPI | Async and typed models; popular (14.8% in the 2025 survey) | The service's HTTP surface is tiny and its work is queue-driven; async adds nothing the consumer needs | E62 |
 | C. Spring Boot (Java) | One language | Provider SDK and evaluation tooling would be written on the JVM; one more JVM | E04 |
 
@@ -60,7 +60,7 @@ No application code exists yet. Five students deliver over three sprints; implem
 
 | Option | Benefits | Costs/risks | Evidence |
 |---|---|---|---|
-| **A. React 19 + Vite 8 + Tailwind 4 + shadcn/ui, TanStack Router and Query, generated OpenAPI client, PWA install shell** (chosen) | Static build served by nginx; shadcn/ui components are Radix-based, which addresses the keyboard/ARIA gap of plain Tailwind (proposed; Pedro to confirm); typed client from OpenAPI; MIT packages | Several libraries to pin; PWA limited to install and cached shell (reporting needs a connection) | E54 |
+| **A. React 19 + Vite 8 + Tailwind 4 + shadcn/ui, TanStack Router and Query, generated OpenAPI client, installable PWA** (chosen) | Static build served by nginx; shadcn/ui components are Radix-based, which addresses the keyboard/ARIA gap of plain Tailwind (proposed; Pedro to confirm); typed client from OpenAPI; MIT packages | Several libraries to pin; online only — PWA behaviour, photo re-encoding and the status banner are in [ADR-011](ADR-011-installable-pwa-client.md) | E54, E72 |
 | B. Next.js | Full-stack framework | Server runtime and SSR not needed for an authenticated tool | — |
 | C. Native mobile app | App-store presence | Second UI codebase; administrator workflows are desktop-first | E01 §6.1 |
 
@@ -72,11 +72,11 @@ No application code exists yet. Five students deliver over three sprints; implem
 | AI service | Python, Flask behind Gunicorn, pika, prometheus-client | Python 3.14; Flask 3.1.3; Gunicorn 26.x; pika 1.4.x |
 | Database | MySQL, databases `issue`, `dispatch`, `notification`, `keycloak`, one user each | `mysql:8.4` |
 | Contracts | Protobuf, Buf, AsyncAPI 3, OpenAPI 3 | Buf 1.75 |
-| Client | React, Vite, Tailwind, shadcn/ui, TanStack Router and Query, openapi-typescript + openapi-fetch, vite-plugin-pwa; nginx serves the build | versions as E54 |
+| Client | React, Vite, Tailwind, shadcn/ui, TanStack Router and Query, openapi-typescript + openapi-fetch, vite-plugin-pwa with Workbox; nginx serves the build | versions as E54; vite-plugin-pwa 2.0 (Vite 8 peer), workbox-window 7.4 (E72) |
 | Tests | JUnit 5 with integration tests against real MySQL 8.4 and RabbitMQ containers; pytest; Vitest; no SQLite | Container tooling (for example Testcontainers) to be confirmed by Martim at setup; not in the register |
 | Monorepo | `services/issue`, `services/dispatch`, `services/notification`, `services/ai-triage`, `apps/client`, `tools/calendar-sim`, `platform/bmc-messaging-spring-boot-starter`, `contracts/proto`, `contracts/asyncapi`, `infra/` | No shared domain library; the starter holds infrastructure only |
 
-Platform container versions (Traefik, Keycloak, RabbitMQ, Garage and others) are in [ADR-004](ADR-004-deployment-contract.md).
+Platform container versions (Traefik, Keycloak, RabbitMQ, Garage and others) are in [ADR-004](ADR-004-deployment-contract.md). Client behaviour — installable PWA, online only, prompted updates, photo re-encoding before upload, status banner — is in [ADR-011](ADR-011-installable-pwa-client.md); this ADR keeps only the stack choice and pins.
 
 ## Consequences
 
@@ -93,4 +93,5 @@ A two-day spike (Ricardo and Afonso; Martim for infrastructure) before the first
 ## Record
 
 - 2026-10-15 — first proposed: Elysia on Bun, Prisma 7.10, MySQL 9.7, React + Vite PWA, outbox without a broker (E03).
-- 2026-10-27 — revised by Ricardo (Tech Lead) after a structured design interview; drafting and source checks AI-assisted. Reason: Java team premise (to confirm), Spring's AMQP/security/JPA integration, Keycloak not supporting MySQL 9.x. Evidence: [evidence register](README.md#evidence-register-en-01-01) E01, E03–E12, E16, E20–E25, E27, E41–E44, E54, E62; issue [#15](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/15). Affected documents: [technical design](../07-technical-design.md) §1, §7, [ADR index](README.md), DEC-04. Final decision, date and participants: pending team review.
+- 2026-10-27 — revised by Ricardo (Tech Lead) after a structured design interview; drafting and source checks AI-assisted. Reason: Java team premise (to confirm), Spring's AMQP/security/JPA integration, Keycloak not supporting MySQL 9.x. Evidence: [evidence register](README.md#evidence-register-en-01-01) E01, E03–E12, E16, E20–E25, E27, E41–E44, E54, E62, E72; issue [#15](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/15). Affected documents: [technical design](../07-technical-design.md) §1, §7, [ADR index](README.md), DEC-04. Final decision, date and participants: pending team review.
+- 2026-10-27 — client details (PWA, online-only operation, photo re-encoding, status banner) moved to [ADR-011](ADR-011-installable-pwa-client.md); vite-plugin-pwa 2.0 and Workbox pins added (E72).

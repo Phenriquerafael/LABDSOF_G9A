@@ -39,11 +39,11 @@ Garage is chosen on the facts recorded above (maintained, S3 subset sufficient, 
 
 | Use | Bucket | Rules |
 |---|---|---|
-| (a) Report photos | `bmc-attachments` | Through Issue: `POST /reports/{id}/attachments` (multipart), at most 5 photos × 5 MB, JPEG/PNG/WebP verified by content and not by the declared type, EXIF and GPS data stripped before storage, random object key, `Attachment` metadata row in the `issue` database |
+| (a) Report photos | `bmc-attachments` | Before upload the client re-encodes each photo to JPEG, long edge about 2048 px, which also converts iPhone HEIC that Chrome and Android cannot decode ([ADR-011](ADR-011-installable-pwa-client.md); E68, E69). Server checks are unchanged and do not trust the client: through Issue: `POST /reports/{id}/attachments` (multipart), at most 5 photos × 5 MB, JPEG/PNG/WebP verified by content and not by the declared type, EXIF and GPS data stripped before storage, random object key, `Attachment` metadata row in the `issue` database |
 | (a) Download | same | `GET /attachments/{id}` through Issue, authorised by the access matrix: same visibility as the private report text (author and administrators of the building). Not in the contractor extract unless an administrator shares it; sharing is open and post-MVP. Unauthorised access answers `404` |
 | (c) Backups | `bmc-backups` | Scheduled MySQL dumps written by the backup job to the bucket (and optionally to R2); DEVOPS-02 owns schedule, rotation and restore exercise |
 
-Contractor completion photos are a later topic. The storage endpoint is never routed by Traefik and is reachable only on the internal network. Presigned direct upload from the browser is recorded as the scaling path if proxying through Issue becomes a bottleneck; it would need CORS and a revised access check.
+Client re-encoding is a convenience (smaller uploads, one format), not a control; a request that bypasses the client still meets the server checks. Its exact values are tuned in spike item 13 on a real iPhone and Android device. Contractor completion photos are a later topic. The storage endpoint is never routed by Traefik and is reachable only on the internal network. Presigned direct upload from the browser is recorded as the scaling path if proxying through Issue becomes a bottleneck; it would need CORS and a revised access check.
 
 ## Consequences
 
@@ -51,11 +51,11 @@ Contractor completion photos are a later topic. The storage endpoint is never ro
 - AGPL-3.0: run the upstream image unmodified as a separate service; do not embed or patch it.
 - Privacy (DEC-07): photos can show people and the inside of dwellings. EXIF/GPS stripping, random keys, the access matrix and synthetic data only in dev/demo reduce exposure; they do not make photos non-personal. Retention and deletion rules are open under DEC-07. R2 as a hosted target sends the data to a third party and needs a decision before real data.
 - One more container (~1 GB RAM per E46, to be measured in the spike) in an already heavy stack ([ADR-004](ADR-004-deployment-contract.md)).
-- If storage is down, reporting must not fail (below).
+- If storage is down, reporting must not fail (below); the status page and banner show Photo upload as Unavailable ([ADR-012](ADR-012-health-and-status-page.md)).
 
 ## Verification and review
 
-Spike item 9: the same adapter against Garage and R2, including checksum and path-style settings. Tests to write (none exists yet):
+Spike item 9: the same adapter against Garage and R2, including checksum and path-style settings. Spike item 13: the client photo pipeline (HEIC to JPEG, resulting size) on a real iPhone and Android device. Tests to write (none exists yet):
 
 - Oversized (> 5 MB) or sixth photo → rejected with a problem response.
 - Wrong content (for example an executable renamed `.jpg`) → rejected.
@@ -69,3 +69,5 @@ Review if Garage fails the spike, if photos become Must, or if the demonstration
 ## Record
 
 2026-10-27 — proposed by Ricardo (Tech Lead) after a structured design interview; drafting and source checks AI-assisted (new ADR). Reason: a Should-priority photo attachment story and an off-host backup target need storage that is not MySQL; MinIO is archived. Evidence: [evidence register](README.md#evidence-register-en-01-01) E01, E45–E51. Affected documents: [security §2, §4](../09-security-privacy.md#4-data-lifecycle-and-minimisation), backlog (US-14, to be created), DEVOPS-02. Final decision, date and participants: pending team review. Issue [#15](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/15).
+
+2026-10-27 — client-side JPEG re-encoding before upload added (incl. HEIC; [ADR-011](ADR-011-installable-pwa-client.md), E68, E69); server checks unchanged.

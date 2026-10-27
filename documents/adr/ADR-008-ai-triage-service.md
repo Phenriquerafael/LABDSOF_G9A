@@ -18,7 +18,7 @@ The 2026-10-15 proposal had a Bun triage worker that claimed jobs from Issue ove
 
 | Option | Benefits | Costs/risks | Evidence |
 |---|---|---|---|
-| **A. Flask behind Gunicorn (HTTP) + separate pika consumer process, same image** | Small Python service where AI libraries live; HTTP gives `/health`, `/metrics` and an evaluation endpoint; consumer isolated from the WSGI workers | Two process types in one image; Python is a second backend language | E20, E24, E25 |
+| **A. Flask behind Gunicorn (HTTP) + separate pika consumer process, same image** | Small Python service where AI libraries live; HTTP gives health, `/metrics` and an evaluation endpoint; consumer isolated from the WSGI workers | Two process types in one image; Python is a second backend language | E20, E24, E25 |
 | B. FastAPI | Async, built-in OpenAPI | The consumer would still need its own process or thread model; no need for async here; Flask was the Tech Lead's choice | E62 (usage only, not a technical argument) |
 | C. Triage inside the Issue service (Java) | One fewer deployable | AI client and fallback in the Issue process; harder to disable or scale separately; weakens the visible asynchronous workflow | — |
 | D. The 2026-10-15 Bun triage worker claiming jobs over HTTP | Already described | Depends on the removed internal claim endpoints and job table; Bun is no longer in the stack ([ADR-002](ADR-002-technology-stack.md)) | E03 |
@@ -30,7 +30,7 @@ Why not use the Flask development server or one process for both: the Flask docu
 
 **A**, proposed, not accepted.
 
-**Runtime.** Python 3.14, Flask 3.1.3, Gunicorn 26.x, pika 1.4.x, prometheus-client (E20–E25; versions pinned in the lock file). One image, two entry points: `gunicorn` serves `/health`, `/metrics` and the internal `POST /classify`; `python -m triage.consumer` consumes `ai-triage.requests`. `/classify` and `/metrics` are internal and never routed by Traefik. `POST /classify` exists for the AI-01 evaluation harness: it runs the same triage facade on a text and returns the result without touching the queue.
+**Runtime.** Python 3.14, Flask 3.1.3, Gunicorn 26.x, pika 1.4.x, prometheus-client (E20–E25; versions pinned in the lock file). One image, two entry points: `gunicorn` serves the liveness and readiness endpoints (names per [DEVOPS-02 (#42)](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/42); [ADR-012](ADR-012-health-and-status-page.md)), `/metrics` and the internal `POST /classify`; `python -m triage.consumer` consumes `ai-triage.requests`. Health, `/classify` and `/metrics` are internal and never routed by Traefik. `POST /classify` exists for the AI-01 evaluation harness: it runs the same triage facade on a text and returns the result without touching the queue.
 
 **Messages** (contract in [ADR-003](ADR-003-asynchronous-messaging-rabbitmq.md) and `contracts/proto/`):
 
@@ -79,3 +79,5 @@ Review when AI-01 chooses a provider, after the evaluation, and if the 2-attempt
 ## Record
 
 2026-10-27 — proposed by Ricardo (Tech Lead) after a structured design interview; drafting and source checks AI-assisted (new ADR; the 2026-10-15 proposal had a Bun triage worker claiming jobs over HTTP, with a job table and `SKIP LOCKED` claiming). Reason: RabbitMQ replaces the job table and claim endpoints; the AI part becomes its own Flask service with a facade and provider adapters. Evidence: [evidence register](README.md#evidence-register-en-01-01) E01, E03, E20–E25, E62, E63. Affected documents: [technical design §1, §4.4, §4.6, §5](../07-technical-design.md#5-asynchronous-workflow-and-consistency), [responsible AI assessment](../06-responsible-ai-assessment.md), DEC-05. Final decision, date and participants: pending team review. Issue [#15](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/15).
+
+2026-10-27 — fixed health path removed; liveness and readiness endpoint names per DEVOPS-02 (#42), checks in [ADR-012](ADR-012-health-and-status-page.md).

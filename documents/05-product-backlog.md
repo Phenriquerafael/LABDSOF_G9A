@@ -1,6 +1,6 @@
 # Product Backlog
 
-**Status:** proposal v0.2 · **Sprint:** 1 · **Priority:** not yet validated with the customer/lecturers · US-14 proposed and US-10 annotated on 2026-10-27 (EN-01-01, pending agreement)
+**Status:** proposal v0.2 · **Sprint:** 1 · **Priority:** not yet validated with the customer/lecturers · US-14 proposed and US-10 annotated on 2026-10-27, US-14 client criteria added the same day (EN-01-01, pending agreement)
 
 Corresponds to deliverable 5 in §7.1.2. This document defines the product backlog items. No remote issues, estimates, assignments or implementations are assumed.
 
@@ -193,17 +193,19 @@ As an administrator, I want to synchronise with the calendar used in operations.
 
 ### US-14 — Attach photos to a report · Should · EP-01 · proposed
 
-**Proposal, not agreed:** added by Ricardo (Tech Lead) in EN-01-01 on 2026-10-27 with [ADR-010](adr/ADR-010-object-storage.md). Photos were classified post-MVP in the 2026-10-07 [editorial harmonisation](planning/decisions-and-feedback.md#2-editorial-harmonisation); this story needs a DEC entry and team agreement (EN01-U11) before it can be prioritised. No other priority changes.
+**Proposal, not agreed:** added by Ricardo (Tech Lead) in EN-01-01 on 2026-10-27 with [ADR-010](adr/ADR-010-object-storage.md); client criteria from [ADR-011](adr/ADR-011-installable-pwa-client.md) the same day. Photos were classified post-MVP in the 2026-10-07 [editorial harmonisation](planning/decisions-and-feedback.md#2-editorial-harmonisation); this story needs a DEC entry and team agreement (EN01-U11) before it can be prioritised. No other priority changes.
 
 As a resident, I want to attach photos to my report so that the administrator can understand the fault more easily.
 
-- At most 5 photos per report, each at most 5 MB; only JPEG, PNG or WebP, verified by content rather than by the declared type; anything else is rejected with an understandable error.
+- Two inputs: “Take photo” (opens the camera where the device offers one) and “Choose from gallery”.
+- Before upload the client re-encodes each photo to JPEG with a long edge of about 2048 px, including iPhone HEIC photos; exact values are tuned in the spike. The resident sees a preview of each photo and can remove it before sending.
+- The server does not rely on the client processing: at most 5 photos per report, each at most 5 MB; only JPEG, PNG or WebP, verified by content rather than by the declared type; anything else is rejected with an understandable error.
 - EXIF and GPS metadata are removed before storage; stored objects have random keys.
 - Photos have the same visibility as the private report text: the author and the building's administrators; other residents, other buildings and contractors receive `404`, even through direct API calls. Sharing a photo into the contractor extract is outside this story.
 - Upload and download go through the Issue service; object storage is never reachable directly.
 - If object storage is unavailable, the report can still be submitted without photos and the upload shows an explicit error; no partial attachment is recorded.
 
-**Source:** EN-01-01 proposal (ADR-010); [vision J1](04-product-vision.md#j1--report-and-track). **Dependencies:** US-01, DEC-07, a DEC entry for the scope change. **Horizon:** S2/S3 if agreed and capacity allows.
+**Source:** EN-01-01 proposal (ADR-010, ADR-011); [vision J1](04-product-vision.md#j1--report-and-track). **Dependencies:** US-01, DEC-07, a DEC entry for the scope change. **Horizon:** S2/S3 if agreed and capacity allows.
 
 ## 5. Won't in this baseline / alternatives
 

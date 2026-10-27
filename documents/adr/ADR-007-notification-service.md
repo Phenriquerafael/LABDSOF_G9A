@@ -90,6 +90,7 @@ Issue and Dispatch publish `NotificationRequested` to the `bmc.events` exchange 
 
 - **In-app** (always on): the inbox, served at the edge path `/api/notifications/notifications` (service-relative `GET /notifications`) to the authenticated user's own notifications only; the Notification service is a resource server like the others ([ADR-005](ADR-005-authentication-authorisation.md)).
 - **Email**, SMTP through Spring Mail: **Mailpit** in dev and demo, which captures mail and shows it in a web UI (E52). A later adapter for a Gmail account would use an App Password, which requires 2-Step Verification, is not available for work or school accounts and is revoked when the account password changes (E53); the secret stays outside Git. Using a personal Gmail account for a university project is not decided here.
+- **Web Push** — recorded as the next adapter (`WebPushChannelAdapter` behind the same facade), **not in the MVP**. Reasons: on iOS and iPadOS it works only for web apps added to the Home Screen, with permission requested from a user gesture (E71); the Java library's maintenance is uncertain (`nl.martijndwars:web-push` last released 5.1.2 on 2025-02-17, E71); and a VAPID key pair would need managing as a secret. Adding it later means one adapter plus a push-subscription table; the client side (install, permission prompt) is in [ADR-011](ADR-011-installable-pwa-client.md).
 
 ### Degraded mode
 
@@ -139,3 +140,5 @@ Review after the spike (EN01-U2: Keycloak service account) and at EN-01-03, wher
 ## Record
 
 2026-10-27 — proposed by Ricardo (Tech Lead) after a structured design interview for EN-01-01; drafting and source checks AI-assisted. Reason: the workflows need email and opt-out beyond the DEC-06 baseline, and notification delivery is a natural isolated failure for the §6.8 scenario. Evidence: [evidence register](README.md#evidence-register-en-01-01) E01, E03, E16, E17, E29, E52, E53; issue [#15](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/15). Affected documents: [technical design](../07-technical-design.md), [workflows](../workflows/bmc-workflows.md), [security](../09-security-privacy.md), DEC-06, DEC-07. Final decision, date and participants: pending team review.
+
+2026-10-27 — Web Push recorded as the next channel adapter, not in the MVP (E71; [ADR-011](ADR-011-installable-pwa-client.md)).

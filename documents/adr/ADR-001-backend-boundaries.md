@@ -59,7 +59,7 @@ The 2026-10-15 proposal (Issue + Dispatch + triage worker, notifications inside 
 
 ## Verification and review
 
-Evidence once built: each service starts and passes its own tests with the others stopped; stopping Issue leaves contractor and administrator Dispatch commands working; stopping Dispatch's consumer shows projection staleness on the freshness metric; no service has credentials for another's database. Boundary tests per service are in [ADR-009](ADR-009-service-internal-architecture.md). Review at the team review of ADR-001–010 and at Sprint B planning.
+Evidence once built: each service starts and passes its own tests with the others stopped; stopping Issue leaves contractor and administrator Dispatch commands working; stopping Dispatch's consumer shows projection staleness on the freshness metric; no service has credentials for another's database. Boundary tests per service are in [ADR-009](ADR-009-service-internal-architecture.md). Review at the team review of ADR-001–012 and at Sprint B planning.
 
 Open items: which Dispatch-driven events Dispatch notifies directly and which Issue notifies after projecting them (to settle with EN-01-03); whether Issue's own events with no consumer (`ReportSubmitted`, `IssueTriaged`, `IssueSummaryPublished`) are still published; revocation-delay bound (EN-01-04); the service count's effect on measured memory (EN01-U3).
 

@@ -61,7 +61,7 @@ The assignment requires a non-AI baseline **or** fallback. We propose both to ev
 
 ## 5. Proposed technical direction
 
-Two independently deployable backend components: **Issue Service** (issues, triage and history) and **Dispatch Service** (contractors and interventions), with a separate Notification service and AI triage service, one deployable per bounded context. Services communicate only through asynchronous messages (transactional outbox and RabbitMQ). The proposed stack is Spring Boot on Java for the services, Flask on Python for AI triage, a React client and MySQL 8.4, deployed with Compose behind a single Traefik edge. Boundaries, stack, messaging, deployment, identity and the other choices are proposed in [ADR-001–010](adr/README.md), revised on 2026-10-27 (DEC-04, team review pending; not accepted).
+Two independently deployable backend components: **Issue Service** (issues, triage and history) and **Dispatch Service** (contractors and interventions), with a separate Notification service and AI triage service, one deployable per bounded context. Services communicate only through asynchronous messages (transactional outbox and RabbitMQ). The proposed stack is Spring Boot on Java for the services, Flask on Python for AI triage, a React client and MySQL 8.4, deployed with Compose behind a single Traefik edge. Boundaries, stack, messaging, deployment, identity and the other choices are proposed in [ADR-001–012](adr/README.md), revised on 2026-10-27 (DEC-04, team review pending; not accepted).
 
 Proposed integration: a calendar with a realistic simulator as the initial planning option; provider and final implementation in DEC-06. A modular monolith requires justification and lecturer acceptance; this exception has not already been granted.
 
