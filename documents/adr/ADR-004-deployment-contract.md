@@ -56,7 +56,7 @@ Internal endpoints (Actuator beyond health where exposed, `/metrics`, the AI ser
 - No provider lock-in; a reviewer can run the system from a clone.
 - **Memory is the main risk.** Three Spring JVMs, the simulator JVM, Keycloak (about 1250 MB base, E28), RabbitMQ (high watermark 0.6 of RAM, E39), MySQL, Prometheus and Grafana together are likely several GB. This is not measured; it is measured in the spike on the real host and architectures, and may force profile or sizing changes.
 - One host, one MySQL and one RabbitMQ node are single points of failure, stated as limits of the academic release ([ADR-001](ADR-001-backend-boundaries.md)).
-- Multi-arch builds lengthen CI; accepted to keep the host choice open.
+- Multi-arch builds lengthen CI; this proposal takes that cost to keep the host choice open.
 - More secrets to manage (Keycloak client secrets, cookie secret, per-service database and broker credentials); rotation is EN01-U6.
 
 ## Verification and review

@@ -46,7 +46,7 @@ Reviewed on 2026-10-19 for EN-01-02 ([Issue: 14](https://github.com/Phenriqueraf
 | Attachment | `id`, `reportId`, `issueId`, `buildingId`, random object key, verified content type, size, uploader, time | **Proposed addition** for US-14 (Should, pending a DEC entry). The file is in object storage with EXIF/GPS stripped; visibility equals the private report text ([ADR-010](adr/ADR-010-object-storage.md)) |
 | Report | `id`, `issueId`, `buildingId`, `areaId`, `authorUserId`, private text, source (`resident` or `administrator_on_behalf`), `submittedAt` | J1 steps 1–2; raw text stays private ([access matrix](09-security-privacy.md#2-proposed-access-matrix)) |
 | Issue | `id`, `buildingId`, `areaId`, state, `version`, category, urgency, triage source, optional published summary, resolution (kind, reason, actor, time), projection of the active intervention (`interventionId`, state, last applied `aggregateVersion`, `contractorUserId` used only to address notifications) | 1:N reports; J1 step 4, J2 |
-| Triage suggestion | `issueId`, source issue version, category, urgency, rationale, origin (`ai`, `rules` or `fallback`), model/prompt/rules versions, time | Recorded from `TriageSuggested` (4.4). Labelled unverified until a triage decision has been made ([AI Responsibility Section: 2](06-responsible-ai-assessment.md#2-baseline-and-fallback)). The 2026-10-15 triage job entity is removed: RabbitMQ is the queue ([ADR-003](adr/ADR-003-asynchronous-messaging-rabbitmq.md)) |
+| Triage suggestion | `issueId`, source issue version, category, urgency, rationale, origin (`ai`, `rules` or `fallback`), model/prompt/rules versions, time | Recorded from `TriageSuggested` (4.4). Labelled unverified until a triage decision has been made ([AI Responsibility §2](06-responsible-ai-assessment.md#2-baseline-and-fallback)). The 2026-10-15 triage job entity is removed: RabbitMQ is the queue ([ADR-003](adr/ADR-003-asynchronous-messaging-rabbitmq.md)) |
 | Triage decision | `issueId`, category, urgency, actor, reason, resulting version, time | The [DEC-10](planning/decisions-and-feedback.md#1-open-decisions) “triage decision”; distinct from the suggestion |
 | Impact confirmation | Unique (`issueId`, `userId`), time; withdrawal deletes the row | J1 step 4; never changes urgency (RF-04) |
 | Issue history entry | `issueId`, sequence, type, visibility (`public` or `internal`), actor role, time; includes projected Dispatch events | J1 step 4 and J2; residents see only public entries |
@@ -68,7 +68,7 @@ Issue decides who is notified about issue-side events and about the Dispatch eve
 | Cost record | `interventionId`, amount ≥ 0 or empty, currency, source, confirming actor; corrections audited | US-11 [Should](requirements.md) |
 | Audit event | As in Issue, for Dispatch actions | [T-10](09-security-privacy.md) |
 
-Dispatch also keeps two **read projections**, written only by its event consumers and never by requests ([Section: 4.3](#43-how-dispatch-obtains-trustworthy-authorisation-context)):
+Dispatch also keeps two **read projections**, written only by its event consumers and never by requests ([§4.3](#43-how-dispatch-obtains-trustworthy-authorisation-context)):
 
 | Projection | Fields | Fed by |
 |---|---|---|
@@ -87,15 +87,15 @@ Issue remains the authority for both; a projection is a copy that may lag.
 
 The channel baseline is in-app and email (Mailpit in dev/demo), as proposed for [DEC-06](planning/decisions-and-feedback.md#1-open-decisions) on 2026-10-27. Email addresses are not stored: they are looked up in Keycloak by `sub` at send time, except for invitations (4.4).
 
-Issue, Dispatch and Notification also hold technical tables for the asynchronous workflow (outbox, processed event IDs, idempotency keys); see [Section: 5](#5-asynchronous-workflow-and-consistency). The AI triage service holds no database.
+Issue, Dispatch and Notification also hold technical tables for the asynchronous workflow (outbox, processed event IDs, idempotency keys); see [§5](#5-asynchronous-workflow-and-consistency). The AI triage service holds no database.
 
 ### 2.4 Cardinalities and ownership rules
 
 - Organisation 1:N buildings; building 1:N areas; users N:M buildings through memberships; issue 1:N reports, 0:N interventions (at most one non-terminal); report 0:N attachments (at most 5, US-14 proposal); building 0:N invitations; intervention 1:N proposal versions and 0:N bookings (at most one active).
 
-- References across services are IDs only. No service reads or writes another's database; Issue's state reflects Dispatch only through events that Issue validates and applies to its own data ([Section: 3.3](#33-invalid-and-concurrent-transitions), [Section: 4.4](#44-event-contracts)).
+- References across services are IDs only. No service reads or writes another's database; Issue's state reflects Dispatch only through events that Issue validates and applies to its own data ([§3.3](#33-invalid-and-concurrent-transitions), [§4.4](#44-event-contracts)).
 
-- `buildingId` never changes for an issue, so Dispatch may keep it as a snapshot for filtering and audit. Administrator memberships and issue dispatchability are copied into Dispatch's read projections from Issue's events; Dispatch never changes them, and Issue stays the single writer of memberships and issues ([Section: 4.3](#43-how-dispatch-obtains-trustworthy-authorisation-context)).
+- `buildingId` never changes for an issue, so Dispatch may keep it as a snapshot for filtering and audit. Administrator memberships and issue dispatchability are copied into Dispatch's read projections from Issue's events; Dispatch never changes them, and Issue stays the single writer of memberships and issues ([§4.3](#43-how-dispatch-obtains-trustworthy-authorisation-context)).
 
 - Accounts and credentials belong to Keycloak; services keep only `sub` and profile data. Attachment files belong to object storage, written only by Issue.
 
@@ -109,9 +109,9 @@ The rules below implement the step definitions in [Product Vision Section 4.3](0
 
 The figures in this section are BPMN 2.0 collaboration diagrams. Lanes show who acts. A state in brackets, such as `[triaged]`, is the state the issue or intervention enters at that step. Services that are not the owner are drawn as collapsed pools; dashed message flows are the events and calls in [§4](#4-api-and-contract-outline-no-executable-contract-yet). Link events (arrow circles) join paths that would otherwise cross the whole figure. The transition tables are the normative rules; the figures illustrate them. The `.bpmn` sources open in [bpmn.io](https://demo.bpmn.io/) (accessed 2026-10-25) or Camunda Modeler; re-export the SVG after editing.
 
-![Figure 2 — Issue lifecycle in BPMN: resident, administrator and Issue Service lanes, with the triage worker and Dispatch Service as collapsed pools](diagrams/issue-lifecycle.svg)
+![Figure 2 — Issue lifecycle in BPMN: resident, administrator and Issue Service lanes, with the AI triage service and Dispatch Service as collapsed pools](diagrams/issue-lifecycle.svg)
 
-*Figure 2 — Issue lifecycle ([BPMN source](diagrams/issue-lifecycle.bpmn)).* The event-based gateway waits for the next Dispatch event: booking confirmed or work started loops back, a decline or cancellation returns the issue to coordination, and a completion report goes to validation. The event sub-process covers manual closure or cancellation from any open state. The figure predates the 2026-10-27 revision: its triage worker pool is now the AI triage service, reached through `TriageRequested` and `TriageSuggested` (4.4).
+*Figure 2 — Issue lifecycle ([BPMN source](diagrams/issue-lifecycle.bpmn)).* The event-based gateway waits for the next Dispatch event: booking confirmed or work started loops back, a decline or cancellation returns the issue to coordination, and a completion report goes to validation. The event sub-process covers manual closure or cancellation from any open state. Labels updated on 2026-10-27 for the EN-01-01 proposal: the AI triage service pool exchanges `TriageRequested` and `TriageSuggested` (4.4), and the report is persisted with an outbox row instead of a triage job.
 
 
 | From | Trigger | Actor | To | Rule |
@@ -138,7 +138,7 @@ Rows triggered by Dispatch events describe the normal order. When an event is la
 
 ![Figure 3 — Intervention request, approval and contractor response in BPMN: administrator, contractor and Dispatch Service lanes, with Issue Service as a collapsed pool](diagrams/intervention-request.svg)
 
-*Figure 3 — Request, approval and response ([BPMN source](diagrams/intervention-request.bpmn)).* Dispatch checks its projection of the Issue context before creating anything (§4.3). A counterproposal returns to approval, and approving a contractor-authored version leads straight to booking. A change of terms by the administrator before the response (`POST …/proposals`) is not drawn.
+*Figure 3 — Request, approval and response ([BPMN source](diagrams/intervention-request.bpmn)).* Dispatch checks its projection of the Issue context before creating anything (§4.3); the context arrives as Issue events, and the synchronous request/answer of EN-01-02 was removed from the figure on 2026-10-27. A counterproposal returns to approval, and approving a contractor-authored version leads straight to booking. A change of terms by the administrator before the response (`POST …/proposals`) is not drawn.
 
 ![Figure 4 — Booking, execution and closure in BPMN: booking outcomes with reconciliation, manual booking confirmation, completion, rework, closure and a cancellation event sub-process](diagrams/intervention-booking.svg)
 

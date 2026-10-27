@@ -55,7 +55,7 @@ The 2026-10-15 proposal (Issue + Dispatch + triage worker, notifications inside 
 - **Shared infrastructure** — single points of failure, stated as limits of the academic release: one MySQL 8.4 instance (a database and user per service, plus `keycloak`), one RabbitMQ node, one host. Mitigations: separate users and grants; broker-down behaviour that leaves business data intact (outbox rows stay pending); health and readiness checks; restart policies; DLQ and outbox-lag alerts; backup and restore exercise ([ADR-004](ADR-004-deployment-contract.md)). A node or host loss is not mitigated in the MVP.
 - Eventual consistency is visible to users (history may show Dispatch events late; "triage pending"; "membership data as of …").
 - Tests must cover consumer unavailability, redelivery, out-of-order events, stale projections and delayed updates (NFR-04).
-- Effort is higher than options B–D; accepted to meet §6.2 without an exception. Re-estimate at Sprint B planning.
+- Effort is higher than options B–D; a cost this proposal carries to meet §6.2 without an exception. Re-estimate at Sprint B planning.
 
 ## Verification and review
 

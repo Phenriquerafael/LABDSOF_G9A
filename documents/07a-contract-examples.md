@@ -76,7 +76,7 @@ Idempotency-Key: 1f2e…
   "terms": "Inspect and repair; report cost if known." }
 ```
 
-Before writing, Dispatch checks its own projections ([Technical Design Section: 4.3](07-technical-design.md#43-how-dispatch-obtains-trustworthy-authorisation-context)); it does not call Issue. The administrator projection holds an active `administrator` membership of `…0201` (the token's `sub`) for building `…b001`, from an earlier `MembershipGranted`. The issue projection holds the issue at version 3, `dispatchable`, from this `IssueStateChanged`, published by Issue after the triage decision and consumed from `dispatch.inbox`:
+Before writing, Dispatch checks its own projections ([Technical Design §4.3](07-technical-design.md#43-how-dispatch-obtains-trustworthy-authorisation-context)); it does not call Issue. The administrator projection holds an active `administrator` membership of `…0201` (the token's `sub`) for building `…b001`, from an earlier `MembershipGranted`. The issue projection holds the issue at version 3, `dispatchable`, from this `IssueStateChanged`, published by Issue after the triage decision and consumed from `dispatch.inbox`:
 
 ```json
 { "specversion": "1.0",
@@ -119,7 +119,7 @@ ETag: "2"
 { "state": "sent", "version": 2, "approvedProposalVersion": 1 }
 ```
 
-Event written to Dispatch's outbox with the approval, published to `bmc.events` with routing key `dispatch.InterventionApproved` after the commit, and consumed by Issue from `issue.inbox` (CloudEvents 1.0 structured JSON; `data` in the proto3 JSON mapping; [Technical Design Section: 4.4](07-technical-design.md#44-event-contracts)):
+Event written to Dispatch's outbox with the approval, published to `bmc.events` with routing key `dispatch.InterventionApproved` after the commit, and consumed by Issue from `issue.inbox` (CloudEvents 1.0 structured JSON; `data` in the proto3 JSON mapping; [Technical Design §4.4](07-technical-design.md#44-event-contracts)):
 
 ```json
 { "specversion": "1.0",
@@ -253,7 +253,7 @@ Content-Type: application/problem+json
   "correlationId": "c-90aa" }
 ```
 
-Dispatch's own database is unavailable when an administrator approves: nothing is changed. (With the projection in [Technical Design Section: 4.3](07-technical-design.md#43-how-dispatch-obtains-trustworthy-authorisation-context), Issue being down no longer causes this error; see W7.)
+Dispatch's own database is unavailable when an administrator approves: nothing is changed. (With the projection in [Technical Design §4.3](07-technical-design.md#43-how-dispatch-obtains-trustworthy-authorisation-context), Issue being down no longer causes this error; see W7.)
 
 ```http
 503 Service Unavailable
