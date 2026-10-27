@@ -1,6 +1,6 @@
 # Product Backlog
 
-**Status:** proposal v0.2 · **Sprint:** 1 · **Priority:** not yet validated with the customer/lecturers
+**Status:** proposal v0.2 · **Sprint:** 1 · **Priority:** not yet validated with the customer/lecturers · US-14 proposed and US-10 annotated on 2026-10-27 (EN-01-01, pending agreement)
 
 Corresponds to deliverable 5 in §7.1.2. This document defines the product backlog items. No remote issues, estimates, assignments or implementations are assumed.
 

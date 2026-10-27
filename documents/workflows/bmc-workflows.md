@@ -1,6 +1,6 @@
 # BMC — Proposed workflows (with diagrams)
 
-Status: proposal · DISC-03-06 · validation pending
+Status: proposal · DISC-03-06 · validation pending · DEC-06 pointer added on 2026-10-27 (EN-01-01); workflows unchanged
 Language: English. The Portuguese version is not written yet.
 
 ## Ground rules

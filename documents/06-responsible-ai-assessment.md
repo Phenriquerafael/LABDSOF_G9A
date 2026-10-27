@@ -1,6 +1,6 @@
 # Responsible AI Opportunity Assessment
 
-**Status:** initial proposal · Sprint 1, deliverable 6 · **No dataset or evaluation results produced**
+**Status:** initial proposal · Sprint 1, deliverable 6 · workflow wording aligned with the EN-01-01 proposal on 2026-10-27 ([ADR-008](adr/ADR-008-ai-triage-service.md)) · **No dataset or evaluation results produced**
 
 ## 1. Need and workflow
 
