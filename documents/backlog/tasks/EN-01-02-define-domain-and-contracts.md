@@ -1,6 +1,6 @@
 # [EN-01-02] Consolidate the domain model and contract outlines
 
-- Publication: Draft — not published; GitHub issue URL: pending.
+- Publication: Published as [#14](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/14) (checked 2026-10-25); GitHub owns live status.
 - Workflow: Backlog; proposed milestone: S1 — Discover, Validate and Design; dates/estimate: to be agreed.
 - Type: task; suggested labels: `type:task`, `area:backend`, `phase:3`, `priority:must`.
 - Parent: [EN-01](EN-01-technical-design.md); epic: [EP-04](../epics/EP-04-engineering-and-quality.md).
@@ -27,7 +27,7 @@ Excluded: Production-complete OpenAPI, migrations and executable integration tes
 
 ## Deliverables and evidence
 
-- [Technical design](../../08-technical-design.md) — update the relevant sections and link the change/review evidence.
+- [Technical design](../../07-technical-design.md) — update the relevant sections and link the change/review evidence.
 - [Requirements](../../requirements.md) — update the relevant sections and link the change/review evidence.
 - [Security access matrix](../../09-security-privacy.md) — update the relevant sections and link the change/review evidence.
 
@@ -39,8 +39,9 @@ Use the documentation/research checks appropriate to this task; implementation t
 
 ## Completion record
 
-- Result/findings and limitations: to be recorded after execution or verification of existing work.
-- Evidence/PR/review links: to be recorded; document presence alone is not completion evidence.
-- Decision/requirement changes: to be recorded, or explain why no change was needed.
+- Result/findings and limitations: domain model reviewed against J1–J3 on 2026-10-19 by Afonso, with one writing service per entity and six gaps closed (areas, contractor account link, proposal versions, triage decision, completion report versus cost, history projection). Issue and intervention state machines, invalid and concurrent transition rules, API and internal operations, event catalogue, Dispatch authorisation context, calendar/simulator contract and starting retry values drafted in [07 §2–§4](../../07-technical-design.md#2-domain-model-and-data-ownership); examples and a 16-scenario review walkthrough in the [contract annex](../../07a-contract-examples.md). Limitations: builds on EN-01-01 proposals (#15) on the [`docs/EN-01-01-select-stack`](https://github.com/Phenriquerafael/LABDSOF_G9A/tree/docs/EN-01-01-select-stack) branch, not yet merged; rules are not validated with administrators or contractors (DEC-10); retry values are unmeasured; no executable OpenAPI (excluded).
+- Evidence/PR/review links: [PR #44](https://github.com/Phenriquerafael/LABDSOF_G9A/pull/44), referencing #14. [Review](https://github.com/Phenriquerafael/LABDSOF_G9A/pull/44#pullrequestreview-5643196937) by Ricardo on 2026-10-25 (changes requested); fixes for H1, M1–M5 and the Low items and Notes confirmed by Ricardo on 2026-10-25 against head `4bfbe55`, with L7 and N5 left as they are ([comment](https://github.com/Phenriquerafael/LABDSOF_G9A/pull/44#issuecomment-6401485887)). Approval pending. Document presence alone is not completion evidence.
+- Walkthrough W1–W16 ([annex §3](../../07a-contract-examples.md#3-review-walkthrough)): Ricardo, 2026-10-25, head `4bfbe55`. Every scenario produces the expected outcome under the rules it cites. No rule changes. One clarification, non-blocking: a `declined` or `cancelled` intervention clears the active intervention in Issue's projection, and events for an earlier, terminal intervention go into history only (added to [07 §3.3](../../07-technical-design.md#33-invalid-and-concurrent-transitions), “Applying Dispatch events”).
+- Decision/requirement changes: DEC-10 status and the EN-01-02 entry in the [register](../../planning/decisions-and-feedback.md#domain-and-contract-proposals--en-01-02); NFR-01/04/11 criteria and the DEC-10 open decision in [requirements](../../requirements.md); access matrix and T-11 in [security](../../09-security-privacy.md).
 - [ ] DoR reviewed with date, estimate, owner and reviewer confirmed.
 - [ ] Acceptance criteria and applicable [DoD](../../governance/definition-of-done.md) verified with evidence.

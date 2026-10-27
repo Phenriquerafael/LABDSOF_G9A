@@ -1,0 +1,32 @@
+name: Validate chart data
+
+on:
+  schedule:
+    - cron: "0 19 * * *"
+      timezone: "Europe/Lisbon"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-chart-data
+  cancel-in-progress: false
+
+jobs:
+  validate-chart-data:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Validate live issues and chart history
+        env:
+          GITHUB_TOKEN: ${{ secrets.MY_PAT }}
+        run: node workflow-scripts/validate-chart-data.js

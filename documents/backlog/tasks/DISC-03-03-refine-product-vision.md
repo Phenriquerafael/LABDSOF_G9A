@@ -1,6 +1,6 @@
 # [DISC-03-03] Refine vision, journeys and success criteria
 
-- Publication: Draft — not published; GitHub issue URL: pending.
+- Publication: Published as [#14](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/14) (checked 2026-10-19); GitHub owns live status.
 - Workflow: Backlog; proposed milestone: S1 — Discover, Validate and Design; dates/estimate: to be agreed.
 - Type: task; suggested labels: `type:task`, `area:product`, `phase:3`, `priority:must`.
 - Parent: [DISC-03](DISC-03-organisation-and-product-planning.md); epic: [EP-00](../epics/EP-00-discovery-and-planning.md).
@@ -40,8 +40,8 @@ Use the documentation/research checks appropriate to this task; implementation t
 
 ## Completion record
 
-- Result/findings and limitations: to be recorded after execution or verification of existing work.
-- Evidence/PR/review links: to be recorded; document presence alone is not completion evidence.
-- Decision/requirement changes: to be recorded, or explain why no change was needed.
+- Result/findings and limitations: vision v0.4 drafted on 2026-10-19 by Afonso. Personas and J1–J3 cite PS-01–PS-08 and S01–S28 or keep explicit hypotheses; smallest credible experiment, IoT exclusion, conditions for optional features and distinct workflow steps recorded; primary metric defined with a 30% threshold, guards, conditions and baseline limitations; impact confirmation reviewed against §5.5. Limitations: no primary research (DISC-01-03 open), so no persona or threshold is validated with users; the threshold is a BA/PO proposal awaiting team agreement.
+- Evidence/PR/review links: the pull request referencing #14; review by the assigned reviewer pending. Document presence alone is not completion evidence.
+- Decision/requirement changes: DEC-01, DEC-08 and DEC-10 proposals and LIM-04 in the [register](../../planning/decisions-and-feedback.md#product-scope-proposals--disc-03-03); RF-02/04/07/08/10 sources and IoT/open-decision notes in [requirements](../../requirements.md).
 - [ ] DoR reviewed with date, estimate, owner and reviewer confirmed.
 - [ ] Acceptance criteria and applicable [DoD](../../governance/definition-of-done.md) verified with evidence.

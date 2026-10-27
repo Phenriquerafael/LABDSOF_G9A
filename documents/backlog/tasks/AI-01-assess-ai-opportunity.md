@@ -28,10 +28,10 @@ Excluded: Training/inference code, a full dataset, executed AI evaluation, and c
 
 ## Deliverables and evidence
 
-- [Responsible AI assessment](../../07-responsible-ai-assessment.md) — update the relevant sections and link the change/review evidence.
+- [Responsible AI assessment](../../06-responsible-ai-assessment.md) — update the relevant sections and link the change/review evidence.
 - [Product vision](../../04-product-vision.md) — update the relevant sections and link the change/review evidence.
 - [Requirements/NFRs](../../requirements.md) — update the relevant sections and link the change/review evidence.
-- [Product backlog (US-03/EN-04)](../../06-product-backlog.md) — update the relevant sections and link the change/review evidence.
+- [Product backlog (US-03/EN-04)](../../05-product-backlog.md) — update the relevant sections and link the change/review evidence.
 
 ## Verification
 
