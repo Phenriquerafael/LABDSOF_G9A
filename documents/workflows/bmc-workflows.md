@@ -160,7 +160,7 @@ In the workflow 4 ranking, the price appears as entered (€/visit or €/h), wi
 | Work completed | Administrator |
 | Issue closed or reopened | Resident |
 
-Notification channel: one channel in the MVP, **in-app**, as proposed in DEC-06 (not validated yet). The resident can turn notifications off. The e-invite in workflow 1 is sent by email, which is an exception to the in-app channel; see Proposed decisions.
+Notification channel: one channel in the MVP, **in-app**, as proposed in DEC-06 (not validated yet). The resident can turn notifications off. The e-invite in workflow 1 is sent by email, which is an exception to the in-app channel; see Proposed decisions. Update 2026-10-27: EN-01-01 proposes in-app plus email (captured by Mailpit in development and demo) for DEC-06 in [ADR-007](../adr/ADR-007-notification-service.md); this is a proposal pending team review, not a validated change to this workflow.
 
 ## Proposed decisions
 

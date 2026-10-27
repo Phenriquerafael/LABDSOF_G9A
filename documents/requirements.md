@@ -1,6 +1,6 @@
 # Initial requirements and quality attributes
 
-**Status:** proposal v0.3 · Sprint 1, Phases 2–3 · reviewed 2026-10-19 (DISC-03-03, EN-01-02) · validation pending
+**Status:** proposal v0.3 · Sprint 1, Phases 2–3 · reviewed 2026-10-19 (DISC-03-03, EN-01-02); NFR-01/04/06 wording aligned with the EN-01-01 proposal on 2026-10-27 · validation pending
 
 **Evidence basis (2026-10-22; synthesis pending review):** the [assignment](../LABDSOF-26-27-Assignment.md), [P1–P7 hypotheses](01-problem-and-opportunity-report.md#7-assumptions-and-risks), [public findings PS-01–PS-08](03-user-research.md#32-public-source-findings), [scenario interpretations SF-01–SF-07](03-user-research.md#33-scenario-synthesis-disc-01-03) and [vision J1–J3](04-product-vision.md) inform these proposals. The [SP decision mapping](planning/decisions-and-feedback.md#disc-01-03-synthesis-proposals) connects findings to affected RF/NFR and backlog items and explains retained scope. Requirements and priorities are not empirically validated; “Must” denotes proposed academic-release priority.
 
@@ -30,12 +30,12 @@ The numerical targets below are proposals for discussion (DEC-08), not results o
 
 | ID | Quality / scenario | Proposed verification criterion | Items |
 |---|---|---|---|
-| NFR-01 | Authorisation and isolation | All tests of the author/admin/contractor/other-building matrix deny unauthorised backend access; mock identity does not remove authorisation; Dispatch denies administrator commands when Issue's authorisation context is unavailable ([Technical Design Section: 4.3](07-technical-design.md#43-how-dispatch-obtains-trustworthy-authorisation-context)) | US-01–US-11, EN-03 |
+| NFR-01 | Authorisation and isolation | All tests of the author/admin/contractor/other-building matrix deny unauthorised backend access; test identities do not remove authorisation; every service validates the token and authorises each operation itself; Dispatch authorises administrator commands from its projection of Issue's membership and issue events and denies when the projection has no matching row ([Technical Design Section: 4.3](07-technical-design.md#43-how-dispatch-obtains-trustworthy-authorisation-context)); the revocation delay (from `MembershipRevoked` in Issue to denial in Dispatch) is measured and kept within a target to calibrate in EN-01-04 | US-01–US-11, EN-03 |
 | NFR-02 | Privacy | Synthetic demo data; payloads/logs exclude unnecessary personal fields; retention and deletion defined before real collection | DISC-01, EN-01/03 |
 | NFR-03 | AI resilience | Reporting works with AI disabled; proposed timeout of 10 s per attempt; visible fallback/pending state and manual correction available | US-03, EN-03 |
-| NFR-04 | Asynchronous delivery | Redelivery of the same event does not duplicate effects; limited retries and observable final failure; test crashes between persistence and publication; starting retry, lease and retention values in [Technical Design Section: 4.6](07-technical-design.md#46-retry-timeout-and-lease-values-proposal) | US-03/08/10, EN-03 |
+| NFR-04 | Asynchronous delivery | Events leave each service through a transactional outbox to the broker; redelivery of the same event does not duplicate effects; while the broker is down, events wait in the outbox and the user request still succeeds; a failing message is redelivered a limited number of times and then dead-lettered, with observable DLQ depth and a documented replay; test crashes between persistence and publication; starting retry, delivery-limit and retention values in [Technical Design Section: 4.6](07-technical-design.md#46-retry-timeout-and-lease-values-proposal) | US-03/08/10, EN-03 |
 | NFR-05 | Performance | Proposal: p95 ≤ 2 s for reporting/viewing, 10 concurrent users and 1,000 synthetic issues; exclude external AI time and document hardware | EN-03/04 |
-| NFR-06 | Observability | Structured logs, health checks, metrics, correlation ID and traceable errors in a dashboard; demonstrate one complete path | EN-02/03 |
+| NFR-06 | Observability | Structured logs, health checks, metrics, correlation ID (and `traceparent` across messages) and traceable errors; Prometheus metrics shown in a Grafana dashboard (proposed in [ADR-004](adr/ADR-004-deployment-contract.md): outbox lag, DLQ depth, consumer retries, AI fallback rate, pending bookings, error rate, notification failures); demonstrate one complete path | EN-02/03 |
 | NFR-07 | Usability/accessibility | Keyboard journeys, visible focus, labels and understandable errors, status not conveyed by colour alone; reporting task in ≤ 2 min as a target to validate | US-01/02, EN-04 |
 | NFR-08 | Delivery and maintenance | Reproducible builds, containers, tests/CI, configuration without secrets in Git, instructions and exercised recovery | EN-02/03 |
 | NFR-09 | Persistence/recovery | Issues survive restart; backup/restore exercise with counts and integrity checks; RPO/RTO proposed after the environment is known | EN-02/03 |
@@ -54,6 +54,7 @@ Model, states, transition rules and contract outlines: [Technical Design Section
 - Visible data, retention and ways to request deletion (DEC-07).
 - Scheduling and closure business rules (DEC-10); step definitions proposed in vision §4.3 and transition, cancellation and concurrency rules in [Technical Design Section: 3](07-technical-design.md#3-states-and-business-rules) (EN-01-02); a confirmed booking is moved by cancelling and creating a new intervention, while a dedicated rescheduling flow and contractor withdrawal remain open; validation with administrators and contractors pending.
 - Support for private reports about individual units in the pilot; the baseline keeps raw reports restricted.
+- Report photos (US-14, proposed as Should in EN-01-01 on 2026-10-27): needs a DEC entry and team agreement, because photos were classified post-MVP in the 2026-10-07 harmonisation; limits, EXIF stripping and visibility follow [ADR-010](adr/ADR-010-object-storage.md).
 - Assisted access for residents without digital access, to investigate before expanding the MVP.
 
 Reference: [Nonfunctional Requirements — Scaled Agile](https://framework.scaledagile.com/nonfunctional-requirements/), accessed on 2026-10-07. The scenarios and values above are proposals specific to this project.

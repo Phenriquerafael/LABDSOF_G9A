@@ -41,8 +41,8 @@ Use the documentation/research checks appropriate to this task; implementation t
 
 ## Completion record
 
-- Result/findings and limitations: to be recorded after execution or verification of existing work.
-- Evidence/PR/review links: to be recorded; document presence alone is not completion evidence.
-- Decision/requirement changes: to be recorded, or explain why no change was needed.
+- Result/findings and limitations: proposal revised 2026-10-27 by Ricardo (Tech Lead): ADR-001–006 revised in place and ADR-007–010 added ([ADR index](../../adr/README.md), evidence register E01–E63); technical design, contract annex, security, requirements, backlog (US-14 proposal) and register aligned. Limitations: nothing is accepted; team review (EN01-U1) and the two-day spike (EN01-U2) are pending; no value or memory figure has been measured; nothing has been built or tested.
+- Evidence/PR/review links: the pull request for the `docs/EN-01-01-select-stack` branch (to be opened); independent review pending. Document presence alone is not completion evidence.
+- Decision/requirement changes: DEC-04/06 revised and DEC-07 production notes added in the [register](../../planning/decisions-and-feedback.md#stack-revision--en-01-01-2026-10-27); NFR-01/04/06 reworded; EN-01-02 §4.3 changed to projection-based authorisation (pending Afonso's review); unresolved details EN01-U1–U12 in [register §5](../../planning/decisions-and-feedback.md#5-en-01-01-unresolved-details).
 - [ ] DoR reviewed with date, estimate, owner and reviewer confirmed.
 - [ ] Acceptance criteria and applicable [DoD](../../governance/definition-of-done.md) verified with evidence.

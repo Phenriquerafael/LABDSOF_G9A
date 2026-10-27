@@ -6,7 +6,7 @@
 
 **Hypothesis:** classifying free-text descriptions by category and urgency reduces triage effort (P3/P7). Validate with administrators before choosing a model. A chatbot is not proposed.
 
-Persisted report → event → worker → result validation → visible suggestion → administrator confirms/corrects. Independent rules flag critical signals; an AI result never removes that alert or overwrites a more recent human decision.
+Persisted report → `TriageRequested` message → AI triage service ([ADR-008](adr/ADR-008-ai-triage-service.md), proposed) → `TriageSuggested` → result validation in the Issue service → visible suggestion → administrator confirms/corrects. `TriageRequested` is the only message that carries private report text, and that text reaches the provider; synthetic data only until the provider terms are confirmed (DEC-05, EN01-U5). Independent rules flag critical signals; an AI result never removes that alert or overwrites a more recent human decision.
 
 Minimum input: text and necessary non-identifying context. Proposed output: category, suggested urgency, short rationale and need for review. Values outside the vocabulary, missing fields or malformed responses trigger fallback. Model-reported confidence is not a calibrated probability.
 
@@ -66,7 +66,7 @@ Targets must be agreed before formal testing. Do not change thresholds after obs
 - Authorisation, expenses and bookings are controlled in code.
 - UI indicates “AI suggestion”, “rules/fallback” or “confirmed by administrator”.
 - Apply the [data, logs and providers](09-security-privacy.md#4-data-lifecycle-and-minimisation) policy; confirm the budget before use.
-- One provider initially; multiple adapters only if a need is demonstrated.
+- One provider initially, behind a provider adapter and the triage facade ([ADR-008](adr/ADR-008-ai-triage-service.md)); further adapters only if a need is demonstrated.
 
 ## 6. Results and limitations
 
