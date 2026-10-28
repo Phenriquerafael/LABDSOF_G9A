@@ -1,0 +1,31 @@
+name: Test GitHub notifications
+
+on:
+  workflow_dispatch:
+    inputs:
+      simulate_failure:
+        description: "Intentionally fail the workflow to test failure notifications"
+        required: true
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  notification-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Confirm workflow notification test
+        run: echo "Testing GitHub workflow notifications"
+
+      - name: Simulate workflow failure
+        if: ${{ inputs.simulate_failure }}
+        run: |
+          echo "::error::Intentional failure for GitHub notification testing"
+          exit 1
+
+      - name: Confirm non-failure run
+        if: ${{ !inputs.simulate_failure }}
+        run: echo "Notification test completed without a simulated failure"

@@ -16,6 +16,17 @@
 3. Consult the [Sprint 1 plan](documents/planning/sprint-1-plan.md), [backlog](documents/05-product-backlog.md) and [pending decisions](documents/planning/decisions-and-feedback.md).
 4. To contribute, use the [team working agreement](documents/governance/team-working-agreement.md), [DoR](documents/governance/definition-of-ready.md), [DoD](documents/governance/definition-of-done.md) and [Git workflow](documents/governance/git-workflow.md).
 
+## Test GitHub notifications
+
+The [Test GitHub notifications workflow](.github/workflows/test-notifications.yml) can be started manually to verify failure notifications without changing the production workflows:
+
+1. Open **Actions → Test GitHub notifications → Run workflow**.
+2. Set **simulate_failure** to `true` and start the workflow.
+3. Confirm that the run fails and that the expected GitHub notification is received.
+4. Run it again with **simulate_failure** set to `false` to confirm the successful path.
+
+GitHub notification delivery also depends on the account's repository watch and notification settings.
+
 ## Proposed product
 
 **Report → review triage → select contractor → approve request → obtain acceptance → confirm booking → execute → close.**
