@@ -2,7 +2,7 @@ name: Validate chart data
 
 on:
   schedule:
-    - cron: "0 19 * * *"
+    - cron: "0 15 * * *"
       timezone: "Europe/Lisbon"
   workflow_dispatch:
 
