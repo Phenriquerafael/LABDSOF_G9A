@@ -22,7 +22,7 @@ Initial order: DISC/EN discovery and foundations → US-01/02 → US-03/04 → U
 |---|---|---|---|
 | [EP-00](backlog/epics/EP-00-discovery-and-planning.md) | Justifiable discovery and planning | DISC-01–03 | §5.1–5.5, §5.7 |
 | [EP-01](backlog/epics/EP-01-reporting-and-tracking.md) | Residents report and track issues with appropriate visibility | US-01/02/04/10 | J1, P1/P5 |
-| [EP-02](backlog/epics/EP-02-assisted-triage.md) | Assisted triage and reviewed links | AI-01 (S1 assessment), US-03/05 | §5.6; J2, P2/P3/P7 |
+| [EP-02](backlog/epics/EP-02-assisted-triage.md) | Assisted triage and reviewed links | AI-01 (S1 assessment), PLAN-02 (preparation), US-03/05/14/15 | §5.6; J2, P2/P3/P7 |
 | [EP-03](backlog/epics/EP-03-intervention-and-closure.md) | Intervention from request to closure | US-06–09/11–13 | J2–J3, P6 |
 | [EP-04](backlog/epics/EP-04-engineering-and-quality.md) | Deliverable, secure, observable and evaluable system | EN-01–04 | §6–§8 |
 
@@ -36,10 +36,11 @@ Detailed issue bodies and child tasks for [DISC-01](backlog/tasks/DISC-01-user-r
 | DISC-02 / Must | Complete comparison: exact, dated sources; §5.2 criteria; include an informal alternative and a comparable maintenance/helpdesk product; conclusion separates evidence from inference | Selection of comparables | S1 |
 | DISC-03 / Must | Ratify organisation and review scope/priorities: roles/board/DoR/DoD; DEC-01/03/09 and DEC-10 discussion; actual feedback recorded. Document at least one decision revised following lecturer feedback during the project | Team and stakeholder availability | S1, follow-up S2/S3 |
 | [AI-01](backlog/tasks/AI-01-assess-ai-opportunity.md) / Must | Review the AI opportunity: user-need evidence/limitations, workflow, representative/adverse examples, evaluation criteria and dataset plan, baseline/fallback, human control and cost assumptions; DEC-05/08 updated. Design assessment only; no executed evaluation required | DISC-01 synthesis, reviewed vision; supports US-03 | S1 |
+| [PLAN-02](backlog/tasks/PLAN-02-prepare-ai-and-fallback-stories.md) / Must candidate | Prepare US-03/05/14/15 drafts, separate classification/fallback/evaluation, and record technical refinements; owner Sandro Dias. Drafting does not implement or validate AI | Existing scope/AI-01; [AI-R01–AI-R06](backlog/ep02-technical-refinement.md) close applicable EN-01/DEC-05/08 details before Ready | S1 drafting for S2/S3 |
 | EN-01 / Must | Consolidate design: context, components, model, API/events, data ownership, deployment and threats; ADRs record alternatives and actual decisions | DEC-04/07, vision | S1 |
 | EN-02 / Must for later implementation foundations; optional in S1 | Walking skeleton: client→backend→persistence→query after restart; automated build, initial test and containers with reproducible instructions; linked evidence. Not selected for Sprint 1 (DEC-11) | EN-01 | S2 planning candidate; no Sprint 1 commitment |
 | EN-03 / Must | Delivery/quality: independent components or accepted exception; CI/CD, authorisation/contract/journey tests, logs/health/metrics/correlation, queue/AI/calendar failures and backup/restore; evidence for applicable NFRs | EN-01/02; accompanies stories | S2, strengthened in S3 |
-| EN-04 / Must | Final evaluation: AI/baseline, usability, accessibility, security, performance, dashboard, architecture evolution, limitations, roadmap and contributions; reproducible results and environment | Operational increment, DEC-08 | S3 |
+| EN-04 / Must | Final evaluation: consumes the AI-specific US-15 report once, alongside usability, accessibility, security, performance, dashboard, architecture evolution, limitations, roadmap and contributions; reproducible results and environment | Operational increment, DEC-08 | S3 |
 
 ## 4. Stories and criteria
 
@@ -68,17 +69,19 @@ As an administrator, I want to review issues and their history to decide the nex
 
 **Source:** RF-02; NFR-01/06. **Dependencies:** US-01, DEC-07/10. **Horizon:** S2.
 
-### US-03 — Classify with AI and fallback · Must · EP-02
+### US-03 — Suggest category and urgency with AI · Must · EP-02
 
-As an administrator, I want a category and urgency suggestion to reduce triage effort.
+**Detailed draft:** [US-03](backlog/tasks/US-03-classify-with-ai.md).
 
-- Report events are processed asynchronously; a valid suggestion records its source/version and rationale, visibly marked as unverified.
-- Critical-signal rules run independently of AI; model output does not remove an alert or overwrite a later human decision.
-- Failure, timeout or invalid responses leave rules/manual triage available with a visible status.
-- Event redelivery does not duplicate suggestions or effects; exhausted attempts remain observable.
-- Evaluation compares AI, baseline and combined results on the versioned dataset against the agreed [AI criteria](06-responsible-ai-assessment.md#4-provisional-criteria).
+As an administrator, I want a category and urgency suggestion to reduce triage effort while retaining the final decision.
 
-**Source:** RF-03; NFR-03/04/10. **Dependencies:** US-01/02, DEC-05/08. **Horizon:** S2.
+- Process persisted reports asynchronously; validate output and display rationale, uncertainty and source/model/prompt/schema/issue versions.
+- Administrator confirmation/correction uses US-02; model text cannot authorise consequential actions.
+- Preserve independent critical alerts and newer human decisions when results arrive late or disagree.
+- Deduplicate redelivery/effects, bound retries/calls and expose sanitised latency/usage/failure evidence.
+- Hand disabled/unavailable/invalid AI outcomes to US-14. Rules and provider-free continuity belong there; formal comparative evaluation belongs to US-15.
+
+**Source:** RF-03; NFR-01/02/03/04/06/10. **Dependencies:** US-01/02, US-14, AI-01, applicable EN-01/DEC-05/08 refinements. **Horizon:** S2, refined/evaluated in S3.
 
 ### US-04 — Publish a shared issue and confirm impact · Must · EP-01
 
@@ -93,6 +96,8 @@ As a resident, I want to confirm that a shared problem affects me to provide use
 **Source:** RF-04 / §5.5; NFR-01/02/07. **Dependencies:** US-01/02, DEC-07. **Horizon:** S2.
 
 ### US-05 — Review duplicate suggestions · Should · EP-02
+
+**Detailed draft:** [US-05](backlog/tasks/US-05-review-duplicate-suggestions.md). Selection and evaluation remain conditional; if selected, US-15 supplies its pair-evaluation report without duplicate effort.
 
 As an administrator, I want to identify reports of the same fault to coordinate a single response.
 
@@ -190,6 +195,34 @@ As an administrator, I want to synchronise with the calendar used in operations.
 - Test availability and failure without compromising reproducible evaluation.
 
 **Source:** RF-08. **Dependencies:** US-08, DEC-06, provider access. **Horizon:** if capacity allows.
+
+### US-14 — Continue triage without AI · Must · EP-02
+
+**Detailed draft:** [US-14](backlog/tasks/US-14-continue-triage-without-ai.md).
+
+As an administrator, I want independent rules and manual review when AI cannot provide a usable suggestion so that issues remain actionable.
+
+- Implement versioned deterministic rules and independent critical-signal alerts without a provider/account or successful AI call.
+- For disabled AI, timeout, provider/schema errors or exhausted budget/attempts, show degraded/manual status and preserve reporting/query/US-02 manual triage.
+- If rules/worker processing itself fails, keep saved reports/manual action available; do not pretend new rules were computed.
+- Replays do not duplicate alerts/effects; recovery or late AI cannot overwrite newer human decisions or remove alerts.
+- Integrate with shared job/idempotency infrastructure rather than reimplementing the same mechanisms twice.
+
+**Source:** RF-02/03; NFR-01/02/03/04/06; §5.6.2/§6.8. **Dependencies:** US-01/02 and applicable EN-01/rules contracts; no dependency on US-03 or provider selection. **Horizon:** S2, hardened in S3.
+
+### US-15 — Evaluate AI-assisted triage against the non-AI baseline · Must · EP-02
+
+**Detailed draft:** [US-15](backlog/tasks/US-15-evaluate-ai-against-baseline.md).
+
+As a product owner, I want reproducible comparison evidence so that AI usefulness, operating cost and limitations can be assessed.
+
+- Implement a versioned synthetic dataset/protocol, annotation/disagreement review and development/held-out separation without leakage.
+- Freeze quality/value/latency/cost criteria before formal evaluation; compare baseline, AI and combined workflow on documented inputs with failures retained in denominators.
+- Report per-class metrics, critical false positives/negatives, cost/calls, latency, adverse cases, limitations and reproducible versions.
+- Controlled-task value evidence follows the reviewed vision protocol; simulated interview times are not an empirical baseline.
+- Include duplicate-pair evaluation only if US-05 is selected. EN-04 consumes this AI-specific report/run once; broader system evaluation stays there.
+
+**Source:** RF-03, conditional RF-05; NFR-03/10; §5.6.1/§7.3.2. **Dependencies:** AI-01/DEC-05/08 for protocol; US-03/14 for comparative completion, not initial dataset preparation. **Horizon:** S2 preparation/initial run; S3 formal results.
 
 ## 5. Won't in this baseline / alternatives
 

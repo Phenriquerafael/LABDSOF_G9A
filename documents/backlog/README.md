@@ -1,16 +1,16 @@
-# Epic and Sprint 1 task issue drafts
+# Epic, planning task and user story specifications
 
 **Status:** local issue specifications and allocation index, originally drafted in October 2026. Research issues #21-23 are published; their task records link to publication/integration evidence. GitHub owns live status, assignees and estimates. Functional roles do not override the task allocation below.
 
-This folder contains **5 epic drafts, 4 parent-task drafts and 15 delivery-task drafts**: all product epics and the detailed Sprint 1 research, planning and design tasks. The [product backlog](../05-product-backlog.md) remains the scope and priority overview. Existing product documents hold the deliverables; these files specify the work and its completion evidence.
+This folder contains **5 epic specifications, 4 parent-task specifications, 15 original Sprint 1 delivery-task specifications, 1 PLAN-02 preparation task and 4 EP-02 story drafts**. Published and draft records retain their individual publication state; these counts do not imply completion. The [product backlog](../05-product-backlog.md) remains the scope and priority overview. Existing product documents hold the deliverables; these files specify the work and its completion evidence.
 
-The walking skeleton (EN-02) is excluded from Sprint 1 under DEC-11. EP-01/EP-03 now have epic drafts for later implementation; their US stories are defined in the product backlog but do not yet have separate issue draft files here. EP-02/EP-04 also span later sprints; their Sprint 1 tasks do not complete the entire epic. Drafting or publishing a future epic does not commit implementation to Sprint 1.
+The walking skeleton (EN-02) is excluded from Sprint 1 under DEC-11. EP-01/EP-03 now have epic drafts for later implementation; their US stories are defined in the product backlog but do not yet have separate issue draft files here. EP-02 now has individual US-03/05/14/15 drafts for later delivery, prepared under PLAN-02. EP-02/EP-04 span later sprints; neither AI-01 nor PLAN-02 completes implementation or final evaluation. Drafting or publishing a future epic does not commit implementation to Sprint 1.
 
 ## Hierarchy and issue index
 
 Use epic → parent task → delivery task for broad discovery/engineering items. AI-01 is a direct task under EP-02. Stable IDs are local identifiers, not GitHub issue numbers.
 
-For implementation, use epic → user story → implementation subtask when needed. Keep dependency links separate from parent/child relationships. This package currently has 24 issue drafts, excluding this README; reconcile with existing remote issues by stable ID before publishing to avoid duplicates.
+For implementation, use epic → user story → implementation subtask when needed. Keep dependency links separate from parent/child relationships. This package currently has 29 issue specification/draft files in `epics/` and `tasks/`, excluding supporting refinement documents; reconcile with existing remote issues by stable ID before publishing to avoid duplicates.
 
 | Epic draft | Parent/direct item | Purpose |
 |---|---|---|
@@ -18,7 +18,7 @@ For implementation, use epic → user story → implementation subtask when need
 | [EP-00](epics/EP-00-discovery-and-planning.md) | [DISC-02](tasks/DISC-02-market-comparison.md) | Complete the market and competitor comparison |
 | [EP-00](epics/EP-00-discovery-and-planning.md) | [DISC-03](tasks/DISC-03-organisation-and-product-planning.md) | Agree organisation, product scope and priorities |
 | [EP-01](epics/EP-01-reporting-and-tracking.md) | [US-01/02/04/10](../05-product-backlog.md#4-stories-and-criteria), story drafts pending | Reporting, manual triage, shared impact and notifications; S2 implementation |
-| [EP-02](epics/EP-02-assisted-triage.md) | [AI-01](tasks/AI-01-assess-ai-opportunity.md) | Assess the AI opportunity and define evaluation |
+| [EP-02](epics/EP-02-assisted-triage.md) | [AI-01](tasks/AI-01-assess-ai-opportunity.md), [PLAN-02](tasks/PLAN-02-prepare-ai-and-fallback-stories.md); [US-03](tasks/US-03-classify-with-ai.md), [US-05](tasks/US-05-review-duplicate-suggestions.md), [US-14](tasks/US-14-continue-triage-without-ai.md), [US-15](tasks/US-15-evaluate-ai-against-baseline.md) | AI design/preparation; classification, provider-free fallback, optional links and comparative evaluation |
 | [EP-03](epics/EP-03-intervention-and-closure.md) | [US-06–09/11–13](../05-product-backlog.md#4-stories-and-criteria), story drafts pending | Contractor selection through closure; S2 core, conditional extensions |
 | [EP-04](epics/EP-04-engineering-and-quality.md) | [EN-01](tasks/EN-01-technical-design.md) | Consolidate technical design, ADRs and security |
 
@@ -58,6 +58,15 @@ This README is the single local source for task ownership and review allocation.
 
 For AI-01, Ricardo supports review of interface assumptions and Martim supports review of data handling as needed; Afonso remains the proposed primary reviewer.
 
+## EP-02 story drafts and planning allocation
+
+| Item | Drafting owner | Independent review / implementation planning |
+|---|---|---|
+| [PLAN-02](tasks/PLAN-02-prepare-ai-and-fallback-stories.md) | Sandro Dias (user-assigned) | Another team member reviews preparation; estimate/review evidence recorded in planning/PR |
+| [US-03](tasks/US-03-classify-with-ai.md) | Sandro Dias under PLAN-02 | Implementation owner/reviewer/estimate/capacity before Ready; S2 initial delivery |
+| [US-14](tasks/US-14-continue-triage-without-ai.md) | Sandro Dias under PLAN-02 | Provider-free rules/manual continuity; S2, hardened in S3 |
+| [US-05](tasks/US-05-review-duplicate-suggestions.md) | Sandro Dias under PLAN-02 | Should; select/defer explicitly after evidence and capacity review |
+| [US-15](tasks/US-15-evaluate-ai-against-baseline.md) | Sandro Dias under PLAN-02 | Dataset/protocol preparation in S2; formal results in S3; EN-04 consumes the report |
 ## Sprint 1 deliverable coverage
 
 | Assignment §7.1.2 | Deliverable | Draft coverage | Primary output |

@@ -21,7 +21,13 @@ Excluded: Autonomous approvals, unreviewed report merges and a general-purpose c
 
 - [ ] [AI-01 — Assess the AI opportunity and define evaluation](../tasks/AI-01-assess-ai-opportunity.md)
 
-[US-03 and US-05](../../05-product-backlog.md) remain future implementation items. Their issue drafts are outside this Sprint 1 package.
+## Story preparation and S2/S3 drafts
+
+- [ ] [PLAN-02 — Prepare AI user stories and a separate fallback story](../tasks/PLAN-02-prepare-ai-and-fallback-stories.md) · preparation owner Sandro Dias.
+- [ ] [US-03 — Suggest category and urgency with AI](../tasks/US-03-classify-with-ai.md) · Must · S2.
+- [ ] [US-14 — Continue triage without AI](../tasks/US-14-continue-triage-without-ai.md) · Must · S2; provider-free baseline/continuity.
+- [ ] [US-05 — Review duplicate suggestions](../tasks/US-05-review-duplicate-suggestions.md) · Should · S2/S3 only if selected.
+- [ ] [US-15 — Evaluate AI-assisted triage against the non-AI baseline](../tasks/US-15-evaluate-ai-against-baseline.md) · Must · S2 preparation, S3 formal evaluation.
 
 ## Completion criterion
 

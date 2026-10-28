@@ -24,14 +24,15 @@ Excluded: Training/inference code, a full dataset, executed AI evaluation, and c
 - [ ] Define baseline/fallback, human correction, output validation and handling of injection, privacy and critical-case limitations.
 - [ ] Agree dataset provenance/annotation/split plans and measurable acceptance criteria for quality, value, latency and cost; justify thresholds and avoid claiming dataset/results already exist.
 - [ ] Record provider/model options and cost assumptions with dated sources when evaluated; assign ownership of any provider/access choice still needed before US-03 is Ready.
-- [ ] Update the assessment and DEC-05/08; link the future implementation and evaluation work in US-03 and EN-04.
+- [ ] Update the assessment and DEC-05/08; link classification (US-03), rules/fallback (US-14), conditional duplicates (US-05) and evaluation delivery (US-15); EN-04 reuses the AI-specific report.
 
 ## Deliverables and evidence
 
 - [Responsible AI assessment](../../06-responsible-ai-assessment.md) — update the relevant sections and link the change/review evidence.
 - [Product vision](../../04-product-vision.md) — update the relevant sections and link the change/review evidence.
 - [Requirements/NFRs](../../requirements.md) — update the relevant sections and link the change/review evidence.
-- [Product backlog (US-03/EN-04)](../../05-product-backlog.md) — update the relevant sections and link the change/review evidence.
+- [Product backlog](../../05-product-backlog.md) — US-03/14 implementation split, conditional US-05 and US-15/EN-04 evaluation ownership.
+- [PLAN-02 story drafts/refinements](PLAN-02-prepare-ai-and-fallback-stories.md) — consume this assessment without treating its design completion as inference or evaluation delivery.
 
 ## Verification
 

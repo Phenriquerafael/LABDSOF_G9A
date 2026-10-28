@@ -20,6 +20,16 @@ Provider, model, final vocabulary, prompt and budget: DEC-05/08. US-03 does not 
 - §5.6.2 requires a baseline **or** fallback; the proposal uses both to compare value and ensure continuity.
 - If AI brings insufficient benefit, review the task/model/scope using evidence. The project still requires a meaningful AI workflow.
 
+### Delivery ownership (PLAN-02)
+
+| Item | Delivery responsibility |
+|---|---|
+| [AI-01](backlog/tasks/AI-01-assess-ai-opportunity.md) | Sprint 1 need, workflow and evaluation design; no inference/dataset/run delivery |
+| [US-03](backlog/tasks/US-03-classify-with-ai.md) | Asynchronous validated AI suggestion, provenance and protected handoff to human triage |
+| [US-14](backlog/tasks/US-14-continue-triage-without-ai.md) | Versioned rules/independent alerts and provider-free continuity; no dependency on a successful AI call |
+| [US-05](backlog/tasks/US-05-review-duplicate-suggestions.md) | Conditional, human-confirmed reversible duplicate links; does not force embeddings |
+| [US-15](backlog/tasks/US-15-evaluate-ai-against-baseline.md) | Dataset/protocol implementation and AI/baseline/combined evaluation report; optional pair metrics if US-05 selected |
+
 Contractor ranking uses rules. Duplicate detection is Should: compare filters/context against embeddings before choosing the more complex solution. A solver would only be investigated if a concrete need for constrained optimisation arose.
 
 ## 3. Proposed dataset and protocol
@@ -74,4 +84,4 @@ Targets must be agreed before formal testing. Do not change thresholds after obs
 
 Expected limitations: small synthetic dataset, linguistic variation, incomplete context, lack of specialist validation of criticality and differences between tests and real operation. The product supports coordination; it must not promise infallible emergency assessment.
 
-Traceability: [AI-01 — Sprint 1 assessment task](backlog/tasks/AI-01-assess-ai-opportunity.md), [US-03/05 and EN-04](05-product-backlog.md), [NFR-03/10](requirements.md), [security](09-security-privacy.md). Completing AI-01 does not complete implementation or evaluation results.
+Traceability: [AI-01](backlog/tasks/AI-01-assess-ai-opportunity.md), [US-03](backlog/tasks/US-03-classify-with-ai.md), [US-14 fallback](backlog/tasks/US-14-continue-triage-without-ai.md), [US-05 conditional duplicates](backlog/tasks/US-05-review-duplicate-suggestions.md), [US-15 evaluation](backlog/tasks/US-15-evaluate-ai-against-baseline.md), [EN-04 overview](05-product-backlog.md#3-discovery-and-engineering), [NFR-03/10](requirements.md), [security](09-security-privacy.md). Neither AI-01 nor PLAN-02 completes implementation or evaluation.

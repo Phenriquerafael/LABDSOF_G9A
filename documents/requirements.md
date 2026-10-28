@@ -12,7 +12,7 @@ See the [epics table in the Product Backlog](05-product-backlog.md#2-epics) for 
 |---|---|---|---|
 | RF-01 | Record a text report in an authorised building and return a persistent ID | P1, P5 / J1 | US-01 / EP-01 |
 | RF-02 | View status and history, triage manually and control transitions | P1, PS-03, PS-05 / J1–J2 | US-02 / EP-01 |
-| RF-03 | Suggest category/urgency using AI with provenance, correction and fallback | P3, P7 / §5.6 | US-03 / EP-02 |
+| RF-03 | Suggest category/urgency using AI with provenance, correction and fallback | P3, P7 / §5.6 | US-03 (AI), US-14 (rules/continuity), US-15 (evaluation) / EP-02 |
 | RF-04 | Publish a shared summary and allow impact confirmation/withdrawal without exposing identity; the count never changes urgency | P2, P5 / §5.5, [vision §6](04-product-vision.md#6-ethical-participation-and-visibility) | US-04 / EP-01 |
 | RF-05 | Suggest and review links between similar reports while preserving originals | P2 / J2 | US-05 / EP-02 |
 | RF-06 | Browse the catalogue, filter eligibility and select a contractor | P1, P6 / J2 | US-06 / EP-03 |
@@ -32,14 +32,14 @@ The numerical targets below are proposals for discussion (DEC-08), not results o
 |---|---|---|---|
 | NFR-01 | Authorisation and isolation | All tests of the author/admin/contractor/other-building matrix deny unauthorised backend access; mock identity does not remove authorisation; Dispatch denies administrator commands when Issue's authorisation context is unavailable ([Technical Design Section: 4.3](07-technical-design.md#43-how-dispatch-obtains-trustworthy-authorisation-context)) | US-01–US-11, EN-03 |
 | NFR-02 | Privacy | Synthetic demo data; payloads/logs exclude unnecessary personal fields; retention and deletion defined before real collection | DISC-01, EN-01/03 |
-| NFR-03 | AI resilience | Reporting works with AI disabled; proposed timeout of 10 s per attempt; visible fallback/pending state and manual correction available | US-03, EN-03 |
-| NFR-04 | Asynchronous delivery | Redelivery of the same event does not duplicate effects; limited retries and observable final failure; test crashes between persistence and publication; starting retry, lease and retention values in [Technical Design Section: 4.6](07-technical-design.md#46-retry-timeout-and-lease-values-proposal) | US-03/08/10, EN-03 |
+| NFR-03 | AI resilience | Reporting works with AI disabled; proposed timeout of 10 s per attempt; visible fallback/pending state and manual correction available | US-14 (continuity), US-03 (handoff), EN-03 |
+| NFR-04 | Asynchronous delivery | Redelivery of the same event does not duplicate effects; limited retries and observable final failure; test crashes between persistence and publication; starting retry, lease and retention values in [Technical Design Section: 4.6](07-technical-design.md#46-retry-timeout-and-lease-values-proposal) | US-03/14/08/10, EN-03 |
 | NFR-05 | Performance | Proposal: p95 ≤ 2 s for reporting/viewing, 10 concurrent users and 1,000 synthetic issues; exclude external AI time and document hardware | EN-03/04 |
 | NFR-06 | Observability | Structured logs, health checks, metrics, correlation ID and traceable errors in a dashboard; demonstrate one complete path | EN-02/03 |
 | NFR-07 | Usability/accessibility | Keyboard journeys, visible focus, labels and understandable errors, status not conveyed by colour alone; reporting task in ≤ 2 min as a target to validate | US-01/02, EN-04 |
 | NFR-08 | Delivery and maintenance | Reproducible builds, containers, tests/CI, configuration without secrets in Git, instructions and exercised recovery | EN-02/03 |
 | NFR-09 | Persistence/recovery | Issues survive restart; backup/restore exercise with counts and integrity checks; RPO/RTO proposed after the environment is known | EN-02/03 |
-| NFR-10 | AI quality/cost | Traceable dataset and versions; per-class metrics, latency and cost; budget and limits defined before Ready | US-03, EN-04 |
+| NFR-10 | AI quality/cost | Traceable dataset and versions; per-class metrics, latency and cost; budget and limits defined before Ready | US-03 (instrumentation), US-15 (AI report), EN-04 (consumes report) |
 | NFR-11 | Integration | Failure/delay/incomplete or invalid data produces no false confirmation; repetition does not duplicate bookings; uncertain outcomes are reconciled by request ID before any re-send ([Technical Design Section: 4.5](07-technical-design.md#45-calendarsimulator-contract-outline)) | US-08, EN-03 |
 
 ## Priorities, acceptance and traceability
