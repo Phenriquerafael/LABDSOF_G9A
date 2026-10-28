@@ -10,7 +10,7 @@ The walking skeleton (EN-02) is excluded from Sprint 1 under DEC-11. EP-01/EP-03
 
 Use epic → parent task → delivery task for broad discovery/engineering items. AI-01 is a direct task under EP-02. Stable IDs are local identifiers, not GitHub issue numbers.
 
-For implementation, use epic → user story → implementation subtask when needed. Keep dependency links separate from parent/child relationships. This package currently has 29 issue specification/draft files in `epics/` and `tasks/`, excluding supporting refinement documents; reconcile with existing remote issues by stable ID before publishing to avoid duplicates.
+For implementation, use epic → user story → implementation subtask when needed. Keep dependency links separate from parent/child relationships. This package currently has 29 issue specification/draft files in `epics/` and `tasks/`, excluding this README; reconcile with existing remote issues by stable ID before publishing to avoid duplicates.
 
 | Epic draft | Parent/direct item | Purpose |
 |---|---|---|
