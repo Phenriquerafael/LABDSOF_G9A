@@ -1,5 +1,8 @@
 # Building Maintenance Coordinator · LABDSOF 26/27
 
+[![Validate chart data](https://github.com/Phenriquerafael/LABDSOF_G9A/actions/workflows/check-sprints.yml/badge.svg)](https://github.com/Phenriquerafael/LABDSOF_G9A/actions/workflows/check-sprints.yml)
+[![Metrics Snapshot](https://github.com/Phenriquerafael/LABDSOF_G9A/actions/workflows/metrics.yml/badge.svg)](https://github.com/Phenriquerafael/LABDSOF_G9A/actions/workflows/metrics.yml)
+
 **BMC** is a proposed platform to help condominium administrators and residents coordinate faults: from the first report through intervention and closure, with traceable information and AI-assisted triage.
 
 **Current stage: Sprint 1 — discovery, validation and design.** The repository contains planning documentation and templates. **It does not yet contain an application, software tests, CI/CD or executable deployment.**
