@@ -33,7 +33,7 @@ None of these configurations was performed by creating this document.
 - Documentation accompanies scope/contract changes in the same PR.
 - Resolve conflicts by reviewing both sides' behaviour and repeating affected checks.
 - Never commit tokens, environment files with secrets, recordings or identifiable participant notes.
-- Research may commit anonymous answers after a check before the first commit and peer review before merge. Exclude identity mappings, contact lists, consent attachments and identifying context/metadata. Follow the [research handling rules](../03-user-research.md#32-collection-arrangements).
+- Research may commit anonymous answers after a check before the first commit and peer review before merge. Exclude identity mappings, contact lists, consent attachments and identifying context/metadata. Follow the [research handling rules](../09-security-privacy.md#41-research-data-handling-disc-01-01).
 - Do not bypass security controls for a demonstration.
 - A demonstrable release has a tag and notes describing content, limitations and instructions; suggested names: v0.1.0-skeleton and v0.2.0-mvp, only when they exist.
 - Preferred recovery for a merged change: revert through a PR; data recovery is documented separately.

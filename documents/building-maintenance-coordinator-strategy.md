@@ -42,7 +42,7 @@ Photos, AI visual analysis, cost charts and narrative summaries are **post-MVP**
 
 ## 3. Value and measurement
 
-Proposed primary metric: **the administrator's active time to triage and prepare an intervention**, comparing equivalent tasks. Proposed success threshold (DEC-08, team agreement pending): a reduction of at least 30% in the median of participant medians, BMC versus the current process, on the same scripted tasks, with no lower completion and no missed critical scenario. Definition, measurement conditions and baseline limitations are in the [vision](04-product-vision.md#51-primary-success-criterion-dec-08). Time until dispatch, acceptance and resolution are separate metrics; resolution also depends on external factors.
+Proposed primary metric: **the administrator's active time to triage and prepare an intervention**, measured on equivalent tasks under the [vision's protocol, threshold and guards](04-product-vision.md#51-primary-success-criterion-dec-08) (DEC-08, team agreement pending). Dispatch, acceptance and resolution time are separate metrics; resolution also depends on external factors.
 
 Classification quality, duplicate-linking errors, latency and cost are evaluated in the [AI plan](06-responsible-ai-assessment.md). Targets are not results. Perfect detection of critical situations is not promised.
 
@@ -76,4 +76,3 @@ Mock authentication is permitted for the MVP. Authorisation by role, building an
 - [Decisions and feedback](planning/decisions-and-feedback.md): justified choices and changes.
 
 Immediate priority: assign work items to the agreed team roles, gather evidence, review the proposal with stakeholders and consolidate the technical design for later implementation. Status in the [README](../README.md).
-
