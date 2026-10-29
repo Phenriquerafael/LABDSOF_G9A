@@ -112,7 +112,7 @@ Tokens carry `sub` (and the realm roles above); they never carry building roles.
 | 3 | Browser | The resident opens the link; the SPA reads the token from the fragment, removes it from the address bar and keeps it in `sessionStorage` until step 6 |
 | 4 | Traefik / oauth2-proxy | No session: `401`, then `/oauth2/start` with `rd=/invite`; the token is not in `rd` or in any logged path |
 | 5 | **Keycloak** | The resident registers (and verifies the email) or logs in |
-| 6 | **Issue** | `POST /api/issue/invitations/acceptance` with the session and the token in the JSON body; the SPA then deletes it from `sessionStorage`: the token is checked (valid, unused, unexpired) and the token's `email` claim must equal the invitee address with `email_verified` true (otherwise `403`); then the membership is bound to the `sub` and the token is marked used |
+| 6 | **Issue** | `POST /api/issue/invitations/acceptance` with the session and the token in the JSON body; the SPA then deletes it from `sessionStorage` whatever the outcome: the token is checked (valid, unused, unexpired) and the token's `email` claim must equal the invitee address with `email_verified` true (otherwise `403`); then the membership is bound to the `sub` and the token is marked used |
 | 7 | **Issue** | If the token is expired or used, the resident asks the administrator for a new one |
 
 Proposed after review (2026-10-27): the verified email must match the invitation address, so a forwarded link cannot be accepted by another account; the administrator revokes and reissues an invitation sent to a wrong address. To confirm in the spike: the access token passed by oauth2-proxy carries `email` and `email_verified` (Keycloak's `email` client scope). EN-01-04 reviews the rule.
