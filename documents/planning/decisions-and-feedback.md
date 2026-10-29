@@ -38,6 +38,14 @@ A provisional baseline enables consistent documents; it does not mean approval. 
 - **DEC-07 input:** the impact-confirmation review adds neutral count wording, no confirmation list for administrators and an open option on exact counts in very small buildings; the policy itself stays with DEC-07.
 - **Affected documents:** [vision](../04-product-vision.md), [strategy](../building-maintenance-coordinator-strategy.md), [requirements](../requirements.md), [backlog §5](../05-product-backlog.md#5-wont-in-this-baseline--alternatives), [README](../../README.md). The IoT row of the former roadmap is carried by backlog §5 since the roadmap was removed in #16. US-04 criteria are unchanged; the counter wording is a refinement for the US-04 owner to consider.
 
+### DEVOPS-01 proposals — CI/CD (Martim)
+
+Recorded 2026-10-29 as proposals. Nothing below is applied to the repository or to GitHub settings.
+
+- Build once and release by tag; promotion retags the tested image, no rebuild. Proposed, not configured.
+- GHCR images with a cosign signature and SBOM. Proposed, not configured.
+- CodeQL for SAST. Proposed, not configured.
+
 ## 2. Editorial harmonisation
 
 These are neither investor feedback nor user-validated choices.

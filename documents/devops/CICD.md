@@ -6,8 +6,8 @@ This document describes our branching model, pipelines, golden images, security 
 
 ## Rollout phases
 
-- **Phase 1 (now, before the app runs anywhere):** `main` with PR checks (`ci.yml`), the tag-gated release (`release.yml`), the `main-quality` ruleset, the tag ruleset and the `production` environment.
-- **Phase 2 (once the app is deployed somewhere):** automatic dev deploy from `main` (`main.yml`), DAST and the `dev` environment.
+- **Phase 1 (now, before the app runs anywhere):** the `main-quality` ruleset (PR with 1 approval, no force push, no deletion). No required status checks until there is a build and tests.
+- **Phase 2 (once there is a build and tests):** `ci.yml` as required checks, the tag-gated release (`release.yml`), the tag ruleset, the `production` environment, automatic dev deploy from `main` (`main.yml`), DAST and the `dev` environment.
 - **Phase 3 (when the team or registry outgrows the basics):** golden-image repository, GHCR cleanup and the organization transfer. These sections are marked "Phase 3".
 
 ---
@@ -75,6 +75,11 @@ With one branch, the commit that runs on dev is the commit you tag, and a bad re
 
 > Phase 3. Not needed until the app runs and we have more than one base image. Until then, use official images pinned by digest.
 
+**Rollout, in two steps:**
+
+1. **Now (Phases 1 and 2):** every base image the services use is an official image pinned by digest, and every tool that scans or signs (such as Trivy) is pinned to a fixed release. Each version is a reviewed change to the workflow files.
+2. **Later (Phase 3):** the same base images and tool pins move into the golden-image repository. Each service's Dockerfile then builds `FROM` a golden image pinned by digest, one service at a time. Each switch is a PR.
+
 Golden images are our own hardened base images (runtime, language, tooling). Application Dockerfiles **only** build `FROM` a golden image, never directly from Docker Hub.
 
 ### What makes an image "golden"
@@ -127,7 +132,7 @@ One tool per category keeps the pipeline easy to maintain. Replace a tool only w
 |---|---|---|---|
 | **Secrets scan** | gitleaks | Leaked credentials | Every PR and push to `main` |
 | **SAST** | CodeQL | Vulnerabilities in our source code | Every PR and push to `main` |
-| **SCA** | Dependabot alerts | Vulnerable dependencies | Continuously, on the default branch |
+| **SCA** | Dependabot alerts | Vulnerable dependencies | Continuously, on the default branch (advisory: does not gate PRs) |
 | **Dockerfile scan** | hadolint | Dockerfile misconfigurations | Every PR and push to `main` |
 | **Container scan + SBOM** | Trivy | CVEs and component inventory in the final image | Every image build |
 | **Image signing** | cosign (keyless via GitHub OIDC) | Integrity / provenance | Every pushed image |
@@ -150,10 +155,12 @@ Suggested policy:
 
 All images live in GitHub Container Registry: `ghcr.io/<org>/<app>`.
 
+One image per service (`<repo>-issue`, `<repo>-dispatch`, …). A tag promotes every service image built from that commit.
+
 | Event | Tags pushed | Notes |
 |---|---|---|
 | Merge to `main` | `sha-<sha>` | Deployed to dev, and the release candidate |
-| Tag `v1.4.0` | `1.4.0`, `1.4`, `1` | **Retag** of the `sha-<sha>` image, never a rebuild |
+| Tag `v1.4.0` | `1.4.0` | **Retag** of the `sha-<sha>` image, never a rebuild. Short tags (`1.4`, `1`) are not pushed, because they move between releases |
 
 Avoid deploying `latest`. Deploy by **version tag or digest**. Image cleanup is covered in [section 10](#10-ghcr-cleanup-retention).
 
@@ -186,7 +193,7 @@ git push origin v1.4.0
 - Pipeline **fails if the tagged commit is not on `main`**.
 - Pipeline **fails if no signed image exists** for that commit (meaning `main.yml` never built it).
 - Pipeline **fails if the `main` run for that commit did not pass**, DAST included.
-- **Environment `production`** with required reviewers: a DevOps reviewer must approve before the deploy job runs.
+- **Environment `production`** with required reviewers: a DevOps reviewer (Martim) or the tech lead (Ricardo) must approve before the deploy job runs.
 - **Test the gate before the first real release.** Push a throwaway tag such as `v0.0.1-gate-test` on a commit whose `main` run failed, and confirm `release.yml` stops before the deploy. Delete the tag afterwards.
 
 ### Fixing a bad release
@@ -204,9 +211,9 @@ Redeploy a previous version tag: `ghcr.io/<org>/<app>:1.3.2`. No rebuild needed,
 
 Suggested workflow files. Before using them:
 
-- They assume a `Makefile` with `build` and `test` targets and a `Dockerfile` at the repository root. Create those first.
+- They assume a `Makefile` with `build` and `test` targets and a `Dockerfile` per service (`issue`, `dispatch`, `notification`, `ai`, `client`). Create those first.
 - Actions are shown with version tags for readability. **Pin every third-party action to a full commit SHA** (section 11.3, item 6) and keep the version in a comment.
-- The Mermaid sources for the diagrams are in `documents/devops/diagrams/`. Regenerate the PNGs from them after any change.
+- The Mermaid sources for the diagrams are in `documents/devops/diagrams/`. Regenerate the PNGs from them after any change. `golden-image-lifecycle.png` has no source yet and is a manual image until one is added.
 
 ```
 .github/workflows/
@@ -245,9 +252,9 @@ jobs:
           languages: <your-language>      # for example javascript-typescript or java-kotlin
       - uses: github/codeql-action/analyze@v3
       - name: Build image (not pushed)
-        run: docker build -t app:ci .
+        run: docker build -t app:ci -f <service>/Dockerfile <service>
       - name: Container scan
-        uses: aquasecurity/trivy-action@master
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25   # v0.36.0 (released 2026-04-22); tags on this action were force-pushed in 2026, so pin the commit
         with:
           image-ref: app:ci
           severity: CRITICAL,HIGH
@@ -281,9 +288,8 @@ permissions:
   actions: read
 
 jobs:
-  promote:
+  verify:
     runs-on: ubuntu-latest
-    environment: production        # required reviewers approve before this job starts
     steps:
       - uses: actions/checkout@v4
         with: { fetch-depth: 0 }
@@ -311,13 +317,26 @@ jobs:
       - name: Verify signature of the tested image
         run: |
           cosign verify ghcr.io/${{ github.repository }}:sha-${{ github.sha }} \
-            --certificate-identity-regexp "https://github.com/${{ github.repository }}/.*" \
+            --certificate-identity "https://github.com/${{ github.repository }}/.github/workflows/main.yml@refs/heads/main" \
             --certificate-oidc-issuer https://token.actions.githubusercontent.com
+
+  deploy:
+    needs: verify
+    runs-on: ubuntu-latest
+    environment: production        # required reviewers approve before this job starts
+    steps:
+      - uses: actions/checkout@v4
+      - uses: sigstore/cosign-installer@v3
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Promote (retag, no rebuild)
         run: |
           VERSION=${GITHUB_REF_NAME#v}
-          docker buildx imagetools create \
+          docker buildx imagetools create --prefer-index=false \
             -t ghcr.io/${{ github.repository }}:${VERSION} \
             ghcr.io/${{ github.repository }}:sha-${{ github.sha }}
 
@@ -426,8 +445,6 @@ Nothing is pruned automatically yet, so the cleanup cannot touch a released imag
 ```yaml
 name: GHCR cleanup
 on:
-  schedule:
-    - cron: "0 3 * * 0"             # weekly, Sunday 03:00 UTC
   workflow_dispatch:
     inputs:
       dry_run:
@@ -458,8 +475,9 @@ This is a starting point that has not been run against your registry. Check the 
 
 ### 10.4 Rollout and traps
 
-1. **Dry run first.** Trigger the workflow manually with `dry_run` on, read the log, and confirm that no released version is listed. Only then let the weekly schedule run.
-2. **Multi-platform and attested images:** an image can consist of several untagged child manifests. Deleting those breaks the tagged image that points to them. The action protects the children of the tagged versions it keeps, but a tag filter that matches released versions is unsafe (see 10.1).
+1. **Manual deletion only.** The workflow runs only when triggered by hand, with `dry_run` on first. Read the log and confirm that no released version is listed before any real run.
+2. **No automatic cleanup yet.** A scheduled lifecycle rule that removes old images must be defined, after section 10.1 is resolved, before it is enabled.
+3. **Multi-platform and attested images:** an image can consist of several untagged child manifests. Deleting those breaks the tagged image that points to them. The action protects the children of the tagged versions it keeps, but a tag filter that matches released versions is unsafe (see 10.1).
 3. **Signatures:** the action's documentation does not cover cosign signatures. Make sure release signatures are never candidates. Signatures of deleted images will remain as small orphaned versions, which is harmless.
 4. **Public packages:** GitHub does not allow deleting a version of a public package if any version of it has more than 5,000 downloads.
 5. **Mistakes can be undone for 30 days:** a deleted package or version can be restored within 30 days, as long as the name has not been reused.
@@ -477,7 +495,7 @@ This is a starting point that has not been run against your registry. Check the 
 | Push to `feature/*`, `fix/*` | Any collaborator | No restriction |
 | Merge a PR into `main` (deploys to dev) | **Any collaborator** | Ruleset `main-quality`: PR + checks + 1 approval |
 | Create a `v*` tag (release to prod) | **Named tech leads and DevOps** | Tag ruleset |
-| Approve the prod deployment | **Named DevOps** | Environment `production` required reviewers |
+| Approve the prod deployment | **DevOps (Martim) or tech lead (Ricardo)** | Environment `production` required reviewers |
 | Change pipelines (`.github/`, Dockerfiles, infra) | DevOps reviewers | CODEOWNERS |
 | Change repo settings, rulesets, secrets | **Repo owner only** | Owner role |
 
@@ -499,10 +517,10 @@ There are no teams, and no Triage, Maintain or Admin roles. Mapping for this pro
 |---|---|
 | Developers | Collaborators |
 | Tech leads | Collaborators, listed in the tag ruleset and CODEOWNERS |
-| DevOps | The repo owner, plus any collaborators listed as `production` reviewers |
+| DevOps | Martim: tag ruleset bypass list and `production` reviewer |
 | External contributors | Fork + PR only |
 
-Since there is only one Owner, whoever owns the account is effectively the admin. Other DevOps people can approve and release, but cannot change settings.
+The owner (Pedro) is the only admin: settings, rulesets, secrets. DevOps (Martim) approves and releases, but cannot change settings.
 
 ### 11.3 How to set it up
 
@@ -512,7 +530,7 @@ Since there is only one Owner, whoever owns the account is effectively the admin
 - Name `main-quality`, enforcement **Active**, target branch `main`, **no bypass list**
 - Require a pull request before merging (1 approval)
 - Require Code Owner review (applies only to the paths in CODEOWNERS)
-- Require status checks to pass (build, test, SAST, container scan)
+- Require status checks to pass (build, test, SAST, container scan) (from Phase 2)
 - Block force pushes, restrict deletions
 
 Production is protected by the tag ruleset and the `production` environment instead, not by a merge gate.
@@ -527,7 +545,7 @@ Production is protected by the tag ruleset and the `production` environment inst
 ```
 # Pipelines, images and infrastructure need DevOps approval
 /.github/        @<owner-username>
-/Dockerfile      @<owner-username>
+**/Dockerfile    @<owner-username>
 /infra/          @<owner-username>
 ```
 
@@ -538,7 +556,7 @@ Keep this limited to sensitive paths. A `*` entry would force an approval from t
 | Environment | Settings |
 |---|---|
 | `dev` | No reviewers. Deployment branches: `main` only. Deploy credentials for dev only. |
-| `production` | Required reviewers: named DevOps users (up to 6). Prevent self-review. Deployment branches and tags: `v*` only. **Do not** allow administrators to bypass. Prod secrets live here, never at repo level. |
+| `production` | Required reviewers: DevOps (Martim) and the tech lead (Ricardo). Prevent self-review. Deployment branches and tags: `v*` only. **Do not** allow administrators to bypass. Prod secrets live here, never at repo level. |
 
 If there is only one DevOps person, "prevent self-review" would block them from approving their own release. Turn it off in that case, or add a second reviewer.
 
@@ -584,13 +602,13 @@ After a transfer, the GHCR image path changes from `ghcr.io/<user>/<app>` to `gh
 - [ ] Workflow permissions default to read-only, elevated per job
 - [ ] Cosign verification enforced before any deploy
 - [ ] DAST job in `main.yml` is required, because `release.yml` checks its result
-- [ ] Collaborators added with Write access; the repo owner acts as DevOps / final authority
+- [ ] Collaborators added with Write access; Pedro (owner) applies the settings
 - [ ] CODEOWNERS covers `.github/`, Dockerfiles and infra
 - [ ] Environment `production` has required reviewers and is limited to `v*` tags
 - [ ] Bypass lists and environment reviewers kept to the minimum number of people
 - [ ] Secrets: prod credentials only in the `production` environment, dev and prod credentials separate (section 9)
 - [ ] `GHCR_CLEANUP_PAT` created (classic, `read:packages` + `delete:packages`), has an expiry date and a rotation reminder
-- [ ] GHCR cleanup workflow run once as a dry run and the log reviewed before enabling the schedule
+- [ ] GHCR cleanup workflow run once as a dry run and the log reviewed before any real run; a lifecycle rule is defined before any automatic cleanup
 
 ---
 
@@ -605,7 +623,7 @@ After a transfer, the GHCR image path changes from `ghcr.io/<user>/<app>` to `gh
 | Fix a bad release | Merge the fix to `main` and tag a new patch version |
 | Roll back | Redeploy the previous version tag |
 | Update base images | Merge the Renovate/Dependabot digest bump PR |
-| Clean old images | Run `ghcr-cleanup.yml` manually with dry run on, review, then let the weekly schedule run |
+| Clean old images | Run `ghcr-cleanup.yml` manually with dry run on, review, then run it for real by hand; automatic cleanup waits for a defined lifecycle rule |
 
 ---
 
@@ -618,3 +636,15 @@ These are not decided yet. The workflows contain placeholders until they are.
 - **Single owner or organization.** Decide whether one owner account is acceptable, or move to an organization early (11.5).
 - **Dev on every merge or on demand.** Automatic deploys show integration problems early, but they also break the shared environment on every bad merge.
 - **Base images until phase 3.** Use official images pinned by digest, or wait for the golden images.
+
+---
+
+## 15. Sources
+
+- Docker, `docker buildx imagetools create`: https://docs.docker.com/reference/cli/docker/buildx/imagetools/create/, accessed 2026-10-25.
+- Trivy action v0.36.0, commit `ed142fd0673e97e23eac54620cfb913e5ce36c25`: from `gh api` on [aquasecurity/trivy-action releases](https://github.com/aquasecurity/trivy-action/releases), accessed 2026-10-29. The release was published 2026-04-22. Source of the tag-force-push warning: [trivy-action releases](https://github.com/aquasecurity/trivy-action/releases), accessed 2026-10-29, and a search summary that reports the March 2026 incident; confirm it on the advisory before relying on it.
+- Repository roles on a personal account (sections 11.2 and 11.4): [permission levels for a personal account repository](https://docs.github.com/en/enterprise-cloud@latest/repositories/managing-your-repositorys-settings-and-features/repository-access-and-collaboration/permission-levels-for-a-personal-account-repository), accessed 2026-10-29. It describes one owner and collaborators, with no read-only collaborators on private personal repositories.
+- Deleting package versions (section 10.2): [deleting and restoring a package](https://docs.github.com/en/packages/learn-github-packages/deleting-and-restoring-a-package), accessed 2026-10-29. It says GitHub Packages supports only classic personal access tokens. The GraphQL `deletePackageVersion` route needs a classic token with `read:packages`, `delete:packages` and `repo`. A `GITHUB_TOKEN` can delete through the REST API only on registries with granular permissions. Earlier versions of the same page list fewer scopes, so check the live page.
+- Rulesets and environment reviewers on public repositories (sections 11.3 and 12): [about rulesets](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets), accessed 2026-10-29, and [managing environments for deployment](https://docs.github.com/en/actions/how-tos/deploy/configure-and-manage-deployments/manage-environments), accessed 2026-10-29. Rulesets are available in public repositories under GitHub Free. Environment protection rules such as required reviewers are available on public repositories across plans. The page does not address free-plan organizations specifically.
+
+The entries above come from search results and summaries, not full reads of the pages. Confirm each statement on the linked page before the document is approved.
