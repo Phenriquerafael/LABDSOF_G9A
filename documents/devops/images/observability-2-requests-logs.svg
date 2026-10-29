@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 560" width="900" height="560" font-family="sans-serif" font-size="16">
+  <title>Requests and logs</title>
+  <style>
+    .node { fill: #ececff; stroke: #9370db; stroke-width: 1.5; }
+    .opt { fill: #f7f7f7; stroke: #9370db; stroke-width: 1.5; stroke-dasharray: 6 4; }
+    .line { stroke: #333; stroke-width: 1.5; fill: none; }
+    .dash { stroke-dasharray: 6 4; }
+    .lbl { fill: #222; font-size: 14; }
+    .sub { font-size: 14; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#333"/>
+    </marker>
+  </defs>
+  <rect width="900" height="560" fill="#ffffff"/>
+
+  <!-- User and gateway -->
+  <rect class="node" x="20" y="170" width="170" height="70" rx="8"/>
+  <text x="105" y="210" text-anchor="middle">User</text>
+
+  <rect class="node" x="250" y="170" width="180" height="70" rx="8"/>
+  <text x="340" y="202" text-anchor="middle">gateway</text>
+  <text class="sub" x="340" y="224" text-anchor="middle">creates X-Request-ID</text>
+
+  <line class="line" x1="190" y1="195" x2="248" y2="195" marker-end="url(#arrow)"/>
+  <line class="line" x1="248" y1="220" x2="190" y2="220" marker-end="url(#arrow)"/>
+  <text class="lbl" x="219" y="182" text-anchor="middle">request</text>
+  <text class="lbl" x="219" y="256" text-anchor="middle">response</text>
+
+  <!-- Each request goes to one service, chosen by path -->
+  <line class="line" x1="430" y1="186" x2="558" y2="75" marker-end="url(#arrow)"/>
+  <line class="line" x1="430" y1="205" x2="558" y2="175" marker-end="url(#arrow)"/>
+  <line class="line" x1="430" y1="224" x2="558" y2="275" marker-end="url(#arrow)"/>
+  <text class="lbl" x="440" y="112">/dispatch</text>
+  <text class="lbl" x="440" y="168">/auth</text>
+  <text class="lbl" x="440" y="296">/issue</text>
+
+  <rect class="node" x="560" y="40" width="300" height="70" rx="8"/>
+  <text x="710" y="70" text-anchor="middle">Dispatch</text>
+  <text class="sub" x="710" y="92" text-anchor="middle">reads X-Request-ID</text>
+
+  <rect class="node" x="560" y="140" width="300" height="70" rx="8"/>
+  <text x="710" y="170" text-anchor="middle">auth</text>
+  <text class="sub" x="710" y="192" text-anchor="middle">reads X-Request-ID</text>
+
+  <rect class="node" x="560" y="240" width="300" height="70" rx="8"/>
+  <text x="710" y="270" text-anchor="middle">Issue</text>
+  <text class="sub" x="710" y="292" text-anchor="middle">reads X-Request-ID</text>
+
+  <!-- Logs from every service and RabbitMQ go to Loki -->
+  <line class="line dash" x1="860" y1="75" x2="882" y2="75"/>
+  <line class="line dash" x1="860" y1="175" x2="882" y2="175"/>
+  <line class="line dash" x1="860" y1="275" x2="882" y2="275"/>
+  <polyline class="line dash" points="882,75 882,455 862,455" marker-end="url(#arrow)"/>
+  <text class="lbl" x="560" y="512">JSON logs from every service and from RabbitMQ</text>
+
+  <rect class="opt" x="560" y="420" width="300" height="70" rx="8"/>
+  <text x="710" y="450" text-anchor="middle">Loki + Alloy</text>
+  <text class="sub" x="710" y="472" text-anchor="middle">(optional)</text>
+
+  <rect class="opt" x="250" y="420" width="200" height="70" rx="8"/>
+  <text x="350" y="450" text-anchor="middle">RabbitMQ</text>
+  <text class="sub" x="350" y="472" text-anchor="middle">logs to stdout</text>
+
+  <line class="line dash" x1="450" y1="455" x2="558" y2="455" marker-end="url(#arrow)"/>
+
+  <!-- Grafana queries Loki -->
+  <rect class="node" x="20" y="320" width="200" height="70" rx="8"/>
+  <text x="120" y="350" text-anchor="middle">Grafana</text>
+  <text class="sub" x="120" y="372" text-anchor="middle">search by request_id</text>
+
+  <line class="line dash" x1="220" y1="355" x2="558" y2="440" marker-end="url(#arrow)"/>
+  <text class="lbl" x="330" y="380">query</text>
+
+  <!-- Legend -->
+  <text class="lbl" x="20" y="540">Dashed border = optional component. Dashed arrow = log or query path.</text>
+</svg>

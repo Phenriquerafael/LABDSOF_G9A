@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 440" width="900" height="440" font-family="sans-serif" font-size="20">
+  <title>What is backed up</title>
+  <style>
+    .keep { fill: #e3f5e1; stroke: #2e7d32; stroke-width: 2; }
+    .keep-dash { fill: #e3f5e1; stroke: #2e7d32; stroke-width: 2; stroke-dasharray: 8 5; }
+    .rebuild { fill: #e6f0ff; stroke: #3a7bd5; stroke-width: 2; }
+    .secret { fill: #fff6d6; stroke: #b8a400; stroke-width: 2; }
+    .server { fill: none; stroke: #b8a400; stroke-width: 2; stroke-dasharray: 10 6; }
+    .line { stroke: #333; stroke-width: 2; fill: none; }
+    .dash { stroke-dasharray: 8 5; }
+    .sub { font-size: 16; fill: #444; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#333"/>
+    </marker>
+  </defs>
+  <rect width="900" height="440" fill="#ffffff"/>
+
+  <!-- Server: RabbitMQ on top, gateway and services at the bottom, nearest to Git -->
+  <rect class="server" x="20" y="30" width="520" height="290" rx="12"/>
+  <text x="40" y="62" font-size="18" font-weight="bold">AWS EC2 server</text>
+
+  <rect class="keep-dash" x="60" y="90" width="440" height="80" rx="10"/>
+  <text x="280" y="126" text-anchor="middle">RabbitMQ (optional)</text>
+  <text class="sub" x="280" y="152" text-anchor="middle">definitions kept</text>
+
+  <rect class="rebuild" x="60" y="200" width="440" height="80" rx="10"/>
+  <text x="280" y="236" text-anchor="middle">Gateway and services</text>
+  <text class="sub" x="280" y="262" text-anchor="middle">rebuilt from Git</text>
+
+  <!-- Database, outside the server -->
+  <rect class="keep" x="620" y="90" width="260" height="130" rx="10"/>
+  <text x="750" y="132" text-anchor="middle">Database</text>
+  <text class="sub" x="750" y="160" text-anchor="middle">RDS or container</text>
+  <text class="sub" x="750" y="186" text-anchor="middle">backed up</text>
+
+  <!-- Straight, non-crossing arrows -->
+  <line class="line dash" x1="750" y1="220" x2="750" y2="348" marker-end="url(#arrow)"/>
+  <text class="sub" x="762" y="290">copies</text>
+
+  <line class="line" x1="160" y1="348" x2="160" y2="282" marker-end="url(#arrow)"/>
+  <text class="sub" x="172" y="318">rebuild</text>
+
+  <!-- Bottom row -->
+  <rect class="rebuild" x="40" y="350" width="240" height="80" rx="10"/>
+  <text x="160" y="386" text-anchor="middle">Git</text>
+  <text class="sub" x="160" y="412" text-anchor="middle">configuration</text>
+
+  <rect class="secret" x="310" y="350" width="280" height="80" rx="10"/>
+  <text x="450" y="386" text-anchor="middle">Secrets store</text>
+  <text class="sub" x="450" y="412" text-anchor="middle">restored by hand</text>
+
+  <rect class="keep" x="620" y="350" width="260" height="80" rx="10"/>
+  <text x="750" y="386" text-anchor="middle">Backup storage</text>
+  <text class="sub" x="750" y="412" text-anchor="middle">encrypted, off-server</text>
+</svg>
