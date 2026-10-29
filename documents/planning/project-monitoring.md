@@ -1,4 +1,4 @@
-﻿# Project monitoring
+# Project monitoring
 
 **Status:** collector and chart paths configured; live project access, workflow execution and real measurements remain to be verified.
 
@@ -34,14 +34,14 @@ Files: [snapshot.js](../../workflow-scripts/snapshot.js), [metrics.yml](../../.g
 
 ### Implemented configuration
 
-- Repository: `Phenriquerafael/LABDSOF_GX`; project number: `9`. These values are constants at the top of `snapshot.js`, not placeholders. The collector queries personal project `9` directly under user `Phenriquerafael`; a repository link is not required. The token must have access to the project. Confirm the owner and number in the project URL (`https://github.com/users/Phenriquerafael/projects/9`). In the supplied URL ending `/projects/9/views/3`, `9` is the project number and `3` is a view ID; the collector reads the project without applying view-specific filters.
+- Repository: `Phenriquerafael/LABDSOF_G9A`; project number: `9`. These values are constants at the top of `snapshot.js`, not placeholders. The collector queries personal project `9` directly under user `Phenriquerafael`; a repository link is not required. The token must have access to the project. Confirm the owner and number in the project URL (`https://github.com/users/Phenriquerafael/projects/9`). In the supplied URL ending `/projects/9/views/3`, `9` is the project number and `3` is a view ID; the collector reads the project without applying view-specific filters.
 - The collector runs as CommonJS on Node 20 without requiring a root `package.json`. Run it from the repository root with `node workflow-scripts/snapshot.js`, with `GITHUB_TOKEN` supplied through the environment.
 - All output paths are resolved relative to the script: `workflow-scripts/data/history.json` holds timestamped issue/status snapshots; `workflow-scripts/data/raw/` holds one consolidated export per successful collection, matching `example.json`: `data.repository.projectsV2.nodes[]` contains project metadata and `items.nodes[]`, with issue `content.number`, `content.title`, `sprint` and `fieldValues.nodes[]` containing the Status and assigned Sprint values with their field names. Each issue in `history.json` has `{ id, status, sprint }`; `sprint` preserves the board label or is `null` when unassigned. All item pages are combined; only issues from the configured repository are included. These are normalized exports, not verbatim API responses; unrelated fields and empty field objects are omitted. Each new raw export includes a top-level `date` in ISO 8601 UTC, identical to its history entry. Its filename uses the same timestamp with colons replaced by hyphens, followed by the process ID: `2026-10-10T14-30-00.123Z-2358.json`. Older raw files retain their original format. Existing history is appended, not reset.
 - The project is resolved directly by owner and number; its items are paginated. Status and Sprint are retrieved directly by field name rather than from a limited field list, using [GitHub's project field API](https://docs.github.com/en/graphql/reference/projects).
 - Only issues from the configured repository are counted; PRs, draft items and issues from other repositories are excluded. The collector queries active project items: preserve review evidence before archiving/removing items. It collects the whole project, including each issue?s Sprint assignment, so the page can filter without recollecting data. The `sprintFieldName` constant defaults to `Sprint`; single-select, iteration and text fields are supported. A missing field or unassigned value is saved as `null` and logged. Configure the board field and assign values before collecting sprint measurements. Old snapshots are not backfilled from current assignments.
 - HTTP/GraphQL errors, inaccessible items, missing Status values, invalid pagination and empty collections stop the run without appending to history. Invalid existing history is not overwritten. History is replaced only after the complete snapshot has been written to a temporary file.
-- Both HTML pages use `./data/history.json`. `chart.html` renders stacked status counts; `burndown.html` defaults to all issues and filters by predefined sprint, plots remaining/ideal/scope lines, shows an issue list and daily table, supports local JSON selection and exports daily CSV data. Filters refresh automatically; no manual issue-number list is required.
-- The workflow runs daily at `00:00 UTC` or manually, checks out `main`, runs the collector and commits `workflow-scripts/data/` back to `main`. Concurrent workflow runs are serialised. A rebase incorporates intervening commits before pushing; commit/push failures remain visible.
+- Both HTML pages use `./data/history.json`. `chart.html` renders stacked status counts with an All/A/B/C filter based on each issue?s `sprint` attribute; `burndown.html` defaults to all issues and filters by predefined sprint, plots remaining/ideal/scope lines, shows an issue list and daily table, supports local JSON selection and exports daily CSV data. Filters refresh automatically; no manual issue-number list is required.
+- The workflow runs daily at `00:00 Europe/Lisbon` (with automatic daylight-saving adjustment) or manually, checks out `main`, runs the collector and commits `workflow-scripts/data/` back to `main`. Concurrent workflow runs are serialised. A rebase incorporates intervening commits before pushing; commit/push failures remain visible.
 
 ### Checks still required before automated collection
 
@@ -53,6 +53,52 @@ Files: [snapshot.js](../../workflow-scripts/snapshot.js), [metrics.yml](../../.g
 6. Serve `workflow-scripts/` through HTTP and open either chart. Alternatively, open `burndown.html` directly and select a local history file. Select a sprint and completed status; review the issue list and missing-data messages.
 
 The collector, workflow paths and chart defaults are aligned. Configuration is implemented; successful local checks do not constitute evidence of live collection or completed project work.
+
+### Scheduled-run investigation (22 October 2026)
+
+Observed through the GitHub API: the repository is not a fork or archived, its default branch is main, and Metrics Snapshot is active. The workflow was registered in LABDSOF_G9A on 21 October 2026 at 17:22:21 UTC. At inspection, its two recorded runs were manual; the latest [manual run](https://github.com/Phenriquerafael/LABDSOF_G9A/actions/runs/39652644707) succeeded, including collection and pushing data. No scheduled run was recorded. This confirms that manual execution works but does not identify why the scheduler missed a trigger.
+
+The workflow now schedules collection at midnight Lisbon time using cron `0 0 * * *` with `timezone: Europe/Lisbon`. It follows daylight-saving changes. Manual dispatch and scheduled runs both execute the snapshot job directly; no diagnostic input, probe job or cron-string job conditions remain. Publish this cleanup to `main` before relying on it.
+
+The earlier [manual diagnostic](https://github.com/Phenriquerafael/LABDSOF_G9A/actions/runs/39807294532), created at 15:42:07 UTC on 22 October, succeeded with the collector skipped. This established manual execution only. The temporary UTC/Lisbon probes have now been removed; that cleanup does not establish that automatic scheduling has recovered.
+
+After publication, check Actions for a run with event `schedule` after the next midnight in Lisbon, then verify that its snapshot job collected and committed data. GitHub documents that start-of-hour triggers can be delayed or dropped under load; the cause of the earlier missing triggers remains unconfirmed. Sources: [timezone-aware schedule syntax](https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax#onschedule) and [trigger troubleshooting](https://docs.github.com/en/actions/how-tos/troubleshoot-workflows), accessed 22 October 2026.
+
+### Unified chart-data alerts at 19:00
+
+[Validate chart data](../../.github/workflows/check-sprints.yml) replaces the standalone missing-sprint workflow in the same file. It runs daily at **19:00 Europe/Lisbon**, following daylight-saving changes, and supports manual dispatch. Normal collection remains at midnight Lisbon time, giving about five hours to correct live assignments. The validation workflow does not depend on Metrics Snapshot completing and does not block its execution.
+
+The workflow runs [validate-chart-data.js](../../workflow-scripts/validate-chart-data.js), reusing the live GitHub queries in [check-sprints.js](../../workflow-scripts/check-sprints.js) and the existing `MY_PAT` secret. It reads project 9, open issues in `Phenriquerafael/LABDSOF_G9A`, and the existing `workflow-scripts/data/history.json`. No issues, metrics files or repository data are modified. Publish the workflow and scripts to the default branch before expecting scheduled alerts.
+
+| Check | Behaviour |
+|---|---|
+| Missing or unrecognised Sprint | Error for any issue in the live collection candidate (including closed issues still active in project 9) without A/Sprint A, B/Sprint B or C/Sprint C, case-insensitive. Open issues outside the active project also fail. |
+| Missing or invalid Status | Error for live candidate issues or open issues outside the active project with missing/unusable values or statuses outside the current Status options. Stored statuses outside current options generate a historical warning; structurally unusable status data still fails integrity validation. |
+| History integrity | Error for unreadable/invalid JSON, empty history, invalid UTC dates, dates more than five minutes into the future, duplicate timestamps, out-of-order snapshots, missing issue arrays, invalid/duplicate issue IDs, unusable statuses or invalid sprint types. |
+| Historical sprint coverage | Missing/unrecognised assignments across stored snapshots, including the latest, produce one consolidated historical warning with expandable per-snapshot details. They do not fail current preflight validation; missing assignments in the live candidate still fail. Historical values are never inferred or backfilled. |
+| Stale collection | Error when the newest structurally valid snapshot is older than 26 hours, or no valid snapshot exists. |
+| Scope reduction | Warning listing issues missing between the latest two valid snapshots, and issues from the latest snapshot no longer active in the live repository/project. Removals, archiving and transfers may be legitimate. |
+| Current sprint empty | Warning when open issues exist but none belongs to the sprint current in Lisbon's calendar. Also warns outside configured A/B/C dates; no open issues may legitimately mean all work is complete. |
+
+The validator uses the same A/B/C periods as the burndown; a regression test checks those dates remain aligned. Live Sprint is read from the project field, not issue milestones. Closed issues still active in the project are included in the collection candidate and validated alongside open issues. Open issues outside the project are additionally flagged. The candidate is built in memory from current project data; no snapshot is written. Single-select, iteration and text Sprint fields are supported.
+
+All results are combined in one job summary with issue links and Actions error/warning annotations. Errors fail the run; warnings alone do not. Missing token/access/API failures are reported as incomplete checks and do not prevent local history validation. The checker attempts live validation even if history cannot be read. Exit codes: 0 = no errors (warnings may exist), 1 = validation errors, 2 = unexpected execution failure. Warnings alone do not generate a failed-workflow notification.
+
+Enable [Actions notifications](https://docs.github.com/en/subscriptions-and-notifications/how-tos/managing-github-actions-notifications), optionally for failed workflows only. Notification delivery follows your settings and [GitHub recipient rules](https://docs.github.com/en/actions/concepts/workflows-and-actions/notifications-for-workflow-runs), not an automatic team-wide broadcast (sources accessed 25 October 2026).
+
+After corrections, run **Validate chart data** manually. Project-field edits do not trigger it immediately. The 19:00 check validates current live data and existing history, not the future midnight snapshot. The collector retains its own write-time validations. Neither the validation schedule nor the midnight schedule can guarantee execution if GitHub's scheduler is unavailable; independent monitoring would be required for that case.
+
+Verification: `node --test workflow-scripts/tests/check-sprints.test.cjs workflow-scripts/tests/validate-chart-data.test.cjs workflow-scripts/tests/metrics.test.cjs`. Mocked tests cover API pagination/access failures, sprint/status validation, stale/future/invalid history, scope changes, current-sprint checks and chart regressions. Live workflow execution remains to be verified after publication.
+
+### Historical identity across the repository transfer
+
+The validator derives a comparison view of historical IDs using [issue-migration.json](../../workflow-scripts/config/issue-migration.json) and [history-identity.js](../../workflow-scripts/history-identity.js). It does not modify `history.json`, raw files, or recorded Sprint/Status values. The mapping applies only inside validation; HTML charts still read the original history.
+
+Evidence: all 33 issues in `2026-10-21T03-25-51.250Z-2346.json` have unique, exact title matches in `2026-10-25T22-48-45.110Z-2656.json`; 32 numbers changed, and old/new #17 is the same issue. All 33 mapped numbers/titles were also verified in `2026-10-21T18-26-07.504Z-2149.json`, the first observed new-repository snapshot. The manifest records source files and both boundary timestamps.
+
+Snapshots at/before the old boundary are interpreted in the old repository's namespace and mapped to current IDs. At/after the first new snapshot, IDs remain unchanged. A snapshot inside the unresolved interval, or an old ID without a verified mapping, fails validation rather than producing a potentially incorrect link or scope comparison. Old/new numbering is never matched by numeric equality alone.
+
+Missing historical sprints remain visible in one warning, with details retained in the summary. Current assignments cannot establish earlier sprint membership. The regression replay through the supplied 25 October 22:48 snapshot yields zero errors and one historical sprint warning when the latest raw assignments are used as the candidate; this is a local replay, not evidence of live GitHub state.
 
 ## 4. Charts and flow measures
 
@@ -108,7 +154,7 @@ For each daily snapshot, count sprint items by Status and plot stacked areas in 
 
 **Data source and implementation — custom API snapshots and existing HTML**
 
-Use `snapshot.js` history with `chart.html`, which already renders stacked status counts. Apply the section 3 setup, sprint filtering, consistent workflow ordering and daily snapshot selection. Label it as status history with scope changes, rather than assuming all movement is forward.
+Use `snapshot.js` history with `chart.html`, which already renders stacked status counts. Use the Sprint selector to filter each snapshot by its issue-level `sprint` attribute (A or Sprint A, likewise B/C, case-insensitive). The CFD keeps the full historical date range; dates do not determine membership. All sprints includes unassigned issues. For a selected sprint, missing sprint attributes or legacy aggregate snapshots produce gaps, while known assignments with no matches produce zero counts. Label it as status history with scope changes, rather than assuming all movement is forward.
 
 ### 4.4 Burnup — completed work and scope
 

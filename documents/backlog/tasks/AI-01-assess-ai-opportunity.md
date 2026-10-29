@@ -1,6 +1,6 @@
 # [AI-01] Assess the AI opportunity and define evaluation
 
-- Publication: Draft — not published; GitHub issue URL: pending.
+- Publication: Published as [#17](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/17) on 2026-10-10 (checked 2026-10-29); GitHub owns live status.
 - Workflow: Backlog; proposed milestone: S1 — Discover, Validate and Design; dates/estimate: to be agreed.
 - Type: task; suggested labels: `type:task`, `area:ai`, `phase:3`, `priority:must`.
 - Parent: [EP-02](../epics/EP-02-assisted-triage.md) (direct task); epic: [EP-02](../epics/EP-02-assisted-triage.md).

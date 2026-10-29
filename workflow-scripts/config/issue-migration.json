@@ -1,0 +1,179 @@
+{
+  "oldRepository": "Phenriquerafael/LABDSOF_GX",
+  "newRepository": "Phenriquerafael/LABDSOF_G9A",
+  "oldLastSnapshot": "2026-10-21T03:25:51.250Z",
+  "newFirstSnapshot": "2026-10-21T18:26:07.504Z",
+  "sources": {
+    "old": "2026-10-21T03-25-51.250Z-2346.json",
+    "new": "2026-10-25T22-48-45.110Z-2656.json",
+    "firstNew": "2026-10-21T18-26-07.504Z-2149.json"
+  },
+  "method": "Unique exact title matches; all mapped IDs also verified in firstNew. No historical sprint/status values are replaced.",
+  "mapping": [
+    {
+      "oldId": 1,
+      "newId": 29,
+      "title": "[EP-00] Justifiable discovery and planning"
+    },
+    {
+      "oldId": 2,
+      "newId": 28,
+      "title": "[EP-02] Assisted triage and reviewed links"
+    },
+    {
+      "oldId": 3,
+      "newId": 27,
+      "title": "[EP-04] Deliverable, secure, observable and evaluable system"
+    },
+    {
+      "oldId": 4,
+      "newId": 26,
+      "title": "[DISC-01] Gather user evidence and document the problem"
+    },
+    {
+      "oldId": 5,
+      "newId": 25,
+      "title": "[DISC-02] Complete the market and competitor comparison"
+    },
+    {
+      "oldId": 6,
+      "newId": 24,
+      "title": "[DISC-03] Agree organisation, product scope and priorities"
+    },
+    {
+      "oldId": 7,
+      "newId": 23,
+      "title": "[DISC-01-01] Prepare research and participant data handling"
+    },
+    {
+      "oldId": 8,
+      "newId": 22,
+      "title": "[DISC-01-02] Conduct research and record source evidence"
+    },
+    {
+      "oldId": 9,
+      "newId": 21,
+      "title": "[DISC-01-03] Synthesise research and update the problem report"
+    },
+    {
+      "oldId": 10,
+      "newId": 34,
+      "title": "[DISC-02-01] Verify competitor and alternative sources"
+    },
+    {
+      "oldId": 11,
+      "newId": 33,
+      "title": "[DISC-02-02] Compare alternatives and assess differentiation"
+    },
+    {
+      "oldId": 12,
+      "newId": 32,
+      "title": "[DISC-03-01] Agree working practices, dates and capacity"
+    },
+    {
+      "oldId": 13,
+      "newId": 20,
+      "title": "[DISC-03-02] Configure and verify project tracking"
+    },
+    {
+      "oldId": 14,
+      "newId": 31,
+      "title": "[DISC-03-03] Refine vision, journeys and success criteria"
+    },
+    {
+      "oldId": 15,
+      "newId": 19,
+      "title": "[DISC-03-04] Prioritise backlog and prepare the release plan"
+    },
+    {
+      "oldId": 16,
+      "newId": 18,
+      "title": "[DISC-03-05] Prepare Sprint 1 review and record stakeholder feedback"
+    },
+    {
+      "oldId": 17,
+      "newId": 17,
+      "title": "[AI-01] Assess the AI opportunity and define evaluation"
+    },
+    {
+      "oldId": 18,
+      "newId": 16,
+      "title": "[EN-01] Consolidate technical design, ADRs and security"
+    },
+    {
+      "oldId": 19,
+      "newId": 15,
+      "title": "[EN-01-01] Select the stack and accept architecture decisions"
+    },
+    {
+      "oldId": 20,
+      "newId": 14,
+      "title": "[EN-01-02] Consolidate the domain model and contract outlines"
+    },
+    {
+      "oldId": 21,
+      "newId": 13,
+      "title": "[EN-01-03] Consolidate architecture and deployment views"
+    },
+    {
+      "oldId": 22,
+      "newId": 12,
+      "title": "[EN-01-04] Review the initial security and privacy assessment"
+    },
+    {
+      "oldId": 26,
+      "newId": 11,
+      "title": "[AGENT-01] Add cross-provider agent skills and repository instructions"
+    },
+    {
+      "oldId": 28,
+      "newId": 30,
+      "title": "[AGENT-02] Agent skills follow-ups: MIT notice, mirror drift check, AGENTS.md trim"
+    },
+    {
+      "oldId": 31,
+      "newId": 10,
+      "title": "[EP-01] Residents report and track issues with appropriate visibility"
+    },
+    {
+      "oldId": 32,
+      "newId": 9,
+      "title": "[EP-03] Intervention from request to closure"
+    },
+    {
+      "oldId": 33,
+      "newId": 8,
+      "title": "[PLAN-01] Prepare Sprint 2/3 user stories for reporting and tracking"
+    },
+    {
+      "oldId": 34,
+      "newId": 7,
+      "title": "[PLAN-02] Prepare AI user stories and a separate fallback story"
+    },
+    {
+      "oldId": 35,
+      "newId": 6,
+      "title": "[PLAN-03] Prepare Sprint 2/3 user stories for intervention and closure"
+    },
+    {
+      "oldId": 36,
+      "newId": 5,
+      "title": "[US-01] Record and view a report"
+    },
+    {
+      "oldId": 37,
+      "newId": 4,
+      "title": "[US-02] Triage manually and track states"
+    },
+    {
+      "oldId": 38,
+      "newId": 3,
+      "title": "[US-04] Publish a shared issue and confirm impact"
+    },
+    {
+      "oldId": 39,
+      "newId": 2,
+      "title": "[US-10] Notify changes"
+    }
+  ]
+}

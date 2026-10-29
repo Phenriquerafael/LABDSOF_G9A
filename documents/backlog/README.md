@@ -1,6 +1,6 @@
 # Epic and Sprint 1 task issue drafts
 
-**Status:** draft package prepared on 2026-10-10; epic coverage completed on 2026-10-15. No GitHub issue URLs are recorded here; remote publication/status has not been verified in this review. EP-00 ownership and reviews are distributed across the whole team independently of functional roles. Proposed allocations are not sprint commitments; estimates and readiness still require planning. Local items remain Backlog until readiness and any remote status are recorded.
+**Status:** local issue specifications and allocation index, originally drafted in October 2026. All 24 drafts in this folder are published as GitHub issues (mapping below, checked 2026-10-29 via the GitHub API); each draft's publication field records its issue. GitHub owns live status, assignees and estimates. Functional roles do not override the task allocation below.
 
 This folder contains **5 epic drafts, 4 parent-task drafts and 15 delivery-task drafts**: all product epics and the detailed Sprint 1 research, planning and design tasks. The [product backlog](../05-product-backlog.md) remains the scope and priority overview. Existing product documents hold the deliverables; these files specify the work and its completion evidence.
 
@@ -21,6 +21,39 @@ For implementation, use epic → user story → implementation subtask when need
 | [EP-02](epics/EP-02-assisted-triage.md) | [AI-01](tasks/AI-01-assess-ai-opportunity.md) | Assess the AI opportunity and define evaluation |
 | [EP-03](epics/EP-03-intervention-and-closure.md) | [US-06–09/11–13](../05-product-backlog.md#4-stories-and-criteria), story drafts pending | Contractor selection through closure; S2 core, conditional extensions |
 | [EP-04](epics/EP-04-engineering-and-quality.md) | [EN-01](tasks/EN-01-technical-design.md) | Consolidate technical design, ADRs and security |
+
+### Published issue mapping
+
+Checked on 2026-10-29 with `gh issue list --repo Phenriquerafael/LABDSOF_G9A --state all --limit 200`, matching the `[ID]` prefix of each issue title; creation dates come from the issue API. This records that the issues exist; it does not show that the board, labels, milestones or sub-issue links are configured. GitHub owns live state.
+
+| Draft ID | GitHub issue |
+|---|---|
+| EP-00 | [#29](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/29) |
+| EP-01 | [#10](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/10) |
+| EP-02 | [#28](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/28) |
+| EP-03 | [#9](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/9) |
+| EP-04 | [#27](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/27) |
+| DISC-01 | [#26](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/26) |
+| DISC-02 | [#25](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/25) |
+| DISC-03 | [#24](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/24) |
+| EN-01 | [#16](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/16) |
+| AI-01 | [#17](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/17) |
+| DISC-01-01 | [#23](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/23) |
+| DISC-01-02 | [#22](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/22) |
+| DISC-01-03 | [#21](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/21) |
+| DISC-02-01 | [#34](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/34) |
+| DISC-02-02 | [#33](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/33) |
+| DISC-03-01 | [#32](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/32) |
+| DISC-03-02 | [#20](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/20) |
+| DISC-03-03 | [#31](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/31) |
+| DISC-03-04 | [#19](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/19) |
+| DISC-03-05 | [#18](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/18) |
+| EN-01-01 | [#15](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/15) |
+| EN-01-02 | [#14](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/14) |
+| EN-01-03 | [#13](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/13) |
+| EN-01-04 | [#12](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/12) |
+
+Other remote issues without a draft here (US-01/02/04/10, PLAN-01/02/03, DEVOPS-01/02, AGENT-01/02, DISC-03-06) are outside this 24-draft package.
 
 | Delivery task | Proposed owner | Proposed reviewer | Predecessors for completion |
 |---|---|---|---|
@@ -64,7 +97,7 @@ For AI-01, Ricardo supports review of interface assumptions and Martim supports 
 |---|---|---|---|
 | 1 | Problem and opportunity | DISC-01-02/03 | [Problem report](../01-problem-and-opportunity-report.md) |
 | 2 | Market and competitor analysis | DISC-02-01/02 | [Competitor analysis](../02-market-and-competitor-analysis.md) |
-| 3 | User research | DISC-01-01/02/03 | [Research plan and findings](../03-user-research.md) |
+| 3 | User research | DISC-01-01/02/03 | [Method, findings and limitations](../03-user-research.md); [collection procedure](../templates/research-collection.md) |
 | 4 | Product vision | DISC-03-03 | [Vision](../04-product-vision.md) |
 | 5 | Product backlog | DISC-03-01/02/04 | [Backlog](../05-product-backlog.md) and [Sprint 1 plan](../planning/sprint-1-plan.md) |
 | 6 | Responsible AI opportunity assessment | AI-01 | [AI assessment](../06-responsible-ai-assessment.md) |
@@ -95,7 +128,7 @@ DISC-03-05 covers the Sprint 1 investor review (§7.1.3), feedback and contribut
 6. Change the local publication field to Published and record its actual issue URL; update the product backlog/index links. Local workflow fields are the initial draft snapshot.
 7. After publication, GitHub Issues/Projects own live status, assignees, estimates and discussion. Keep local files as published draft records; do not maintain a competing live board here. Update product documents and the overview at reviews.
 
-This package prepares drafts only; no remote publication or configuration has been performed.
+Do not infer publication from file presence. Consult each item's publication link and GitHub for current state; drafts and published specifications coexist in this folder.
 
 ## Evidence and completion
 

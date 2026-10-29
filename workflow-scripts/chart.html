@@ -17,6 +17,15 @@
   <p>Load the collected history, or select a local JSON file when opening this page directly.</p>
   <p><label>History JSON <input id="history-file" type="file" accept=".json,application/json"></label>
   <button id="reload" type="button">Reload collected history</button></p>
+  <p><label for="sprint">Sprint (issue assignment)
+    <select id="sprint" aria-describedby="sprint-help">
+      <option value="all">All sprints / all issues</option>
+      <option value="A">Sprint A</option>
+      <option value="B">Sprint B</option>
+      <option value="C">Sprint C</option>
+    </select>
+  </label></p>
+  <p id="sprint-help">Filters each snapshot using the issue's sprint attribute, not its date. A and Sprint A match (likewise B/C). Unassigned issues are included only in All sprints; missing sprint data leaves gaps.</p>
   <p id="message" role="status" aria-live="polite"></p>
   <p id="summary"></p>
   <div class="chart-container"><canvas id="chart" role="img" aria-label="Issue counts by status over time"></canvas></div>
@@ -25,6 +34,7 @@
 const historyUrl = './data/history.json';
 let chart = null;
 let loadVersion = 0;
+let loadedHistory = null;
 
 async function loadData(file) {
   let history;
@@ -49,6 +59,23 @@ async function loadData(file) {
     }
   }
   return history.sort((a,b) => new Date(a.date) - new Date(b.date));
+}
+
+function sprintKey(value) {
+  if (typeof value !== 'string') return '';
+  const label = value.trim();
+  const match = /^(?:sprint\s+)?([abc])$/i.exec(label);
+  return match ? match[1].toUpperCase() : label.toLowerCase();
+}
+
+function filterSprint(history, sprint) {
+  if (sprint === 'all') return history;
+  return history.map(snapshot => {
+    if (!Array.isArray(snapshot.issues) || snapshot.issues.some(issue => issue.sprint === undefined || (issue.sprint !== null && typeof issue.sprint !== 'string'))) {
+      return { date: snapshot.date, issues: [], sprintMissing: true };
+    }
+    return { ...snapshot, issues: snapshot.issues.filter(issue => sprintKey(issue.sprint) === sprint) };
+  });
 }
 
 function normalizeStatus(status) {
@@ -82,6 +109,7 @@ function getStatuses(history) {
 }
 
 function countByStatus(snapshot, status) {
+  if (snapshot.sprintMissing) return null;
   if (Array.isArray(snapshot.issues)) {
     return snapshot.issues.filter(issue => normalizeStatus(issue.status) === status).length;
   }
@@ -112,22 +140,23 @@ function colorForStatus(status, idx) {
   };
 }
 
-async function main(file) {
-  const version = ++loadVersion;
-  const message = document.getElementById("message");
-  message.className = "";
-  message.textContent = "Loading history…";
-  document.getElementById("summary").textContent = "";
+function render() {
+  const message = document.getElementById('message');
+  message.className = '';
+  document.getElementById('summary').textContent = '';
   if (chart) chart.destroy();
   chart = null;
+  if (!loadedHistory) return;
   try {
-  const history = await loadData(file);
-  if (version !== loadVersion) return;
-
-  const statuses = getStatuses(history);
+  const sprint = document.getElementById('sprint').value;
+  const history = filterSprint(loadedHistory, sprint);
+  const statuses = getStatuses(loadedHistory);
   if (!statuses.length) throw new Error('Snapshots contain no issue counts to display.');
-  document.getElementById('summary').textContent = 'Latest snapshot: ' + new Date(history.at(-1).date).toISOString() + ' — ' + statuses.map(status => `${status}: ${countByStatus(history.at(-1), status)}`).join(' · ');
-  message.textContent = `${history.length} snapshot(s) loaded.`;
+  document.getElementById('summary').textContent = history.at(-1).sprintMissing ? 'Latest snapshot has no reliable sprint data.' : 'Latest snapshot: ' + new Date(history.at(-1).date).toISOString() + ' — ' + statuses.map(status => `${status}: ${countByStatus(history.at(-1), status)}`).join(' · ');
+  const gaps = history.filter(snapshot => snapshot.sprintMissing).length;
+  const matched = history.reduce((total, snapshot) => total + (snapshot.issues?.length || 0), 0);
+  message.textContent = `${history.length} snapshot(s) loaded. ${gaps} snapshot(s) lack sprint data.`;
+  if (sprint !== "all" && !matched) message.textContent += " No matching issues recorded for this sprint.";
   if (history.length === 1) message.textContent += ' With one snapshot, only points are shown; the flow develops as more snapshots are collected.';
   if (typeof Chart === 'undefined') {
     message.className = 'error';
@@ -143,7 +172,8 @@ async function main(file) {
     borderColor: colorForStatus(status, idx).border,
     borderWidth: 1,
     pointRadius: 4,
-    tension: 0                       // smooth curves
+    tension: 0,
+    spanGaps: false
   }));
 
   chart = new Chart(document.getElementById('chart'), {
@@ -156,7 +186,7 @@ async function main(file) {
       responsive: true,
       maintainAspectRatio: false,
       plugins: {
-        title: { display: true, text: 'Project Issues CFD' },
+        title: { display: true, text: sprint === 'all' ? 'Project Issues CFD ? All issues' : `Project Issues CFD ? Sprint ${sprint}` },
         tooltip: { mode: 'index', intersect: false }
       },
       interaction: {
@@ -170,11 +200,30 @@ async function main(file) {
     }
   });
   } catch (error) {
+    message.className = 'error';
+    message.textContent = error.message;
+  }
+}
+
+async function main(file) {
+  const version = ++loadVersion;
+  loadedHistory = null;
+  render();
+  const message = document.getElementById('message');
+  message.textContent = 'Loading history?';
+  try {
+    const history = await loadData(file);
+    if (version !== loadVersion) return;
+    loadedHistory = history;
+    render();
+  } catch (error) {
     if (version !== loadVersion) return;
     message.className = 'error';
     message.textContent = error.message;
   }
 }
+
+document.getElementById('sprint').addEventListener('change', render);
 
 document.getElementById('history-file').addEventListener('change', event => {
   const file = event.target.files[0];

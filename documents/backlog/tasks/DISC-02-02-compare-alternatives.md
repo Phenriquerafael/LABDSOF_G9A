@@ -1,6 +1,6 @@
 # [DISC-02-02] Compare alternatives and assess differentiation
 
-- Publication: Draft — not published; GitHub issue URL: pending.
+- Publication: Published as [#33](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/33) on 2026-10-10 (checked 2026-10-29); GitHub owns live status.
 - Workflow: Backlog; proposed milestone: S1 — Discover, Validate and Design; dates/estimate: to be agreed.
 - Type: task; suggested labels: `type:task`, `area:product`, `phase:2`, `priority:must`.
 - Parent: [DISC-02](DISC-02-market-comparison.md); epic: [EP-00](../epics/EP-00-discovery-and-planning.md).

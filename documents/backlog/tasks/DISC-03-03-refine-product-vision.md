@@ -1,6 +1,6 @@
 # [DISC-03-03] Refine vision, journeys and success criteria
 
-- Publication: Published as [#14](https://github.com/Phenriquerafael/LABDSOF_GX/issues/14) (checked 2026-10-19); GitHub owns live status.
+- Publication: Published as [#31](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/31) on 2026-10-10 (checked 2026-10-29); GitHub owns live status.
 - Workflow: Backlog; proposed milestone: S1 — Discover, Validate and Design; dates/estimate: to be agreed.
 - Type: task; suggested labels: `type:task`, `area:product`, `phase:3`, `priority:must`.
 - Parent: [DISC-03](DISC-03-organisation-and-product-planning.md); epic: [EP-00](../epics/EP-00-discovery-and-planning.md).

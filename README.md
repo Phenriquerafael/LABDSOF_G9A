@@ -1,5 +1,8 @@
 # Building Maintenance Coordinator · LABDSOF 26/27
 
+[![Validate chart data](https://github.com/Phenriquerafael/LABDSOF_G9A/actions/workflows/check-sprints.yml/badge.svg)](https://github.com/Phenriquerafael/LABDSOF_G9A/actions/workflows/check-sprints.yml)
+[![Metrics Snapshot](https://github.com/Phenriquerafael/LABDSOF_G9A/actions/workflows/metrics.yml/badge.svg)](https://github.com/Phenriquerafael/LABDSOF_G9A/actions/workflows/metrics.yml)
+
 **BMC** is a proposed platform to help condominium administrators and residents coordinate faults: from the first report through intervention and closure, with traceable information and AI-assisted triage.
 
 **Current stage: Sprint 1 — discovery, validation and design.** The repository contains planning documentation and templates. **It does not yet contain an application, software tests, CI/CD or executable deployment.**
@@ -12,6 +15,17 @@
 2. Learn about the [strategy](documents/building-maintenance-coordinator-strategy.md) and [vision/scope](documents/04-product-vision.md).
 3. Consult the [Sprint 1 plan](documents/planning/sprint-1-plan.md), [backlog](documents/05-product-backlog.md) and [pending decisions](documents/planning/decisions-and-feedback.md).
 4. To contribute, use the [team working agreement](documents/governance/team-working-agreement.md), [DoR](documents/governance/definition-of-ready.md), [DoD](documents/governance/definition-of-done.md) and [Git workflow](documents/governance/git-workflow.md).
+
+## Test GitHub notifications
+
+The [Test GitHub notifications workflow](.github/workflows/test-notifications.yml) can be started manually to verify failure notifications without changing the production workflows:
+
+1. Open **Actions → Test GitHub notifications → Run workflow**.
+2. Set **simulate_failure** to `true` and start the workflow.
+3. Confirm that the run fails and that the expected GitHub notification is received.
+4. Run it again with **simulate_failure** set to `false` to confirm the successful path.
+
+GitHub notification delivery also depends on the account's repository watch and notification settings.
 
 ## Proposed product
 
@@ -38,17 +52,18 @@ File numbering matches the assignment deliverables; document 08 links to the ADR
 | Document | §7.1.2 | Documentation status | What remains for completion/validation |
 |---|---|---|---|
 | [Strategy](documents/building-maintenance-coordinator-strategy.md) | Overview | Harmonised proposal | Scope and segment decisions |
-| [01 — Problem and opportunity](documents/01-problem-and-opportunity-report.md) | 1 | Draft | Problem evidence |
+| [01 — Problem and opportunity](documents/01-problem-and-opportunity-report.md) | 1 | Evidence register and qualified problem framing from DISC-01-03 | Independent review and empirical validation |
 | [02 — Market and competitors](documents/02-market-and-competitor-analysis.md) | 2 | Preliminary survey | Verified sources and comparison |
-| [03 — Research](documents/03-user-research.md) | 3 | Plan and guides | Collection, findings, limitations and decisions |
+| [03 — Research](documents/03-user-research.md) | 3 | Method, findings and limitations; public-source review and [eight simulated records inventoried](documents/research/answers/README.md); no real participants | DISC-01-03 synthesis documented; independent synthesis review and empirical validation pending |
 | [04 — Vision](documents/04-product-vision.md) | 4 | Proposal | Validation of personas, scope and metrics |
 | [05 — Product Backlog](documents/05-product-backlog.md) | 5 | Proposed epics, criteria and MoSCoW | Prioritise with stakeholders, estimate and assign |
 | [Functional requirements and NFRs](documents/requirements.md) | Supports 4/5/7 | Initial list | Validate needs and targets |
 | [06 — Responsible AI Assessment](documents/06-responsible-ai-assessment.md) | 6 | Workflow and evaluation proposal | Validated need, provider, dataset and criteria |
-| [07 — Technical Design](documents/07-technical-design.md) | 7 | Conceptual model and initial contracts | Stack, details and technical decisions |
+| [07 — Technical Design](documents/07-technical-design.md) | 7 | Domain model, state rules and contract outlines (EN-01-02 proposal) with [contract examples](documents/07a-contract-examples.md) | Stack decisions (EN-01-01), rule validation (DEC-10) and executable contracts |
 | [08 — Architecture Decision Records](documents/08-architecture-decision-records.md) / [ADR-001](documents/adr/ADR-001-backend-boundaries.md) | 8 | One proposed ADR | Choices and consequences accepted with evidence |
 | [09 — Security and privacy](documents/09-security-privacy.md) | 9 | Initial assessment | Policies/review; controls in implementation |
 | [10 — Walking Skeleton](documents/10-walking-skeleton.md) | 10, optional per evaluator | Not selected for Sprint 1 (DEC-11) | Plan retained for later implementation; not a Sprint 1 blocker |
+| [BMC workflows](documents/workflows/bmc-workflows.md) | Supports 4, 5 and 6 | Proposal with decision diagrams; validation pending | Validation with administrators and contractors; decisions recorded in the DEC register |
 | [Original notes](NOTAS.md) | Exploration | Ideas preserved and contextualised | Validate suggestions and provider information |
 
 ## Organisation, planning and templates
@@ -62,12 +77,12 @@ File numbering matches the assignment deliverables; document 08 links to the ADR
 | [Issues, labels and milestones](documents/governance/issue-management.md) | Local conventions; remote configuration pending |
 | [CI/CD strategy](documents/devops/CICD.md) | Proposal; nothing configured |
 | [Sprint 1 plan](documents/planning/sprint-1-plan.md) | Phases, dependencies and exit criteria |
-| [Epic and Sprint 1 task issue drafts](documents/backlog/README.md) | 5 epics, 4 parent tasks and 15 delivery tasks; proposed allocations; remote publication unverified and no new sprint commitments |
+| [Epic and Sprint 1 task issue drafts](documents/backlog/README.md) | 5 epics, 4 parent tasks and 15 delivery tasks; proposed allocations; all 24 drafts published as GitHub issues (checked 2026-10-29; see the [mapping](documents/backlog/README.md#published-issue-mapping)); no new sprint commitments |
 | [Sprint B backlog](documents/planning/sprint-b-backlog.md) | Candidates; no Ready commitments |
 | [Decisions and feedback](documents/planning/decisions-and-feedback.md) | Evaluator clarification and team decisions recorded; other questions remain open |
 | [Story](.github/ISSUE_TEMPLATE/user-story.md), [epic](.github/ISSUE_TEMPLATE/epic.md), [task/spike](.github/ISSUE_TEMPLATE/task.md), [bug](.github/ISSUE_TEMPLATE/bug.md) | Local GitHub templates; labels/milestones to select after setup |
 | [Pull request](.github/pull_request_template.md) | Local template |
-| [ADR](documents/templates/adr.md), [research](documents/templates/research-record.md), [review](documents/templates/investor-review.md) | Templates to copy and complete with real data |
+| [ADR](documents/templates/adr.md), [research collection procedure](documents/templates/research-collection.md), [research record](documents/templates/research-record.md), [review](documents/templates/investor-review.md) | Templates to complete with explicitly identified real, simulated or public-source material |
 
 ## Sprint 1 phase progress
 

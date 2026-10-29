@@ -1,11 +1,7 @@
 # 3. User Research
 
-**Project:** Building Maintenance Coordinator
-**Sprint:** 1 · **Status:** secondary-source review performed (v0.5). **No interviews or survey findings.** · **Revision:** 2026-10-14
-
-> **Assignment rule:** do not fabricate research evidence. This document contains the plan, interview guides and recording templates. Findings sections remain **blank until real data exists**. If interviewing real users is not possible, state this in the limitations section.
-
----
+**Project:** Building Maintenance Coordinator · **Sprint:** 1 · **Revision:** 2026-10-22
+**Status:** synthesis prepared for independent review; acceptance and integration evidence in [DISC-01-03](backlog/tasks/DISC-01-03-synthesise-findings.md#completion-record).
 
 ## 1. Research objectives
 
@@ -21,133 +17,24 @@
 | Q8 | What prompts residents to report, or not report, an issue? | P5 |
 | Q9 | What does a contractor need to know about a request, and how do they manage scheduling? | P6 |
 
-## 2. Methods
+## 2. Method and evidence coverage
 
-| Method | Purpose | Participants | Effort |
-|---|---|---|---|
-| Semi-structured interviews (30–40 min) | Q1–Q7, Q9 | Administrators, contractors | Primary method |
-| Short online survey | Q8, validate problem frequency | Residents | Low |
-| Review of documented experiences (articles, forums, app reviews) | Q1, Q6 | Public sources | Low |
-| Public competitor documentation / demos | Q6 | n/a | Low |
-| Prototype testing (late Sprint 1 or Sprint 2) | Q7, usability | Administrators, residents | Medium |
+Sprint 1 uses eight written simulated interviews and the historical public-source review. The reported lecturer clarification permits real or simulated interviews; its date and meeting record were not supplied. This exercise analyses fictional scenarios, not empirical validation.
 
-### Target sample (proposal to adjust to capacity)
-
-| Group | Target | Note |
+| Material | Actual coverage | Canonical record |
 |---|---|---|
-| Professional administrators | 2–3 | Access may be difficult; use personal or university contacts |
-| Resident / volunteer administrators | 3–5 | Easier access through relatives, neighbours or acquaintances |
-| Residents | 8–15 (survey) | Distribute through personal networks |
-| Contractors | 2–3 | Electricians, plumbers, maintenance companies |
+| Simulated answers | Two fictional profiles per segment: professional administrators, volunteer administrators, residents and contractors; 78 written answers | [Inventory, creation dates and provenance](research/answers/README.md) |
+| Public sources | Nine sources, accessed 2026-10-14; no new source visits for this synthesis | [Source register](#31-public-sources-reviewed) |
+| Real collection | Zero participants, sessions, survey responses, observations or prototype tests recorded; no documented recruitment attempts | Unexecuted [collection procedure and guides](templates/research-collection.md) |
 
-These figures are **targets**, not results. Record the actual numbers obtained.
+Consent, interviewer and session date/duration do not apply to fictional profiles. Preparation, collection checks and synthesis acceptance are recorded in [DISC-01-01](backlog/tasks/DISC-01-01-prepare-research.md#completion-record), [DISC-01-02](backlog/tasks/DISC-01-02-conduct-research.md#completion-record) and [DISC-01-03](backlog/tasks/DISC-01-03-synthesise-findings.md#completion-record), respectively.
 
-## 3. Recruitment and ethics
+<!-- Preserve the former findings anchor used by the eight unchanged SIM-* source records. -->
+<a id="7-findings"></a>
 
-- Explain the study's **purpose** before starting (assignment section 11).
-- Obtain **consent**, recorded in notes or in writing, for note-taking and, where applicable, audio recording.
-- **Do not collect unnecessary personal data.** Identify participants by codes (A1, A2, C1…). Codes are pseudonyms if a link to identity exists; store that link separately and outside Git.
-- Do not ask participants to share real residents' data, home photographs or internal documents.
-- Allow withdrawal at any time. Store notes with access restricted to the team.
-- Before collecting data, define responsibility, access and retention under the [data lifecycle policy](09-security-privacy.md#4-data-lifecycle-and-minimisation). Do not publish raw records; use only summaries without identifying details.
+## 3. Findings
 
-### Consent text (template)
-
-> We are students developing an academic project about maintenance issue management in residential buildings. We would like to ask about your experience (around 30 minutes). Participation is voluntary and you may stop at any time. We will use your responses only for this project and publish only summaries without identifying details. May we take notes? Recording is optional and requires separate permission; before recording, we will explain who can access it, where it will be stored and when it will be deleted.
-
-## 4. Interview guides
-
-Start with real experiences and only then present the proposal. Core questions are below; optional extensions are separate to avoid implying a fixed scope or lengthening every interview.
-
-### 4.1 Administrator (professional or volunteer)
-
-**Context**
-
-1. How many buildings/units do you manage? For how long? Is this your main occupation?
-2. Is there a caretaker or building attendant?
-
-**Current workflow**
-
-3. Tell me about the last maintenance issue you resolved. How did you hear about it, and what did you do next? If it required several contacts, where was most time spent?
-4. Which channels do you use to receive reports and contact contractors?
-5. How did you decide urgency in the last case? Has priority ever needed to change? What prompted that change?
-6. Do several people report the same problem? What do you do in those cases?
-
-**Contractors and costs**
-
-7. How do you select a contractor? Do you request several quotes? Who approves expenditure, and above what amount?
-8. How do you record costs and history? Do you use them to make decisions, such as repairs or replacements? Who confirms the date and completion? How do you handle rejection, unavailability or rescheduling (DEC-10)?
-
-**Tools and AI**
-
-9. What software or tools do you use? What is missing?
-10. If a system suggested urgency and a contractor, what would you need to see to trust it? Would you approve with one click? When would you not?
-
-**Closing**
-
-11. On average, how much time do you spend per issue? What is the most frustrating part?
-12. What tools do you already pay for or have you purchased? Who decides that purchase? What would justify testing another solution? Only then explore payment models and distinguish intention from commitment.
-13. What information can be shared with the building, and what must remain private (DEC-07)? How do you receive reports from residents without digital access?
-14. Would you be available for a task-based test in a second session? Record actual commitment separately from stated interest.
-
-### 4.2 Resident
-
-1. When did you last report a problem in your building? What happened?
-2. How did you report it (to whom, through which channel)? Did you receive a response? How long did it take?
-3. Have you ever noticed a problem and not reported it? Why?
-4. What would you like to know after reporting?
-5. What information about you or your home would you prefer not to share? What difficulties would you have using a page/app, and what alternative would you need?
-6. Would you confirm a problem already reported by a neighbour (“This affects me too”)? Would being identified concern you?
-
-### 4.3 Contractor
-
-1. How do you receive requests today? What information is usually missing?
-2. How do you manage your schedule? Have you used a digital calendar? Who confirms the date, and how do you communicate rejections or changes?
-3. What information do you need to estimate price and duration before visiting?
-4. How are payments and approvals handled? What are the main difficulties? How do you communicate completion, and who validates it?
-5. Would you accept requests and appointments through a platform? What would make you refuse?
-
-### 4.4. Optional exploratory questions
-
-- **Photographs, post-MVP:** would they help explain the problem? Under what conditions would participants agree to send them?
-- **IoT, DEC-01:** are sensors/devices monitored? What concrete decision would benefit from their data?
-
-Do not present these capabilities as included in the MVP.
-
-### 4.5. Prototype testing
-
-After understanding the current process, propose a concrete task and observe completion, errors, time and assistance needed. Compare with an equivalent task in the current process, varying order where possible. Record sample and context; adoption intentions or politeness do not prove benefit or purchasing commitment.
-
-## 5. Short resident survey (template)
-
-1. Do you live in a building with condominium administration? (Yes/No)
-2. Have you reported a maintenance issue in the last 12 months? (Yes/No)
-3. If so, through which channel? (call, WhatsApp, email, caretaker, other)
-4. Did you receive status feedback? (Always / Sometimes / Never)
-5. How long did resolution take? (<1 day / 1–3 days / 4–7 days / >1 week / still unresolved)
-6. What difficulty did you experience? (Open answer)
-7. Would you use an app or web page to report? (Yes/Maybe/No, and why)
-8. What information would you like to see? (status, expected date, contractor, other)
-
-## 6. Analysis
-
-- Transcribe or summarise each interview in **structured notes** immediately after the session.
-- Code by theme (urgency, duplicates, costs, channels, trust in AI…).
-- Record **quotes** only with permission and without identifying details.
-- Each finding must state **how many participants** support it, e.g. “4 of 6 administrators”.
-- Clearly distinguish **what was said** from **the team's interpretation**.
-
-## 7. Findings
-
-> **Execution check — 2026-10-14:** No interviews, survey, observation or prototype test were conducted. A bounded review of two public sources was completed and is recorded below. These sources support workflow hypotheses only; they do not establish local frequency, effort, adoption, willingness to pay or representative user needs.
-
-### 7.1 Actual participants
-
-| Code | Group | Date | Mode (in person/online) | Duration | Notes stored at |
-|---|---|---|---|---|---|
-| | | | | | |
-
-### 7.1.1 Public sources reviewed
+### 3.1 Public sources reviewed
 
 | Code | Source type and publisher | Publication/access date | Scope and evidence reviewed | Limitations |
 |---|---|---|---|---|
@@ -161,56 +48,71 @@ After understanding the current process, propose a concrete task and observe com
 | S8 | Vendor product documentation, Property Meld | Last modified 2025-06-13; accessed 2026-10-14 | [Maintenance communication](https://propertymeld.com/maintenance-communication/): describes resident responses, missing work-order information, vendor follow-up, investor approvals and tracking communication volume/response speed. | Supplier marketing content; does not establish that these problems occur in the project's local target segment. |
 | S9 | Vendor product documentation, Property Meld | Last modified 2025-10-02; accessed 2026-10-14 | [Oversight and data](https://propertymeld.com/maintenance-data/): presents metrics for technician performance, vendor efficiency, coordinator effectiveness, communication, scheduling, staffing and profitability. | Supplier marketing content; benchmark availability and metric definitions require independent verification. |
 
-### 7.2 Findings
+### 3.2 Public-source findings
 
-| ID | Finding | Number of supporting participants | Assumption confirmed, refuted or adjusted | Evidence (codes) |
-|---|---|---|---|---|
-| PS-01 | Public repair guidance makes reporting, expected timing and escalation visible parts of the process. | 0 participants; supported by S1 | Supports investigating status visibility and escalation as workflow requirements; does not validate local need or frequency. | S1 |
-| PS-02 | A commercial maintenance platform positions centralized records, work orders, vendor coordination and resident updates as a product baseline. | 0 participants; supported by S2 | Supports treating traceable history, dispatch and status communication as competitor capabilities to compare; does not prove differentiation or value. | S2 |
-| PS-03 | Public ombudsman casework identifies responsibility, elapsed time and record-keeping as recurring repair-complaint themes. | 0 participants; supported by S3 | Supports making ownership, due dates, status history and escalation explicit workflow concepts; does not establish local complaint frequency. | S3 |
-| PS-04 | Recent ombudsman casework links repair outcomes with trust, communication, complaint handling and contractor relationships, and recommends more proactive maintenance. | 0 participants; supported by S4 | Supports evaluating resident-facing updates, contractor coordination and preventive follow-up as separate workflow concerns; does not validate the proposed AI approach. | S4 |
-| PS-05 | Ombudsman information-management guidance treats data creation, storage, sharing and use as service controls, not just record retention. | 0 participants; supported by S5 | Supports an auditable issue history with controlled visibility and usable information for decisions; supports DEC-07 concerns without confirming the final policy. | S5 |
-| PS-06 | Competitor documentation commonly exposes request intake, ownership, due dates, timestamps, recurring work and status visibility. | 0 participants; supported by S6 | Establishes a baseline feature set that the product must compare against; does not show which capabilities users value or use. | S6 |
-| PS-07 | Property Meld frames scheduling and assignment cycle time, vendor performance and bottleneck visibility as core maintenance-management concerns. | 0 participants; supported by S7 and S9 | Supports measuring time-to-assign, time-to-schedule, completion and handoff bottlenecks if primary data becomes available; no local baseline exists. | S7, S9 |
-| PS-08 | Competitor documentation treats communication gaps, missing request information, follow-up and approval visibility as operational problems. | 0 participants; supported by S8 | Supports testing minimum request information, approval states and communication history in later usability work; vendor claims do not validate severity. | S8 |
+| ID | Public-source finding | Implication / limit | Sources |
+|---|---|---|---|
+| PS-01 | Public repair guidance makes reporting, expected timing and escalation visible parts of the process. | Supports investigating status visibility and escalation as workflow requirements; does not validate local need or frequency. | S1 |
+| PS-02 | A commercial maintenance platform positions centralized records, work orders, vendor coordination and resident updates as a product baseline. | Supports treating traceable history, dispatch and status communication as competitor capabilities to compare; does not prove differentiation or value. | S2 |
+| PS-03 | Public ombudsman casework identifies responsibility, elapsed time and record-keeping as recurring repair-complaint themes. | Supports making ownership, due dates, status history and escalation explicit workflow concepts; does not establish local complaint frequency. | S3 |
+| PS-04 | Recent ombudsman casework links repair outcomes with trust, communication, complaint handling and contractor relationships, and recommends more proactive maintenance. | Supports evaluating resident-facing updates, contractor coordination and preventive follow-up as separate workflow concerns; does not validate the proposed AI approach. | S4 |
+| PS-05 | Ombudsman information-management guidance treats data creation, storage, sharing and use as service controls, not just record retention. | Supports an auditable issue history with controlled visibility and usable information for decisions; supports DEC-07 concerns without confirming the final policy. | S5 |
+| PS-06 | Competitor documentation commonly exposes request intake, ownership, due dates, timestamps, recurring work and status visibility. | Establishes a baseline feature set that the product must compare against; does not show which capabilities users value or use. | S6 |
+| PS-07 | Property Meld frames scheduling and assignment cycle time, vendor performance and bottleneck visibility as core maintenance-management concerns. | Supports measuring time-to-assign, time-to-schedule, completion and handoff bottlenecks if primary data becomes available; no local baseline exists. | S7, S9 |
+| PS-08 | Competitor documentation treats communication gaps, missing request information, follow-up and approval visibility as operational problems. | Supports testing minimum request information, approval states and communication history in later usability work; vendor claims do not validate severity. | S8 |
 
-### 7.3 Resulting product decisions
+### 3.3 Scenario synthesis (DISC-01-03)
 
-| Finding | Decision taken | Where reflected (backlog, vision, ADR) |
+Compare answers by effort, duplication, urgency, adoption, access, dispatch and AI trust, retaining contrasts within each segment. Counts below describe fictional documents, not supporting participants; question numbers refer to each record's guide, not Q1–Q9. Public findings provide context, not independent corroboration of a scenario.
+
+
+| ID / topic | Recorded scenario content and exact references | Interpretation and counterexample | Context from public findings |
+|---|---|---|---|
+| SF-01 / effort | [SIM-ADM-P-01](research/answers/SIM-ADM-P-01.md), questions 3/11: fragmented contacts; [SIM-ADM-P-02](research/answers/SIM-ADM-P-02.md), 3/11: an existing structured tool; [SIM-ADM-V-01](research/answers/SIM-ADM-V-01.md), 3/11: several contacts and access coordination; [SIM-ADM-V-02](research/answers/SIM-ADM-V-02.md), 3/11: low-volume direct coordination. Four fictional records; constructed times are extracted once in section 3.5. | Coordination effort may depend on process maturity and contact volume, not role alone. Focus the experiment on fragmented coordination; low-effort cases challenge a universal value claim. Waiting for a contractor is not active administration. | PS-03 and PS-07 motivate examining handoffs; they supply no local effort baseline. |
+| SF-02 / duplicates | All four administrator records, question 6: P-01 describes six repeated communications out of 20 and two apparently similar but distinct faults; P-02 one out of 15; V-01 two repeated messages out of five; V-02 none out of three. [SIM-MOR-01](research/answers/SIM-MOR-01.md) and [SIM-MOR-02](research/answers/SIM-MOR-02.md), question 3, describe not reporting when someone else may have done so. | Duplicate volume is not uniformly high even within fiction. Different denominators and invented periods prohibit pooling rates. Preserve separate reports and human review of links; silence does not show lack of impact. | PS-06 concerns feature availability, not proof of duplicate frequency. |
+| SF-03 / urgency | Four administrator records, question 5: P-01/V-01/V-02 seek technical input when uncertain; P-02 describes triage that worked. | Missing context and uncertainty deserve explicit handling, but poor current triage is not established. Retain manual judgement and independent critical-signal rules; do not promise diagnosis or safety. | PS-03/04 concern repair outcomes, not AI classification accuracy. |
+| SF-04 / administrator adoption | Four administrator records, questions 9/12/14: P-01 considers a limited pilot without migration; P-02 requires demonstrated integration; V-01 wants simplicity and collective cost approval; V-02 sees little reason to add a paid tool. | Conditional interest is not adoption. Keep professionals as the primary experiment segment, but compare process maturity within it; volunteers cannot validate business purchasing. Integration is a barrier to test, not a commitment to build integrations now. | PS-02/06 show existing alternatives; supplier feature claims do not establish switching demand. |
+| SF-05 / resident access and privacy | Two resident records, questions 4-6: MOR-01 wants receipt/status with a short mobile flow and private, optional impact confirmation; MOR-02 prefers telephone/help and rejects mandatory digital participation. | A simple page alone may not include everyone. Retain private reports, administrator-published summaries and optional impact confirmation; evaluate an assisted reporting route before claiming accessibility. These are two fictional perspectives, not a usability test. | PS-01/05 support investigating communication and controlled information sharing in other contexts. |
+| SF-06 / dispatch and closure | [SIM-PRE-01](research/answers/SIM-PRE-01.md) and [SIM-PRE-02](research/answers/SIM-PRE-02.md), questions 1-5, distinguish scope approval, acceptance, availability, access and completion. PRE-01 accepts a simple request but keeps its own calendar; PRE-02 rejects another mandatory app and automatic penalties. Administrator records, questions 7-8, provide four additional fictional process perspectives. | Retain distinct approval, response, booking, completion and closure steps. A calendar event cannot prove contractor availability. Preserve refusal, rescheduling and a manual coordination option; no assumed contractor adoption. | PS-07/08 motivate scheduling and approval visibility, without validating this local workflow. |
+| SF-07 / AI value and trust | Four administrator records, question 10: P-01/V-01 ask for reasons, correction and a manual route; P-02 sees limited need for routine classification; V-02 would not adopt for AI. | Explainability and review are design conditions, not demonstrated trust or usefulness. Keep assisted classification as the academic experiment, compare it with rules/manual triage, and allow suggestions to be ignored. | None of PS-01 to PS-08 evaluates the proposed AI or proves its benefit. |
+
+### 3.4 Hypothesis disposition and next tests
+
+All P1-P7 remain **empirically unresolved**. Support or contradiction below applies only to the constructed scenarios; no hypothesis is marked confirmed or refuted about the target population.
+
+| Hypothesis | Scenario disposition / finding | Next evidence that could change the decision |
 |---|---|---|
-| | | |
+| P1 | Mixed: high-contact cases support investigating effort; low-effort cases challenge universal significance (SF-01). | Compare equivalent current-process and BMC tasks by active time, errors and assistance, including a structured-process counterexample; validate operational relevance separately. |
+| P2 | Mixed: duplication exists in some scenarios and is absent/rare in others (SF-02). | Real anonymised reports with common period/denominator for frequency; separately annotated same-fault versus different-fault pairs for duplicate-link evaluation. |
+| P3 | Mixed: uncertain cases coexist with working triage (SF-03). | Expert-reviewed cases, reasons for priority and errors under manual/rules/AI conditions; no safety guarantee from a small dataset. |
+| P4 | Conditional interest and resistance, not buying intent (SF-04). | Professional administrators complete a trial task and explain actual purchasing/integration constraints; distinguish stated interest from continued use. |
+| P5 | Digital willingness in one profile and telephone preference in another (SF-05). | Task-based reporting with people of differing digital access, recording completion, errors, assistance and privacy comprehension. |
+| P6 | Conditional request acceptance with calendar/app resistance (SF-06). | Test accept/refuse/reschedule and change-of-scope tasks with contractors; check actual willingness to maintain the proposed channel. |
+| P7 | Correction/explanation requested, but some profiles see little AI value (SF-07). | Compare task outcomes with rules/manual and AI suggestions, including wrong and unavailable suggestions; record corrections and harmful reliance. |
 
-## 8. Limitations (review after collection)
+### 3.5 Coordination-effort baseline
 
-Current limitations after the 2026-10-14 evidence check:
+**No empirical baseline estimate is available.** SF-01 contains invented case times of 45, 10, about 60 and 15 active minutes. The corresponding question-11 ranges are 30-60, 10-15, 40-70 and 15-20 minutes within those fictional profiles. Do not average these into a user baseline, use them to calibrate a reduction target, or interpret elapsed repair time as effort saved.
 
-- No primary research is recorded; the problem, effort, adoption and AI-value claims remain hypotheses.
-- The public review contains nine sources: government guidance, ombudsman casework summaries and vendor documentation. It is still not a systematic literature review, representative market study or independent competitor audit.
-- No recruitment attempt log, consent record or restricted research note was supplied, so the reason for the missing collection and the achieved coverage cannot be assessed.
-- No participant register, participant measurements or authorised quotations exist. Participant-dependent findings and any final product decisions in section 7.3 must remain provisional until primary records are created and reviewed.
+The answers describe different per-occurrence activities and do not isolate the receipt-to-approved-request window in the [vision's measurement protocol](04-product-vision.md#51-primary-success-criterion-dec-08). No conversion to that window can be inferred. DEC-08 and LIM-04 remain open.
 
-Expected limitations once collection occurs:
 
-- **Small convenience sample**, not representative.
-- Limited access to **professional administrators**; probable bias towards volunteers.
-- Risk of **confirmation bias**: interviewers know the proposed solution. Mitigate with open questions about past experiences before showing the idea.
-- Participants may know the students (politeness, social desirability bias).
-- Stated willingness to pay or adopt does not always translate into behaviour.
-- No access to real incident data; AI evaluation will use synthetic data.
+## 4. Resulting product decisions
 
-## 9. Suggested schedule
+The [decision register](planning/decisions-and-feedback.md#disc-01-03-synthesis-proposals) is canonical for proposal wording, rationale, review status and affected product artefacts. The mapping below connects findings to those proposals without maintaining a second decision record.
 
-| When | Activity |
-|---|---|
-| Phase 1 / start of Phase 2 | Finalise guides, identify and contact participants |
-| Phase 2 | Administrator and contractor interviews |
-| Phase 2, subject to capacity | Resident survey |
-| Phases 2–3 | Analysis, persona updates, decisions and prototype testing |
+| Findings | Proposal | Consequence |
+|---|---|---|
+| SF-01/04 | SP-01 / DEC-02 | Qualify the opportunity by process fragmentation and contact volume |
+| SF-02/05 | SP-02 / DEC-07 | Retain controlled sharing and optional participation |
+| SF-03/07 | SP-03 / DEC-05 | Retain reviewed AI as an experiment with a manual/rules alternative |
+| SF-06 | SP-04 / DEC-10 | Keep approval, acceptance, booking and closure distinct |
+| SF-01/07 | SP-05 / DEC-08 | Evaluate equivalent tasks without using fictional times as a baseline |
 
-## 10. Records and decisions
+## 5. Limitations
 
-Use the [recording template](templates/research-record.md) for each actual interview, survey administration, observation, prototype test or public source. Findings remain in section 7; requirements and the problem report reference their IDs. Section 7.3 links to the [decision register](planning/decisions-and-feedback.md), which stores rationale, participants and decision status without duplicating meeting notes.
+- The scenarios contain constructed incidents, counts and effort values. They may reflect the product already imagined by their authors; adding fictional counterexamples does not remove that design bias. They cannot establish real frequency, adoption, trust or savings. All P1–P7 remain empirically unresolved.
+- The nine public sources provide contextual guidance, casework and supplier claims. This is not a systematic literature review, representative market study or independent competitor audit; source-specific limits remain in section 3.1.
+- Original simulation generation tooling/process and the record of the lecturer clarification are unavailable. See the [inventory provenance](research/answers/README.md#método-e-proveniência). The absence of recruitment records is not evidence that recruitment failed.
 
-Until primary records exist, DISC-01-02 is only partially complete through secondary research; no adoption, problem-frequency or AI-value claim may be presented as validated.
-
-Before collection, assign an owner and resolve access/retention in DEC-07. Dates depend on DEC-03. Findings inform [requirements](requirements.md) and [backlog](05-product-backlog.md) prioritisation.
+The [hypothesis table](#34-hypothesis-disposition-and-next-tests) identifies next evidence needed; future collection risks and procedures belong in the [reusable preparation](templates/research-collection.md#5-analysis-and-later-prototype-tests).
