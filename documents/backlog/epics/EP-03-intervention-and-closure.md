@@ -1,6 +1,6 @@
 # [EP-03] Intervention from request to closure
 
-- Publication: Draft — not published by this change; GitHub issue URL: pending. Prepared on 2026-10-15.
+- Publication: Published as [#9](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/9) on 2026-10-15 (checked 2026-10-29); GitHub owns live status. Prepared on 2026-10-15.
 - Workflow: Backlog; type: epic; suggested labels: `type:epic`, `area:backend`.
 - Allocation: see the [backlog README](../README.md); confirm coordinator and reviewer during planning.
 - Horizon: S1 discovery/design inputs; first operational cycle in S2, refinement and conditional extensions in S3. No Sprint 1 implementation commitment.
