@@ -23,7 +23,7 @@ Initial order: DISC/EN discovery and foundations → US-01/02 → US-03/04 → U
 | [EP-00](backlog/epics/EP-00-discovery-and-planning.md) | Justifiable discovery and planning | DISC-01–03 | §5.1–5.5, §5.7 |
 | [EP-01](backlog/epics/EP-01-reporting-and-tracking.md) | Residents report and track issues with appropriate visibility | US-01/02/04/10 | J1, P1/P5 |
 | [EP-02](backlog/epics/EP-02-assisted-triage.md) | Assisted triage and reviewed links | AI-01 (S1 assessment), PLAN-02 (preparation), US-03/05/14/15 | §5.6; J2, P2/P3/P7 |
-| [EP-03](backlog/epics/EP-03-intervention-and-closure.md) | Intervention from request to closure | US-06–09/11–13 | J2–J3, P6 |
+| [EP-03](backlog/epics/EP-03-intervention-and-closure.md) | Intervention from request to closure | PLAN-03 (preparation), US-06–09/11–13 | J2–J3, P6 |
 | [EP-04](backlog/epics/EP-04-engineering-and-quality.md) | Deliverable, secure, observable and evaluable system | EN-01–04 | §6–§8 |
 
 ## 3. Discovery and engineering
@@ -36,7 +36,8 @@ Detailed issue bodies and child tasks for [DISC-01](backlog/tasks/DISC-01-user-r
 | DISC-02 / Must | Complete comparison: exact, dated sources; §5.2 criteria; include an informal alternative and a comparable maintenance/helpdesk product; conclusion separates evidence from inference | Selection of comparables | S1 |
 | DISC-03 / Must | Ratify organisation and review scope/priorities: roles/board/DoR/DoD; DEC-01/03/09 and DEC-10 discussion; actual feedback recorded. Document at least one decision revised following lecturer feedback during the project | Team and stakeholder availability | S1, follow-up S2/S3 |
 | [AI-01](backlog/tasks/AI-01-assess-ai-opportunity.md) / Must | Review the AI opportunity: user-need evidence/limitations, workflow, representative/adverse examples, evaluation criteria and dataset plan, baseline/fallback, human control and cost assumptions; DEC-05/08 updated. Design assessment only; no executed evaluation required | DISC-01 synthesis, reviewed vision; supports US-03 | S1 |
-| [PLAN-02](backlog/tasks/PLAN-02-prepare-ai-and-fallback-stories.md) / Must candidate | Prepare US-03/05/14/15 drafts, separate classification/fallback/evaluation, and record technical refinements; owner Sandro Dias. Drafting does not implement or validate AI | Existing scope/AI-01; confirm applicable EN-01/DEC-05/08 decisions listed in the stories before Ready | S1 drafting for S2/S3 |
+| [PLAN-02](backlog/README.md#ep-02-story-drafts-and-planning-allocation) / Must candidate | Prepare US-03/05/14/15 drafts, separate classification/fallback/evaluation, and record technical refinements; owner Sandro Dias. Drafting does not implement or validate AI | Existing scope/AI-01; confirm applicable EN-01/DEC-05/08 decisions listed in the stories before Ready | S1 drafting for S2/S3 |
+| PLAN-03 / Must candidate | Prepare US-06–09/11–13 drafts and record decisions needed before development; owner Sandro Dias. Core delivery is separate from conditional extensions | Existing EP-03 scope; confirm applicable EN-01/DEC-06/07/10 decisions listed in the stories before Ready | S1 drafting for S2/S3 |
 | EN-01 / Must | Consolidate design: context, components, model, API/events, data ownership, deployment and threats; ADRs record alternatives and actual decisions | DEC-04/07, vision | S1 |
 | EN-02 / Must for later implementation foundations; optional in S1 | Walking skeleton: client→backend→persistence→query after restart; automated build, initial test and containers with reproducible instructions; linked evidence. Not selected for Sprint 1 (DEC-11) | EN-01 | S2 planning candidate; no Sprint 1 commitment |
 | EN-03 / Must | Delivery/quality: independent components or accepted exception; CI/CD, authorisation/contract/journey tests, logs/health/metrics/correlation, queue/AI/calendar failures and backup/restore; evidence for applicable NFRs | EN-01/02; accompanies stories | S2, strengthened in S3 |
@@ -110,6 +111,8 @@ As an administrator, I want to identify reports of the same fault to coordinate 
 
 ### US-06 — Select a contractor · Must · EP-03
 
+**Detailed draft:** [US-06](backlog/tasks/US-06-select-a-contractor.md).
+
 As an administrator, I want to select an eligible contractor to prepare the intervention.
 
 - The synthetic catalogue provides specialisation and coverage; filters eliminate incompatible candidates.
@@ -121,17 +124,21 @@ As an administrator, I want to select an eligible contractor to prepare the inte
 
 ### US-07 — Approve a request and obtain a response · Must · EP-03
 
+**Detailed draft:** [US-07](backlog/tasks/US-07-approve-request-and-obtain-response.md).
+
 As an administrator, I want to authorise a request and know the contractor's response to coordinate the intervention.
 
 - Only the building administrator can approve; record the proposal, terms and version.
 - Repeated approval does not send two requests.
 - Only the assigned contractor can accept, decline or counterpropose; a counterproposal requires new approval.
 - Request approval does not show the booking as confirmed.
-- Changed terms invalidate approval of the previous version.
+- Changed terms invalidate approval of the previous version. Under the current DEC-10 proposal, approving contractor-authored terms also records their acceptance; confirm this rule before development.
 
 **Source:** RF-07; NFR-01/04. **Dependencies:** US-06, DEC-10. **Horizon:** S2.
 
 ### US-08 — Confirm calendar booking and handle failures · Must · EP-03
+
+**Detailed draft:** [US-08](backlog/tasks/US-08-confirm-booking-and-handle-failures.md).
 
 As an administrator, I want to know whether the booking was actually recorded to avoid communicating a false date.
 
@@ -139,17 +146,19 @@ As an administrator, I want to know whether the booking was actually recorded to
 - A valid response stores the external reference and confirms; timeout/invalid data leaves an explicit pending state.
 - A retry/duplicate event does not create a second booking; uncertain external outcomes are reconciled.
 - Manual confirmation requires an administrator, date and reason/source; do not present it as synchronised.
-- Retrying after manual action does not create a duplicate booking.
+- Retrying after manual action does not create a duplicate booking. Cancellation and late responses are reconciled, and a missing external booking is shown as a discrepancy.
 
 **Source:** RF-08; NFR-04/11. **Dependencies:** US-07, DEC-06/10. **Horizon:** S2.
 
 ### US-09 — Complete, close and reopen · Must · EP-03
 
+**Detailed draft:** [US-09](backlog/tasks/US-09-complete-close-and-reopen.md).
+
 As an administrator, I want to verify completion to close the issue with a history.
 
 - The assigned contractor reports completion; the issue becomes “awaiting validation”.
 - The administrator closes it or returns it for execution with a reason; they can also close it manually with justification.
-- Reopening records a reason and preserves history; invalid transitions are rejected.
+- Reopening records a reason and preserves history; invalid transitions are rejected. Under the current DEC-10 proposal, a resolved issue returns to triage with a new intervention, while cancelled issues cannot be reopened.
 - Unknown cost does not prevent closure; no financial conclusion is invented.
 
 **Source:** RF-09; NFR-01/09. **Dependencies:** US-02/07/08, DEC-10. **Horizon:** S2, refined in S3.
@@ -167,6 +176,8 @@ As a participant, I want to receive authorised updates to track the issue.
 
 ### US-11 — Record a basic cost · Should · EP-03
 
+**Detailed draft:** [US-11](backlog/tasks/US-11-record-a-basic-cost.md). Select or defer explicitly based on evidence and capacity.
+
 As an administrator, I want to record known costs to maintain intervention history.
 
 - Non-negative amount, currency and source; the field may be empty.
@@ -178,6 +189,8 @@ As an administrator, I want to record known costs to maintain intervention histo
 
 ### US-12 — Refine ranking · Should · EP-03
 
+**Detailed draft:** [US-12](backlog/tasks/US-12-refine-ranking.md). Select or defer explicitly based on evidence and capacity.
+
 As an administrator, I want to compare additional criteria to select among eligible contractors.
 
 - Documented weights; justify the source/freshness of price, distance and availability.
@@ -187,6 +200,8 @@ As an administrator, I want to compare additional criteria to select among eligi
 **Source:** P6 / RF-06. **Dependencies:** US-06, evidence of usefulness and data. **Horizon:** S3 if capacity allows.
 
 ### US-13 — Integrate a real calendar · Could · EP-03
+
+**Detailed draft:** [US-13](backlog/tasks/US-13-integrate-a-real-calendar.md). Select or defer explicitly based on evidence and capacity.
 
 As an administrator, I want to synchronise with the calendar used in operations.
 

@@ -29,20 +29,20 @@ Excluded: marketplace, payments, subscriptions, automatic expense approval, cost
 
 ## Child stories
 
-Detailed acceptance criteria and priorities remain in the existing [product backlog stories](../../05-product-backlog.md#4-stories-and-criteria). These references do not create extra copies of the work; individual story draft files and GitHub URLs are not yet recorded in this package.
+Detailed drafts are linked below; the [product backlog](../../05-product-backlog.md#4-stories-and-criteria) remains the scope and priority overview. PLAN-03 prepares these drafts in Sprint 1; it does not implement the stories. Each story is a direct child of EP-03, alongside PLAN-03.
 
 Core cycle:
 
-- [ ] US-06 — Select a contractor · Must · S2 · RF-06.
-- [ ] US-07 — Approve a request and obtain a response · Must · S2 · RF-07.
-- [ ] US-08 — Confirm calendar booking and handle failures · Must · S2 · RF-08.
-- [ ] US-09 — Complete, close and reopen · Must · S2, refined in S3 · RF-09.
+- [ ] [US-06 — Select a contractor](../tasks/US-06-select-a-contractor.md) · Must · S2 · RF-06.
+- [ ] [US-07 — Approve a request and obtain a response](../tasks/US-07-approve-request-and-obtain-response.md) · Must · S2 · RF-07.
+- [ ] [US-08 — Confirm calendar booking and handle failures](../tasks/US-08-confirm-booking-and-handle-failures.md) · Must · S2 · RF-08.
+- [ ] [US-09 — Complete, close and reopen](../tasks/US-09-complete-close-and-reopen.md) · Must · S2, refined in S3 · RF-09.
 
 Conditional scope, subject to evidence and capacity:
 
-- [ ] US-11 — Record a basic cost · Should · S2/S3 · RF-11.
-- [ ] US-12 — Refine ranking · Should · S3 · RF-06 / P6.
-- [ ] US-13 — Integrate a real calendar · Could · If capacity allows · RF-08.
+- [ ] [US-11 — Record a basic cost](../tasks/US-11-record-a-basic-cost.md) · Should · S2/S3 · RF-11.
+- [ ] [US-12 — Refine ranking](../tasks/US-12-refine-ranking.md) · Should · S3 · RF-06 / P6.
+- [ ] [US-13 — Integrate a real calendar](../tasks/US-13-integrate-a-real-calendar.md) · Could · If capacity allows · RF-08.
 
 Once published, attach each story as a sub-issue of this epic and link its actual issue URL. Put implementation subtasks beneath their story. Optional stories are not automatic release commitments: record selection or deferral explicitly; never mark deferred work Done. Keep unfinished selected children visible, and reparent deferred extensions to future scope if needed before closing the released epic.
 
@@ -61,6 +61,7 @@ Once published, attach each story as a sub-issue of this epic and link its actua
 
 - US-06 depends on EP-01's US-02. Implement the core in order US-06 → US-07 → US-08 → US-09, with US-09 also depending on US-02/07. US-11 follows US-09, US-12 follows US-06 and US-13 follows US-08.
 - Coordinate US-07 events with EP-01's US-10; do not turn this story-level integration into a requirement that either whole epic must finish first.
+- Decisions needed before development are listed in each story's Ready / Done section. Confirm service/data ownership, API/event contracts, calendar adapter/authentication, idempotency, version checks, reconciliation and the test environment with EN-01. The current DEC-10 state rules are proposals; drafting does not approve them.
 - EP-00 research must investigate contractor participation and approval/scheduling rules. Resolve DEC-06/07/10, and use EN-01 design/ADRs plus EN-02/03 foundations and delivery checks. See the [decision register](../../planning/decisions-and-feedback.md).
 - Apply [NFR-01/02/04/06/09/11](../../requirements.md), the [security/access assessment](../../09-security-privacy.md) and [technical ownership/state rules](../../07-technical-design.md). Dispatch controls interventions/bookings; issue closure is performed through the Issue-owned interface, not cross-writing its tables.
 - Principal risks: contractor non-adoption, scope growth into a marketplace, invented price/availability data, double bookings, stale approvals and inconsistent cancellation/status projections. A calendar slot alone does not prove contractor availability.

@@ -23,7 +23,7 @@ Excluded: Autonomous approvals, unreviewed report merges and a general-purpose c
 
 ## Story preparation and S2/S3 drafts
 
-- [ ] [PLAN-02 — Prepare AI user stories and a separate fallback story](../tasks/PLAN-02-prepare-ai-and-fallback-stories.md) · preparation owner Sandro Dias.
+- [ ] [PLAN-02 — Prepare AI user stories and a separate fallback story](../README.md#ep-02-story-drafts-and-planning-allocation) · preparation owner Sandro Dias.
 - [ ] [US-03 — Suggest category and urgency with AI](../tasks/US-03-classify-with-ai.md) · Must · S2.
 - [ ] [US-14 — Continue triage without AI](../tasks/US-14-continue-triage-without-ai.md) · Must · S2; provider-free baseline/continuity.
 - [ ] [US-05 — Review duplicate suggestions](../tasks/US-05-review-duplicate-suggestions.md) · Should · S2/S3 only if selected.
