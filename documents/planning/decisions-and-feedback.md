@@ -54,16 +54,6 @@ These are neither investor feedback nor user-validated choices.
 | IoT in notes vs vision scope | Preserved for DEC-01 |
 | Git protections and board as facts | Proposed configurations without remote evidence |
 
-### DEVOPS-01 proposals (CI/CD)
-
-| Proposal | Owner | Status |
-|---|---|---|
-| Build once and release by tag; promotion retags the tested image, no rebuild | Martim | Proposed; not configured |
-| GHCR images with cosign signature and SBOM | Martim | Proposed; not configured |
-| CodeQL for SAST | Martim | Proposed; not configured |
-
-Recorded date: pending team review. Nothing in this table is applied to the repository or to GitHub settings.
-
 ## 3. Stakeholder/investor feedback
 
 The evaluator clarification below was reported by the team. No separate investor review session or revision of a product/technical decision has been recorded; the scope clarification alone is not treated as proof of meeting §5.7.

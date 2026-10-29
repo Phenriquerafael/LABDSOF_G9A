@@ -6,8 +6,8 @@ This document describes our branching model, pipelines, golden images, security 
 
 ## Rollout phases
 
-- **Phase 1 (now, before the app runs anywhere):** the `main-quality` ruleset (PR with 1 approval, no force push, no deletion). No required status checks until there is a build and tests.
-- **Phase 2 (once there is a build and tests):** `ci.yml` as required checks, the tag-gated release (`release.yml`), the tag ruleset, the `production` environment, automatic dev deploy from `main` (`main.yml`), DAST and the `dev` environment.
+- **Phase 1 (now, before the app runs anywhere):** `main` with PR checks (`ci.yml`), the tag-gated release (`release.yml`), the `main-quality` ruleset, the tag ruleset and the `production` environment.
+- **Phase 2 (once the app is deployed somewhere):** automatic dev deploy from `main` (`main.yml`), DAST and the `dev` environment.
 - **Phase 3 (when the team or registry outgrows the basics):** golden-image repository, GHCR cleanup and the organization transfer. These sections are marked "Phase 3".
 
 ---
@@ -127,7 +127,7 @@ One tool per category keeps the pipeline easy to maintain. Replace a tool only w
 |---|---|---|---|
 | **Secrets scan** | gitleaks | Leaked credentials | Every PR and push to `main` |
 | **SAST** | CodeQL | Vulnerabilities in our source code | Every PR and push to `main` |
-| **SCA** | Dependabot alerts | Vulnerable dependencies | Continuously, on the default branch (advisory: does not gate PRs) |
+| **SCA** | Dependabot alerts | Vulnerable dependencies | Continuously, on the default branch |
 | **Dockerfile scan** | hadolint | Dockerfile misconfigurations | Every PR and push to `main` |
 | **Container scan + SBOM** | Trivy | CVEs and component inventory in the final image | Every image build |
 | **Image signing** | cosign (keyless via GitHub OIDC) | Integrity / provenance | Every pushed image |
@@ -149,8 +149,6 @@ Suggested policy:
 ## 6. Registry and image tagging (GHCR)
 
 All images live in GitHub Container Registry: `ghcr.io/<org>/<app>`.
-
-One image per deployable component (`<repo>-issue`, `<repo>-dispatch`, …). A tag promotes every component image built from that commit.
 
 | Event | Tags pushed | Notes |
 |---|---|---|
@@ -206,9 +204,9 @@ Redeploy a previous version tag: `ghcr.io/<org>/<app>:1.3.2`. No rebuild needed,
 
 Suggested workflow files. Before using them:
 
-- They assume a `Makefile` with `build` and `test` targets and a `Dockerfile` per component (for example `issue`, `dispatch`, `notification`, `ai`, `client`). Create those first.
+- They assume a `Makefile` with `build` and `test` targets and a `Dockerfile` at the repository root. Create those first.
 - Actions are shown with version tags for readability. **Pin every third-party action to a full commit SHA** (section 11.3, item 6) and keep the version in a comment.
-- The Mermaid sources for the diagrams are in `documents/devops/diagrams/`. Regenerate the PNGs from them after any change. `golden-image-lifecycle.png` has no source yet and is a manual image until one is added.
+- The Mermaid sources for the diagrams are in `documents/devops/diagrams/`. Regenerate the PNGs from them after any change.
 
 ```
 .github/workflows/
@@ -247,9 +245,9 @@ jobs:
           languages: <your-language>      # for example javascript-typescript or java-kotlin
       - uses: github/codeql-action/analyze@v3
       - name: Build image (not pushed)
-        run: docker build -t app:ci -f <component>/Dockerfile <component>
+        run: docker build -t app:ci .
       - name: Container scan
-        uses: aquasecurity/trivy-action@<release-tag>   # pin a release tag, then a full commit SHA
+        uses: aquasecurity/trivy-action@master
         with:
           image-ref: app:ci
           severity: CRITICAL,HIGH
@@ -283,8 +281,9 @@ permissions:
   actions: read
 
 jobs:
-  verify:
+  promote:
     runs-on: ubuntu-latest
+    environment: production        # required reviewers approve before this job starts
     steps:
       - uses: actions/checkout@v4
         with: { fetch-depth: 0 }
@@ -312,29 +311,14 @@ jobs:
       - name: Verify signature of the tested image
         run: |
           cosign verify ghcr.io/${{ github.repository }}:sha-${{ github.sha }} \
-            --certificate-identity "https://github.com/${{ github.repository }}/.github/workflows/main.yml@refs/heads/main" \
+            --certificate-identity-regexp "https://github.com/${{ github.repository }}/.*" \
             --certificate-oidc-issuer https://token.actions.githubusercontent.com
-
-  deploy:
-    needs: verify
-    runs-on: ubuntu-latest
-    environment: production        # required reviewers approve before this job starts
-    steps:
-      - uses: actions/checkout@v4
-      - uses: sigstore/cosign-installer@v3
-      - uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Promote (retag, no rebuild)
         run: |
           VERSION=${GITHUB_REF_NAME#v}
-          docker buildx imagetools create --prefer-index=false \
+          docker buildx imagetools create \
             -t ghcr.io/${{ github.repository }}:${VERSION} \
-            -t ghcr.io/${{ github.repository }}:${VERSION%.*} \
-            -t ghcr.io/${{ github.repository }}:${VERSION%%.*} \
             ghcr.io/${{ github.repository }}:sha-${{ github.sha }}
 
       - name: Deploy to prod
@@ -442,7 +426,8 @@ Nothing is pruned automatically yet, so the cleanup cannot touch a released imag
 ```yaml
 name: GHCR cleanup
 on:
-  # schedule: re-enable (weekly, Sunday 03:00 UTC) only after section 10.1 is resolved
+  schedule:
+    - cron: "0 3 * * 0"             # weekly, Sunday 03:00 UTC
   workflow_dispatch:
     inputs:
       dry_run:
@@ -514,10 +499,10 @@ There are no teams, and no Triage, Maintain or Admin roles. Mapping for this pro
 |---|---|
 | Developers | Collaborators |
 | Tech leads | Collaborators, listed in the tag ruleset and CODEOWNERS |
-| DevOps | Martim: tag ruleset bypass list and `production` reviewer |
+| DevOps | The repo owner, plus any collaborators listed as `production` reviewers |
 | External contributors | Fork + PR only |
 
-The owner (Pedro) is the only admin: settings, rulesets, secrets. DevOps (Martim) approves and releases, but cannot change settings.
+Since there is only one Owner, whoever owns the account is effectively the admin. Other DevOps people can approve and release, but cannot change settings.
 
 ### 11.3 How to set it up
 
@@ -527,7 +512,7 @@ The owner (Pedro) is the only admin: settings, rulesets, secrets. DevOps (Martim
 - Name `main-quality`, enforcement **Active**, target branch `main`, **no bypass list**
 - Require a pull request before merging (1 approval)
 - Require Code Owner review (applies only to the paths in CODEOWNERS)
-- Require status checks to pass (build, test, SAST, container scan) (from Phase 2)
+- Require status checks to pass (build, test, SAST, container scan)
 - Block force pushes, restrict deletions
 
 Production is protected by the tag ruleset and the `production` environment instead, not by a merge gate.
@@ -599,7 +584,7 @@ After a transfer, the GHCR image path changes from `ghcr.io/<user>/<app>` to `gh
 - [ ] Workflow permissions default to read-only, elevated per job
 - [ ] Cosign verification enforced before any deploy
 - [ ] DAST job in `main.yml` is required, because `release.yml` checks its result
-- [ ] Collaborators added with Write access; Pedro (owner) applies the settings
+- [ ] Collaborators added with Write access; the repo owner acts as DevOps / final authority
 - [ ] CODEOWNERS covers `.github/`, Dockerfiles and infra
 - [ ] Environment `production` has required reviewers and is limited to `v*` tags
 - [ ] Bypass lists and environment reviewers kept to the minimum number of people
@@ -633,10 +618,3 @@ These are not decided yet. The workflows contain placeholders until they are.
 - **Single owner or organization.** Decide whether one owner account is acceptable, or move to an organization early (11.5).
 - **Dev on every merge or on demand.** Automatic deploys show integration problems early, but they also break the shared environment on every bad merge.
 - **Base images until phase 3.** Use official images pinned by digest, or wait for the golden images.
-
----
-
-## 15. Sources
-
-- Docker, `docker buildx imagetools create`: https://docs.docker.com/reference/cli/docker/buildx/imagetools/create/, accessed 2026-10-25.
-- GitHub plan, permission and package-deletion claims (sections 10.2, 11.2 and 11.4): not yet sourced. Each needs a URL and access date before this document is approved.

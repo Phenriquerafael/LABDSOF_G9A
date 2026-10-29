@@ -60,7 +60,6 @@ File numbering matches the assignment deliverables; document 08 links to the ADR
 | [Definition of Done](documents/governance/definition-of-done.md) | Proposal by delivery type |
 | [Git workflow](documents/governance/git-workflow.md) | Proposal; remote protections not verified |
 | [Issues, labels and milestones](documents/governance/issue-management.md) | Local conventions; remote configuration pending |
-| [CI/CD strategy](documents/devops/CICD.md) | Proposal; nothing configured |
 | [Sprint 1 plan](documents/planning/sprint-1-plan.md) | Phases, dependencies and exit criteria |
 | [Epic and Sprint 1 task issue drafts](documents/backlog/README.md) | 5 epics, 4 parent tasks and 15 delivery tasks; proposed allocations; remote publication unverified and no new sprint commitments |
 | [Sprint B backlog](documents/planning/sprint-b-backlog.md) | Candidates; no Ready commitments |
