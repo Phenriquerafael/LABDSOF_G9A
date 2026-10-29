@@ -1,6 +1,6 @@
 # [EP-00] Justifiable discovery and planning
 
-- Publication: Draft — not published; GitHub issue URL: pending.
+- Publication: Published as [#29](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/29) on 2026-10-10 (checked 2026-10-29); GitHub owns live status.
 - Workflow: Backlog; type: epic; suggested labels: `type:epic`, `area:product`.
 - Proposed coordinator: Afonso; proposed reviewer: Pedro; confirm during planning.
 - Horizon: S1 with feedback follow-up through S3.
