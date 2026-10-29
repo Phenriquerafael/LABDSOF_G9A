@@ -1,0 +1,30 @@
+flowchart TB
+    USER["Users"] --> NGINX
+    UPTIME["External uptime check<br/>(free monitor)"] -. "pings public URL" .-> NGINX
+
+    subgraph EC2["EC2 instance: Docker Compose"]
+        NGINX["nginx / gateway<br/>creates X-Request-ID"] --> SVCA["Service A<br/>/metrics, /healthz, /readyz, /status"]
+        NGINX --> SVCB["Service B<br/>/metrics, /healthz, /readyz, /status"]
+        PROM["Prometheus"]
+        NODE["node_exporter<br/>host metrics"]
+        CADV["cAdvisor<br/>container metrics"]
+        BB["blackbox_exporter<br/>URL probes"]
+        GRAF["Grafana<br/>operations dashboard + alerts"]
+        ALLOY["Alloy + Loki<br/>(optional)"]
+        PROM -->|scrape| NODE
+        PROM -->|scrape| CADV
+        PROM -->|scrape| SVCA
+        PROM -->|scrape| SVCB
+        PROM -->|scrape| BB
+        BB -.->|probe| NGINX
+        GRAF -->|query| PROM
+        SVCA -. "JSON logs" .-> ALLOY
+        SVCB -. "JSON logs" .-> ALLOY
+        GRAF -. "query logs" .-> ALLOY
+    end
+
+    SVCA -. "errors" .-> SENTRY["Sentry<br/>(hosted, free plan)"]
+    SVCB -. "errors" .-> SENTRY
+    GRAF -->|alerts| NOTIFY["Discord / Telegram"]
+    UPTIME -->|down alert| NOTIFY
+    YOU["You"] -->|"SSH tunnel or nginx + auth"| GRAF

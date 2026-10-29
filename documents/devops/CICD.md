@@ -2,7 +2,7 @@
 
 This document describes our branching model, pipelines, golden images, security testing and release process.
 
-Related: [observability and degraded operation](OBSERVABILITY.md) and [disaster recovery](DR.md) (issue [#42](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/42)).
+Related: [observability and degraded operation](OBSERVABILITY.md) and disaster recovery (document to be written, issue [#42](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/42)).
 
 **Status:** proposal. Nothing in this document is applied to the repository or to GitHub settings yet.
 
