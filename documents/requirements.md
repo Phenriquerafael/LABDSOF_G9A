@@ -54,7 +54,7 @@ Model, states, transition rules and contract outlines: [Technical Design Section
 - Visible data, retention and ways to request deletion (DEC-07).
 - Scheduling and closure business rules (DEC-10); step definitions proposed in vision §4.3 and transition, cancellation and concurrency rules in [Technical Design Section: 3](07-technical-design.md#3-states-and-business-rules) (EN-01-02); a confirmed booking is moved by cancelling and creating a new intervention, while a dedicated rescheduling flow and contractor withdrawal remain open; validation with administrators and contractors pending.
 - Support for private reports about individual units in the pilot; the baseline keeps raw reports restricted.
-- Report photos (US-14, proposed as Should in EN-01-01 on 2026-10-27): needs a DEC entry and team agreement, because photos were classified post-MVP in the 2026-10-07 harmonisation; limits, EXIF stripping and visibility follow [ADR-010](adr/ADR-010-object-storage.md).
+- Report photos without visual analysis are a post-MVP candidate in the [decision register](planning/decisions-and-feedback.md#stack-revision--en-01-01-2026-10-27) pending a DEC entry and team agreement, because photos were classified post-MVP in the 2026-10-07 harmonisation; no story or priority exists. If agreed, limits, EXIF stripping and visibility follow [ADR-010](adr/ADR-010-object-storage.md).
 - Assisted access for residents without digital access, to investigate before expanding the MVP.
 
 Reference: [Nonfunctional Requirements — Scaled Agile](https://framework.scaledagile.com/nonfunctional-requirements/), accessed on 2026-10-07. The scenarios and values above are proposals specific to this project.

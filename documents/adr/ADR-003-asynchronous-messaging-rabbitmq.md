@@ -41,7 +41,7 @@
 | `TriageRequested` | Issue → AI, point-to-point (`issue.TriageRequested` bound only to `ai-triage.requests`) | `issueId`, `issueVersion`, `buildingId`, `areaKind`, the report text needed for classification. The only message type that carries private report text (DEC-07 note); never fanned out; DLQ messages expire after 7 days (`x-message-ttl` on the DLQ); payloads never logged |
 | `TriageSuggested` | AI → Issue | `issueId`, `issueVersion`, category, urgency, rationale, origin (`ai`, `rules`, `fallback`), model/prompt/rules versions. Applied by version. No suggestion within 2 min: Issue shows "triage pending — classify manually"; no state change |
 | `IssueStateChanged` | Issue → Dispatch projection | `issueId`, `buildingId`, state, version, dispatchable flag, category, urgency, area label, published-summary reference; never raw text |
-| `MembershipGranted`, `MembershipRevoked` | Issue → Dispatch projection | `userId`, `buildingId`, role |
+| `MembershipGranted`, `MembershipRevoked` | Issue → Dispatch projection | `membershipId` (`aggregateId`), `userId`, `buildingId`, role, membership `version` (`aggregateVersion`). Applied by version, so an older grant replayed after a revocation is ignored |
 | `NotificationRequested` | Issue or Dispatch → Notification | `notificationId` (idempotency), `sourceEventId`, `recipientUserIds`, `templateKey`, params without private text, priority. Invitation exception: carries `recipientAddress` and the invite link because the invitee has no account; the DLQ TTL applies |
 
 9. **Removed.** `POST /internal/triage-jobs/claim|complete`, `GET /internal/issues/{id}/dispatch-context`, `GET /internal/users/{id}/memberships` and `POST /internal/events`; the triage job table and `SKIP LOCKED` claiming (RabbitMQ is the queue).

@@ -8,7 +8,7 @@
 
 ## Context
 
-Report photos were classed as post-MVP in the 2026-10-07 editorial harmonisation. This ADR proposes a scope addition, not a settled one: a new **Should** story, US-14 “Attach photos to a report”, which needs a DEC entry and backlog work (EN01-U11) before it exists. Must stories do not depend on it.
+Report photos were classed as post-MVP in the 2026-10-07 editorial harmonisation. This ADR records a design candidate, not a scope change: report photos without visual analysis (the “report-photos candidate”, listed in the [decision register](../planning/decisions-and-feedback.md#stack-revision--en-01-01-2026-10-27) with its [candidate acceptance criteria](#candidate-acceptance-criteria-not-a-backlog-story) below). No backlog story exists and no priority is claimed. Afonso (BA/PO) will open a DEC entry and the team decides at the review (EN01-U11); until then the baseline stays as classified on 2026-10-07. Must stories do not depend on it.
 
 A second need is independent of photos: DEVOPS-02 needs an off-host target for database backups, so that losing the host does not lose the data (T-09, [security](../09-security-privacy.md#3-threats-and-checks)). Backups are exercised in the runbook ([ADR-004](ADR-004-deployment-contract.md)).
 
@@ -45,6 +45,22 @@ Garage is chosen on the facts recorded above (maintained, S3 subset sufficient, 
 
 Client re-encoding is a convenience (smaller uploads, one format), not a control; a request that bypasses the client still meets the server checks. Its exact values are tuned in spike item 13 on a real iPhone and Android device. Contractor completion photos are a later topic. The storage endpoint is never routed by Traefik and is reachable only on the internal network. Presigned direct upload from the browser is recorded as the scaling path if proxying through Issue becomes a bottleneck; it would need CORS and a revised access check.
 
+### Candidate acceptance criteria (not a backlog story)
+
+Report photos are a **post-MVP candidate** pending a DEC entry opened by Afonso (BA/PO) and the team review (EN01-U11); no backlog story exists, and the criteria below were removed from [05-product-backlog.md](../05-product-backlog.md) on that account. They are kept here so the design can be judged, and carry no priority. Registered in the [decision register](../planning/decisions-and-feedback.md#stack-revision--en-01-01-2026-10-27). Client criteria come from [ADR-011](ADR-011-installable-pwa-client.md).
+
+As a resident, I want to attach photos to my report so that the administrator can understand the fault more easily.
+
+- Two inputs: “Take photo” (opens the camera where the device offers one) and “Choose from gallery”.
+- Before upload the client re-encodes each photo to JPEG, including iPhone HEIC photos; a long edge of about 2048 px is a proposed starting value to tune in the spike. The resident sees a preview of each photo and can remove it before sending.
+- The server does not rely on the client processing: at most 5 photos per report, each at most 5 MB; only JPEG, PNG or WebP, verified by content rather than by the declared type; anything else is rejected with an understandable error.
+- EXIF and GPS metadata are removed before storage; stored objects have random keys.
+- Photos have the same visibility as the private report text: the author and the building's administrators; other residents, other buildings and contractors receive `404`, even through direct API calls. Sharing a photo into the contractor extract is outside this candidate.
+- Upload and download go through the Issue service; object storage is never reachable directly.
+- If object storage is unavailable, the report can still be submitted without photos and the upload shows an explicit error; no partial attachment is recorded.
+
+Dependencies if accepted: US-01, DEC-07, a DEC entry for the scope change. Horizon: not set.
+
 ## Consequences
 
 - Single-node Garage has no redundancy (E46). A disk failure loses attachments, and backups of the database depend on the same node unless they are copied elsewhere (R2 or another host). The bucket itself needs a backup or an off-host copy; this is Martim's runbook item (DEVOPS-02).
@@ -64,10 +80,10 @@ Spike item 9: the same adapter against Garage and R2, including checksum and pat
 - Storage stopped → the report is saved without the photo and the user sees a clear message that the photo was not stored; this is a §6.8 degraded-mode scenario (E01).
 - Backup written to `bmc-backups` and restored in the restore exercise.
 
-Review if Garage fails the spike, if photos become Must, or if the demonstration host cannot run it.
+Review if Garage fails the spike, if the report-photos candidate is accepted with a higher priority than expected, or if the demonstration host cannot run it.
 
 ## Record
 
-2026-10-27 — proposed by Ricardo (Tech Lead) after a structured design interview; drafting and source checks AI-assisted (new ADR). Reason: a Should-priority photo attachment story and an off-host backup target need storage that is not MySQL; MinIO is archived. Evidence: [evidence register](README.md#evidence-register-en-01-01) E01, E45–E51. Affected documents: [security §2, §4](../09-security-privacy.md#4-data-lifecycle-and-minimisation), backlog (US-14, to be created), DEVOPS-02. Final decision, date and participants: pending team review. Issue [#15](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/15).
+2026-10-27 — proposed by Ricardo (Tech Lead) after a structured design interview; drafting and source checks AI-assisted (new ADR). Reason: the report-photos candidate and an off-host backup target need storage that is not MySQL; MinIO is archived. Evidence: [evidence register](README.md#evidence-register-en-01-01) E01, E45–E51. Affected documents: [security §2, §4](../09-security-privacy.md#4-data-lifecycle-and-minimisation), [decision register](../planning/decisions-and-feedback.md#stack-revision--en-01-01-2026-10-27) (report-photos candidate, pending a DEC entry), DEVOPS-02. Final decision, date and participants: pending team review. Issue [#15](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/15).
 
 2026-10-27 — client-side JPEG re-encoding before upload added (incl. HEIC; [ADR-011](ADR-011-installable-pwa-client.md), E68, E69); server checks unchanged.

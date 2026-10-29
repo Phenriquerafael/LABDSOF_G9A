@@ -1,6 +1,6 @@
 # Product Backlog
 
-**Status:** proposal v0.2 · **Sprint:** 1 · **Priority:** not yet validated with the customer/lecturers · US-14 proposed and US-10 annotated on 2026-10-27, US-14 client criteria added the same day (EN-01-01, pending agreement)
+**Status:** proposal v0.2 · **Sprint:** 1 · **Priority:** not yet validated with the customer/lecturers · US-10 annotated on 2026-10-27 (EN-01-01, pending agreement)
 
 Corresponds to deliverable 5 in §7.1.2. This document defines the product backlog items. No remote issues, estimates, assignments or implementations are assumed.
 
@@ -21,7 +21,7 @@ Initial order: DISC/EN discovery and foundations → US-01/02 → US-03/04 → U
 | ID | Outcome / boundary | Items | Source |
 |---|---|---|---|
 | [EP-00](backlog/epics/EP-00-discovery-and-planning.md) | Justifiable discovery and planning | DISC-01–03 | §5.1–5.5, §5.7 |
-| [EP-01](backlog/epics/EP-01-reporting-and-tracking.md) | Residents report and track issues with appropriate visibility | US-01/02/04/10; US-14 proposed (2026-10-27) | J1, P1/P5 |
+| [EP-01](backlog/epics/EP-01-reporting-and-tracking.md) | Residents report and track issues with appropriate visibility | US-01/02/04/10 | J1, P1/P5 |
 | [EP-02](backlog/epics/EP-02-assisted-triage.md) | Assisted triage and reviewed links | AI-01 (S1 assessment), US-03/05 | §5.6; J2, P2/P3/P7 |
 | [EP-03](backlog/epics/EP-03-intervention-and-closure.md) | Intervention from request to closure | US-06–09/11–13 | J2–J3, P6 |
 | [EP-04](backlog/epics/EP-04-engineering-and-quality.md) | Deliverable, secure, observable and evaluable system | EN-01–04 | §6–§8 |
@@ -191,25 +191,9 @@ As an administrator, I want to synchronise with the calendar used in operations.
 
 **Source:** RF-08. **Dependencies:** US-08, DEC-06, provider access. **Horizon:** if capacity allows.
 
-### US-14 — Attach photos to a report · Should · EP-01 · proposed
-
-**Proposal, not agreed:** added by Ricardo (Tech Lead) in EN-01-01 on 2026-10-27 with [ADR-010](adr/ADR-010-object-storage.md); client criteria from [ADR-011](adr/ADR-011-installable-pwa-client.md) the same day. Photos were classified post-MVP in the 2026-10-07 [editorial harmonisation](planning/decisions-and-feedback.md#2-editorial-harmonisation); this story needs a DEC entry and team agreement (EN01-U11) before it can be prioritised. No other priority changes.
-
-As a resident, I want to attach photos to my report so that the administrator can understand the fault more easily.
-
-- Two inputs: “Take photo” (opens the camera where the device offers one) and “Choose from gallery”.
-- Before upload the client re-encodes each photo to JPEG, including iPhone HEIC photos; a long edge of about 2048 px is a proposed starting value to tune in the spike. The resident sees a preview of each photo and can remove it before sending.
-- The server does not rely on the client processing: at most 5 photos per report, each at most 5 MB; only JPEG, PNG or WebP, verified by content rather than by the declared type; anything else is rejected with an understandable error.
-- EXIF and GPS metadata are removed before storage; stored objects have random keys.
-- Photos have the same visibility as the private report text: the author and the building's administrators; other residents, other buildings and contractors receive `404`, even through direct API calls. Sharing a photo into the contractor extract is outside this story.
-- Upload and download go through the Issue service; object storage is never reachable directly.
-- If object storage is unavailable, the report can still be submitted without photos and the upload shows an explicit error; no partial attachment is recorded.
-
-**Source:** EN-01-01 proposal (ADR-010, ADR-011); [vision J1](04-product-vision.md#j1--report-and-track). **Dependencies:** US-01, DEC-07, a DEC entry for the scope change. **Horizon:** S2/S3 if agreed and capacity allows.
-
 ## 5. Won't in this baseline / alternatives
 
-Photos and visual analysis, cost charts/summaries, payments, marketplace, native apps, automatic approval and subscriptions. Report photos without visual analysis are proposed as US-14 (2026-10-27, pending a DEC entry); until agreed, this baseline still excludes them. IoT, monitoring and prediction are **excluded from the MVP** (DEC-01, BA/PO proposal of 2026-10-19 in [vision §4.2](04-product-vision.md#42-iot-decision-dec-01), team agreement pending); reopening requires a scope review.
+Photos and visual analysis, cost charts/summaries, payments, marketplace, native apps, automatic approval and subscriptions. Report photos without visual analysis are a design candidate recorded in the [decision register](planning/decisions-and-feedback.md#stack-revision--en-01-01-2026-10-27), pending a DEC entry and the team review; no story exists, and this baseline still excludes them. IoT, monitoring and prediction are **excluded from the MVP** (DEC-01, BA/PO proposal of 2026-10-19 in [vision §4.2](04-product-vision.md#42-iot-decision-dec-01), team agreement pending); reopening requires a scope review.
 
 ## 6. Stakeholder validation and release
 

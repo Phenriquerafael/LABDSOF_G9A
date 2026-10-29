@@ -10,7 +10,7 @@
 
 - §6.1 lets the team choose a web application or a Progressive Web App among other client options (E01). Residents report faults from their phones, often with photos; administrators work mostly on a desktop; contractors answer requests from either. NFR-07 asks for keyboard journeys, visible focus and status not conveyed by colour alone ([requirements](../requirements.md)).
 - The client is React 19 + Vite 8 + Tailwind 4 + shadcn/ui, built to static files served by nginx ([ADR-002](ADR-002-technology-stack.md)); its internal structure is in [ADR-009](ADR-009-service-internal-architecture.md) and its session in [ADR-005](ADR-005-authentication-authorisation.md).
-- Photos are a proposed **Should** story (US-14) stored through the Issue service ([ADR-010](ADR-010-object-storage.md)).
+- Report photos are a post-MVP design candidate (no backlog story; pending a DEC entry, see the [decision register](../planning/decisions-and-feedback.md#stack-revision--en-01-01-2026-10-27)), stored through the Issue service ([ADR-010](ADR-010-object-storage.md)).
 - Degraded modes ([technical design §6](../07-technical-design.md#6-external-integration-and-degraded-mode)) must be communicated to users (§6.8, E01); the health and status mechanism is [ADR-012](ADR-012-health-and-status-page.md), this ADR owns the client side.
 
 ## Alternatives
@@ -69,6 +69,8 @@ No offline drafts, no queued sends, no Background Sync. When offline the install
 Not “mobile-first” overall. Resident and contractor journeys must be usable at 360 CSS px with no horizontal scrolling; touch targets at least 24×24 CSS px (WCAG 2.2 SC 2.5.8, E83) and larger on phones by design. Administrator screens are desktop-oriented but responsive. Anyone may install on desktop or phone.
 
 ### Photos
+
+Design for the report-photos candidate; it applies only if the team accepts that scope change (DEC entry pending, [ADR-010](ADR-010-object-storage.md#candidate-acceptance-criteria-not-a-backlog-story)).
 
 - Two controls: **Take photo** (`<input type="file" accept="image/*" capture="environment">`) and **Choose from gallery** (same input without `capture`). On iOS Safari `capture` does not force the camera but offers it (E67); desktop shows a file picker.
 - Every photo is re-encoded with `createImageBitmap` and canvas/`OffscreenCanvas` to JPEG, checking `blob.type` because an unsupported type falls back to PNG (E69). This also converts HEIC (E68). Proposed starting values, not sourced, to tune in the spike (item 13): long edge about 2048 px, quality about 0.8. Preview and remove before sending.

@@ -8,7 +8,7 @@
 
 ## Start here
 
-1. Read the [assignment](LABDSOF-26-27-Assignment.md) (original PDF: [LABDSOF-26-27-Assignment.pdf](LABDSOF-26-27-Assignment.pdf)).
+1. Read the [assignment](LABDSOF-26-27-Assignment.md).
 2. Learn about the [strategy](documents/building-maintenance-coordinator-strategy.md) and [vision/scope](documents/04-product-vision.md).
 3. Consult the [Sprint 1 plan](documents/planning/sprint-1-plan.md), [backlog](documents/05-product-backlog.md) and [pending decisions](documents/planning/decisions-and-feedback.md).
 4. To contribute, use the [team working agreement](documents/governance/team-working-agreement.md), [DoR](documents/governance/definition-of-ready.md), [DoD](documents/governance/definition-of-done.md) and [Git workflow](documents/governance/git-workflow.md).
@@ -22,7 +22,7 @@
 - Outcome to investigate: reduce the administrator's active coordination time.
 - AI: correctable suggestions, with a non-AI baseline and fallback; actions approved by the authorised user.
 - Proposed MVP: text, small catalogue, one notification channel (email as a second channel proposed in ADR-007), calendar/simulator, states and history.
-- Post-MVP: photos, cost analytics and narrative summaries (report photos proposed as Should story US-14 on 2026-10-27, pending a DEC entry).
+- Post-MVP: photos, cost analytics and narrative summaries (report photos without visual analysis are a post-MVP candidate in the [decision register](documents/planning/decisions-and-feedback.md#stack-revision--en-01-01-2026-10-27) pending a DEC entry).
 - **IoT is proposed as excluded from the MVP** (DEC-01, BA/PO proposal of 2026-10-19, team agreement pending).
 
 <!-- ## How to interpret statuses

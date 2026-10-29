@@ -38,7 +38,7 @@ Willingness to pay and buyer identity are unvalidated. Interviews with volunteer
 
 **Sprint 1:** discovery, decisions and design. The evaluator clarified that the walking skeleton is optional; the team decided not to develop it this sprint (DEC-11, recorded on 2026-10-10). **Sprint 2:** first operational version of the cycle. **Sprint 3:** complete, evaluate and strengthen the same MVP.
 
-Photos, AI visual analysis, cost charts and narrative summaries are **post-MVP** candidates (report photos without visual analysis are proposed as Should story US-14 on 2026-10-27, pending a DEC entry), without a Sprint 3 commitment. Automatic expense approval is outside the baseline. IoT is excluded from the MVP (DEC-01, BA/PO proposal of 2026-10-19, team agreement pending); reopening it requires a scope review ([vision §4.2](04-product-vision.md#42-iot-decision-dec-01)).
+Photos, AI visual analysis, cost charts and narrative summaries are **post-MVP** candidates (report photos without visual analysis are a post-MVP candidate in the [decision register](planning/decisions-and-feedback.md#stack-revision--en-01-01-2026-10-27) pending a DEC entry), without a Sprint 3 commitment. Automatic expense approval is outside the baseline. IoT is excluded from the MVP (DEC-01, BA/PO proposal of 2026-10-19, team agreement pending); reopening it requires a scope review ([vision §4.2](04-product-vision.md#42-iot-decision-dec-01)).
 
 ## 3. Value and measurement
 
