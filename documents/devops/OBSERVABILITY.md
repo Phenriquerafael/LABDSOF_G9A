@@ -17,7 +17,7 @@ Stack: **Prometheus + Grafana** (no CloudWatch).
 | Messaging with RabbitMQ | Under consideration | section 4.6 |
 | Authentication | Mocked login allowed for the MVP; roles kept real | section 9 |
 | Degraded mode demonstrated | Proposed: AI service; others listed | sections 8, 8.5 |
-| RPO and RTO targets | Proposed; disaster-recovery document still to be written | issue [#42](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/42) |
+| RPO and RTO targets | Proposed; see [DR document](DR.md) | issue [#42](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/42) |
 
 ---
 

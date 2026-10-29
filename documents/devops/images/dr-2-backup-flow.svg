@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 300" width="900" height="300" font-family="sans-serif" font-size="20">
+  <title>Backup flow</title>
+  <style>
+    .box { fill: #e6f0ff; stroke: #3a7bd5; stroke-width: 2; }
+    .rec { fill: #e3f5e1; stroke: #2e7d32; stroke-width: 2; }
+    .snap { fill: #e3f5e1; stroke: #2e7d32; stroke-width: 2; stroke-dasharray: 8 5; }
+    .alert { fill: #fdecea; stroke: #c62828; stroke-width: 2; }
+    .line { stroke: #333; stroke-width: 2; fill: none; }
+    .dash { stroke-dasharray: 8 5; }
+    .sub { font-size: 16; fill: #444; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#333"/>
+    </marker>
+  </defs>
+  <rect width="900" height="300" fill="#ffffff"/>
+
+  <rect class="rec" x="40" y="60" width="220" height="100" rx="10"/>
+  <text x="150" y="104" text-anchor="middle">Database</text>
+  <text class="sub" x="150" y="130" text-anchor="middle">RDS or container</text>
+
+  <rect class="snap" x="40" y="200" width="220" height="70" rx="10"/>
+  <text x="150" y="232" text-anchor="middle">Daily snapshot</text>
+  <text class="sub" x="150" y="256" text-anchor="middle">data volume or RDS</text>
+  <line class="line dash" x1="150" y1="160" x2="150" y2="198" marker-end="url(#arrow)"/>
+
+  <line class="line" x1="260" y1="110" x2="338" y2="110" marker-end="url(#arrow)"/>
+
+  <rect class="box" x="340" y="60" width="220" height="100" rx="10"/>
+  <text x="450" y="104" text-anchor="middle">Encrypted copy</text>
+  <text class="sub" x="450" y="130" text-anchor="middle">off-server, own keys</text>
+
+  <line class="line" x1="560" y1="110" x2="638" y2="110" marker-end="url(#arrow)"/>
+
+  <rect class="box" x="640" y="60" width="220" height="100" rx="10"/>
+  <text x="750" y="104" text-anchor="middle">Integrity check</text>
+  <text class="sub" x="750" y="130" text-anchor="middle">checksums, row counts</text>
+
+  <line class="line" x1="750" y1="160" x2="750" y2="198" marker-end="url(#arrow)"/>
+
+  <rect class="alert" x="640" y="200" width="220" height="70" rx="10"/>
+  <text x="750" y="232" text-anchor="middle">Alert if it fails</text>
+  <text class="sub" x="750" y="256" text-anchor="middle">missing backup = incident</text>
+</svg>
