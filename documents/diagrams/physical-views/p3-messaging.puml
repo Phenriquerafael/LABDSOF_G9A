@@ -1,0 +1,71 @@
+@startuml p3-messaging
+' BMC physical views - P3 messaging through RabbitMQ.
+' Queues, exchange and dead-lettering from ADR-003; consumers from ADR-001/007/008.
+' Render: java -jar plantuml.jar -tsvg -tpng documents/diagrams/physical-views/p3-messaging.puml
+!pragma layout elk
+!theme plain
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam defaultFontName "DejaVu Sans"
+skinparam defaultFontSize 13
+skinparam ArrowColor #475569
+skinparam ArrowFontSize 11
+skinparam ArrowFontColor #334155
+skinparam node {
+  BackgroundColor #FFFFFF
+  BorderColor #64748B
+  FontColor #0F172A
+  FontSize 13
+}
+skinparam queue {
+  BackgroundColor #FFF7ED
+  BorderColor #D97706
+  FontColor #0F172A
+  FontSize 13
+}
+skinparam rectangle {
+  BackgroundColor #F8FAFC
+  BorderColor #94A3B8
+  FontColor #0F172A
+  FontSize 13
+}
+top to bottom direction
+
+rectangle "Publishers · outbox row in the same transaction" as pubs #F8FAFC {
+  node "issue\nTriageRequested\nIssueStateChanged\nMembership*" as pi #F0FDF4
+  node "dispatch\nintervention and booking events\nNotificationRequested" as pd #F0FDF4
+  node "ai-triage-consumer\nTriageSuggested" as pa #F0FDF4
+}
+
+node "rabbitmq\none node · one user per service" as rmq #FFF7ED {
+  queue "bmc.events\ndurable topic exchange\nrouting key <producer>.<eventType>" as ex
+  queue "issue.inbox\nquorum · delivery limit 5" as qi
+  queue "dispatch.inbox\nquorum · delivery limit 5" as qd
+  queue "notification.inbox\nquorum · delivery limit 5" as qn
+  queue "ai-triage.requests\npoint to point · private text\nDLQ TTL 7 days" as qa
+  queue "bmc.dlx\ndead-letter exchange" as dlx
+  queue "<queue>.dlq\none per queue · replay by runbook" as dlq
+}
+
+rectangle "Consumers · acknowledge after commit · deduplicate by eventId" as cons #F8FAFC {
+  node "issue\nTriageSuggested, dispatch events\n→ history and state" as ci #F0FDF4
+  node "dispatch\nIssueStateChanged, Membership*\n→ projections" as cd #F0FDF4
+  node "notification\nNotificationRequested\n→ in-app + email" as cn #F0FDF4
+  node "ai-triage-consumer\nTriageRequested\n→ rules + provider" as ca #F0FDF4
+}
+
+pi --> ex : publish + confirms
+pd --> ex : publish + confirms
+pa --> ex : publish
+ex --> qi : TriageSuggested, dispatch events
+ex --> qd : IssueStateChanged, Membership*
+ex --> qn : NotificationRequested
+ex --> qa : TriageRequested only
+qi --> ci : deliver
+qd --> cd : deliver
+qn --> cn : deliver
+qa --> ca : deliver
+qa ..> dlx : after 5 deliveries
+dlx ..> dlq
+
+@enduml

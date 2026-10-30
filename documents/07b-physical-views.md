@@ -1,24 +1,24 @@
 # Physical Views
 
-**Status:** proposed physical (deployment) view · Sprint 1, deliverable 7 "Deployment view" · EN-01-03 ([#13](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/13)) · drawn on 2026-10-29 from the EN-01-01 proposal ([ADR-001–012](adr/README.md), team review pending) · nothing is built, deployed or measured
+**Status:** proposed physical (deployment) view · Sprint 1, deliverable 7 "Deployment view" · EN-01-03 ([#13](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/13)) · drawn on 2026-10-29 from the EN-01-01 proposal ([ADR-001–012](adr/README.md), team review pending), redrawn on 2026-10-30 as PlantUML sources · nothing is built, deployed or measured
 
 These views show where the proposed BMC software runs: the nodes, the containers on each node, the networks that connect them, the only published port, the persistent state and the systems outside the host. They are the physical view of the [technical design](07-technical-design.md) (its §7 is the summary) and follow [ADR-004](adr/ADR-004-deployment-contract.md) for containers, networks, profiles and pipeline, [ADR-005](adr/ADR-005-authentication-authorisation.md) for identity and [ADR-012](adr/ADR-012-health-and-status-page.md) for health checks. Where this document adds a detail that no ADR states, the text says so and the detail is listed in [§10 Open items](#10-open-items-found-while-drawing-the-views). If this document and an ADR differ, the ADR wins until the team review decides otherwise.
 
-The figures are SVG images exported from one editable source, [`diagrams/physical-views.html`](diagrams/physical-views.html). Each view is plain data in that file (groups, containers and connections); [ELK](https://eclipse.dev/elk/) (elkjs 0.9.3) computes the layered layout and the orthogonal edge routes, and a small renderer in the same file draws the SVG. To change a view, edit its data, open the file in a browser and use **Download SVG** to replace the image in [`diagrams/physical-views/`](diagrams/physical-views/). Open an image for full size.
+The figures are SVG images rendered from seven editable [PlantUML](https://plantuml.com/) sources, one `.puml` file per view, all in [`diagrams/physical-views/`](diagrams/physical-views/). Each source is plain text that a diff can review; [ELK](https://eclipse.dev/elk/) computes the layout through PlantUML's `!pragma layout elk`, so nobody places boxes by hand. To change a view, edit its `.puml` file and re-render it — the commands and the two export passes are in the [diagram README](diagrams/physical-views/README.md). The rework was meant to use Visual Paradigm's Code editor (VPasCode); it could not be operated in this session, so the figures come from a local PlantUML 1.2024.8 run and have not been opened in VPasCode. Open an image for full size.
 
 Notation used in every figure:
 
 | Element | Meaning |
 |---|---|
-| Card with a coloured side bar | One container (one image, one Compose service). The small capital label and colour give its kind: edge, BMC service, BMC worker, platform component, data store, operations |
-| Dashed card | Outside the host, or a part that is still open (backup job) |
-| Solid box with a title | A host, a container that holds several stores (`mysql`, `garage`, `rabbitmq`) or a grouping |
-| Dashed coloured box with pills | A Compose network; the pills `edge` and `internal` show which networks its containers join |
-| Red dashed box | A trust boundary |
+| Three-dimensional box (PlantUML `node`) | A host, a Compose network grouping, or one container (one image, one Compose service). The first line is the name; the following lines give its runtime, its role or its published ports |
+| Cylinder (PlantUML `database`) | A database store: the MySQL instance and the per-service databases |
+| Pipe shape (PlantUML `queue`) | A RabbitMQ exchange, queue or dead-letter queue |
+| Cloud (PlantUML `cloud`) | Something outside the Docker host: the AI provider, GHCR, the off-host backup copy |
+| Folder-tab shape (PlantUML `artifact`) | An item listed rather than drawn as a connection target: a route, an endpoint, a check or a build stage |
+| Plain rectangle with a title | A grouping: a trust boundary, a routing surface, a set of checks, a profile set |
+| Fill colour | The kind of component: blue edge, green BMC service, amber platform component or demo aid, teal observability, violet data store |
 | Solid arrow | A connection the design requires, from the side that opens it to the side that serves it (P3 and P6 follow the message or the image instead, as their captions say) |
-| Thick blue arrow | The main path |
-| Dashed grey arrow | Optional, later or administrative connection |
-| Red dotted arrow | Refused (no route) or dead-lettering |
+| Dashed arrow | A connection that is optional, later, administrative or still open, or a dead-letter path. P2 lists the endpoints that are never routed instead of drawing refused arrows |
 
 ## 1. Nodes
 
@@ -35,9 +35,9 @@ Notation used in every figure:
 
 All seventeen containers of ADR-004 run on one Docker host. A container can join more than one Compose network (Docker documents a service attached to both a `front-tier` and a `back-tier` network, [Compose networks reference](https://docs.docker.com/reference/compose-file/networks/), accessed 2026-10-29), so Figure P1 groups containers by the networks they join, not by two boxes only.
 
-[![Figure P1 — Deployment overview: the user device reaches Traefik over HTTPS 443; the demonstration host groups the seventeen containers into the edge network only, edge plus internal, and internal network only; the AI provider, the optional R2 backup copy and GHCR are outside the host](diagrams/physical-views/p1-deployment-overview.svg)](diagrams/physical-views/p1-deployment-overview.svg)
+[![Figure P1 — Deployment overview: the user device reaches Traefik over HTTPS 443; the demonstration host groups the seventeen containers into the edge network only, edge plus internal, and internal network only; two labelled group arrows stand in for the route edges of P2 and the data edges of P4; the AI provider, the optional R2 backup copy and GHCR are outside the host](diagrams/physical-views/p1-deployment-overview.svg)](diagrams/physical-views/p1-deployment-overview.svg)
 
-*Figure P1. Containers grouped by the networks they join.* ADR-004 puts Traefik "and the services it routes to" on `edge`, puts the data stores, broker, mail capture, metrics, Gatus and the simulator on `internal`, and attaches every service to `internal` "as needed". Two placements are this document's reading, not ADR text: Keycloak joins `internal` because its database is in MySQL, and the AI triage containers sit on `internal` only because Traefik never routes to them. Both are listed in §10 (P-01, P-02).
+*Figure P1. Containers grouped by the networks they join.* ADR-004 puts Traefik "and the services it routes to" on `edge`, puts the data stores, broker, mail capture, metrics, Gatus and the simulator on `internal`, and attaches every service to `internal` "as needed". Two placements are this document's reading, not ADR text: Keycloak joins `internal` because its database is in MySQL, and the AI triage containers sit on `internal` only because Traefik never routes to them. Both are listed in §10 (P-01, P-02). The two group arrows keep the figure readable at this size: they are summaries, and the individual routes and data connections are drawn in P2 and P4.
 
 ### Container catalogue
 
@@ -69,9 +69,9 @@ The backup job that writes MySQL dumps to `bmc-backups` is named in ADR-004 and 
 
 Traefik is the only container with a published port. Every public route, its upstream and its middlewares come from the ADR-004 route table.
 
-[![Figure P2 — Edge routing and trust boundaries: browser to the Traefik router; public routes to client, gatus, oauth2-proxy and keycloak; /api routes through ForwardAuth and StripPrefix to issue, dispatch and notification; a list of endpoints that are never routed](diagrams/physical-views/p2-edge-and-trust.svg)](diagrams/physical-views/p2-edge-and-trust.svg)
+[![Figure P2 — Edge routing and trust boundaries: browser to the Traefik router; /api routes through ForwardAuth and StripPrefix to issue, dispatch and notification; lists of public routes that never see an API session and of endpoints that are never routed](diagrams/physical-views/p2-edge-and-trust.svg)](diagrams/physical-views/p2-edge-and-trust.svg)
 
-*Figure P2. Public routes and the two trust boundaries at the edge.* Traefik Proxy has no JWT middleware, so the gateway is not the security control: each Spring service is an OAuth2 resource server and authorises against its own data, answering `404` outside the caller's scope (ADR-005). `/status/api` must win over the `/status` page route; the rule priority is a spike item, and the route exists only if spike item 11 shows that Gatus strips hosts, URLs and errors from its JSON (ADR-012).
+*Figure P2. Public routes, the edge trust boundary and the Traefik routing surface.* Traefik Proxy has no JWT middleware, so the gateway is not the security control: each Spring service is an OAuth2 resource server and authorises against its own data, answering `404` outside the caller's scope (ADR-005). That second boundary sits inside each service, so the figure draws only the internet-to-Traefik boundary and lists the routes instead of drawing every arrow. `/status/api` must win over the `/status` page route; the rule priority is a spike item, and the route exists only if spike item 11 shows that Gatus strips hosts, URLs and errors from its JSON (ADR-012).
 
 | Boundary | What crosses it | Control (proposed, not verified) |
 |---|---|---|
@@ -181,4 +181,5 @@ These do not change any ADR. They are inputs for the team review (EN01-U1) and t
 - They describe a proposed design. No container, network, image, pipeline or host exists, and nothing was run or measured.
 - The memory of the full stack and of the minimal profile is unknown until spike item 8; it may change which profiles run together on the demonstration host.
 - Container names, the grouping by networks in Figure P1, the volume list and items P-01 to P-07 are this document's proposals; the ADRs stay the source for decisions.
-- The SVG files were exported on 2026-10-29 by running the same layout and rendering code headlessly (elkjs 0.9.3 in Node) and checked visually as PNG renders; they use system fonts (Segoe UI, Helvetica Neue or Arial), so line breaks can differ slightly between systems. The reviewer should check them in the GitHub preview of the PR.
+- The SVG and PNG files were rendered on 2026-10-30 with PlantUML 1.2024.8 and its ELK layout; the reviewer should check them in the GitHub preview of the PR, because GitHub renders SVG through its own sanitiser. The sources use the DejaVu Sans font family, so line breaks can shift slightly on a system that resolves a different font.
+- Visual Paradigm's Code editor (VPasCode) was the intended tool for this rework, but it could not be operated in this session (the desktop browser was disconnected). The `.puml` files are standard PlantUML; whether VPasCode imports them unchanged has not been verified, and no `.vpp` file was produced.

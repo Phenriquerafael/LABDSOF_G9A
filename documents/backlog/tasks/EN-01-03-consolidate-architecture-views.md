@@ -39,7 +39,7 @@ Use the documentation/research checks appropriate to this task; implementation t
 
 ## Completion record
 
-- Result/findings and limitations: 2026-10-29 — physical (deployment) views P1–P7 drafted in [07b — Physical views](../../07b-physical-views.md) as SVG figures exported from one ELK-based HTML source ([`diagrams/physical-views.html`](../../diagrams/physical-views.html)) from the EN-01-01 proposal (ADR-001–012, not accepted), with open items P-01 to P-07. The other views (system context, components, flow traces and failure walkthroughs) and the Figure 1 redraw are still to do. Nothing is built or deployed.
+- Result/findings and limitations: 2026-10-29 — physical (deployment) views P1–P7 drafted in [07b — Physical views](../../07b-physical-views.md) from the EN-01-01 proposal (ADR-001–012, not accepted), with open items P-01 to P-07. 2026-10-30 — the views were redrawn as seven PlantUML sources in [`diagrams/physical-views/`](../../diagrams/physical-views/README.md), replacing the single HTML/ELK renderer; each source is reviewable as text and re-renders to the SVG used in the document. VPasCode could not be operated in this session (desktop browser disconnected), so the files come from a local PlantUML run and were not opened in Visual Paradigm. The other views (system context, components, flow traces and failure walkthroughs) and the Figure 1 redraw are still to do. Nothing is built or deployed.
 - Evidence/PR/review links: to be recorded; document presence alone is not completion evidence.
 - Decision/requirement changes: to be recorded, or explain why no change was needed.
 - [ ] DoR reviewed with date, estimate, owner and reviewer confirmed.
