@@ -1,64 +1,66 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1520" height="640" viewBox="0 0 1520 640" font-family="Arial, 'Liberation Sans', Helvetica, sans-serif" fill="#000000">
-<title>P7 Compose profiles and rollout</title>
-<defs><marker id="arrow" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto"><path d="M1 1 L11 6 L1 11 Z" fill="#000000"/></marker></defs>
+<svg xmlns="http://www.w3.org/2000/svg" width="1900" height="530" viewBox="0 0 1900 530" font-family="Arial, 'Liberation Sans', Helvetica, sans-serif">
+<title>P7 · Compose profiles and rollout</title>
+<defs><marker id="arrow" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="11" markerHeight="11" markerUnits="userSpaceOnUse" orient="auto"><path d="M1 1 L11 6 L1 11 Z" fill="#000000"/></marker></defs>
 <rect width="100%" height="100%" fill="#FFFFFF"/>
-<rect x="20" y="20" width="1480" height="600" fill="#87DCF5" stroke="#000000" stroke-width="2"/>
-<path d="M60 20 v600" stroke="#000000" stroke-width="2"/>
-<text x="40.0" y="320.0" font-size="13" text-anchor="middle" dominant-baseline="central" transform="rotate(-90 40.0 320.0)"><tspan x="40.0" dy="0">Compose profiles in the proposed rollout order · ADR-004</tspan></text>
-<path d="M100 20 v200" stroke="#000000" stroke-width="2"/>
-<text x="80.0" y="112.0" font-size="12" text-anchor="middle" dominant-baseline="central" transform="rotate(-90 80.0 120.0)"><tspan x="80.0" dy="0">First</tspan><tspan x="80.0" dy="16">profile core</tspan></text>
-<path d="M100 220 v200" stroke="#000000" stroke-width="2"/>
-<text x="80.0" y="312.0" font-size="12" text-anchor="middle" dominant-baseline="central" transform="rotate(-90 80.0 320.0)"><tspan x="80.0" dy="0">When the slice</tspan><tspan x="80.0" dy="16">needs it</tspan></text>
-<path d="M60 220 h1440" stroke="#000000" stroke-width="2"/>
-<path d="M100 420 v200" stroke="#000000" stroke-width="2"/>
-<text x="80.0" y="512.0" font-size="12" text-anchor="middle" dominant-baseline="central" transform="rotate(-90 80.0 520.0)"><tspan x="80.0" dy="0">Later</tspan><tspan x="80.0" dy="16">own profiles</tspan></text>
-<path d="M60 420 h1440" stroke="#000000" stroke-width="2"/>
-<rect x="240" y="45" width="790" height="150" rx="12" fill="#C2ECFA" stroke="#000000" stroke-width="1.6"/>
-<text x="254" y="61.0" font-size="12" text-anchor="start" dominant-baseline="central"><tspan x="254" dy="0" font-weight="bold">core · eight containers</tspan></text>
-<rect x="240" y="245" width="790" height="150" rx="12" fill="#C2ECFA" stroke="#000000" stroke-width="1.6"/>
-<text x="254" y="261.0" font-size="12" text-anchor="start" dominant-baseline="central"><tspan x="254" dy="0" font-weight="bold">no profile name yet</tspan></text>
-<rect x="240" y="445" width="1045" height="170" rx="12" fill="#C2ECFA" stroke="#000000" stroke-width="1.6"/>
-<text x="254" y="461.0" font-size="12" text-anchor="start" dominant-baseline="central"><tspan x="254" dy="0" font-weight="bold">own profiles · storage and status are proposed names</tspan></text>
-<path d="M180 120 L240 120" stroke="#000000" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-<path d="M635 195 L635 245" stroke="#000000" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-<text stroke="#87DCF5" stroke-width="5" stroke-linejoin="round" x="643" y="233.0" font-size="12" text-anchor="start" dominant-baseline="central"><tspan x="643" dy="0">then</tspan></text><text x="643" y="233.0" font-size="12" text-anchor="start" dominant-baseline="central"><tspan x="643" dy="0">then</tspan></text>
-<path d="M635 395 L635 445" stroke="#000000" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-<text stroke="#87DCF5" stroke-width="5" stroke-linejoin="round" x="643" y="433.0" font-size="12" text-anchor="start" dominant-baseline="central"><tspan x="643" dy="0">then</tspan></text><text x="643" y="433.0" font-size="12" text-anchor="start" dominant-baseline="central"><tspan x="643" dy="0">then</tspan></text>
-<path d="M1285 530 L1360 530" stroke="#000000" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-<circle cx="160" cy="120" r="20" fill="#C3F57A" stroke="#000000" stroke-width="2"/>
-<text x="160" y="154.0" font-size="12" text-anchor="middle" dominant-baseline="central"><tspan x="160" dy="0">First vertical</tspan><tspan x="160" dy="16">slice</tspan></text>
-<rect x="260" y="80" width="240" height="96" rx="10" fill="#EEF57A" stroke="#000000" stroke-width="2"/>
-<path d="M267 92 h13 v13 h-13 z M267 92 l5 -5 h13 l-5 5 M280 105 l5 -5 v-13" stroke="#000000" stroke-width="1.2" fill="none"/>
-<text x="380.0" y="116.0" font-size="13" text-anchor="middle" dominant-baseline="central"><tspan x="380.0" dy="0" font-weight="bold">edge and sign-in</tspan><tspan x="380.0" dy="16">traefik · oauth2-proxy</tspan><tspan x="380.0" dy="16">keycloak</tspan></text>
-<rect x="515" y="80" width="240" height="96" rx="10" fill="#EEF57A" stroke="#000000" stroke-width="2"/>
-<path d="M522 92 h13 v13 h-13 z M522 92 l5 -5 h13 l-5 5 M535 105 l5 -5 v-13" stroke="#000000" stroke-width="1.2" fill="none"/>
-<text x="635.0" y="124.0" font-size="13" text-anchor="middle" dominant-baseline="central"><tspan x="635.0" dy="0" font-weight="bold">data and messaging</tspan><tspan x="635.0" dy="16">mysql · rabbitmq</tspan></text>
-<rect x="770" y="80" width="240" height="96" rx="10" fill="#EEF57A" stroke="#000000" stroke-width="2"/>
-<path d="M777 92 h13 v13 h-13 z M777 92 l5 -5 h13 l-5 5 M790 105 l5 -5 v-13" stroke="#000000" stroke-width="1.2" fill="none"/>
-<text x="890.0" y="116.0" font-size="13" text-anchor="middle" dominant-baseline="central"><tspan x="890.0" dy="0" font-weight="bold">business and client</tspan><tspan x="890.0" dy="16">issue · dispatch</tspan><tspan x="890.0" dy="16">client</tspan></text>
-<rect x="260" y="280" width="240" height="100" rx="10" fill="#EEF57A" stroke="#000000" stroke-width="2"/>
-<path d="M267 292 h13 v13 h-13 z M267 292 l5 -5 h13 l-5 5 M280 305 l5 -5 v-13" stroke="#000000" stroke-width="1.2" fill="none"/>
-<text x="380.0" y="310.0" font-size="13" text-anchor="middle" dominant-baseline="central"><tspan x="380.0" dy="0" font-weight="bold">AI triage</tspan><tspan x="380.0" dy="16">ai-triage-web</tspan><tspan x="380.0" dy="16">ai-triage-consumer</tspan><tspan x="380.0" dy="16">reporting works without them</tspan></text>
-<rect x="515" y="280" width="240" height="100" rx="10" fill="#EEF57A" stroke="#000000" stroke-width="2"/>
-<path d="M522 292 h13 v13 h-13 z M522 292 l5 -5 h13 l-5 5 M535 305 l5 -5 v-13" stroke="#000000" stroke-width="1.2" fill="none"/>
-<text x="635.0" y="318.0" font-size="13" text-anchor="middle" dominant-baseline="central"><tspan x="635.0" dy="0" font-weight="bold">notification</tspan><tspan x="635.0" dy="16">as soon as US-10 is</tspan><tspan x="635.0" dy="16">in the slice</tspan></text>
-<rect x="770" y="280" width="240" height="100" rx="10" fill="#EEF57A" stroke="#000000" stroke-width="2"/>
-<path d="M777 292 h13 v13 h-13 z M777 292 l5 -5 h13 l-5 5 M790 305 l5 -5 v-13" stroke="#000000" stroke-width="1.2" fill="none"/>
-<text x="890.0" y="318.0" font-size="13" text-anchor="middle" dominant-baseline="central"><tspan x="890.0" dy="0" font-weight="bold">calendar-sim</tspan><tspan x="890.0" dy="16">when dispatch</tspan><tspan x="890.0" dy="16">books a visit</tspan></text>
-<rect x="260" y="485" width="240" height="100" rx="10" fill="#EEF57A" stroke="#000000" stroke-width="2"/>
-<path d="M267 497 h13 v13 h-13 z M267 497 l5 -5 h13 l-5 5 M280 510 l5 -5 v-13" stroke="#000000" stroke-width="1.2" fill="none"/>
-<text x="380.0" y="523.0" font-size="13" text-anchor="middle" dominant-baseline="central"><tspan x="380.0" dy="0" font-weight="bold">demo</tspan><tspan x="380.0" dy="16">mailpit, synthetic</tspan><tspan x="380.0" dy="16">realm users</tspan></text>
-<rect x="515" y="485" width="240" height="100" rx="10" fill="#EEF57A" stroke="#000000" stroke-width="2"/>
-<path d="M522 497 h13 v13 h-13 z M522 497 l5 -5 h13 l-5 5 M535 510 l5 -5 v-13" stroke="#000000" stroke-width="1.2" fill="none"/>
-<text x="635.0" y="523.0" font-size="13" text-anchor="middle" dominant-baseline="central"><tspan x="635.0" dy="0" font-weight="bold">status</tspan><tspan x="635.0" dy="16">gatus, /status page</tspan><tspan x="635.0" dy="16">and banner</tspan></text>
-<rect x="770" y="485" width="240" height="100" rx="10" fill="#EEF57A" stroke="#000000" stroke-width="2"/>
-<path d="M777 497 h13 v13 h-13 z M777 497 l5 -5 h13 l-5 5 M790 510 l5 -5 v-13" stroke="#000000" stroke-width="1.2" fill="none"/>
-<text x="890.0" y="531.0" font-size="13" text-anchor="middle" dominant-baseline="central"><tspan x="890.0" dy="0" font-weight="bold">observability</tspan><tspan x="890.0" dy="16">prometheus, grafana</tspan></text>
-<rect x="1025" y="485" width="240" height="100" rx="10" fill="#EEF57A" stroke="#000000" stroke-width="2"/>
-<path d="M1032 497 h13 v13 h-13 z M1032 497 l5 -5 h13 l-5 5 M1045 510 l5 -5 v-13" stroke="#000000" stroke-width="1.2" fill="none"/>
-<text x="1145.0" y="523.0" font-size="13" text-anchor="middle" dominant-baseline="central"><tspan x="1145.0" dy="0" font-weight="bold">storage</tspan><tspan x="1145.0" dy="16">garage, before the backup</tspan><tspan x="1145.0" dy="16">and restore exercise</tspan></text>
-<circle cx="1380" cy="530" r="20" fill="#F57A7A" stroke="#000000" stroke-width="4"/>
-<text x="1380" y="564.0" font-size="12" text-anchor="middle" dominant-baseline="central"><tspan x="1380" dy="0">All seventeen</tspan><tspan x="1380" dy="16">containers</tspan></text>
-<path d="M1112 260 H1100 V320 H1112" stroke="#000000" stroke-width="2" fill="none"/>
-<text x="1110" y="274.0" font-size="12" text-anchor="start" dominant-baseline="central"><tspan x="1110" dy="0">A proposal to decide at the team review</tspan><tspan x="1110" dy="16">(EN01-U1). Memory of each set is not</tspan><tspan x="1110" dy="16">measured (EN01-U3, spike item 8).</tspan></text>
+<path d="M40 80 l12 -12 h1820 l-12 12 z" fill="#79C6DC" stroke="#000000" stroke-width="1.6"/>
+<path d="M1860 80 l12 -12 v420 l-12 12 z" fill="#6EB4C8" stroke="#000000" stroke-width="1.6"/>
+<rect x="40" y="80" width="1820" height="420" fill="#87DCF5" stroke="#000000" stroke-width="1.6"/>
+<text x="52" y="471" font-size="13" font-weight="bold" fill="#000000" text-anchor="start" dominant-baseline="central">Demonstration host</text><text x="52" y="486" font-size="11" font-weight="normal" fill="#333333" text-anchor="start" dominant-baseline="central">[Deployment node: one compose.yaml with profiles]</text>
+<path d="M70 100 l12 -12 h520 l-12 12 z" fill="#AAD3E1" stroke="#000000" stroke-width="1.6"/>
+<path d="M590 100 l12 -12 v345 l-12 12 z" fill="#9AC0CD" stroke="#000000" stroke-width="1.6"/>
+<rect x="70" y="100" width="520" height="345" fill="#BDEBFA" stroke="#000000" stroke-width="1.6"/>
+<text x="82" y="416" font-size="13" font-weight="bold" fill="#000000" text-anchor="start" dominant-baseline="central">First</text><text x="82" y="431" font-size="11" font-weight="normal" fill="#333333" text-anchor="start" dominant-baseline="central">[Compose profile: core · eight containers]</text>
+<path d="M660 100 l12 -12 h520 l-12 12 z" fill="#AAD3E1" stroke="#000000" stroke-width="1.6"/>
+<path d="M1180 100 l12 -12 v345 l-12 12 z" fill="#9AC0CD" stroke="#000000" stroke-width="1.6"/>
+<rect x="660" y="100" width="520" height="345" fill="#BDEBFA" stroke="#000000" stroke-width="1.6"/>
+<text x="672" y="416" font-size="13" font-weight="bold" fill="#000000" text-anchor="start" dominant-baseline="central">When the slice needs it</text><text x="672" y="431" font-size="11" font-weight="normal" fill="#333333" text-anchor="start" dominant-baseline="central">[Compose: no profile name yet]</text>
+<path d="M1250 100 l12 -12 h580 l-12 12 z" fill="#AAD3E1" stroke="#000000" stroke-width="1.6"/>
+<path d="M1830 100 l12 -12 v345 l-12 12 z" fill="#9AC0CD" stroke="#000000" stroke-width="1.6"/>
+<rect x="1250" y="100" width="580" height="345" fill="#BDEBFA" stroke="#000000" stroke-width="1.6"/>
+<text x="1262" y="416" font-size="13" font-weight="bold" fill="#000000" text-anchor="start" dominant-baseline="central">Later</text><text x="1262" y="431" font-size="11" font-weight="normal" fill="#333333" text-anchor="start" dominant-baseline="central">[Compose profiles, own names]</text>
+<path d="M590 270 L660 270" stroke="#000000" stroke-width="1.8" fill="none" marker-end="url(#arrow)"/>
+<text stroke="#87DCF5" stroke-width="5" stroke-linejoin="round" x="625" y="258" font-size="12" font-weight="normal" fill="#000000" text-anchor="middle" dominant-baseline="central">then</text><text x="625" y="258" font-size="12" font-weight="normal" fill="#000000" text-anchor="middle" dominant-baseline="central">then</text>
+<path d="M1180 270 L1250 270" stroke="#000000" stroke-width="1.8" fill="none" marker-end="url(#arrow)"/>
+<text stroke="#87DCF5" stroke-width="5" stroke-linejoin="round" x="1215" y="258" font-size="12" font-weight="normal" fill="#000000" text-anchor="middle" dominant-baseline="central">then</text><text x="1215" y="258" font-size="12" font-weight="normal" fill="#000000" text-anchor="middle" dominant-baseline="central">then</text>
+<text x="20" y="28" font-size="18" font-weight="bold" fill="#000000" text-anchor="start" dominant-baseline="central">P7 · Compose profiles and rollout</text>
+<text x="20" y="50" font-size="12" font-weight="normal" fill="#333333" text-anchor="start" dominant-baseline="central">C4 deployment view of the Compose profile sets in the proposed order · ADR-004 · to decide at the team review (EN01-U1)</text>
+<rect x="90" y="115" width="235" height="62" rx="10" fill="#EEF57A" stroke="#000000" stroke-width="1.8"/>
+<text x="207.5" y="138.5" font-size="14" font-weight="bold" fill="#000000" text-anchor="middle" dominant-baseline="central">traefik</text><text x="207.5" y="153.5" font-size="11" font-weight="normal" fill="#333333" text-anchor="middle" dominant-baseline="central">[Traefik 3.7]</text>
+<rect x="340" y="115" width="235" height="62" rx="10" fill="#EEF57A" stroke="#000000" stroke-width="1.8"/>
+<text x="457.5" y="138.5" font-size="14" font-weight="bold" fill="#000000" text-anchor="middle" dominant-baseline="central">oauth2-proxy</text><text x="457.5" y="153.5" font-size="11" font-weight="normal" fill="#333333" text-anchor="middle" dominant-baseline="central">[oauth2-proxy 7.15]</text>
+<rect x="90" y="187" width="235" height="62" rx="10" fill="#EEF57A" stroke="#000000" stroke-width="1.8"/>
+<text x="207.5" y="210.5" font-size="14" font-weight="bold" fill="#000000" text-anchor="middle" dominant-baseline="central">keycloak</text><text x="207.5" y="225.5" font-size="11" font-weight="normal" fill="#333333" text-anchor="middle" dominant-baseline="central">[Keycloak 26.8]</text>
+<rect x="340" y="187" width="235" height="62" rx="10" fill="#EEF57A" stroke="#000000" stroke-width="1.8"/>
+<text x="457.5" y="210.5" font-size="14" font-weight="bold" fill="#000000" text-anchor="middle" dominant-baseline="central">client</text><text x="457.5" y="225.5" font-size="11" font-weight="normal" fill="#333333" text-anchor="middle" dominant-baseline="central">[nginx]</text>
+<rect x="90" y="259" width="235" height="62" rx="10" fill="#EEF57A" stroke="#000000" stroke-width="1.8"/>
+<text x="207.5" y="282.5" font-size="14" font-weight="bold" fill="#000000" text-anchor="middle" dominant-baseline="central">issue</text><text x="207.5" y="297.5" font-size="11" font-weight="normal" fill="#333333" text-anchor="middle" dominant-baseline="central">[Spring Boot]</text>
+<rect x="340" y="259" width="235" height="62" rx="10" fill="#EEF57A" stroke="#000000" stroke-width="1.8"/>
+<text x="457.5" y="282.5" font-size="14" font-weight="bold" fill="#000000" text-anchor="middle" dominant-baseline="central">dispatch</text><text x="457.5" y="297.5" font-size="11" font-weight="normal" fill="#333333" text-anchor="middle" dominant-baseline="central">[Spring Boot]</text>
+<path d="M90 340 a117.5 9 0 0 1 235 0 v44 a117.5 9 0 0 1 -235 0 z" fill="#EEF57A" stroke="#000000" stroke-width="1.8"/>
+<path d="M90 340 a117.5 9 0 0 0 235 0" fill="none" stroke="#000000" stroke-width="1.8"/>
+<text x="207.5" y="359.0" font-size="14" font-weight="bold" fill="#000000" text-anchor="middle" dominant-baseline="central">mysql</text><text x="207.5" y="374.0" font-size="11" font-weight="normal" fill="#333333" text-anchor="middle" dominant-baseline="central">[MySQL 8.4 LTS]</text>
+<path d="M352 331 h211 a12 31.0 0 0 1 0 62 h-211 a12 31.0 0 0 1 0 -62 z" fill="#EEF57A" stroke="#000000" stroke-width="1.8"/>
+<path d="M563 331 a12 31.0 0 0 0 0 62" fill="none" stroke="#000000" stroke-width="1.8"/>
+<text x="457.5" y="354.5" font-size="14" font-weight="bold" fill="#000000" text-anchor="middle" dominant-baseline="central">rabbitmq</text><text x="457.5" y="369.5" font-size="11" font-weight="normal" fill="#333333" text-anchor="middle" dominant-baseline="central">[RabbitMQ 4.x]</text>
+<rect x="680" y="115" width="235" height="92" rx="10" fill="#EEF57A" stroke="#000000" stroke-width="1.8"/>
+<text x="797.5" y="146.0" font-size="14" font-weight="bold" fill="#000000" text-anchor="middle" dominant-baseline="central">ai-triage-web</text><text x="797.5" y="161.0" font-size="12" font-weight="normal" fill="#000000" text-anchor="middle" dominant-baseline="central">reporting works</text><text x="797.5" y="176.0" font-size="12" font-weight="normal" fill="#000000" text-anchor="middle" dominant-baseline="central">without it (NFR-03)</text>
+<rect x="930" y="115" width="235" height="92" rx="10" fill="#EEF57A" stroke="#000000" stroke-width="1.8"/>
+<text x="1047.5" y="153.5" font-size="14" font-weight="bold" fill="#000000" text-anchor="middle" dominant-baseline="central">ai-triage-consumer</text><text x="1047.5" y="168.5" font-size="12" font-weight="normal" fill="#000000" text-anchor="middle" dominant-baseline="central">with ai-triage-web</text>
+<rect x="680" y="220" width="235" height="92" rx="10" fill="#EEF57A" stroke="#000000" stroke-width="1.8"/>
+<text x="797.5" y="251.0" font-size="14" font-weight="bold" fill="#000000" text-anchor="middle" dominant-baseline="central">notification</text><text x="797.5" y="266.0" font-size="12" font-weight="normal" fill="#000000" text-anchor="middle" dominant-baseline="central">as soon as US-10</text><text x="797.5" y="281.0" font-size="12" font-weight="normal" fill="#000000" text-anchor="middle" dominant-baseline="central">is in the slice</text>
+<rect x="930" y="220" width="235" height="92" rx="10" fill="#EEF57A" stroke="#000000" stroke-width="1.8"/>
+<text x="1047.5" y="251.0" font-size="14" font-weight="bold" fill="#000000" text-anchor="middle" dominant-baseline="central">calendar-sim</text><text x="1047.5" y="266.0" font-size="12" font-weight="normal" fill="#000000" text-anchor="middle" dominant-baseline="central">when dispatch</text><text x="1047.5" y="281.0" font-size="12" font-weight="normal" fill="#000000" text-anchor="middle" dominant-baseline="central">books a visit</text>
+<path d="M680 345 h468 l12 12 v34 h-480 z" fill="#FFFFFF" stroke="#000000" stroke-width="1.4"/>
+<path d="M1148 345 v12 h12" fill="none" stroke="#000000" stroke-width="1.4"/>
+<text x="690" y="360.5" font-size="12" font-weight="normal" fill="#000000" text-anchor="start" dominant-baseline="central">Memory of each set is not measured</text><text x="690" y="375.5" font-size="12" font-weight="normal" fill="#000000" text-anchor="start" dominant-baseline="central">(EN01-U3, spike item 8).</text>
+<rect x="1270" y="115" width="260" height="78" rx="10" fill="#EEF57A" stroke="#000000" stroke-width="1.8"/>
+<text x="1400.0" y="139.0" font-size="14" font-weight="bold" fill="#000000" text-anchor="middle" dominant-baseline="central">mailpit</text><text x="1400.0" y="154.0" font-size="11" font-weight="normal" fill="#333333" text-anchor="middle" dominant-baseline="central">[profile demo]</text><text x="1400.0" y="169.0" font-size="12" font-weight="normal" fill="#000000" text-anchor="middle" dominant-baseline="central">email channel only</text>
+<rect x="1550" y="115" width="260" height="78" rx="10" fill="#EEF57A" stroke="#000000" stroke-width="1.8"/>
+<text x="1680.0" y="139.0" font-size="14" font-weight="bold" fill="#000000" text-anchor="middle" dominant-baseline="central">gatus</text><text x="1680.0" y="154.0" font-size="11" font-weight="normal" fill="#333333" text-anchor="middle" dominant-baseline="central">[profile status (proposed)]</text><text x="1680.0" y="169.0" font-size="12" font-weight="normal" fill="#000000" text-anchor="middle" dominant-baseline="central">/status page, banner</text>
+<rect x="1270" y="205" width="260" height="78" rx="10" fill="#EEF57A" stroke="#000000" stroke-width="1.8"/>
+<text x="1400.0" y="236.5" font-size="14" font-weight="bold" fill="#000000" text-anchor="middle" dominant-baseline="central">prometheus</text><text x="1400.0" y="251.5" font-size="11" font-weight="normal" fill="#333333" text-anchor="middle" dominant-baseline="central">[profile observability]</text>
+<rect x="1550" y="205" width="260" height="78" rx="10" fill="#EEF57A" stroke="#000000" stroke-width="1.8"/>
+<text x="1680.0" y="236.5" font-size="14" font-weight="bold" fill="#000000" text-anchor="middle" dominant-baseline="central">grafana</text><text x="1680.0" y="251.5" font-size="11" font-weight="normal" fill="#333333" text-anchor="middle" dominant-baseline="central">[profile observability]</text>
+<rect x="1270" y="295" width="260" height="78" rx="10" fill="#EEF57A" stroke="#000000" stroke-width="1.8"/>
+<text x="1400.0" y="319.0" font-size="14" font-weight="bold" fill="#000000" text-anchor="middle" dominant-baseline="central">garage</text><text x="1400.0" y="334.0" font-size="11" font-weight="normal" fill="#333333" text-anchor="middle" dominant-baseline="central">[profile storage (proposed)]</text><text x="1400.0" y="349.0" font-size="12" font-weight="normal" fill="#000000" text-anchor="middle" dominant-baseline="central">before backup and restore</text>
 </svg>

@@ -410,7 +410,7 @@ How limitations reach users: one degraded-mode banner, shown when a capability r
 
 ## 7. Proposed deployment and operations
 
-The deployment contract is proposed in [ADR-004](adr/ADR-004-deployment-contract.md); this is a summary. The physical views (nodes, networks, containers, data placement, health paths, delivery path and profiles) are drawn in [07b — Physical views](07b-physical-views.md) (EN-01-03, 2026-10-29; redrawn 2026-10-30 in the Visual Paradigm style of the team's diagrams).
+The deployment contract is proposed in [ADR-004](adr/ADR-004-deployment-contract.md); this is a summary. The physical views (nodes, networks, containers, data placement, health paths, delivery path and profiles) are drawn in [07b — Physical views](07b-physical-views.md) (EN-01-03, 2026-10-29; redrawn 2026-10-30 as C4 deployment diagrams).
 
 - Containers: Traefik, oauth2-proxy, Keycloak, client (nginx), Issue, Dispatch, Notification, AI triage (web and consumer processes from one image), calendar simulator, RabbitMQ, MySQL 8.4, Garage, Mailpit, Prometheus, Grafana and Gatus (status aggregator); one `compose.yaml` with profiles and a `.env.example`. No Kubernetes commitment.
 - Only Traefik is exposed (80/443); everything else sits on internal networks (separate `edge` and `internal` networks). Internal endpoints, the broker, the databases, object storage and the simulator's scenario control are never routed.

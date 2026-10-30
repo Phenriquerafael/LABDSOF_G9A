@@ -1,4 +1,4 @@
-"""The seven BMC physical views, drawn with vpdraw.
+"""The seven BMC physical views as C4 deployment diagrams, drawn with vpdraw.
 
 Each function places its shapes by hand from the text of
 documents/07b-physical-views.md and the ADRs it cites; change the text there
@@ -13,368 +13,365 @@ import subprocess
 import sys
 from pathlib import Path
 
-from vpdraw import ELEMENT, OUTSIDE, Diagram
+from vpdraw import ELEMENT, EXTERNAL, GREY, NODE, NODE_IN, PART, Diagram
 
 HERE = Path(__file__).resolve().parent
+SPRING = "Container: Spring Boot 4.1.2 · Java 25"
 
 
 def p1():
-    d = Diagram("p1-deployment-overview", "P1 Deployment overview", 1900, 1090)
-    d.pool(20, 20, 1860, "Outside\nthe host", [("", 130)])
-    d.box("device", 130, 42, 220, 84, ["User device", "browser or installed PWA", "online only"],
-          icon="device", fill=OUTSIDE)
-    d.box("ghcr", 1250, 42, 260, 84, ["GitHub Container Registry", "one multi-arch image per app",
-                                      "linux/amd64 and linux/arm64"], icon="cloud", fill=OUTSIDE)
+    d = Diagram("p1-deployment-overview", "P1 · Deployment overview",
+                "C4 deployment view of the proposed BMC stack · ADR-004 · proposed, nothing is deployed",
+                1900, 1250)
+    d.node("device", 40, 90, 420, 190, "User device", "Deployment node: phone or computer")
+    d.container("web", 175, 108, 250, 95, "BMC web app", "PWA: React + Vite build", ["online only, nothing queued"])
+    d.node("github", 1480, 90, 380, 190, "GitHub", "Deployment node: github.com")
+    d.container("ghcr", 1550, 108, 290, 95, "GitHub Container Registry", "Container registry",
+                ["one multi-arch image per app"], shape="system", fill=EXTERNAL)
 
-    d.pool(20, 180, 1860, "Demonstration host\nDocker Engine + Compose",
-           [("edge network only", 180), ("edge + internal networks", 200), ("internal network only", 330)])
-    d.box("traefik", 130, 240, 220, 84, ["traefik", "Traefik 3.7", "publishes 80 and 443"])
-    d.box("client", 560, 240, 220, 84, ["client", "nginx", "React + Vite build"])
-    d.box("o2p", 890, 240, 220, 84, ["oauth2-proxy", "oauth2-proxy 7.15", "browser session (BFF)"])
+    d.node("host", 40, 330, 1820, 760, "Demonstration host",
+           "Deployment node: one Docker host · Docker Engine + Compose\n"
+           "linux/amd64 or linux/arm64 · host choice open (EN01-U3)")
+    d.node("n1", 70, 360, 1080, 170, "edge network only", "Docker network: edge", fill=NODE_IN)
+    d.container("traefik", 180, 380, 240, 90, "traefik", "Container: Traefik 3.7", ["only published ports: 80, 443"])
+    d.container("client", 520, 380, 240, 90, "client", "Container: nginx", ["serves the React build"])
+    d.container("o2p", 860, 380, 240, 90, "oauth2-proxy", "Container: oauth2-proxy 7.15", ["browser session (BFF)"])
 
-    row = [("issue", ["issue", "Spring Boot 4.1.2", "Java 25"], "/api/issue/*"),
-           ("dispatch", ["dispatch", "Spring Boot 4.1.2", "Java 25"], "/api/dispatch/*"),
-           ("notification", ["notification", "Spring Boot 4.1.2", "Java 25"], "/api/notifications/*"),
-           ("keycloak", ["keycloak", "Keycloak 26.8", "sign-in and accounts"], "/auth/*"),
-           ("gatus", ["gatus", "Gatus 5.37", "capability checks"], "/status/api")]
-    for i, (key, lines, route) in enumerate(row):
-        x = 130 + 300 * i
-        d.box(key, x, 440, 220, 84, lines)
-        cx = x + 110
-        d.edge([(240, 324), (240, 400), (cx, 400), (cx, 440)] if i else [(240, 324), (240, 440)],
-               route, at=(cx + 8, 420))
+    d.node("n2", 70, 570, 1760, 170, "edge + internal networks", "Docker networks: edge and internal", fill=NODE_IN)
+    routed = [("issue", "issue", SPRING, ["reports, issues, memberships"], "/api/issue/*"),
+              ("dispatch", "dispatch", SPRING, ["interventions, bookings"], "/api/dispatch/*"),
+              ("notification", "notification", SPRING, ["in-app inbox, email"], "/api/notifications/*"),
+              ("keycloak", "keycloak", "Container: Keycloak 26.8", ["sign-in and accounts"], "/auth/*"),
+              ("gatus", "gatus", "Container: Gatus 5.37", ["capability checks"], "/status/api")]
+    for i, (key, name, tech, desc, route) in enumerate(routed):
+        x = 345 + 280 * i
+        d.container(key, x, 600, 240, 90, name, tech, desc)
+        d.rel([(300, 470), (300, 550), (x + 120, 550), (x + 120, 600)], route, at=(x + 128, 586), bg=NODE_IN)
 
-    internal = [("aiweb", 130, 600, ["ai-triage-web", "Python 3.14 · Flask", "Gunicorn"], "node"),
-                ("sim", 430, 600, ["calendar-sim", "Spring Boot · Java 25", "in memory, fixed seed"], "node"),
-                ("mailpit", 730, 600, ["mailpit", "Mailpit 1.32", "SMTP capture"], "node"),
-                ("grafana", 1030, 600, ["grafana", "Grafana 13"], "node"),
-                ("prom", 1330, 600, ["prometheus", "Prometheus 3.x"], "node"),
-                ("aicon", 130, 765, ["ai-triage-consumer", "same image", "consumer process"], "node"),
-                ("rabbitmq", 430, 765, ["rabbitmq", "RabbitMQ 4.x", "quorum queues and DLQs"], "queue"),
-                ("mysql", 730, 765, ["mysql", "MySQL 8.4 LTS", "four databases"], "db"),
-                ("garage", 1030, 765, ["garage", "Garage 2.5 · single node", "two buckets"], "bucket")]
-    for key, x, y, lines, icon in internal:
-        d.box(key, x, y, 220, 84, lines, icon=icon)
+    d.node("n3", 70, 780, 1760, 250, "internal network only", "Docker network: internal", fill=NODE_IN)
+    for key, x, name, tech, desc in (
+            ("sim", 95, "calendar-sim", "Container: Spring Boot · Java 25", ["in memory, fixed seed"]),
+            ("mailpit", 395, "mailpit", "Container: Mailpit 1.32", ["SMTP capture"]),
+            ("aiweb", 695, "ai-triage-web", "Container: Python 3.14 · Flask", ["Gunicorn"]),
+            ("grafana", 995, "grafana", "Container: Grafana 13", ["operator dashboard"]),
+            ("prom", 1295, "prometheus", "Container: Prometheus 3.x", ["metrics and alerts"])):
+        d.container(key, x, 795, 240, 80, name, tech, desc)
+    d.container("rabbitmq", 95, 890, 240, 80, "rabbitmq", "Container: RabbitMQ 4.x", ["quorum queues, DLQs"],
+                shape="queue")
+    d.container("mysql", 395, 885, 240, 90, "mysql", "Container: MySQL 8.4 LTS", ["four databases"], shape="db")
+    d.container("aicon", 695, 890, 240, 80, "ai-triage-consumer", "Container: same image as ai-triage-web",
+                ["consumer process"])
+    d.container("garage", 995, 890, 240, 80, "garage", "Container: Garage 2.5 · single node",
+                ["buckets: attachments, backups"])
 
-    d.pool(20, 920, 1860, "Outside\nthe host", [("", 150)])
-    d.box("ai", 130, 955, 220, 84, ["AI provider API", "candidate: Gemini Flash", "choice open (DEC-05)"],
-          icon="cloud", fill=OUTSIDE)
-    d.box("r2", 1030, 955, 220, 84, ["Off-host backup copy", "Cloudflare R2", "optional"],
-          icon="cloud", fill=OUTSIDE, dashed=True)
+    d.container("ai", 695, 1130, 240, 80, "AI provider API", "External system",
+                ["candidate: Gemini Flash (DEC-05)"], shape="system", fill=EXTERNAL)
+    d.container("r2", 995, 1130, 240, 80, "Cloudflare R2", "External system · optional",
+                ["off-host backup copy"], shape="system", fill=EXTERNAL, dashed=True)
 
-    d.edge([(240, 126), (240, 240)], "HTTPS 443", at=(250, 205))
-    d.edge([(350, 282), (560, 282)], "/  and  /status", at=(455, 268), anchor="middle")
-    d.edge([(320, 240), (320, 205), (1000, 205), (1000, 240)], "/oauth2/*", at=(660, 205), anchor="middle")
-    d.edge([(1380, 126), (1380, 180)], "image pull, every app container", at=(1390, 140))
-    d.edge([(240, 849), (240, 955)], "HTTPS · the only egress the design needs", at=(250, 872))
-    d.edge([(1140, 849), (1140, 955)], "backup copy", at=(1150, 872), dashed=True)
+    d.rel([(300, 203), (300, 380)], "uses\n[HTTPS 443]", at=(308, 291))
+    d.rel([(420, 425), (520, 425)], "/, /status", at=(470, 413), anchor="middle", bg=NODE_IN)
+    d.rel([(372, 470), (372, 492), (980, 492), (980, 470)], "/oauth2/*", at=(676, 492), anchor="middle", bg=NODE_IN)
+    d.rel([(1695, 203), (1695, 330)], "image pull\n[HTTPS]", at=(1703, 291))
+    d.rel([(815, 970), (815, 1130)], "classifies report text\n[HTTPS]", at=(823, 1103))
+    d.rel([(1115, 970), (1115, 1130)], "backup copy\n[S3]", at=(1123, 1103), dashed=True)
 
-    d.note(1200, 222, ["This document's reading, not ADR text:", "keycloak joins internal because its",
-                       "database is in MySQL."], attach=d.p("keycloak", "n", 0.85))
-    d.note(1610, 598, ["Open (P-01): prometheus is on internal",
-                       "only, yet ADR-004 has it scrape traefik",
-                       "and oauth2-proxy, which are on edge only."], attach=d.p("prom", "e"))
-    d.note(430, 960, ["Open (P-02): if internal is declared internal: true, the AI",
-                      "containers cannot reach the provider, and a later real",
-                      "SMTP server is unreachable for notification and keycloak."], attach=d.p("ai", "e"))
-    d.note(1330, 768, ["The connections from the services to the broker,",
-                       "the databases, storage, mail and the calendar",
-                       "are drawn in P3 and P4."])
+    d.note(1200, 372, 330, ["This document's reading, not ADR text:", "keycloak joins internal because",
+                            "its database is in MySQL."], attach=d.p("keycloak", "n", 0.5))
+    d.note(1560, 795, 260, ["Open (P-01): prometheus is on", "internal only, yet ADR-004 has it",
+                            "scrape traefik and oauth2-proxy,", "which are on edge only."],
+           attach=d.p("prom", "e"))
+    d.note(1295, 893, 520, ["Connections from the services to the broker, the databases,",
+                            "storage, mail and the calendar are drawn in P3 and P4."])
+    d.note(150, 1110, 500, ["Open (P-02): if internal is declared internal: true, the",
+                            "AI containers cannot reach the provider, and a later real",
+                            "SMTP server is unreachable for notification and keycloak."],
+           attach=d.p("ai", "w"))
+    d.legend(1430, 1110)
     return d
 
 
 def p2():
-    d = Diagram("p2-edge-and-trust", "P2 Edge routing and trust boundaries", 1860, 780)
-    d.pool(20, 20, 1820, "Edge request path · routes of ADR-004, authorisation of ADR-005",
-           [("Internet", 150), ("traefik container\ntrust boundary 1", 200),
-            ("Public upstreams\nno ForwardAuth", 190), ("API services\ntrust boundary 2", 200)])
+    d = Diagram("p2-edge-and-trust", "P2 · Edge routing and trust boundaries",
+                "C4 deployment view of the edge · routes from ADR-004, authorisation from ADR-005 · proposed",
+                1900, 1050)
+    d.node("device", 250, 80, 520, 170, "User device", "Deployment node: browser or installed PWA")
+    d.container("web", 445, 98, 250, 85, "BMC web app", "PWA", ["one origin, no CORS"])
 
-    d.event("start", 205, 80, "Browser or installed PWA\none origin, no CORS", at=(28, 0))
-    d.box("router", 120, 230, 170, 80, ["Router", "TLS terminates here"], icon="gear")
-    d.diamond("rule", 430, 270, "Which rule?", at=(-62, -26))
-    d.event("never", 430, 80, "", end=True)
-    d.note(480, 26, ["Not routed: no Traefik rule (ADR-004)", "Gatus UI · Traefik API and dashboard",
-                     "liveness, readiness, Actuator, /metrics", "AI /classify · simulator control",
-                     "RabbitMQ management, Garage, Mailpit", "open: Keycloak paths kept unrouted,",
-                     "and how Grafana is reached in demo"], attach=(450, 80))
-    d.box("fa", 940, 230, 240, 80, ["ForwardAuth", "asks oauth2-proxy for the session",
-                                    "passes Authorization: Bearer"], icon="gear")
-    d.diamond("valid", 1270, 270, "Session valid?", at=(0, 46))
-    d.event("deny", 1270, 75, "401, no redirect for API calls", end=True, at=(30, 0))
-    d.box("strip", 1370, 230, 200, 80, ["StripPrefix", "removes /api/<service>", "then RateLimit, Headers"],
-          icon="gear")
+    d.node("host", 40, 300, 1820, 630, "Demonstration host", "Deployment node: Docker host")
+    d.boundary("tb1", 70, 325, 1330, 255, "Trust boundary 1 · internet → traefik")
+    d.node("traefik", 95, 345, 1280, 195, "traefik",
+           "Container: Traefik 3.7 · the only published ports, 80 and 443", fill=ELEMENT)
+    d.container("router", 460, 365, 220, 100, "Router", "Entrypoint", ["TLS terminates here;", "matches the route rules"],
+                fill=PART)
+    d.container("fa", 790, 365, 220, 100, "ForwardAuth", "Middleware · /api/* only", ["asks oauth2-proxy;",
+                                                                                     "no session → 401"], fill=PART)
+    d.container("strip", 1132, 365, 220, 100, "StripPrefix", "Middleware · /api/* only",
+                ["removes /api/<service>;", "then RateLimit, Headers"], fill=PART)
+    d.note(1420, 325, 420, ["Never routed: no Traefik rule (ADR-004)", "Gatus UI · Traefik API and dashboard",
+                            "liveness, readiness, Actuator, /metrics", "AI /classify · simulator control",
+                            "RabbitMQ management, Garage, Mailpit", "Open: Keycloak paths kept unrouted,",
+                            "how Grafana is reached in demo"])
 
-    d.edge([(205, 100), (205, 230)], "HTTPS 443", at=(213, 200))
-    d.edge([(290, 270), (401, 270)])
-    d.edge([(430, 241), (430, 100)], "no matching rule", at=(438, 205))
-    d.edge([(459, 270), (940, 270)], "/api/<service>/*", at=(700, 258), anchor="middle")
-    d.edge([(1180, 270), (1241, 270)])
-    d.edge([(1270, 241), (1270, 95)], "no session", at=(1278, 205))
-    d.edge([(1299, 270), (1370, 270)], "yes", at=(1334, 258), anchor="middle")
+    d.boundary("public", 70, 620, 1010, 255, "Public routes · no ForwardAuth, no API session", colour=GREY)
+    for key, x, w, name, tech, desc, route, drop in (
+            ("client", 95, 220, "client", "Container: nginx", ["static files, /status page"], "/, /status", 205),
+            ("gatus", 335, 220, "gatus", "Container: Gatus 5.37", ["read-only JSON API"], "/status/api", 445),
+            ("keycloak", 575, 220, "keycloak", "Container: Keycloak 26.8", ["sign-in pages"], "/auth/*", 685),
+            ("o2p", 815, 240, "oauth2-proxy", "Container: oauth2-proxy 7.15", ["session, OIDC client"],
+             "/oauth2/*", 875)):
+        d.container(key, x, 680, w, 100, name, tech, desc)
+        d.rel([(570, 465), (570, 655), (drop, 655), (drop, 680)], route, at=(drop + 8, 668), bg=NODE)
 
-    public = [("client", 110, ["client", "nginx static files"], "/  and  /status"),
-              ("gatus", 310, ["gatus", "read-only JSON API"], "/status/api"),
-              ("keycloak", 510, ["keycloak", "sign-in pages"], "/auth/*"),
-              ("o2p", 740, ["oauth2-proxy", "session, OIDC client"], "/oauth2/*")]
-    for key, x, lines, route in public:
-        w = 200 if key == "o2p" else 170
-        d.box(key, x, 440, w, 84, lines)
-        cx = x + 60 if key == "o2p" else x + w / 2
-        d.edge([(430, 299), (430, 410), (cx, 410), (cx, 440)], route, at=(cx + 8, 427))
-    d.edge([(1000, 310), (1000, 482), (940, 482)], "session check", at=(1008, 400))
-
+    d.boundary("tb2", 1110, 620, 730, 255, "Trust boundary 2 · inside each service (ADR-005)")
     for i, (key, check) in enumerate((("issue", "membership check"), ("dispatch", "assignment check"),
                                       ("notification", "inbox owner check"))):
-        x = 1145 + 220 * i
-        d.box(key, x, 640, 210, 84, [key, "validates the JWT", check])
-        cx = x + 105
+        x = 1130 + 240 * i
+        cx = x + 112
+        d.container(key, x, 680, 225, 100, key, "Container: Spring Boot", ["validates the JWT;", check])
         route = f"/api/{'notifications' if key == 'notification' else key}/*"
-        path = [(1470, 310), (1470, 640)] if cx == 1470 else [(1470, 310), (1470, 605), (cx, 605), (cx, 640)]
-        d.edge(path, route, at=(cx + 8, 624))
+        d.rel([(1242, 465), (1242, 655), (cx, 655), (cx, 680)] if cx != 1242 else [(1242, 465), (1242, 680)],
+              route, at=(cx + 8, 668), bg=NODE)
 
-    d.note(420, 585, ["/status/api exists only if spike item 11 shows that",
-                      "Gatus strips hosts, URLs and errors from its JSON;",
-                      "it must win over /status, rule priority to confirm",
-                      "in the spike (ADR-004, ADR-012)."], attach=d.p("gatus", "s"))
-    d.note(800, 585, ["Traefik Proxy has no JWT middleware: each",
-                      "Spring service is an OAuth2 resource server,",
-                      "authorises against its own data and answers",
-                      "404 outside the caller's scope (ADR-005)."], attach=d.p("issue", "w"))
+    d.rel([(570, 183), (570, 365)], "uses\n[HTTPS 443]", at=(578, 259))
+    d.rel([(680, 415), (790, 415)], "/api/*", at=(735, 403), anchor="middle", bg=ELEMENT)
+    d.rel([(1010, 415), (1132, 415)], "session valid", at=(1071, 403), anchor="middle", bg=ELEMENT)
+    d.rel([(1000, 465), (1000, 680)], "session check\n[HTTP]", at=(1008, 593), bg=NODE)
+
+    d.note(300, 950, 470, ["/status/api exists only if spike item 11 shows that Gatus",
+                           "strips hosts, URLs and errors from its JSON; it must win",
+                           "over /status, rule priority to confirm (ADR-004, ADR-012)."],
+           attach=d.p("gatus", "s"))
+    d.note(1130, 950, 500, ["Traefik Proxy has no JWT middleware: each Spring service",
+                            "is an OAuth2 resource server, authorises against its own",
+                            "data and answers 404 outside the caller's scope."],
+           attach=d.p("issue", "s"))
     return d
 
 
 def p3():
-    d = Diagram("p3-messaging", "P3 Messaging through RabbitMQ", 1880, 790)
-    d.pool(20, 20, 1840, "Messaging through RabbitMQ · topology of ADR-003",
-           [("Publishers", 170), ("rabbitmq\none node · one user per service", 380),
-            ("Consumers\nmanual acknowledgement", 200)])
+    d = Diagram("p3-messaging", "P3 · Messaging through RabbitMQ",
+                "C4 deployment view of the broker · topology from ADR-003 · arrows follow the message · proposed",
+                1900, 910)
+    d.node("host", 40, 80, 1820, 800, "Demonstration host", "Deployment node: Docker host · internal network")
+    cols = [330, 680, 1030, 1380]
+    services = [("issue", "issue", SPRING, ["outbox publisher with confirms;", "idempotent consumer"]),
+                ("dispatch", "dispatch", SPRING, ["outbox publisher with confirms;", "idempotent consumer"]),
+                ("notification", "notification", SPRING, ["idempotent consumer"]),
+                ("ai", "ai-triage-consumer", "Container: Python 3.14", ["stateless: classifies,",
+                                                                        "publishes, then acknowledges"])]
+    for cx, (key, name, tech, desc) in zip(cols, services):
+        d.container(key, cx - 140, 110, 280, 110, name, tech, desc)
 
-    cols = [260, 550, 840, 1130]
-    d.box("pa", 140, 55, 240, 100, ["ai-triage-consumer", "TriageSuggested", "publishes, then acknowledges"])
-    d.box("pi", 430, 55, 240, 100, ["issue", "TriageRequested", "IssueStateChanged · Membership*",
-                                    "outbox · publisher confirms"])
-    d.box("pd", 720, 55, 240, 100, ["dispatch", "intervention and booking events", "NotificationRequested",
-                                    "outbox · publisher confirms"])
-    d.note(1020, 62, ["Outbox rows wait as pending while the broker is",
-                      "down; the publisher retries with backoff (2 s",
-                      "doubling, cap 5 min) without limit."], attach=d.p("pd", "e"))
+    d.node("rabbitmq", 95, 280, 1740, 520, "rabbitmq",
+           "Container: RabbitMQ 4.x · one node · one broker user per service (ADR-005)", fill=ELEMENT)
+    queues = [("qi", "issue.inbox", ["delivery limit 5"], "TriageSuggested,\ndispatch events", "ack after commit"),
+              ("qd", "dispatch.inbox", ["delivery limit 5"], "IssueStateChanged,\nMembership*", "ack after commit"),
+              ("qn", "notification.inbox", ["delivery limit 5"], "NotificationRequested", "ack after commit"),
+              ("qa", "ai-triage.requests", ["delivery limit 5;", "point to point, private text"], "issue.TriageRequested\nonly",
+               "ack after publishing")]
+    d.container("ex", 200, 560, 1300, 62, "bmc.events", "Durable topic exchange · routing key <producer>.<eventType>",
+                fill=PART)
+    for cx, (key, name, desc, binding, ack) in zip(cols, queues):
+        d.container(key, cx - 105, 360, 210, 90, name, "Quorum queue", desc, shape="queue",
+                    fill=PART)
+        d.rel([(cx, 560), (cx, 450)], binding, at=(cx + 8, 505), bg=ELEMENT)
+        d.rel([(cx, 360), (cx, 220)], f"delivers\n[AMQP · {ack}]", at=(cx + 8, 243), bg=NODE)
+        d.rel([(cx - 125, 220), (cx - 125, 560)], "publishes\n[AMQP" + (", confirms]" if key != "qa" else "]"),
+              at=(cx - 133, 315), anchor="end", bg=ELEMENT)
 
-    d.diamond("ex", 550, 250)
-    d.text(590, 300, ["bmc.events · durable topic exchange", "routing key <producer>.<eventType>"])
-    d.edge([(260, 155), (260, 250), (521, 250)], "publish", at=(268, 215))
-    d.edge([(550, 155), (550, 221)], "publish", at=(558, 200))
-    d.edge([(840, 155), (840, 250), (579, 250)], "publish", at=(848, 215))
+    d.container("dlx", 1600, 360, 220, 90, "bmc.dlx", "Dead-letter exchange", ["at-least-once"], fill=PART)
+    d.container("dlq", 1600, 520, 220, 100, "<queue>.dlq", "Quorum queue · TTL 7 days",
+                ["one per queue;", "replay by runbook"], shape="queue", fill=PART)
+    d.rel([(1485, 405), (1600, 405)], "after 5 deliveries\n(every queue)", at=(1542, 372), anchor="middle",
+          dashed=True, bg=ELEMENT)
+    d.rel([(1710, 450), (1710, 520)], "routes", at=(1718, 485), dashed=True, bg=ELEMENT)
 
-    queues = [("qi", ["issue.inbox", "quorum · delivery limit 5"], "TriageSuggested, dispatch events"),
-              ("qd", ["dispatch.inbox", "quorum · delivery limit 5"], "IssueStateChanged, Membership*"),
-              ("qn", ["notification.inbox", "quorum · delivery limit 5"], "NotificationRequested"),
-              ("qa", ["ai-triage.requests", "point to point · private text", "quorum · delivery limit 5"],
-               "issue.TriageRequested only")]
-    for cx, (key, lines, binding) in zip(cols, queues):
-        d.box(key, cx - 130, 375, 260, 90, lines, icon="queue")
-        d.edge([(550, 279), (550, 335), (cx, 335), (cx, 375)] if cx != 550 else [(550, 279), (550, 375)],
-               binding, at=(cx + 8, 356))
-        d.edge([(cx + 80, 465), (cx + 80, 515), (1400, 515), (1400, 449)], dashed=True)
-    d.text(1320, 503, ["after 5 deliveries"], anchor="middle")
-
-    d.diamond("dlx", 1400, 420)
-    d.text(1400, 372, ["bmc.dlx · dead-letter exchange", "at-least-once"], anchor="middle")
-    d.box("dlq", 1510, 375, 260, 90, ["<queue>.dlq", "one per queue · TTL 7 days", "replay by runbook (shovel)"],
-          icon="queue")
-    d.edge([(1429, 420), (1510, 420)], dashed=True)
-
-    consumers = [("ci", ["issue", "TriageSuggested by issueVersion", "dispatch events by aggregateVersion",
-                         "→ history and issue state"], "ack after commit"),
-                 ("cd", ["dispatch", "IssueStateChanged, Membership*", "by aggregateVersion",
-                         "→ local projections"], "ack after commit"),
-                 ("cn", ["notification", "NotificationRequested", "→ in-app inbox and email"], "ack after commit"),
-                 ("ca", ["ai-triage-consumer", "TriageRequested → rules, provider", "stateless: a duplicate",
-                         "is classified again"], "ack after publishing")]
-    for cx, (key, lines, ack) in zip(cols, consumers):
-        d.box(key, cx - 130, 610, 260, 110, lines)
-        d.edge([(cx, 465), (cx, 610)], ack, at=(cx + 8, 590))
-
-    d.note(1430, 600, ["TriageRequested is the only message with",
-                       "private report text: bound only to",
-                       "ai-triage.requests, never logged; its DLQ",
-                       "copy expires after 7 days (ADR-003, 008)."], attach=(1240, 465))
-    d.note(1430, 700, ["The Spring consumers keep processed event IDs,", "so a duplicate is acknowledged without", "repeating the effect (ADR-003)."])
+    d.note(200, 665, 430, ["Outbox rows wait as pending while the broker is",
+                           "down; the publisher retries with backoff (2 s",
+                           "doubling, cap 5 min) without limit."], attach=(205, 470))
+    d.note(680, 665, 430, ["The Spring consumers keep processed event IDs,",
+                           "so a duplicate is acknowledged without",
+                           "repeating the effect (ADR-003)."])
+    d.note(1160, 665, 430, ["TriageRequested is the only message with private",
+                            "report text: bound only to ai-triage.requests,",
+                            "never logged; its DLQ copy expires after 7 days."], attach=(1380, 622))
     return d
 
 
 def p4():
-    d = Diagram("p4-data-and-platform", "P4 Data stores and platform connections", 1880, 640)
-    d.pool(20, 20, 1840, "Data stores and platform connections · arrows from client to server",
-           [("Platform\ncomponents", 170), ("Services\nown database only", 180), ("Data stores", 250)])
+    d = Diagram("p4-data-and-platform", "P4 · Data stores and platform connections",
+                "C4 deployment view of stores and platform calls · ADR-001, ADR-004, ADR-010 · arrows from client "
+                "to server · proposed", 1900, 830)
+    d.node("host", 40, 80, 1820, 720, "Demonstration host", "Deployment node: Docker host · internal network")
 
-    d.box("sim", 140, 55, 220, 90, ["calendar-sim", "HTTP · Idempotency-Key", "in memory"])
-    d.box("mailpit", 380, 55, 220, 90, ["mailpit", "SMTP capture", "demo only"])
-    d.box("keycloak", 680, 55, 220, 90, ["keycloak", "accounts and credentials", "sends account email"])
+    d.container("sim", 140, 110, 220, 90, "calendar-sim", "Container: Spring Boot · Java 25", ["in memory, fixed seed"])
+    d.container("mailpit", 380, 110, 220, 90, "mailpit", "Container: Mailpit 1.32", ["SMTP capture, demo only"])
+    d.container("keycloak", 680, 110, 220, 90, "keycloak", "Container: Keycloak 26.8",
+                ["accounts, credentials,", "account email"])
 
-    d.box("dispatch", 140, 230, 220, 96, ["dispatch", "interventions · bookings", "contractors"])
-    d.box("notification", 380, 230, 220, 96, ["notification", "inbox · preferences", "delivery log"])
-    d.box("issue", 960, 230, 320, 96, ["issue", "reports · issues · memberships", "attachments"])
-    d.box("backup", 1370, 230, 220, 96, ["backup job", "container and schedule", "not placed (P-03)"],
-          icon="gear", dashed=True)
+    d.container("dispatch", 140, 300, 220, 100, "dispatch", "Container: Spring Boot",
+                ["interventions, bookings,", "contractors"])
+    d.container("notification", 380, 300, 220, 100, "notification", "Container: Spring Boot",
+                ["inbox, preferences,", "delivery log"])
+    d.container("issue", 960, 300, 320, 100, "issue", "Container: Spring Boot",
+                ["reports, issues, memberships,", "attachments"])
+    d.container("backup", 1370, 300, 220, 100, "backup job", "Not placed (P-03)",
+                ["container and schedule", "still open"], dashed=True)
 
-    d.group(120, 400, 980, 170, "mysql · MySQL 8.4 LTS · one instance")
+    d.node("mysql", 120, 480, 980, 240, "mysql", "Container: MySQL 8.4 LTS · one instance", fill=ELEMENT)
     for x, owner in ((150, "dispatch"), (390, "notification"), (630, "keycloak"), (870, "issue")):
-        d.box("db-" + owner, x, 460, 200, 90, [owner, "database", "owner: " + owner], icon="db")
-    d.group(1130, 400, 480, 170, "garage · Garage 2.5 · S3 subset")
-    d.box("ba", 1140, 460, 220, 90, ["bmc-attachments", "report photos", "candidate, post-MVP"], icon="bucket")
-    d.box("bb", 1380, 460, 220, 90, ["bmc-backups", "MySQL dumps"], icon="bucket")
+        d.container("db-" + owner, x, 500, 200, 110, owner, "Database", ["owner: " + owner], shape="db", fill=PART)
+    d.node("garage", 1130, 480, 480, 240, "garage", "Container: Garage 2.5 · S3 subset · single node", fill=ELEMENT)
+    d.container("ba", 1150, 500, 210, 110, "bmc-attachments", "Bucket", ["report photos;", "candidate, post-MVP"],
+                fill=PART)
+    d.container("bb", 1380, 500, 210, 110, "bmc-backups", "Bucket", ["MySQL dumps"], fill=PART)
 
-    d.edge([(250, 230), (250, 145)], "HTTP", at=(258, 170))
-    d.edge([(490, 230), (490, 145)], "SMTP", at=(498, 170))
-    d.edge([(680, 100), (600, 100)], "SMTP", at=(640, 88), anchor="middle")
-    d.edge([(600, 280), (800, 280), (800, 145)], "Admin API · view-users", at=(700, 268),
-           anchor="middle", dashed=True)
-    d.edge([(860, 145), (860, 430), (730, 430), (730, 460)], "JDBC", at=(868, 380))
-    d.edge([(250, 326), (250, 460)], "JDBC", at=(258, 390))
-    d.edge([(490, 326), (490, 460)], "JDBC", at=(498, 390))
-    d.edge([(990, 326), (990, 460)], "JDBC", at=(998, 390))
-    d.edge([(1240, 326), (1240, 460)], "S3", at=(1248, 390))
-    d.edge([(1480, 326), (1480, 460)], "write dumps", at=(1488, 390), dashed=True)
-    d.edge([(1590, 280), (1700, 280), (1700, 596), (610, 596), (610, 570)], "dump · placement open",
-           at=(1150, 596), anchor="middle", dashed=True)
+    d.rel([(250, 300), (250, 200)], "books visits\n[HTTP, Idempotency-Key]", at=(258, 240), bg=NODE)
+    d.rel([(490, 300), (490, 200)], "sends email\n[SMTP]", at=(498, 240), bg=NODE)
+    d.rel([(680, 155), (600, 155)], "[SMTP]", at=(640, 143), anchor="middle", bg=NODE)
+    d.rel([(600, 350), (800, 350), (800, 200)], "Admin API · view-users", at=(700, 338), anchor="middle",
+          dashed=True, bg=NODE)
+    d.rel([(860, 200), (860, 465), (730, 465), (730, 500)], "[JDBC]", at=(868, 420), bg=NODE)
+    d.rel([(250, 400), (250, 500)], "[JDBC]", at=(258, 445), bg=NODE)
+    d.rel([(490, 400), (490, 500)], "[JDBC]", at=(498, 445), bg=NODE)
+    d.rel([(990, 400), (990, 500)], "[JDBC]", at=(998, 445), bg=NODE)
+    d.rel([(1240, 400), (1240, 500)], "stores photos\n[S3]", at=(1248, 440), bg=NODE)
+    d.rel([(1480, 400), (1480, 500)], "writes dumps\n[S3]", at=(1488, 440), dashed=True, bg=NODE)
+    d.rel([(1590, 350), (1700, 350), (1700, 760), (610, 760), (610, 720)], "dump · placement open (P-03)",
+          at=(1150, 760), anchor="middle", dashed=True, bg=NODE)
 
-    d.note(1000, 52, ["Every Spring service also needs Keycloak's signing keys;",
-                      "that connection is not drawn and its route is open (P-05).",
-                      "Calls to a platform component or to the calendar are not",
-                      "service-to-service calls (ADR-001)."], attach=d.p("keycloak", "e", 0.4))
+    d.note(1000, 105, 520, ["Every Spring service also needs Keycloak's signing keys;",
+                            "that connection is not drawn and its route is open (P-05).",
+                            "Calls to a platform component or to the calendar are not",
+                            "service-to-service calls (ADR-001)."], attach=d.p("keycloak", "e", 0.4))
     return d
 
 
 def p5():
-    d = Diagram("p5-health-and-metrics", "P5 Health, metrics and logs", 1700, 680)
-    d.pool(20, 20, 1660, "Health, metrics and the public status page · ADR-004, ADR-012",
-           [("Readers", 150), ("Edge and\nobservability", 200), ("Checked\ntargets", 290)])
+    d = Diagram("p5-health-and-metrics", "P5 · Health, metrics and logs",
+                "C4 deployment view of health and metrics paths · ADR-004, ADR-012 · proposed", 1720, 840)
+    d.node("device", 40, 80, 480, 170, "User device", "Deployment node: browser or installed PWA")
+    d.container("web", 245, 98, 250, 85, "BMC web app", "PWA · /status page and banner", ["public, no login"])
+    d.container("operator", 1280, 70, 200, 120, "Operator", "Person", ["reads the dashboard"], shape="person",
+                fill=EXTERNAL)
+    d.note(560, 85, 600, ["Public capabilities: Report a fault, Schedule interventions, Notifications,",
+                          "Suggestions, Calendar sync, Sign-in, Photo upload; infrastructure is",
+                          "never listed by name (ADR-012)."], attach=(690, 340))
 
-    d.box("public", 140, 45, 220, 84, ["Public /status page", "and role-filtered banner", "client page, no login"],
-          icon="device")
-    d.box("operator", 1190, 45, 220, 84, ["Operator", "reads the dashboard"], icon="person")
-    d.note(470, 40, ["Public capabilities: Report a fault, Schedule interventions,",
-                     "Notifications, Suggestions, Calendar sync, Sign-in, Photo",
-                     "upload; infrastructure is never listed by name (ADR-012)."],
-           attach=(600, 230))
+    d.node("host", 40, 300, 1640, 440, "Demonstration host", "Deployment node: Docker host")
+    d.container("traefik", 255, 340, 230, 90, "traefik", "Container: Traefik 3.7", ["health check before routing"])
+    d.container("gatus", 575, 340, 230, 90, "gatus", "Container: Gatus 5.37", ["capability checks, 30 days"])
+    d.container("prom", 895, 340, 230, 90, "prometheus", "Container: Prometheus 3.x", ["scrapes /metrics, alerts"])
+    d.container("grafana", 1265, 340, 230, 90, "grafana", "Container: Grafana 13", ["operator dashboard"])
 
-    d.box("traefik", 140, 230, 220, 84, ["traefik", "health check", "before routing"])
-    d.box("gatus", 490, 230, 220, 84, ["gatus", "capability checks", "results kept 30 days"])
-    d.box("prom", 840, 230, 220, 84, ["prometheus", "scrapes /metrics", "alerts"])
-    d.box("grafana", 1190, 230, 220, 84, ["grafana", "operator dashboard"])
+    d.boundary("bmc", 70, 500, 560, 200, "BMC services · readiness covers own database", colour=GREY)
+    for x, y, name, check in ((85, 515, "issue", "Actuator readiness · /metrics"),
+                              (355, 515, "dispatch", "Actuator readiness · /metrics"),
+                              (85, 585, "notification", "Actuator readiness · /metrics"),
+                              (355, 585, "ai-triage-web", "Flask health · /metrics")):
+        d.container(name, x, y, 255, 58, name, None, [check])
+    d.boundary("plat", 660, 500, 990, 200, "Platform checks · rolled up into public capabilities", colour=GREY)
+    for i, (name, check) in enumerate((("oauth2-proxy", "/ready · /metrics"),
+                                       ("rabbitmq", "diagnostics ping · metrics plugin"),
+                                       ("keycloak", "/health/ready, port 9000"), ("mysql", "query-level check"),
+                                       ("garage", "admin GET /health"), ("mailpit", "readyz"),
+                                       ("calendar-sim", "calendar sync capability"))):
+        d.container("t-" + name, 675 + 240 * (i % 4), 515 + 70 * (i // 4), 230, 58, name, None, [check])
 
-    d.box("bmc", 140, 420, 440, 116, ["BMC services · readiness covers own database",
-                                      "issue, dispatch, notification: Actuator",
-                                      "readiness, Micrometer /metrics",
-                                      "ai-triage-web: Flask health route,",
-                                      "prometheus_client /metrics"], icon="doc")
-    d.box("plat", 760, 420, 440, 180, ["Platform checks · rolled up into capabilities",
-                                       "oauth2-proxy: /ready, /metrics",
-                                       "rabbitmq: diagnostics ping, metrics plugin",
-                                       "keycloak: /health/ready on port 9000",
-                                       "mysql: query-level check",
-                                       "garage: admin GET /health",
-                                       "mailpit: readyz",
-                                       "calendar-sim: calendar sync capability"], icon="doc")
+    d.rel([(370, 183), (370, 340)], "GET /status/api\n[HTTPS]", at=(378, 258))
+    d.rel([(485, 385), (575, 385)], "/status/api", at=(530, 373), anchor="middle", bg=NODE)
+    d.rel([(1380, 190), (1380, 340)], "reads dashboards\n[access in demo: open]", at=(1388, 252), dashed=True)
+    d.rel([(1265, 385), (1125, 385)], "queries", at=(1195, 373), anchor="middle", bg=NODE)
+    d.rel([(895, 385), (805, 385)], "scrape", at=(850, 373), anchor="middle", bg=NODE)
+    d.rel([(1010, 340), (1010, 318), (440, 318), (440, 340)], "scrape · network open (P-01)", at=(725, 318),
+          anchor="middle", dashed=True, bg=NODE)
+    d.rel([(370, 430), (370, 500)], "readiness of issue,\ndispatch, notification", at=(378, 455), bg=NODE)
+    d.rel([(600, 430), (600, 500)], "readiness", at=(608, 462), bg=NODE)
+    d.rel([(760, 430), (760, 500)], "platform checks", at=(768, 462), bg=NODE)
+    d.rel([(950, 430), (950, 482), (530, 482), (530, 500)], "scrape /metrics", at=(958, 455), bg=NODE)
+    d.rel([(1080, 430), (1080, 500)], "scrape oauth2-proxy,\nrabbitmq", at=(1088, 455), bg=NODE)
 
-    d.edge([(250, 129), (250, 230)], "GET /status/api", at=(258, 152))
-    d.edge([(360, 272), (490, 272)], "/status/api", at=(425, 260), anchor="middle")
-    d.edge([(1300, 129), (1300, 230)], "access in demo: open", at=(1308, 152), dashed=True)
-    d.edge([(1190, 272), (1060, 272)], "queries", at=(1125, 260), anchor="middle")
-    d.edge([(840, 272), (710, 272)], "scrape", at=(775, 260), anchor="middle")
-    d.edge([(950, 230), (950, 198), (316, 198), (316, 230)], "scrape · network open (P-01)",
-           at=(830, 198), anchor="middle", dashed=True)
-    d.edge([(250, 314), (250, 420)], "readiness of issue,\ndispatch, notification", at=(258, 342))
-    d.edge([(540, 314), (540, 420)], "readiness", at=(548, 340))
-    d.edge([(680, 314), (680, 390), (800, 390), (800, 420)], "platform checks", at=(688, 340))
-    d.edge([(880, 314), (880, 405), (450, 405), (450, 420)], "scrape /metrics", at=(888, 340))
-    d.edge([(990, 314), (990, 420)], "scrape oauth2-proxy,\nrabbitmq", at=(998, 342))
-
-    d.note(1250, 440, ["Logs are structured with correlationId and",
-                       "traceparent; where they are collected is",
-                       "left to DEVOPS-02 (EN01-U12), so no log",
-                       "collector is drawn."])
+    d.note(70, 760, 620, ["Logs are structured with correlationId and traceparent; where they are",
+                          "collected is left to DEVOPS-02 (EN01-U12), so no log collector is drawn."])
     return d
 
 
 def p6():
-    d = Diagram("p6-delivery-path", "P6 Environments and delivery path", 1800, 700)
-    d.pool(20, 20, 1760, "Proposed delivery path · ADR-004, PR #40 (open) · no pipeline, image or host exists yet",
-           [("Developer\nlaptop", 140), ("GitHub", 240), ("Demonstration\nhost", 280)])
+    d = Diagram("p6-delivery-path", "P6 · Environments and delivery path",
+                "C4 deployment view of the proposed delivery path · ADR-004, PR #40 (open) · arrows follow code and "
+                "images · no pipeline, image or host exists yet", 1900, 730)
+    d.node("laptop", 40, 80, 300, 200, "Developer laptop", "Deployment node: Docker Engine + Compose")
+    d.container("wc", 65, 100, 250, 100, "Working copy", "Git · compose.yaml", ["smaller profile set"])
 
-    d.event("start", 150, 90, "Commit on a\nfeature branch")
-    d.box("push", 230, 55, 220, 70, ["Push the branch", "open a pull request"],
-          icon="person")
-    d.note(500, 50, ["The laptop runs the same compose.yaml with a smaller", "set of profiles (ADR-004)."])
-
-    d.box("repo", 120, 235, 210, 90, ["Repository", "feature/* → dev → main", "release: protected v* tag"])
-    d.group(370, 200, 1080, 160, "GitHub Actions · proposed stages")
-    stages = [["Lint and", "unit tests"], ["Contract checks", "buf lint, buf breaking"],
-              ["Boundary tests", "ArchUnit, import-linter,", "ESLint"],
-              ["Integration tests", "real MySQL 8.4", "and RabbitMQ"],
-              ["Multi-arch build", "amd64 and arm64", "method open (EN01-U9)"]]
-    for i, lines in enumerate(stages):
-        d.box(f"s{i}", 390 + 210 * i, 240, 190, 90, lines, icon="gear")
+    d.node("github", 380, 80, 1480, 360, "GitHub", "Deployment node: github.com · DEVOPS-01 proposal, PR #40 (open)")
+    d.container("repo", 405, 100, 230, 100, "Repository", "Git", ["feature/* → dev → main;", "release: protected v* tag"])
+    d.node("actions", 670, 100, 890, 280, "GitHub Actions",
+           "Deployment node: runners · proposed stages, no pipeline yet", fill=NODE_IN)
+    stages = [("Lint, unit tests", []), ("Contract checks", ["buf lint,", "buf breaking"]),
+              ("Boundary tests", ["ArchUnit,", "import-linter, ESLint"]),
+              ("Integration tests", ["real MySQL 8.4", "and RabbitMQ"]),
+              ("Multi-arch build", ["amd64, arm64;", "method open (EN01-U9)"])]
+    for i, (name, desc) in enumerate(stages):
+        x = 690 + 175 * i
+        d.container(f"s{i}", x, 115, 155, 125, name, f"Stage {i + 1}", desc, fill=PART)
         if i:
-            d.edge([(390 + 210 * i - 20, 285), (390 + 210 * i, 285)])
-    d.box("ghcr", 1530, 240, 220, 90, ["GHCR", "one image per app", "built once, promoted by tag"],
-          icon="cloud")
+            d.rel([(x - 20, 177), (x, 177)])
+    d.container("ghcr", 1590, 100, 250, 100, "GHCR", "Container registry", ["one image per app;",
+                                                                           "built once, promoted by tag"])
 
-    d.edge([(170, 90), (230, 90)])
-    d.edge([(340, 125), (340, 180), (225, 180), (225, 235)], "push", at=(290, 168), anchor="middle")
-    d.edge([(330, 285), (390, 285)])
-    d.edge([(1420, 285), (1530, 285)], "push tagged\nimages", at=(1488, 252), anchor="middle")
+    d.node("host", 1100, 500, 760, 200, "Demonstration host", "Deployment node: Docker host")
+    d.container("env", 1130, 520, 300, 110, "Host or CI environment", "Configuration source",
+                [".env with secrets,", "never in Git"])
+    d.container("stack", 1560, 520, 270, 110, "BMC stack", "Docker Compose · compose.yaml",
+                ["compose pull, then up -d;", "rollback: previous tag"])
 
-    d.box("pull", 1530, 450, 220, 80, ["docker compose pull", "the same image, by tag"], icon="gear")
-    d.box("up", 1170, 450, 230, 80, ["docker compose up -d", "rollback: previous tag"], icon="gear")
-    d.event("run", 1000, 490, "Release running", end=True)
-    d.box("env", 1170, 580, 230, 70, ["Host or CI environment", ".env with secrets, never in Git"], icon="doc")
+    d.rel([(315, 150), (405, 150)], "push", at=(360, 138), anchor="middle")
+    d.rel([(635, 150), (690, 150)], "runs", at=(662, 138), anchor="middle", bg=NODE)
+    d.rel([(1545, 150), (1590, 150)])
+    d.rel([(1715, 200), (1715, 520)], "pulls the same image\n[HTTPS]", at=(1723, 462))
+    d.rel([(1430, 575), (1560, 575)], "injected at deploy", at=(1495, 563), anchor="middle", bg=NODE)
 
-    d.edge([(1640, 330), (1640, 450)])
-    d.edge([(1530, 490), (1400, 490)])
-    d.edge([(1170, 490), (1020, 490)])
-    d.edge([(1285, 580), (1285, 530)], "injected at deploy", at=(1293, 560))
-
-    d.note(470, 420, ["Multi-arch availability is recorded for the Traefik, RabbitMQ,",
-                      "MySQL, Mailpit, Temurin and python images, not yet for",
-                      "Keycloak, oauth2-proxy, Garage, Prometheus, Grafana or nginx",
-                      "(spike item 8, ADR-004)."], attach=d.p("s4", "s"))
-    d.note(1050, 50, ["Required checks are configured only when", "the pipeline exists (ADR-004)."])
+    d.note(1000, 258, 540, ["Multi-arch availability is recorded for the Traefik, RabbitMQ,",
+                            "MySQL, Mailpit, Temurin and python images, not yet for",
+                            "Keycloak, oauth2-proxy, Garage, Prometheus, Grafana or nginx",
+                            "(spike item 8, ADR-004)."], attach=d.p("s4", "s"))
+    d.note(405, 230, 240, ["Required checks are configured", "only when the pipeline exists."])
     return d
 
 
 def p7():
-    d = Diagram("p7-compose-profiles", "P7 Compose profiles and rollout", 1520, 640)
-    d.pool(20, 20, 1480, "Compose profiles in the proposed rollout order · ADR-004",
-           [("First\nprofile core", 200), ("When the slice\nneeds it", 200), ("Later\nown profiles", 200)])
+    d = Diagram("p7-compose-profiles", "P7 · Compose profiles and rollout",
+                "C4 deployment view of the Compose profile sets in the proposed order · ADR-004 · to decide at the "
+                "team review (EN01-U1)", 1900, 530)
+    d.node("host", 40, 80, 1820, 420, "Demonstration host", "Deployment node: one compose.yaml with profiles")
 
-    d.event("start", 160, 120, "First vertical\nslice")
-    d.group(240, 45, 790, 150, "core · eight containers")
-    for i, lines in enumerate((["edge and sign-in", "traefik · oauth2-proxy", "keycloak"],
-                               ["data and messaging", "mysql · rabbitmq"],
-                               ["business and client", "issue · dispatch", "client"])):
-        d.box(f"c{i}", 260 + 255 * i, 80, 240, 96, lines)
+    d.node("core", 70, 100, 520, 345, "First", "Compose profile: core · eight containers", fill=NODE_IN)
+    core = [("traefik", "Traefik 3.7", "box"), ("oauth2-proxy", "oauth2-proxy 7.15", "box"),
+            ("keycloak", "Keycloak 26.8", "box"), ("client", "nginx", "box"),
+            ("issue", "Spring Boot", "box"), ("dispatch", "Spring Boot", "box"),
+            ("mysql", "MySQL 8.4 LTS", "db"), ("rabbitmq", "RabbitMQ 4.x", "queue")]
+    for i, (name, tech, shape) in enumerate(core):
+        d.container("c-" + name, 90 + 250 * (i % 2), 115 + 72 * (i // 2), 235, 62, name, tech, shape=shape)
 
-    d.group(240, 245, 790, 150, "no profile name yet")
-    for i, lines in enumerate((["AI triage", "ai-triage-web", "ai-triage-consumer", "reporting works without them"],
-                               ["notification", "as soon as US-10 is", "in the slice"],
-                               ["calendar-sim", "when dispatch", "books a visit"])):
-        d.box(f"l{i}", 260 + 255 * i, 280, 240, 100, lines)
+    d.node("slice", 660, 100, 520, 345, "When the slice needs it", "Compose: no profile name yet", fill=NODE_IN)
+    for i, (name, desc) in enumerate((("ai-triage-web", ["reporting works", "without it (NFR-03)"]),
+                                      ("ai-triage-consumer", ["with ai-triage-web"]),
+                                      ("notification", ["as soon as US-10", "is in the slice"]),
+                                      ("calendar-sim", ["when dispatch", "books a visit"]))):
+        d.container("l-" + name, 680 + 250 * (i % 2), 115 + 105 * (i // 2), 235, 92, name, None, desc)
+    d.note(680, 345, 480, ["Memory of each set is not measured", "(EN01-U3, spike item 8)."])
 
-    d.group(240, 445, 1045, 170, "own profiles · storage and status are proposed names")
-    for i, lines in enumerate((["demo", "mailpit, synthetic", "realm users"],
-                               ["status", "gatus, /status page", "and banner"],
-                               ["observability", "prometheus, grafana"],
-                               ["storage", "garage, before the backup", "and restore exercise"])):
-        d.box(f"x{i}", 260 + 255 * i, 485, 240, 100, lines)
-    d.event("end", 1380, 530, "All seventeen\ncontainers", end=True)
+    d.node("later", 1250, 100, 580, 345, "Later", "Compose profiles, own names", fill=NODE_IN)
+    for i, (name, profile, desc) in enumerate((("mailpit", "profile demo", ["email channel only"]),
+                                               ("gatus", "profile status (proposed)", ["/status page, banner"]),
+                                               ("prometheus", "profile observability", []),
+                                               ("grafana", "profile observability", []),
+                                               ("garage", "profile storage (proposed)", ["before backup and restore"]))):
+        d.container("x-" + name, 1270 + 280 * (i % 2), 115 + 90 * (i // 2), 260, 78, name, profile, desc)
 
-    d.edge([(180, 120), (240, 120)])
-    d.edge([(635, 195), (635, 245)], "then", at=(643, 233))
-    d.edge([(635, 395), (635, 445)], "then", at=(643, 433))
-    d.edge([(1285, 530), (1360, 530)])
-
-    d.note(1100, 260, ["A proposal to decide at the team review", "(EN01-U1). Memory of each set is not", "measured (EN01-U3, spike item 8)."])
+    d.rel([(590, 270), (660, 270)], "then", at=(625, 258), anchor="middle", bg=NODE)
+    d.rel([(1180, 270), (1250, 270)], "then", at=(1215, 258), anchor="middle", bg=NODE)
     return d
 
 

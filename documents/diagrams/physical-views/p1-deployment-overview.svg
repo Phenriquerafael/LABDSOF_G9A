@@ -1,118 +1,130 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1900" height="1090" viewBox="0 0 1900 1090" font-family="Arial, 'Liberation Sans', Helvetica, sans-serif" fill="#000000">
-<title>P1 Deployment overview</title>
-<defs><marker id="arrow" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto"><path d="M1 1 L11 6 L1 11 Z" fill="#000000"/></marker></defs>
+<svg xmlns="http://www.w3.org/2000/svg" width="1900" height="1250" viewBox="0 0 1900 1250" font-family="Arial, 'Liberation Sans', Helvetica, sans-serif">
+<title>P1 · Deployment overview</title>
+<defs><marker id="arrow" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="11" markerHeight="11" markerUnits="userSpaceOnUse" orient="auto"><path d="M1 1 L11 6 L1 11 Z" fill="#000000"/></marker></defs>
 <rect width="100%" height="100%" fill="#FFFFFF"/>
-<rect x="20" y="20" width="1860" height="130" fill="#87DCF5" stroke="#000000" stroke-width="2"/>
-<path d="M60 20 v130" stroke="#000000" stroke-width="2"/>
-<text x="40.0" y="77.0" font-size="13" text-anchor="middle" dominant-baseline="central" transform="rotate(-90 40.0 85.0)"><tspan x="40.0" dy="0">Outside</tspan><tspan x="40.0" dy="16">the host</tspan></text>
-<rect x="20" y="180" width="1860" height="710" fill="#87DCF5" stroke="#000000" stroke-width="2"/>
-<path d="M60 180 v710" stroke="#000000" stroke-width="2"/>
-<text x="40.0" y="527.0" font-size="13" text-anchor="middle" dominant-baseline="central" transform="rotate(-90 40.0 535.0)"><tspan x="40.0" dy="0">Demonstration host</tspan><tspan x="40.0" dy="16">Docker Engine + Compose</tspan></text>
-<path d="M100 180 v180" stroke="#000000" stroke-width="2"/>
-<text x="80.0" y="270.0" font-size="12" text-anchor="middle" dominant-baseline="central" transform="rotate(-90 80.0 270.0)"><tspan x="80.0" dy="0">edge network only</tspan></text>
-<path d="M100 360 v200" stroke="#000000" stroke-width="2"/>
-<text x="80.0" y="460.0" font-size="12" text-anchor="middle" dominant-baseline="central" transform="rotate(-90 80.0 460.0)"><tspan x="80.0" dy="0">edge + internal networks</tspan></text>
-<path d="M60 360 h1820" stroke="#000000" stroke-width="2"/>
-<path d="M100 560 v330" stroke="#000000" stroke-width="2"/>
-<text x="80.0" y="725.0" font-size="12" text-anchor="middle" dominant-baseline="central" transform="rotate(-90 80.0 725.0)"><tspan x="80.0" dy="0">internal network only</tspan></text>
-<path d="M60 560 h1820" stroke="#000000" stroke-width="2"/>
-<rect x="20" y="920" width="1860" height="150" fill="#87DCF5" stroke="#000000" stroke-width="2"/>
-<path d="M60 920 v150" stroke="#000000" stroke-width="2"/>
-<text x="40.0" y="987.0" font-size="13" text-anchor="middle" dominant-baseline="central" transform="rotate(-90 40.0 995.0)"><tspan x="40.0" dy="0">Outside</tspan><tspan x="40.0" dy="16">the host</tspan></text>
-<path d="M240 324 L240 440" stroke="#000000" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-<text stroke="#87DCF5" stroke-width="5" stroke-linejoin="round" x="248" y="420.0" font-size="12" text-anchor="start" dominant-baseline="central"><tspan x="248" dy="0">/api/issue/*</tspan></text><text x="248" y="420.0" font-size="12" text-anchor="start" dominant-baseline="central"><tspan x="248" dy="0">/api/issue/*</tspan></text>
-<path d="M240 324 L240.0 392.0 Q240 400 248.0 400.0 L532.0 400.0 Q540 400 540.0 408.0 L540 440" stroke="#000000" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-<text stroke="#87DCF5" stroke-width="5" stroke-linejoin="round" x="548" y="420.0" font-size="12" text-anchor="start" dominant-baseline="central"><tspan x="548" dy="0">/api/dispatch/*</tspan></text><text x="548" y="420.0" font-size="12" text-anchor="start" dominant-baseline="central"><tspan x="548" dy="0">/api/dispatch/*</tspan></text>
-<path d="M240 324 L240.0 392.0 Q240 400 248.0 400.0 L832.0 400.0 Q840 400 840.0 408.0 L840 440" stroke="#000000" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-<text stroke="#87DCF5" stroke-width="5" stroke-linejoin="round" x="848" y="420.0" font-size="12" text-anchor="start" dominant-baseline="central"><tspan x="848" dy="0">/api/notifications/*</tspan></text><text x="848" y="420.0" font-size="12" text-anchor="start" dominant-baseline="central"><tspan x="848" dy="0">/api/notifications/*</tspan></text>
-<path d="M240 324 L240.0 392.0 Q240 400 248.0 400.0 L1132.0 400.0 Q1140 400 1140.0 408.0 L1140 440" stroke="#000000" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-<text stroke="#87DCF5" stroke-width="5" stroke-linejoin="round" x="1148" y="420.0" font-size="12" text-anchor="start" dominant-baseline="central"><tspan x="1148" dy="0">/auth/*</tspan></text><text x="1148" y="420.0" font-size="12" text-anchor="start" dominant-baseline="central"><tspan x="1148" dy="0">/auth/*</tspan></text>
-<path d="M240 324 L240.0 392.0 Q240 400 248.0 400.0 L1432.0 400.0 Q1440 400 1440.0 408.0 L1440 440" stroke="#000000" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-<text stroke="#87DCF5" stroke-width="5" stroke-linejoin="round" x="1448" y="420.0" font-size="12" text-anchor="start" dominant-baseline="central"><tspan x="1448" dy="0">/status/api</tspan></text><text x="1448" y="420.0" font-size="12" text-anchor="start" dominant-baseline="central"><tspan x="1448" dy="0">/status/api</tspan></text>
-<path d="M240 126 L240 240" stroke="#000000" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-<text stroke="#87DCF5" stroke-width="5" stroke-linejoin="round" x="250" y="205.0" font-size="12" text-anchor="start" dominant-baseline="central"><tspan x="250" dy="0">HTTPS 443</tspan></text><text x="250" y="205.0" font-size="12" text-anchor="start" dominant-baseline="central"><tspan x="250" dy="0">HTTPS 443</tspan></text>
-<path d="M350 282 L560 282" stroke="#000000" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-<text stroke="#87DCF5" stroke-width="5" stroke-linejoin="round" x="455" y="268.0" font-size="12" text-anchor="middle" dominant-baseline="central"><tspan x="455" dy="0">/  and  /status</tspan></text><text x="455" y="268.0" font-size="12" text-anchor="middle" dominant-baseline="central"><tspan x="455" dy="0">/  and  /status</tspan></text>
-<path d="M320 240 L320.0 213.0 Q320 205 328.0 205.0 L992.0 205.0 Q1000 205 1000.0 213.0 L1000 240" stroke="#000000" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-<text stroke="#87DCF5" stroke-width="5" stroke-linejoin="round" x="660" y="205.0" font-size="12" text-anchor="middle" dominant-baseline="central"><tspan x="660" dy="0">/oauth2/*</tspan></text><text x="660" y="205.0" font-size="12" text-anchor="middle" dominant-baseline="central"><tspan x="660" dy="0">/oauth2/*</tspan></text>
-<path d="M1380 126 L1380 180" stroke="#000000" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-<text stroke="#87DCF5" stroke-width="5" stroke-linejoin="round" x="1390" y="140.0" font-size="12" text-anchor="start" dominant-baseline="central"><tspan x="1390" dy="0">image pull, every app container</tspan></text><text x="1390" y="140.0" font-size="12" text-anchor="start" dominant-baseline="central"><tspan x="1390" dy="0">image pull, every app container</tspan></text>
-<path d="M240 849 L240 955" stroke="#000000" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-<text stroke="#87DCF5" stroke-width="5" stroke-linejoin="round" x="250" y="872.0" font-size="12" text-anchor="start" dominant-baseline="central"><tspan x="250" dy="0">HTTPS · the only egress the design needs</tspan></text><text x="250" y="872.0" font-size="12" text-anchor="start" dominant-baseline="central"><tspan x="250" dy="0">HTTPS · the only egress the design needs</tspan></text>
-<path d="M1140 849 L1140 955" stroke="#000000" stroke-width="2" fill="none" stroke-dasharray="8 6" marker-end="url(#arrow)"/>
-<text stroke="#87DCF5" stroke-width="5" stroke-linejoin="round" x="1150" y="872.0" font-size="12" text-anchor="start" dominant-baseline="central"><tspan x="1150" dy="0">backup copy</tspan></text><text x="1150" y="872.0" font-size="12" text-anchor="start" dominant-baseline="central"><tspan x="1150" dy="0">backup copy</tspan></text>
-<path d="M1217.0 440 L1200 252.0" stroke="#000000" stroke-width="1.5" stroke-dasharray="2 4" fill="none"/>
-<path d="M1550 642.0 L1610 628.0" stroke="#000000" stroke-width="1.5" stroke-dasharray="2 4" fill="none"/>
-<path d="M350 997.0 L430 990.0" stroke="#000000" stroke-width="1.5" stroke-dasharray="2 4" fill="none"/>
-<rect x="130" y="42" width="220" height="84" rx="10" fill="#C3F57A" stroke="#000000" stroke-width="2"/>
-<rect x="140" y="49" width="13" height="19" rx="2" stroke="#000000" stroke-width="1.2" fill="none"/><path d="M144 65 h5" stroke="#000000" stroke-width="1.2" fill="none"/>
-<text x="240.0" y="72.0" font-size="13" text-anchor="middle" dominant-baseline="central"><tspan x="240.0" dy="0" font-weight="bold">User device</tspan><tspan x="240.0" dy="16">browser or installed PWA</tspan><tspan x="240.0" dy="16">online only</tspan></text>
-<rect x="1250" y="42" width="260" height="84" rx="10" fill="#C3F57A" stroke="#000000" stroke-width="2"/>
-<path d="M1262 65 a5 5 0 0 1 0 -10 a6 6 0 0 1 11 -2 a5 5 0 0 1 3 12 z" stroke="#000000" stroke-width="1.2" fill="none"/>
-<text x="1380.0" y="72.0" font-size="13" text-anchor="middle" dominant-baseline="central"><tspan x="1380.0" dy="0" font-weight="bold">GitHub Container Registry</tspan><tspan x="1380.0" dy="16">one multi-arch image per app</tspan><tspan x="1380.0" dy="16">linux/amd64 and linux/arm64</tspan></text>
-<rect x="130" y="240" width="220" height="84" rx="10" fill="#EEF57A" stroke="#000000" stroke-width="2"/>
-<path d="M137 252 h13 v13 h-13 z M137 252 l5 -5 h13 l-5 5 M150 265 l5 -5 v-13" stroke="#000000" stroke-width="1.2" fill="none"/>
-<text x="240.0" y="270.0" font-size="13" text-anchor="middle" dominant-baseline="central"><tspan x="240.0" dy="0" font-weight="bold">traefik</tspan><tspan x="240.0" dy="16">Traefik 3.7</tspan><tspan x="240.0" dy="16">publishes 80 and 443</tspan></text>
-<rect x="560" y="240" width="220" height="84" rx="10" fill="#EEF57A" stroke="#000000" stroke-width="2"/>
-<path d="M567 252 h13 v13 h-13 z M567 252 l5 -5 h13 l-5 5 M580 265 l5 -5 v-13" stroke="#000000" stroke-width="1.2" fill="none"/>
-<text x="670.0" y="270.0" font-size="13" text-anchor="middle" dominant-baseline="central"><tspan x="670.0" dy="0" font-weight="bold">client</tspan><tspan x="670.0" dy="16">nginx</tspan><tspan x="670.0" dy="16">React + Vite build</tspan></text>
-<rect x="890" y="240" width="220" height="84" rx="10" fill="#EEF57A" stroke="#000000" stroke-width="2"/>
-<path d="M897 252 h13 v13 h-13 z M897 252 l5 -5 h13 l-5 5 M910 265 l5 -5 v-13" stroke="#000000" stroke-width="1.2" fill="none"/>
-<text x="1000.0" y="270.0" font-size="13" text-anchor="middle" dominant-baseline="central"><tspan x="1000.0" dy="0" font-weight="bold">oauth2-proxy</tspan><tspan x="1000.0" dy="16">oauth2-proxy 7.15</tspan><tspan x="1000.0" dy="16">browser session (BFF)</tspan></text>
-<rect x="130" y="440" width="220" height="84" rx="10" fill="#EEF57A" stroke="#000000" stroke-width="2"/>
-<path d="M137 452 h13 v13 h-13 z M137 452 l5 -5 h13 l-5 5 M150 465 l5 -5 v-13" stroke="#000000" stroke-width="1.2" fill="none"/>
-<text x="240.0" y="470.0" font-size="13" text-anchor="middle" dominant-baseline="central"><tspan x="240.0" dy="0" font-weight="bold">issue</tspan><tspan x="240.0" dy="16">Spring Boot 4.1.2</tspan><tspan x="240.0" dy="16">Java 25</tspan></text>
-<rect x="430" y="440" width="220" height="84" rx="10" fill="#EEF57A" stroke="#000000" stroke-width="2"/>
-<path d="M437 452 h13 v13 h-13 z M437 452 l5 -5 h13 l-5 5 M450 465 l5 -5 v-13" stroke="#000000" stroke-width="1.2" fill="none"/>
-<text x="540.0" y="470.0" font-size="13" text-anchor="middle" dominant-baseline="central"><tspan x="540.0" dy="0" font-weight="bold">dispatch</tspan><tspan x="540.0" dy="16">Spring Boot 4.1.2</tspan><tspan x="540.0" dy="16">Java 25</tspan></text>
-<rect x="730" y="440" width="220" height="84" rx="10" fill="#EEF57A" stroke="#000000" stroke-width="2"/>
-<path d="M737 452 h13 v13 h-13 z M737 452 l5 -5 h13 l-5 5 M750 465 l5 -5 v-13" stroke="#000000" stroke-width="1.2" fill="none"/>
-<text x="840.0" y="470.0" font-size="13" text-anchor="middle" dominant-baseline="central"><tspan x="840.0" dy="0" font-weight="bold">notification</tspan><tspan x="840.0" dy="16">Spring Boot 4.1.2</tspan><tspan x="840.0" dy="16">Java 25</tspan></text>
-<rect x="1030" y="440" width="220" height="84" rx="10" fill="#EEF57A" stroke="#000000" stroke-width="2"/>
-<path d="M1037 452 h13 v13 h-13 z M1037 452 l5 -5 h13 l-5 5 M1050 465 l5 -5 v-13" stroke="#000000" stroke-width="1.2" fill="none"/>
-<text x="1140.0" y="470.0" font-size="13" text-anchor="middle" dominant-baseline="central"><tspan x="1140.0" dy="0" font-weight="bold">keycloak</tspan><tspan x="1140.0" dy="16">Keycloak 26.8</tspan><tspan x="1140.0" dy="16">sign-in and accounts</tspan></text>
-<rect x="1330" y="440" width="220" height="84" rx="10" fill="#EEF57A" stroke="#000000" stroke-width="2"/>
-<path d="M1337 452 h13 v13 h-13 z M1337 452 l5 -5 h13 l-5 5 M1350 465 l5 -5 v-13" stroke="#000000" stroke-width="1.2" fill="none"/>
-<text x="1440.0" y="470.0" font-size="13" text-anchor="middle" dominant-baseline="central"><tspan x="1440.0" dy="0" font-weight="bold">gatus</tspan><tspan x="1440.0" dy="16">Gatus 5.37</tspan><tspan x="1440.0" dy="16">capability checks</tspan></text>
-<rect x="130" y="600" width="220" height="84" rx="10" fill="#EEF57A" stroke="#000000" stroke-width="2"/>
-<path d="M137 612 h13 v13 h-13 z M137 612 l5 -5 h13 l-5 5 M150 625 l5 -5 v-13" stroke="#000000" stroke-width="1.2" fill="none"/>
-<text x="240.0" y="630.0" font-size="13" text-anchor="middle" dominant-baseline="central"><tspan x="240.0" dy="0" font-weight="bold">ai-triage-web</tspan><tspan x="240.0" dy="16">Python 3.14 · Flask</tspan><tspan x="240.0" dy="16">Gunicorn</tspan></text>
-<rect x="430" y="600" width="220" height="84" rx="10" fill="#EEF57A" stroke="#000000" stroke-width="2"/>
-<path d="M437 612 h13 v13 h-13 z M437 612 l5 -5 h13 l-5 5 M450 625 l5 -5 v-13" stroke="#000000" stroke-width="1.2" fill="none"/>
-<text x="540.0" y="630.0" font-size="13" text-anchor="middle" dominant-baseline="central"><tspan x="540.0" dy="0" font-weight="bold">calendar-sim</tspan><tspan x="540.0" dy="16">Spring Boot · Java 25</tspan><tspan x="540.0" dy="16">in memory, fixed seed</tspan></text>
-<rect x="730" y="600" width="220" height="84" rx="10" fill="#EEF57A" stroke="#000000" stroke-width="2"/>
-<path d="M737 612 h13 v13 h-13 z M737 612 l5 -5 h13 l-5 5 M750 625 l5 -5 v-13" stroke="#000000" stroke-width="1.2" fill="none"/>
-<text x="840.0" y="630.0" font-size="13" text-anchor="middle" dominant-baseline="central"><tspan x="840.0" dy="0" font-weight="bold">mailpit</tspan><tspan x="840.0" dy="16">Mailpit 1.32</tspan><tspan x="840.0" dy="16">SMTP capture</tspan></text>
-<rect x="1030" y="600" width="220" height="84" rx="10" fill="#EEF57A" stroke="#000000" stroke-width="2"/>
-<path d="M1037 612 h13 v13 h-13 z M1037 612 l5 -5 h13 l-5 5 M1050 625 l5 -5 v-13" stroke="#000000" stroke-width="1.2" fill="none"/>
-<text x="1140.0" y="638.0" font-size="13" text-anchor="middle" dominant-baseline="central"><tspan x="1140.0" dy="0" font-weight="bold">grafana</tspan><tspan x="1140.0" dy="16">Grafana 13</tspan></text>
-<rect x="1330" y="600" width="220" height="84" rx="10" fill="#EEF57A" stroke="#000000" stroke-width="2"/>
-<path d="M1337 612 h13 v13 h-13 z M1337 612 l5 -5 h13 l-5 5 M1350 625 l5 -5 v-13" stroke="#000000" stroke-width="1.2" fill="none"/>
-<text x="1440.0" y="638.0" font-size="13" text-anchor="middle" dominant-baseline="central"><tspan x="1440.0" dy="0" font-weight="bold">prometheus</tspan><tspan x="1440.0" dy="16">Prometheus 3.x</tspan></text>
-<rect x="130" y="765" width="220" height="84" rx="10" fill="#EEF57A" stroke="#000000" stroke-width="2"/>
-<path d="M137 777 h13 v13 h-13 z M137 777 l5 -5 h13 l-5 5 M150 790 l5 -5 v-13" stroke="#000000" stroke-width="1.2" fill="none"/>
-<text x="240.0" y="795.0" font-size="13" text-anchor="middle" dominant-baseline="central"><tspan x="240.0" dy="0" font-weight="bold">ai-triage-consumer</tspan><tspan x="240.0" dy="16">same image</tspan><tspan x="240.0" dy="16">consumer process</tspan></text>
-<rect x="430" y="765" width="220" height="84" rx="10" fill="#EEF57A" stroke="#000000" stroke-width="2"/>
-<rect x="437" y="775" width="20" height="12" rx="2" stroke="#000000" stroke-width="1.2" fill="none"/><path d="M442 775 v12 M447 775 v12 M452 775 v12" stroke="#000000" stroke-width="1.2" fill="none"/>
-<text x="540.0" y="795.0" font-size="13" text-anchor="middle" dominant-baseline="central"><tspan x="540.0" dy="0" font-weight="bold">rabbitmq</tspan><tspan x="540.0" dy="16">RabbitMQ 4.x</tspan><tspan x="540.0" dy="16">quorum queues and DLQs</tspan></text>
-<rect x="730" y="765" width="220" height="84" rx="10" fill="#EEF57A" stroke="#000000" stroke-width="2"/>
-<path d="M737 775 v13 a9 3.5 0 0 0 18 0 v-13" stroke="#000000" stroke-width="1.2" fill="none"/><ellipse cx="746" cy="775" rx="9" ry="3.5" stroke="#000000" stroke-width="1.2" fill="none"/>
-<text x="840.0" y="795.0" font-size="13" text-anchor="middle" dominant-baseline="central"><tspan x="840.0" dy="0" font-weight="bold">mysql</tspan><tspan x="840.0" dy="16">MySQL 8.4 LTS</tspan><tspan x="840.0" dy="16">four databases</tspan></text>
-<rect x="1030" y="765" width="220" height="84" rx="10" fill="#EEF57A" stroke="#000000" stroke-width="2"/>
-<path d="M1038 776 l3 14 h12 l3 -14" stroke="#000000" stroke-width="1.2" fill="none"/><ellipse cx="1047" cy="776" rx="9" ry="3" stroke="#000000" stroke-width="1.2" fill="none"/>
-<text x="1140.0" y="795.0" font-size="13" text-anchor="middle" dominant-baseline="central"><tspan x="1140.0" dy="0" font-weight="bold">garage</tspan><tspan x="1140.0" dy="16">Garage 2.5 · single node</tspan><tspan x="1140.0" dy="16">two buckets</tspan></text>
-<rect x="130" y="955" width="220" height="84" rx="10" fill="#C3F57A" stroke="#000000" stroke-width="2"/>
-<path d="M142 978 a5 5 0 0 1 0 -10 a6 6 0 0 1 11 -2 a5 5 0 0 1 3 12 z" stroke="#000000" stroke-width="1.2" fill="none"/>
-<text x="240.0" y="985.0" font-size="13" text-anchor="middle" dominant-baseline="central"><tspan x="240.0" dy="0" font-weight="bold">AI provider API</tspan><tspan x="240.0" dy="16">candidate: Gemini Flash</tspan><tspan x="240.0" dy="16">choice open (DEC-05)</tspan></text>
-<rect x="1030" y="955" width="220" height="84" rx="10" fill="#C3F57A" stroke="#000000" stroke-width="2" stroke-dasharray="8 5"/>
-<path d="M1042 978 a5 5 0 0 1 0 -10 a6 6 0 0 1 11 -2 a5 5 0 0 1 3 12 z" stroke="#000000" stroke-width="1.2" fill="none"/>
-<text x="1140.0" y="985.0" font-size="13" text-anchor="middle" dominant-baseline="central"><tspan x="1140.0" dy="0" font-weight="bold">Off-host backup copy</tspan><tspan x="1140.0" dy="16">Cloudflare R2</tspan><tspan x="1140.0" dy="16">optional</tspan></text>
-<path d="M1212 222 H1200 V282 H1212" stroke="#000000" stroke-width="2" fill="none"/>
-<text x="1210" y="236.0" font-size="12" text-anchor="start" dominant-baseline="central"><tspan x="1210" dy="0">This document&#x27;s reading, not ADR text:</tspan><tspan x="1210" dy="16">keycloak joins internal because its</tspan><tspan x="1210" dy="16">database is in MySQL.</tspan></text>
-<path d="M1622 598 H1610 V658 H1622" stroke="#000000" stroke-width="2" fill="none"/>
-<text x="1620" y="612.0" font-size="12" text-anchor="start" dominant-baseline="central"><tspan x="1620" dy="0">Open (P-01): prometheus is on internal</tspan><tspan x="1620" dy="16">only, yet ADR-004 has it scrape traefik</tspan><tspan x="1620" dy="16">and oauth2-proxy, which are on edge only.</tspan></text>
-<path d="M442 960 H430 V1020 H442" stroke="#000000" stroke-width="2" fill="none"/>
-<text x="440" y="974.0" font-size="12" text-anchor="start" dominant-baseline="central"><tspan x="440" dy="0">Open (P-02): if internal is declared internal: true, the AI</tspan><tspan x="440" dy="16">containers cannot reach the provider, and a later real</tspan><tspan x="440" dy="16">SMTP server is unreachable for notification and keycloak.</tspan></text>
-<path d="M1342 768 H1330 V828 H1342" stroke="#000000" stroke-width="2" fill="none"/>
-<text x="1340" y="782.0" font-size="12" text-anchor="start" dominant-baseline="central"><tspan x="1340" dy="0">The connections from the services to the broker,</tspan><tspan x="1340" dy="16">the databases, storage, mail and the calendar</tspan><tspan x="1340" dy="16">are drawn in P3 and P4.</tspan></text>
+<path d="M40 90 l12 -12 h420 l-12 12 z" fill="#79C6DC" stroke="#000000" stroke-width="1.6"/>
+<path d="M460 90 l12 -12 v190 l-12 12 z" fill="#6EB4C8" stroke="#000000" stroke-width="1.6"/>
+<rect x="40" y="90" width="420" height="190" fill="#87DCF5" stroke="#000000" stroke-width="1.6"/>
+<text x="52" y="251" font-size="13" font-weight="bold" fill="#000000" text-anchor="start" dominant-baseline="central">User device</text><text x="52" y="266" font-size="11" font-weight="normal" fill="#333333" text-anchor="start" dominant-baseline="central">[Deployment node: phone or computer]</text>
+<path d="M1480 90 l12 -12 h380 l-12 12 z" fill="#79C6DC" stroke="#000000" stroke-width="1.6"/>
+<path d="M1860 90 l12 -12 v190 l-12 12 z" fill="#6EB4C8" stroke="#000000" stroke-width="1.6"/>
+<rect x="1480" y="90" width="380" height="190" fill="#87DCF5" stroke="#000000" stroke-width="1.6"/>
+<text x="1492" y="251" font-size="13" font-weight="bold" fill="#000000" text-anchor="start" dominant-baseline="central">GitHub</text><text x="1492" y="266" font-size="11" font-weight="normal" fill="#333333" text-anchor="start" dominant-baseline="central">[Deployment node: github.com]</text>
+<path d="M40 330 l12 -12 h1820 l-12 12 z" fill="#79C6DC" stroke="#000000" stroke-width="1.6"/>
+<path d="M1860 330 l12 -12 v760 l-12 12 z" fill="#6EB4C8" stroke="#000000" stroke-width="1.6"/>
+<rect x="40" y="330" width="1820" height="760" fill="#87DCF5" stroke="#000000" stroke-width="1.6"/>
+<text x="52" y="1046" font-size="13" font-weight="bold" fill="#000000" text-anchor="start" dominant-baseline="central">Demonstration host</text><text x="52" y="1061" font-size="11" font-weight="normal" fill="#333333" text-anchor="start" dominant-baseline="central">[Deployment node: one Docker host · Docker Engine + Compose]</text><text x="52" y="1076" font-size="11" font-weight="normal" fill="#333333" text-anchor="start" dominant-baseline="central">[linux/amd64 or linux/arm64 · host choice open (EN01-U3)]</text>
+<path d="M70 360 l12 -12 h1080 l-12 12 z" fill="#AAD3E1" stroke="#000000" stroke-width="1.6"/>
+<path d="M1150 360 l12 -12 v170 l-12 12 z" fill="#9AC0CD" stroke="#000000" stroke-width="1.6"/>
+<rect x="70" y="360" width="1080" height="170" fill="#BDEBFA" stroke="#000000" stroke-width="1.6"/>
+<text x="82" y="501" font-size="13" font-weight="bold" fill="#000000" text-anchor="start" dominant-baseline="central">edge network only</text><text x="82" y="516" font-size="11" font-weight="normal" fill="#333333" text-anchor="start" dominant-baseline="central">[Docker network: edge]</text>
+<path d="M70 570 l12 -12 h1760 l-12 12 z" fill="#AAD3E1" stroke="#000000" stroke-width="1.6"/>
+<path d="M1830 570 l12 -12 v170 l-12 12 z" fill="#9AC0CD" stroke="#000000" stroke-width="1.6"/>
+<rect x="70" y="570" width="1760" height="170" fill="#BDEBFA" stroke="#000000" stroke-width="1.6"/>
+<text x="82" y="711" font-size="13" font-weight="bold" fill="#000000" text-anchor="start" dominant-baseline="central">edge + internal networks</text><text x="82" y="726" font-size="11" font-weight="normal" fill="#333333" text-anchor="start" dominant-baseline="central">[Docker networks: edge and internal]</text>
+<path d="M70 780 l12 -12 h1760 l-12 12 z" fill="#AAD3E1" stroke="#000000" stroke-width="1.6"/>
+<path d="M1830 780 l12 -12 v250 l-12 12 z" fill="#9AC0CD" stroke="#000000" stroke-width="1.6"/>
+<rect x="70" y="780" width="1760" height="250" fill="#BDEBFA" stroke="#000000" stroke-width="1.6"/>
+<text x="82" y="1001" font-size="13" font-weight="bold" fill="#000000" text-anchor="start" dominant-baseline="central">internal network only</text><text x="82" y="1016" font-size="11" font-weight="normal" fill="#333333" text-anchor="start" dominant-baseline="central">[Docker network: internal]</text>
+<path d="M300 470 L300.0 542.0 Q300 550 308.0 550.0 L457.0 550.0 Q465 550 465.0 558.0 L465 600" stroke="#000000" stroke-width="1.8" fill="none" marker-end="url(#arrow)"/>
+<text stroke="#BDEBFA" stroke-width="5" stroke-linejoin="round" x="473" y="586" font-size="12" font-weight="normal" fill="#000000" text-anchor="start" dominant-baseline="central">/api/issue/*</text><text x="473" y="586" font-size="12" font-weight="normal" fill="#000000" text-anchor="start" dominant-baseline="central">/api/issue/*</text>
+<path d="M300 470 L300.0 542.0 Q300 550 308.0 550.0 L737.0 550.0 Q745 550 745.0 558.0 L745 600" stroke="#000000" stroke-width="1.8" fill="none" marker-end="url(#arrow)"/>
+<text stroke="#BDEBFA" stroke-width="5" stroke-linejoin="round" x="753" y="586" font-size="12" font-weight="normal" fill="#000000" text-anchor="start" dominant-baseline="central">/api/dispatch/*</text><text x="753" y="586" font-size="12" font-weight="normal" fill="#000000" text-anchor="start" dominant-baseline="central">/api/dispatch/*</text>
+<path d="M300 470 L300.0 542.0 Q300 550 308.0 550.0 L1017.0 550.0 Q1025 550 1025.0 558.0 L1025 600" stroke="#000000" stroke-width="1.8" fill="none" marker-end="url(#arrow)"/>
+<text stroke="#BDEBFA" stroke-width="5" stroke-linejoin="round" x="1033" y="586" font-size="12" font-weight="normal" fill="#000000" text-anchor="start" dominant-baseline="central">/api/notifications/*</text><text x="1033" y="586" font-size="12" font-weight="normal" fill="#000000" text-anchor="start" dominant-baseline="central">/api/notifications/*</text>
+<path d="M300 470 L300.0 542.0 Q300 550 308.0 550.0 L1297.0 550.0 Q1305 550 1305.0 558.0 L1305 600" stroke="#000000" stroke-width="1.8" fill="none" marker-end="url(#arrow)"/>
+<text stroke="#BDEBFA" stroke-width="5" stroke-linejoin="round" x="1313" y="586" font-size="12" font-weight="normal" fill="#000000" text-anchor="start" dominant-baseline="central">/auth/*</text><text x="1313" y="586" font-size="12" font-weight="normal" fill="#000000" text-anchor="start" dominant-baseline="central">/auth/*</text>
+<path d="M300 470 L300.0 542.0 Q300 550 308.0 550.0 L1577.0 550.0 Q1585 550 1585.0 558.0 L1585 600" stroke="#000000" stroke-width="1.8" fill="none" marker-end="url(#arrow)"/>
+<text stroke="#BDEBFA" stroke-width="5" stroke-linejoin="round" x="1593" y="586" font-size="12" font-weight="normal" fill="#000000" text-anchor="start" dominant-baseline="central">/status/api</text><text x="1593" y="586" font-size="12" font-weight="normal" fill="#000000" text-anchor="start" dominant-baseline="central">/status/api</text>
+<path d="M300 203 L300 380" stroke="#000000" stroke-width="1.8" fill="none" marker-end="url(#arrow)"/>
+<text stroke="#FFFFFF" stroke-width="5" stroke-linejoin="round" x="308" y="291" font-size="12" font-weight="normal" fill="#000000" text-anchor="start" dominant-baseline="central">uses</text><text stroke="#FFFFFF" stroke-width="5" stroke-linejoin="round" x="308" y="306" font-size="11" font-weight="normal" fill="#333333" text-anchor="start" dominant-baseline="central">[HTTPS 443]</text><text x="308" y="291" font-size="12" font-weight="normal" fill="#000000" text-anchor="start" dominant-baseline="central">uses</text><text x="308" y="306" font-size="11" font-weight="normal" fill="#333333" text-anchor="start" dominant-baseline="central">[HTTPS 443]</text>
+<path d="M420 425 L520 425" stroke="#000000" stroke-width="1.8" fill="none" marker-end="url(#arrow)"/>
+<text stroke="#BDEBFA" stroke-width="5" stroke-linejoin="round" x="470" y="413" font-size="12" font-weight="normal" fill="#000000" text-anchor="middle" dominant-baseline="central">/, /status</text><text x="470" y="413" font-size="12" font-weight="normal" fill="#000000" text-anchor="middle" dominant-baseline="central">/, /status</text>
+<path d="M372 470 L372.0 484.0 Q372 492 380.0 492.0 L972.0 492.0 Q980 492 980.0 484.0 L980 470" stroke="#000000" stroke-width="1.8" fill="none" marker-end="url(#arrow)"/>
+<text stroke="#BDEBFA" stroke-width="5" stroke-linejoin="round" x="676" y="492" font-size="12" font-weight="normal" fill="#000000" text-anchor="middle" dominant-baseline="central">/oauth2/*</text><text x="676" y="492" font-size="12" font-weight="normal" fill="#000000" text-anchor="middle" dominant-baseline="central">/oauth2/*</text>
+<path d="M1695 203 L1695 330" stroke="#000000" stroke-width="1.8" fill="none" marker-end="url(#arrow)"/>
+<text stroke="#FFFFFF" stroke-width="5" stroke-linejoin="round" x="1703" y="291" font-size="12" font-weight="normal" fill="#000000" text-anchor="start" dominant-baseline="central">image pull</text><text stroke="#FFFFFF" stroke-width="5" stroke-linejoin="round" x="1703" y="306" font-size="11" font-weight="normal" fill="#333333" text-anchor="start" dominant-baseline="central">[HTTPS]</text><text x="1703" y="291" font-size="12" font-weight="normal" fill="#000000" text-anchor="start" dominant-baseline="central">image pull</text><text x="1703" y="306" font-size="11" font-weight="normal" fill="#333333" text-anchor="start" dominant-baseline="central">[HTTPS]</text>
+<path d="M815 970 L815 1130" stroke="#000000" stroke-width="1.8" fill="none" marker-end="url(#arrow)"/>
+<text stroke="#FFFFFF" stroke-width="5" stroke-linejoin="round" x="823" y="1103" font-size="12" font-weight="normal" fill="#000000" text-anchor="start" dominant-baseline="central">classifies report text</text><text stroke="#FFFFFF" stroke-width="5" stroke-linejoin="round" x="823" y="1118" font-size="11" font-weight="normal" fill="#333333" text-anchor="start" dominant-baseline="central">[HTTPS]</text><text x="823" y="1103" font-size="12" font-weight="normal" fill="#000000" text-anchor="start" dominant-baseline="central">classifies report text</text><text x="823" y="1118" font-size="11" font-weight="normal" fill="#333333" text-anchor="start" dominant-baseline="central">[HTTPS]</text>
+<path d="M1115 970 L1115 1130" stroke="#000000" stroke-width="1.8" fill="none" stroke-dasharray="8 6" marker-end="url(#arrow)"/>
+<text stroke="#FFFFFF" stroke-width="5" stroke-linejoin="round" x="1123" y="1103" font-size="12" font-weight="normal" fill="#000000" text-anchor="start" dominant-baseline="central">backup copy</text><text stroke="#FFFFFF" stroke-width="5" stroke-linejoin="round" x="1123" y="1118" font-size="11" font-weight="normal" fill="#333333" text-anchor="start" dominant-baseline="central">[S3]</text><text x="1123" y="1103" font-size="12" font-weight="normal" fill="#000000" text-anchor="start" dominant-baseline="central">backup copy</text><text x="1123" y="1118" font-size="11" font-weight="normal" fill="#333333" text-anchor="start" dominant-baseline="central">[S3]</text>
+<path d="M1305.0 600 L1305.0 433" stroke="#000000" stroke-width="1.2" stroke-dasharray="4 4" fill="none"/>
+<path d="M1535 835.0 L1560 833.0" stroke="#000000" stroke-width="1.2" stroke-dasharray="4 4" fill="none"/>
+<path d="M695 1170.0 L650 1140.5" stroke="#000000" stroke-width="1.2" stroke-dasharray="4 4" fill="none"/>
+<text x="20" y="28" font-size="18" font-weight="bold" fill="#000000" text-anchor="start" dominant-baseline="central">P1 · Deployment overview</text>
+<text x="20" y="50" font-size="12" font-weight="normal" fill="#333333" text-anchor="start" dominant-baseline="central">C4 deployment view of the proposed BMC stack · ADR-004 · proposed, nothing is deployed</text>
+<rect x="175" y="108" width="250" height="95" rx="10" fill="#EEF57A" stroke="#000000" stroke-width="1.8"/>
+<text x="300.0" y="140.5" font-size="14" font-weight="bold" fill="#000000" text-anchor="middle" dominant-baseline="central">BMC web app</text><text x="300.0" y="155.5" font-size="11" font-weight="normal" fill="#333333" text-anchor="middle" dominant-baseline="central">[PWA: React + Vite build]</text><text x="300.0" y="170.5" font-size="12" font-weight="normal" fill="#000000" text-anchor="middle" dominant-baseline="central">online only, nothing queued</text>
+<rect x="1550" y="108" width="290" height="95" rx="4" fill="#C3F57A" stroke="#000000" stroke-width="1.8"/>
+<text x="1695.0" y="140.5" font-size="14" font-weight="bold" fill="#000000" text-anchor="middle" dominant-baseline="central">GitHub Container Registry</text><text x="1695.0" y="155.5" font-size="11" font-weight="normal" fill="#333333" text-anchor="middle" dominant-baseline="central">[Container registry]</text><text x="1695.0" y="170.5" font-size="12" font-weight="normal" fill="#000000" text-anchor="middle" dominant-baseline="central">one multi-arch image per app</text>
+<rect x="180" y="380" width="240" height="90" rx="10" fill="#EEF57A" stroke="#000000" stroke-width="1.8"/>
+<text x="300.0" y="410.0" font-size="14" font-weight="bold" fill="#000000" text-anchor="middle" dominant-baseline="central">traefik</text><text x="300.0" y="425.0" font-size="11" font-weight="normal" fill="#333333" text-anchor="middle" dominant-baseline="central">[Container: Traefik 3.7]</text><text x="300.0" y="440.0" font-size="12" font-weight="normal" fill="#000000" text-anchor="middle" dominant-baseline="central">only published ports: 80, 443</text>
+<rect x="520" y="380" width="240" height="90" rx="10" fill="#EEF57A" stroke="#000000" stroke-width="1.8"/>
+<text x="640.0" y="410.0" font-size="14" font-weight="bold" fill="#000000" text-anchor="middle" dominant-baseline="central">client</text><text x="640.0" y="425.0" font-size="11" font-weight="normal" fill="#333333" text-anchor="middle" dominant-baseline="central">[Container: nginx]</text><text x="640.0" y="440.0" font-size="12" font-weight="normal" fill="#000000" text-anchor="middle" dominant-baseline="central">serves the React build</text>
+<rect x="860" y="380" width="240" height="90" rx="10" fill="#EEF57A" stroke="#000000" stroke-width="1.8"/>
+<text x="980.0" y="410.0" font-size="14" font-weight="bold" fill="#000000" text-anchor="middle" dominant-baseline="central">oauth2-proxy</text><text x="980.0" y="425.0" font-size="11" font-weight="normal" fill="#333333" text-anchor="middle" dominant-baseline="central">[Container: oauth2-proxy 7.15]</text><text x="980.0" y="440.0" font-size="12" font-weight="normal" fill="#000000" text-anchor="middle" dominant-baseline="central">browser session (BFF)</text>
+<rect x="345" y="600" width="240" height="90" rx="10" fill="#EEF57A" stroke="#000000" stroke-width="1.8"/>
+<text x="465.0" y="630.0" font-size="14" font-weight="bold" fill="#000000" text-anchor="middle" dominant-baseline="central">issue</text><text x="465.0" y="645.0" font-size="11" font-weight="normal" fill="#333333" text-anchor="middle" dominant-baseline="central">[Container: Spring Boot 4.1.2 · Java 25]</text><text x="465.0" y="660.0" font-size="12" font-weight="normal" fill="#000000" text-anchor="middle" dominant-baseline="central">reports, issues, memberships</text>
+<rect x="625" y="600" width="240" height="90" rx="10" fill="#EEF57A" stroke="#000000" stroke-width="1.8"/>
+<text x="745.0" y="630.0" font-size="14" font-weight="bold" fill="#000000" text-anchor="middle" dominant-baseline="central">dispatch</text><text x="745.0" y="645.0" font-size="11" font-weight="normal" fill="#333333" text-anchor="middle" dominant-baseline="central">[Container: Spring Boot 4.1.2 · Java 25]</text><text x="745.0" y="660.0" font-size="12" font-weight="normal" fill="#000000" text-anchor="middle" dominant-baseline="central">interventions, bookings</text>
+<rect x="905" y="600" width="240" height="90" rx="10" fill="#EEF57A" stroke="#000000" stroke-width="1.8"/>
+<text x="1025.0" y="630.0" font-size="14" font-weight="bold" fill="#000000" text-anchor="middle" dominant-baseline="central">notification</text><text x="1025.0" y="645.0" font-size="11" font-weight="normal" fill="#333333" text-anchor="middle" dominant-baseline="central">[Container: Spring Boot 4.1.2 · Java 25]</text><text x="1025.0" y="660.0" font-size="12" font-weight="normal" fill="#000000" text-anchor="middle" dominant-baseline="central">in-app inbox, email</text>
+<rect x="1185" y="600" width="240" height="90" rx="10" fill="#EEF57A" stroke="#000000" stroke-width="1.8"/>
+<text x="1305.0" y="630.0" font-size="14" font-weight="bold" fill="#000000" text-anchor="middle" dominant-baseline="central">keycloak</text><text x="1305.0" y="645.0" font-size="11" font-weight="normal" fill="#333333" text-anchor="middle" dominant-baseline="central">[Container: Keycloak 26.8]</text><text x="1305.0" y="660.0" font-size="12" font-weight="normal" fill="#000000" text-anchor="middle" dominant-baseline="central">sign-in and accounts</text>
+<rect x="1465" y="600" width="240" height="90" rx="10" fill="#EEF57A" stroke="#000000" stroke-width="1.8"/>
+<text x="1585.0" y="630.0" font-size="14" font-weight="bold" fill="#000000" text-anchor="middle" dominant-baseline="central">gatus</text><text x="1585.0" y="645.0" font-size="11" font-weight="normal" fill="#333333" text-anchor="middle" dominant-baseline="central">[Container: Gatus 5.37]</text><text x="1585.0" y="660.0" font-size="12" font-weight="normal" fill="#000000" text-anchor="middle" dominant-baseline="central">capability checks</text>
+<rect x="95" y="795" width="240" height="80" rx="10" fill="#EEF57A" stroke="#000000" stroke-width="1.8"/>
+<text x="215.0" y="820.0" font-size="14" font-weight="bold" fill="#000000" text-anchor="middle" dominant-baseline="central">calendar-sim</text><text x="215.0" y="835.0" font-size="11" font-weight="normal" fill="#333333" text-anchor="middle" dominant-baseline="central">[Container: Spring Boot · Java 25]</text><text x="215.0" y="850.0" font-size="12" font-weight="normal" fill="#000000" text-anchor="middle" dominant-baseline="central">in memory, fixed seed</text>
+<rect x="395" y="795" width="240" height="80" rx="10" fill="#EEF57A" stroke="#000000" stroke-width="1.8"/>
+<text x="515.0" y="820.0" font-size="14" font-weight="bold" fill="#000000" text-anchor="middle" dominant-baseline="central">mailpit</text><text x="515.0" y="835.0" font-size="11" font-weight="normal" fill="#333333" text-anchor="middle" dominant-baseline="central">[Container: Mailpit 1.32]</text><text x="515.0" y="850.0" font-size="12" font-weight="normal" fill="#000000" text-anchor="middle" dominant-baseline="central">SMTP capture</text>
+<rect x="695" y="795" width="240" height="80" rx="10" fill="#EEF57A" stroke="#000000" stroke-width="1.8"/>
+<text x="815.0" y="820.0" font-size="14" font-weight="bold" fill="#000000" text-anchor="middle" dominant-baseline="central">ai-triage-web</text><text x="815.0" y="835.0" font-size="11" font-weight="normal" fill="#333333" text-anchor="middle" dominant-baseline="central">[Container: Python 3.14 · Flask]</text><text x="815.0" y="850.0" font-size="12" font-weight="normal" fill="#000000" text-anchor="middle" dominant-baseline="central">Gunicorn</text>
+<rect x="995" y="795" width="240" height="80" rx="10" fill="#EEF57A" stroke="#000000" stroke-width="1.8"/>
+<text x="1115.0" y="820.0" font-size="14" font-weight="bold" fill="#000000" text-anchor="middle" dominant-baseline="central">grafana</text><text x="1115.0" y="835.0" font-size="11" font-weight="normal" fill="#333333" text-anchor="middle" dominant-baseline="central">[Container: Grafana 13]</text><text x="1115.0" y="850.0" font-size="12" font-weight="normal" fill="#000000" text-anchor="middle" dominant-baseline="central">operator dashboard</text>
+<rect x="1295" y="795" width="240" height="80" rx="10" fill="#EEF57A" stroke="#000000" stroke-width="1.8"/>
+<text x="1415.0" y="820.0" font-size="14" font-weight="bold" fill="#000000" text-anchor="middle" dominant-baseline="central">prometheus</text><text x="1415.0" y="835.0" font-size="11" font-weight="normal" fill="#333333" text-anchor="middle" dominant-baseline="central">[Container: Prometheus 3.x]</text><text x="1415.0" y="850.0" font-size="12" font-weight="normal" fill="#000000" text-anchor="middle" dominant-baseline="central">metrics and alerts</text>
+<path d="M107 890 h216 a12 40.0 0 0 1 0 80 h-216 a12 40.0 0 0 1 0 -80 z" fill="#EEF57A" stroke="#000000" stroke-width="1.8"/>
+<path d="M323 890 a12 40.0 0 0 0 0 80" fill="none" stroke="#000000" stroke-width="1.8"/>
+<text x="215.0" y="915.0" font-size="14" font-weight="bold" fill="#000000" text-anchor="middle" dominant-baseline="central">rabbitmq</text><text x="215.0" y="930.0" font-size="11" font-weight="normal" fill="#333333" text-anchor="middle" dominant-baseline="central">[Container: RabbitMQ 4.x]</text><text x="215.0" y="945.0" font-size="12" font-weight="normal" fill="#000000" text-anchor="middle" dominant-baseline="central">quorum queues, DLQs</text>
+<path d="M395 894 a120.0 9 0 0 1 240 0 v72 a120.0 9 0 0 1 -240 0 z" fill="#EEF57A" stroke="#000000" stroke-width="1.8"/>
+<path d="M395 894 a120.0 9 0 0 0 240 0" fill="none" stroke="#000000" stroke-width="1.8"/>
+<text x="515.0" y="919.5" font-size="14" font-weight="bold" fill="#000000" text-anchor="middle" dominant-baseline="central">mysql</text><text x="515.0" y="934.5" font-size="11" font-weight="normal" fill="#333333" text-anchor="middle" dominant-baseline="central">[Container: MySQL 8.4 LTS]</text><text x="515.0" y="949.5" font-size="12" font-weight="normal" fill="#000000" text-anchor="middle" dominant-baseline="central">four databases</text>
+<rect x="695" y="890" width="240" height="80" rx="10" fill="#EEF57A" stroke="#000000" stroke-width="1.8"/>
+<text x="815.0" y="915.0" font-size="14" font-weight="bold" fill="#000000" text-anchor="middle" dominant-baseline="central">ai-triage-consumer</text><text x="815.0" y="930.0" font-size="11" font-weight="normal" fill="#333333" text-anchor="middle" dominant-baseline="central">[Container: same image as ai-triage-web]</text><text x="815.0" y="945.0" font-size="12" font-weight="normal" fill="#000000" text-anchor="middle" dominant-baseline="central">consumer process</text>
+<rect x="995" y="890" width="240" height="80" rx="10" fill="#EEF57A" stroke="#000000" stroke-width="1.8"/>
+<text x="1115.0" y="915.0" font-size="14" font-weight="bold" fill="#000000" text-anchor="middle" dominant-baseline="central">garage</text><text x="1115.0" y="930.0" font-size="11" font-weight="normal" fill="#333333" text-anchor="middle" dominant-baseline="central">[Container: Garage 2.5 · single node]</text><text x="1115.0" y="945.0" font-size="12" font-weight="normal" fill="#000000" text-anchor="middle" dominant-baseline="central">buckets: attachments, backups</text>
+<rect x="695" y="1130" width="240" height="80" rx="4" fill="#C3F57A" stroke="#000000" stroke-width="1.8"/>
+<text x="815.0" y="1155.0" font-size="14" font-weight="bold" fill="#000000" text-anchor="middle" dominant-baseline="central">AI provider API</text><text x="815.0" y="1170.0" font-size="11" font-weight="normal" fill="#333333" text-anchor="middle" dominant-baseline="central">[External system]</text><text x="815.0" y="1185.0" font-size="12" font-weight="normal" fill="#000000" text-anchor="middle" dominant-baseline="central">candidate: Gemini Flash (DEC-05)</text>
+<rect x="995" y="1130" width="240" height="80" rx="4" fill="#C3F57A" stroke="#000000" stroke-width="1.8" stroke-dasharray="8 5"/>
+<text x="1115.0" y="1155.0" font-size="14" font-weight="bold" fill="#000000" text-anchor="middle" dominant-baseline="central">Cloudflare R2</text><text x="1115.0" y="1170.0" font-size="11" font-weight="normal" fill="#333333" text-anchor="middle" dominant-baseline="central">[External system · optional]</text><text x="1115.0" y="1185.0" font-size="12" font-weight="normal" fill="#000000" text-anchor="middle" dominant-baseline="central">off-host backup copy</text>
+<path d="M1200 372 h318 l12 12 v49 h-330 z" fill="#FFFFFF" stroke="#000000" stroke-width="1.4"/>
+<path d="M1518 372 v12 h12" fill="none" stroke="#000000" stroke-width="1.4"/>
+<text x="1210" y="387.5" font-size="12" font-weight="normal" fill="#000000" text-anchor="start" dominant-baseline="central">This document&#x27;s reading, not ADR text:</text><text x="1210" y="402.5" font-size="12" font-weight="normal" fill="#000000" text-anchor="start" dominant-baseline="central">keycloak joins internal because</text><text x="1210" y="417.5" font-size="12" font-weight="normal" fill="#000000" text-anchor="start" dominant-baseline="central">its database is in MySQL.</text>
+<path d="M1560 795 h248 l12 12 v64 h-260 z" fill="#FFFFFF" stroke="#000000" stroke-width="1.4"/>
+<path d="M1808 795 v12 h12" fill="none" stroke="#000000" stroke-width="1.4"/>
+<text x="1570" y="810.5" font-size="12" font-weight="normal" fill="#000000" text-anchor="start" dominant-baseline="central">Open (P-01): prometheus is on</text><text x="1570" y="825.5" font-size="12" font-weight="normal" fill="#000000" text-anchor="start" dominant-baseline="central">internal only, yet ADR-004 has it</text><text x="1570" y="840.5" font-size="12" font-weight="normal" fill="#000000" text-anchor="start" dominant-baseline="central">scrape traefik and oauth2-proxy,</text><text x="1570" y="855.5" font-size="12" font-weight="normal" fill="#000000" text-anchor="start" dominant-baseline="central">which are on edge only.</text>
+<path d="M1295 893 h508 l12 12 v34 h-520 z" fill="#FFFFFF" stroke="#000000" stroke-width="1.4"/>
+<path d="M1803 893 v12 h12" fill="none" stroke="#000000" stroke-width="1.4"/>
+<text x="1305" y="908.5" font-size="12" font-weight="normal" fill="#000000" text-anchor="start" dominant-baseline="central">Connections from the services to the broker, the databases,</text><text x="1305" y="923.5" font-size="12" font-weight="normal" fill="#000000" text-anchor="start" dominant-baseline="central">storage, mail and the calendar are drawn in P3 and P4.</text>
+<path d="M150 1110 h488 l12 12 v49 h-500 z" fill="#FFFFFF" stroke="#000000" stroke-width="1.4"/>
+<path d="M638 1110 v12 h12" fill="none" stroke="#000000" stroke-width="1.4"/>
+<text x="160" y="1125.5" font-size="12" font-weight="normal" fill="#000000" text-anchor="start" dominant-baseline="central">Open (P-02): if internal is declared internal: true, the</text><text x="160" y="1140.5" font-size="12" font-weight="normal" fill="#000000" text-anchor="start" dominant-baseline="central">AI containers cannot reach the provider, and a later real</text><text x="160" y="1155.5" font-size="12" font-weight="normal" fill="#000000" text-anchor="start" dominant-baseline="central">SMTP server is unreachable for notification and keycloak.</text>
+<rect x="1430" y="1110" width="430" height="128" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="1440" y="1124" font-size="12" font-weight="bold" fill="#000000" text-anchor="start" dominant-baseline="central">Key</text>
+<path d="M1442 1141 l4 -4 h22 l-4 4 z M1464 1141 l4 -4 v12 l-4 4 z" fill="#6EB4C8" stroke="#000000" stroke-width="1.2"/><rect x="1442" y="1141" width="22" height="12" fill="#87DCF5" stroke="#000000" stroke-width="1.2"/>
+<text x="1476" y="1146" font-size="11" font-weight="normal" fill="#000000" text-anchor="start" dominant-baseline="central">Deployment node</text>
+<rect x="1442" y="1163" width="26" height="14" rx="3" fill="#EEF57A" stroke="#000000" stroke-width="1.2"/>
+<text x="1476" y="1170" font-size="11" font-weight="normal" fill="#000000" text-anchor="start" dominant-baseline="central">Container</text>
+<path d="M1445 1189 a10 3 0 0 1 20 0 v11 a10 3 0 0 1 -20 0 z M1445 1189 a10 3 0 0 0 20 0" fill="#F7FAC4" stroke="#000000" stroke-width="1.2"/>
+<text x="1476" y="1194" font-size="11" font-weight="normal" fill="#000000" text-anchor="start" dominant-baseline="central">Database</text>
+<path d="M1446 1212 h18 a4 6 0 0 1 0 12 h-18 a4 6 0 0 1 0 -12 z M1464 1212 a4 6 0 0 0 0 12" fill="#F7FAC4" stroke="#000000" stroke-width="1.2"/>
+<text x="1476" y="1218" font-size="11" font-weight="normal" fill="#000000" text-anchor="start" dominant-baseline="central">Queue</text>
+<rect x="1657" y="1139" width="26" height="14" rx="2" fill="#C3F57A" stroke="#000000" stroke-width="1.2"/>
+<text x="1691" y="1146" font-size="11" font-weight="normal" fill="#000000" text-anchor="start" dominant-baseline="central">Person or external system</text>
+<path d="M1657 1163 h20 l6 6 v8 h-26 z" fill="#FFFFFF" stroke="#000000" stroke-width="1.2"/>
+<text x="1691" y="1170" font-size="11" font-weight="normal" fill="#000000" text-anchor="start" dominant-baseline="central">Note: open item or remark</text>
+<path d="M1657 1194 h24" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="1691" y="1194" font-size="11" font-weight="normal" fill="#000000" text-anchor="start" dominant-baseline="central">Relationship [protocol]</text>
+<path d="M1657 1218 h24" stroke="#000000" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
+<text x="1691" y="1218" font-size="11" font-weight="normal" fill="#000000" text-anchor="start" dominant-baseline="central">Optional, open or dead-letter</text>
 </svg>
