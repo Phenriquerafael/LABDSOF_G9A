@@ -98,7 +98,7 @@ When SMTP is unavailable, the in-app notification is still created, the email de
 
 ### Mapping to the workflow notification table
 
-The [notification table](../workflows/bmc-workflows.md#notification-table) maps to templates. Which service requests each one is a proposal for EN-01-03:
+The [notification table](../workflows/bmc-workflows.md#notification-table) maps to templates. Which service requests each one is a proposal for the EN-01-01 views:
 
 | Workflow event | Notified | Requested by |
 |---|---|---|
@@ -135,7 +135,7 @@ Tests with the implementation, using real RabbitMQ and MySQL containers where po
 - An invitation message appears in no log and the DLQ copy expires after 7 days.
 - `GET /api/notifications` returns only the caller's own rows.
 
-Review after the spike (EN01-U2: Keycloak service account) and at EN-01-03, where Afonso details templates and preferences (EN01-U8); EN-01-04 reviews the invitation exception.
+Review after the spike (EN01-U2: Keycloak service account) and in the EN-01-01 views, where Afonso details templates and preferences (EN01-U8); EN-01-04 reviews the invitation exception.
 
 ## Record
 

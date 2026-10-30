@@ -100,7 +100,7 @@ Tokens carry `sub` (and the realm roles above); they never carry building roles.
 | 2 | Traefik / oauth2-proxy | No session: `401`; the SPA navigates to `/oauth2/start?rd=<path>` |
 | 3 | **Keycloak** | The visitor chooses "Register", fills the form and verifies the email address (message in Mailpit in dev/demo), then logs in |
 | 4 | oauth2-proxy | Callback `/oauth2/callback`, session cookie set, redirect to `<path>` |
-| 5 | **Issue** | The SPA calls the registration endpoint (to define in EN-01-03); Issue creates the organisation, the first building and an administrator membership for the authenticated `sub`, and a profile row keyed by `sub` |
+| 5 | **Issue** | The SPA calls the registration endpoint (to define in the EN-01-01 views); Issue creates the organisation, the first building and an administrator membership for the authenticated `sub`, and a profile row keyed by `sub` |
 | 6 | **Issue** | The administrator creates one invitation per fraction (workflow 2) |
 
 ### Resident invitation acceptance (workflow 2)

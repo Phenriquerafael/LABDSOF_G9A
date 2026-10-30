@@ -71,7 +71,7 @@ Keycloak self-registration and email verification are enabled. Domain onboarding
 
 | Flow | Keycloak | Service |
 |---|---|---|
-| Condominium registration (workflow 1) | The user registers, verifies the email address and logs in | Issue: an authenticated call (endpoint to define in EN-01-03) creates the organisation, building and administrator membership for the authenticated `sub` |
+| Condominium registration (workflow 1) | The user registers, verifies the email address and logs in | Issue: an authenticated call (endpoint to define in the EN-01-01 views) creates the organisation, building and administrator membership for the authenticated `sub` |
 | Resident e-invite (workflow 2) | The invitee registers or logs in | Issue: administrator creates an invitation (hashed single-use token, 7 days, bound to a unit); a `NotificationRequested` email carries the link; the link carries the token in the URL fragment, and `POST /api/issue/invitations/acceptance` with the token in the body binds the membership to the `sub`, only if the token's verified `email` matches the invitee address (a forwarded link is refused with `403`) |
 | Contractor registration (workflow 9) | The contractor registers and logs in | Dispatch: `POST /api/dispatch/contractor-registrations` creates a `pending` registration; a `platform_staff` user validates it |
 

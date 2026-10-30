@@ -1,6 +1,6 @@
-# [EN-01-03] Consolidate architecture and deployment views
+# [EN-01-03] Consolidate architecture and deployment views (merged into EN-01-01)
 
-- Publication: Published as [#13](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/13) on 2026-10-10 (checked 2026-10-29); GitHub owns live status.
+- Publication: Published as [#13](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/13) on 2026-10-10. **Merged into [EN-01-01](EN-01-01-select-stack-and-boundaries.md) ([#15](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/15)) on 2026-10-30 and #13 closed**: the views draw the decisions EN-01-01 makes, so one issue, branch and PR now carry both. This file is kept as the record of the original scope; EN-01-01 owns the criteria and the completion record.
 - Workflow: Backlog; proposed milestone: S1 — Discover, Validate and Design; dates/estimate: to be agreed.
 - Type: task; suggested labels: `type:task`, `area:backend`, `phase:3`, `priority:must`.
 - Parent: [EN-01](EN-01-technical-design.md); epic: [EP-04](../epics/EP-04-engineering-and-quality.md).

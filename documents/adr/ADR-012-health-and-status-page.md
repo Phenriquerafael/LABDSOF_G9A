@@ -63,7 +63,7 @@ Not publicly exposed, with these principles (E75). Gatus sits on the `internal` 
 
 There are no “degraded/partial” levels because Gatus checks are up or down. The five-level Statuspage scheme (Operational, Degraded performance, Partial outage, Major outage, Under maintenance; E81) is the reference, deliberately reduced.
 
-### Capability → check mapping (proposal, to refine in EN-01-03)
+### Capability → check mapping (proposal, to refine in the EN-01-01 views)
 
 Capability names: Report a fault · Schedule interventions · Notifications · Suggestions · Calendar sync · Sign-in · Photo upload. Infrastructure (MySQL, RabbitMQ, Keycloak, Garage, Mailpit…) rolls up into the capability it breaks and is never listed by name. Service readiness covers the service's own database, not the broker, which the outbox absorbs (ADR-003).
 

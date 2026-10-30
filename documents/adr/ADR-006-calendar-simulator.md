@@ -58,7 +58,7 @@ Options D, E and F are assessed from their general properties, not from sources 
 
 ## Verification and review
 
-Sprint B evidence to produce (none exists yet): success; timeout-after-create with reconciliation; duplicate request (one booking); conflict; invalid/incomplete response; simulator stopped and restarted (`discrepancy`); Dispatch started while the simulator is down. The tests run against the simulator container, with the in-process fake used only for unit tests. EN-01-03 consolidates the integration view. Review if the lecturer requires a real provider or if the simulator's memory cost is a problem on the demonstration host (EN01-U3).
+Sprint B evidence to produce (none exists yet): success; timeout-after-create with reconciliation; duplicate request (one booking); conflict; invalid/incomplete response; simulator stopped and restarted (`discrepancy`); Dispatch started while the simulator is down. The tests run against the simulator container, with the in-process fake used only for unit tests. EN-01-01 consolidates the integration view. Review if the lecturer requires a real provider or if the simulator's memory cost is a problem on the demonstration host (EN01-U3).
 
 ## Record
 
