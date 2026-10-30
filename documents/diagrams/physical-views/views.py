@@ -1,4 +1,4 @@
-"""The seven BMC physical views as C4 deployment diagrams, drawn with vpdraw.
+"""The seven BMC physical views as UML deployment diagrams, drawn with vpdraw.
 
 Each function places its shapes by hand from the text of
 documents/07b-physical-views.md and the ADRs it cites; change the text there
@@ -13,235 +13,229 @@ import subprocess
 import sys
 from pathlib import Path
 
-from vpdraw import ELEMENT, EXTERNAL, GREY, NODE, NODE_IN, PART, Diagram
+from vpdraw import BLUE, Diagram
 
 HERE = Path(__file__).resolve().parent
-SPRING = "Container: Spring Boot 4.1.2 · Java 25"
+SPRING = "Spring Boot 4.1.2 · Java 25"
 
 
 def p1():
     d = Diagram("p1-deployment-overview", "P1 · Deployment overview",
-                "C4 deployment view of the proposed BMC stack · ADR-004 · proposed, nothing is deployed",
-                1900, 1250)
-    d.node("device", 40, 90, 420, 190, "User device", "Deployment node: phone or computer")
-    d.container("web", 175, 108, 250, 95, "BMC web app", "PWA: React + Vite build", ["online only, nothing queued"])
-    d.node("github", 1480, 90, 380, 190, "GitHub", "Deployment node: github.com")
-    d.container("ghcr", 1550, 108, 290, 95, "GitHub Container Registry", "Container registry",
-                ["one multi-arch image per app"], shape="system", fill=EXTERNAL)
+                "UML deployment diagram of the proposed BMC stack · ADR-004 · proposed, nothing is deployed",
+                1900, 1360)
+    d.node("device", 40, 90, 420, 210, "User device", "device", ["phone or computer"])
+    d.node("browser", 70, 165, 360, 120, "Browser or installed PWA", "executionEnvironment", align="left")
+    d.comp("web", 95, 215, 310, 62, "BMC web app", "component", ["React + Vite build"])
+    d.node("github", 1480, 90, 380, 210, "GitHub", None, ["github.com"])
+    d.comp("ghcr", 1510, 160, 320, 80, "GitHub Container Registry", "external service",
+           ["one multi-arch image per app"])
 
-    d.node("host", 40, 330, 1820, 760, "Demonstration host",
-           "Deployment node: one Docker host · Docker Engine + Compose\n"
-           "linux/amd64 or linux/arm64 · host choice open (EN01-U3)")
-    d.node("n1", 70, 360, 1080, 170, "edge network only", "Docker network: edge", fill=NODE_IN)
-    d.container("traefik", 180, 380, 240, 90, "traefik", "Container: Traefik 3.7", ["only published ports: 80, 443"])
-    d.container("client", 520, 380, 240, 90, "client", "Container: nginx", ["serves the React build"])
-    d.container("o2p", 860, 380, 240, 90, "oauth2-proxy", "Container: oauth2-proxy 7.15", ["browser session (BFF)"])
+    d.node("host", 40, 350, 1820, 830, "Demonstration host", "device",
+           ["one Docker host · Docker Engine + Compose · linux/amd64 or linux/arm64 · host choice open (EN01-U3)"])
+    d.node("n1", 70, 430, 1080, 200, "edge network only", "network", align="left")
+    d.comp("traefik", 180, 490, 240, 85, "traefik", "container", ["Traefik 3.7", "only published ports: 80, 443"])
+    d.comp("client", 520, 490, 240, 85, "client", "container", ["nginx", "serves the React build"])
+    d.comp("o2p", 860, 490, 240, 85, "oauth2-proxy", "container", ["oauth2-proxy 7.15", "browser session (BFF)"])
+    d.lollipop(300, 468, "HTTPS 443", (300, 490))
+    d.dep([(300, 277), (300, 459)], "uses", at=(308, 320))
+    d.path([(420, 532), (520, 532)], "/, /status", at=(470, 520), anchor="middle", bg=BLUE)
+    d.path([(372, 575), (372, 600), (980, 600), (980, 575)], "/oauth2/*", at=(676, 600), anchor="middle", bg=BLUE)
 
-    d.node("n2", 70, 570, 1760, 170, "edge + internal networks", "Docker networks: edge and internal", fill=NODE_IN)
-    routed = [("issue", "issue", SPRING, ["reports, issues, memberships"], "/api/issue/*"),
-              ("dispatch", "dispatch", SPRING, ["interventions, bookings"], "/api/dispatch/*"),
-              ("notification", "notification", SPRING, ["in-app inbox, email"], "/api/notifications/*"),
-              ("keycloak", "keycloak", "Container: Keycloak 26.8", ["sign-in and accounts"], "/auth/*"),
-              ("gatus", "gatus", "Container: Gatus 5.37", ["capability checks"], "/status/api")]
-    for i, (key, name, tech, desc, route) in enumerate(routed):
-        x = 345 + 280 * i
-        d.container(key, x, 600, 240, 90, name, tech, desc)
-        d.rel([(300, 470), (300, 550), (x + 120, 550), (x + 120, 600)], route, at=(x + 128, 586), bg=NODE_IN)
+    d.node("n2", 70, 680, 1500, 175, "edge + internal networks", "network", align="left")
+    routed = [("issue", ["issue", SPRING, "reports, issues, memberships"], "/api/issue/*"),
+              ("dispatch", ["dispatch", SPRING, "interventions, bookings"], "/api/dispatch/*"),
+              ("notification", ["notification", SPRING, "in-app inbox, email"], "/api/notifications/*"),
+              ("keycloak", ["keycloak", "Keycloak 26.8", "sign-in and accounts"], "/auth/*"),
+              ("gatus", ["gatus", "Gatus 5.37", "capability checks"], "/status/api")]
+    for i, (key, (name, *details), route) in enumerate(routed):
+        x = 345 + 250 * i
+        d.comp(key, x, 740, 220, 85, name, "container", details)
+        d.path([(300, 575), (300, 660), (x + 110, 660), (x + 110, 740)], route, at=(x + 118, 722), bg=BLUE)
 
-    d.node("n3", 70, 780, 1760, 250, "internal network only", "Docker network: internal", fill=NODE_IN)
-    for key, x, name, tech, desc in (
-            ("sim", 95, "calendar-sim", "Container: Spring Boot · Java 25", ["in memory, fixed seed"]),
-            ("mailpit", 395, "mailpit", "Container: Mailpit 1.32", ["SMTP capture"]),
-            ("aiweb", 695, "ai-triage-web", "Container: Python 3.14 · Flask", ["Gunicorn"]),
-            ("grafana", 995, "grafana", "Container: Grafana 13", ["operator dashboard"]),
-            ("prom", 1295, "prometheus", "Container: Prometheus 3.x", ["metrics and alerts"])):
-        d.container(key, x, 795, 240, 80, name, tech, desc)
-    d.container("rabbitmq", 95, 890, 240, 80, "rabbitmq", "Container: RabbitMQ 4.x", ["quorum queues, DLQs"],
-                shape="queue")
-    d.container("mysql", 395, 885, 240, 90, "mysql", "Container: MySQL 8.4 LTS", ["four databases"], shape="db")
-    d.container("aicon", 695, 890, 240, 80, "ai-triage-consumer", "Container: same image as ai-triage-web",
-                ["consumer process"])
-    d.container("garage", 995, 890, 240, 80, "garage", "Container: Garage 2.5 · single node",
-                ["buckets: attachments, backups"])
+    d.node("n3", 70, 900, 1500, 250, "internal network only", "network", align="left")
+    for key, x, name, details in (
+            ("sim", 95, "calendar-sim", ["Spring Boot · Java 25", "in memory, fixed seed"]),
+            ("mailpit", 345, "mailpit", ["Mailpit 1.32", "SMTP capture"]),
+            ("aiweb", 595, "ai-triage-web", ["Python 3.14 · Flask", "Gunicorn"]),
+            ("grafana", 845, "grafana", ["Grafana 13", "operator dashboard"]),
+            ("prom", 1095, "prometheus", ["Prometheus 3.x", "metrics and alerts"])):
+        d.comp(key, x, 955, 220, 85, name, "container", details)
+    for key, x, name, details, icon in (
+            ("rabbitmq", 95, "rabbitmq", ["RabbitMQ 4.x", "quorum queues, DLQs"], "component"),
+            ("mysql", 345, "mysql", ["MySQL 8.4 LTS", "four databases"], "database"),
+            ("aicon", 595, "ai-triage-consumer", ["same image as ai-triage-web", "consumer process"], "component"),
+            ("garage", 845, "garage", ["Garage 2.5 · single node", "attachments, backups"], "component")):
+        d.comp(key, x, 1050, 220, 85, name, "container", details, icon=icon)
 
-    d.container("ai", 695, 1130, 240, 80, "AI provider API", "External system",
-                ["candidate: Gemini Flash (DEC-05)"], shape="system", fill=EXTERNAL)
-    d.container("r2", 995, 1130, 240, 80, "Cloudflare R2", "External system · optional",
-                ["off-host backup copy"], shape="system", fill=EXTERNAL, dashed=True)
+    d.node("ai", 595, 1230, 220, 90, "AI provider API", "external system", ["candidate: Gemini Flash", "(DEC-05)"])
+    d.node("r2", 845, 1230, 220, 90, "Cloudflare R2", "external system", ["optional off-host", "backup copy"],
+           dashed=True)
+    d.path([(705, 1135), (705, 1230)], "HTTPS · classifies report text", at=(713, 1198))
+    d.path([(955, 1135), (955, 1230)], "S3 · backup copy", at=(963, 1198), dashed=True)
+    d.path([(1670, 240), (1670, 350)], "image pull · HTTPS", at=(1678, 318))
 
-    d.rel([(300, 203), (300, 380)], "uses\n[HTTPS 443]", at=(308, 291))
-    d.rel([(420, 425), (520, 425)], "/, /status", at=(470, 413), anchor="middle", bg=NODE_IN)
-    d.rel([(372, 470), (372, 492), (980, 492), (980, 470)], "/oauth2/*", at=(676, 492), anchor="middle", bg=NODE_IN)
-    d.rel([(1695, 203), (1695, 330)], "image pull\n[HTTPS]", at=(1703, 291))
-    d.rel([(815, 970), (815, 1130)], "classifies report text\n[HTTPS]", at=(823, 1103))
-    d.rel([(1115, 970), (1115, 1130)], "backup copy\n[S3]", at=(1123, 1103), dashed=True)
-
-    d.note(1200, 372, 330, ["This document's reading, not ADR text:", "keycloak joins internal because",
-                            "its database is in MySQL."], attach=d.p("keycloak", "n", 0.5))
-    d.note(1560, 795, 260, ["Open (P-01): prometheus is on", "internal only, yet ADR-004 has it",
-                            "scrape traefik and oauth2-proxy,", "which are on edge only."],
-           attach=d.p("prom", "e"))
-    d.note(1295, 893, 520, ["Connections from the services to the broker, the databases,",
-                            "storage, mail and the calendar are drawn in P3 and P4."])
-    d.note(150, 1110, 500, ["Open (P-02): if internal is declared internal: true, the",
-                            "AI containers cannot reach the provider, and a later real",
-                            "SMTP server is unreachable for notification and keycloak."],
-           attach=d.p("ai", "w"))
-    d.legend(1430, 1110)
+    d.note(1200, 450, 330, ["This document's reading, not ADR text:", "keycloak joins internal because",
+                            "its database is in MySQL."], attach=d.p("keycloak", "n"))
+    d.note(1600, 955, 240, ["Open (P-01): prometheus is on", "internal only, yet ADR-004 has",
+                            "it scrape traefik and", "oauth2-proxy, on edge only."], attach=d.p("prom", "e"))
+    d.note(1095, 1060, 460, ["Connections from the services to the broker, databases,",
+                             "storage, mail and the calendar are drawn in P3 and P4."])
+    d.note(150, 1225, 420, ["Open (P-02): if internal is declared internal: true,",
+                            "the AI containers cannot reach the provider, and a",
+                            "later real SMTP server is unreachable."], attach=d.p("ai", "w"))
+    d.legend(1240, 1220)
     return d
 
 
 def p2():
     d = Diagram("p2-edge-and-trust", "P2 · Edge routing and trust boundaries",
-                "C4 deployment view of the edge · routes from ADR-004, authorisation from ADR-005 · proposed",
-                1900, 1050)
-    d.node("device", 250, 80, 520, 170, "User device", "Deployment node: browser or installed PWA")
-    d.container("web", 445, 98, 250, 85, "BMC web app", "PWA", ["one origin, no CORS"])
+                "UML deployment diagram of the edge · routes from ADR-004, authorisation from ADR-005 · proposed",
+                1900, 1100)
+    d.node("device", 250, 80, 520, 180, "User device", "device", ["browser or installed PWA"])
+    d.comp("web", 420, 150, 300, 70, "BMC web app", "component", ["one origin, no CORS"])
 
-    d.node("host", 40, 300, 1820, 630, "Demonstration host", "Deployment node: Docker host")
-    d.boundary("tb1", 70, 325, 1330, 255, "Trust boundary 1 · internet → traefik")
-    d.node("traefik", 95, 345, 1280, 195, "traefik",
-           "Container: Traefik 3.7 · the only published ports, 80 and 443", fill=ELEMENT)
-    d.container("router", 460, 365, 220, 100, "Router", "Entrypoint", ["TLS terminates here;", "matches the route rules"],
-                fill=PART)
-    d.container("fa", 790, 365, 220, 100, "ForwardAuth", "Middleware · /api/* only", ["asks oauth2-proxy;",
-                                                                                     "no session → 401"], fill=PART)
-    d.container("strip", 1132, 365, 220, 100, "StripPrefix", "Middleware · /api/* only",
-                ["removes /api/<service>;", "then RateLimit, Headers"], fill=PART)
-    d.note(1420, 325, 420, ["Never routed: no Traefik rule (ADR-004)", "Gatus UI · Traefik API and dashboard",
+    d.node("host", 40, 320, 1820, 670, "Demonstration host", "device", ["Docker host"])
+    d.boundary("tb1", 70, 385, 1330, 260, "Trust boundary 1 · internet → traefik")
+    d.holder("traefik", 95, 425, 1280, 185, "traefik", "container",
+             ["Traefik 3.7 · the only published ports, 80 and 443"])
+    d.lollipop(570, 407, "HTTPS 443", (570, 425))
+    d.dep([(570, 220), (570, 398)], "uses", at=(578, 290))
+    d.comp("router", 460, 445, 220, 95, "Router", "entrypoint", ["TLS terminates here;", "matches the route rules"])
+    d.comp("fa", 790, 445, 220, 95, "ForwardAuth", "middleware", ["/api/* only: asks oauth2-proxy;",
+                                                                  "no session → 401"])
+    d.comp("strip", 1132, 445, 220, 95, "StripPrefix", "middleware", ["removes /api/<service>;",
+                                                                      "then RateLimit, Headers"])
+    d.dep([(680, 492), (790, 492)], "/api/*", at=(735, 480), anchor="middle", bg=BLUE)
+    d.dep([(1010, 492), (1132, 492)], "session valid", at=(1071, 480), anchor="middle", bg=BLUE)
+    d.note(1420, 385, 420, ["Never routed: no Traefik rule (ADR-004)", "Gatus UI · Traefik API and dashboard",
                             "liveness, readiness, Actuator, /metrics", "AI /classify · simulator control",
                             "RabbitMQ management, Garage, Mailpit", "Open: Keycloak paths kept unrouted,",
                             "how Grafana is reached in demo"])
 
-    d.boundary("public", 70, 620, 1010, 255, "Public routes · no ForwardAuth, no API session", colour=GREY)
-    for key, x, w, name, tech, desc, route, drop in (
-            ("client", 95, 220, "client", "Container: nginx", ["static files, /status page"], "/, /status", 205),
-            ("gatus", 335, 220, "gatus", "Container: Gatus 5.37", ["read-only JSON API"], "/status/api", 445),
-            ("keycloak", 575, 220, "keycloak", "Container: Keycloak 26.8", ["sign-in pages"], "/auth/*", 685),
-            ("o2p", 815, 240, "oauth2-proxy", "Container: oauth2-proxy 7.15", ["session, OIDC client"],
-             "/oauth2/*", 875)):
-        d.container(key, x, 680, w, 100, name, tech, desc)
-        d.rel([(570, 465), (570, 655), (drop, 655), (drop, 680)], route, at=(drop + 8, 668), bg=NODE)
+    d.boundary("public", 70, 690, 1030, 240, "Public routes · no ForwardAuth, no API session")
+    for key, x, w, name, details, route, drop in (
+            ("client", 95, 220, "client", ["nginx", "static files, /status page"], "/, /status", 205),
+            ("gatus", 335, 220, "gatus", ["Gatus 5.37", "read-only JSON API"], "/status/api", 445),
+            ("keycloak", 575, 220, "keycloak", ["Keycloak 26.8", "sign-in pages"], "/auth/*", 685),
+            ("o2p", 815, 240, "oauth2-proxy", ["oauth2-proxy 7.15", "session, OIDC client"], "/oauth2/*", 875)):
+        d.comp(key, x, 745, w, 95, name, "container", details)
+        d.path([(570, 540), (570, 665), (drop, 665), (drop, 745)], route, at=(drop + 8, 727), bg=BLUE)
+    d.lollipop(1000, 722, "session check", (1000, 745))
+    d.dep([(1000, 540), (1000, 713)], "asks", at=(1008, 668), bg=BLUE)
 
-    d.boundary("tb2", 1110, 620, 730, 255, "Trust boundary 2 · inside each service (ADR-005)")
+    d.boundary("tb2", 1110, 690, 730, 240, "Trust boundary 2 · inside each service")
     for i, (key, check) in enumerate((("issue", "membership check"), ("dispatch", "assignment check"),
                                       ("notification", "inbox owner check"))):
         x = 1130 + 240 * i
         cx = x + 112
-        d.container(key, x, 680, 225, 100, key, "Container: Spring Boot", ["validates the JWT;", check])
+        d.comp(key, x, 745, 225, 95, key, "container", ["Spring Boot", "validates the JWT;", check])
         route = f"/api/{'notifications' if key == 'notification' else key}/*"
-        d.rel([(1242, 465), (1242, 655), (cx, 655), (cx, 680)] if cx != 1242 else [(1242, 465), (1242, 680)],
-              route, at=(cx + 8, 668), bg=NODE)
+        d.path([(1242, 540), (1242, 665), (cx, 665), (cx, 745)] if cx != 1242 else [(1242, 540), (1242, 745)],
+               route, at=(cx + 8, 727), bg=BLUE)
 
-    d.rel([(570, 183), (570, 365)], "uses\n[HTTPS 443]", at=(578, 259))
-    d.rel([(680, 415), (790, 415)], "/api/*", at=(735, 403), anchor="middle", bg=ELEMENT)
-    d.rel([(1010, 415), (1132, 415)], "session valid", at=(1071, 403), anchor="middle", bg=ELEMENT)
-    d.rel([(1000, 465), (1000, 680)], "session check\n[HTTP]", at=(1008, 593), bg=NODE)
-
-    d.note(300, 950, 470, ["/status/api exists only if spike item 11 shows that Gatus",
-                           "strips hosts, URLs and errors from its JSON; it must win",
-                           "over /status, rule priority to confirm (ADR-004, ADR-012)."],
+    d.note(300, 1010, 470, ["/status/api exists only if spike item 11 shows that Gatus",
+                            "strips hosts, URLs and errors from its JSON; it must win",
+                            "over /status, rule priority to confirm (ADR-004, ADR-012)."],
            attach=d.p("gatus", "s"))
-    d.note(1130, 950, 500, ["Traefik Proxy has no JWT middleware: each Spring service",
-                            "is an OAuth2 resource server, authorises against its own",
-                            "data and answers 404 outside the caller's scope."],
+    d.note(1130, 1010, 520, ["Traefik Proxy has no JWT middleware: each Spring service is an",
+                             "OAuth2 resource server, authorises against its own data and",
+                             "answers 404 outside the caller's scope (ADR-005)."],
            attach=d.p("issue", "s"))
     return d
 
 
 def p3():
     d = Diagram("p3-messaging", "P3 · Messaging through RabbitMQ",
-                "C4 deployment view of the broker · topology from ADR-003 · arrows follow the message · proposed",
-                1900, 910)
-    d.node("host", 40, 80, 1820, 800, "Demonstration host", "Deployment node: Docker host · internal network")
+                "UML deployment diagram of the broker · topology from ADR-003 · arrows follow the message · proposed",
+                1900, 920)
+    d.node("host", 40, 80, 1820, 810, "Demonstration host", "device", ["Docker host · internal network"])
     cols = [330, 680, 1030, 1380]
-    services = [("issue", "issue", SPRING, ["outbox publisher with confirms;", "idempotent consumer"]),
-                ("dispatch", "dispatch", SPRING, ["outbox publisher with confirms;", "idempotent consumer"]),
-                ("notification", "notification", SPRING, ["idempotent consumer"]),
-                ("ai", "ai-triage-consumer", "Container: Python 3.14", ["stateless: classifies,",
-                                                                        "publishes, then acknowledges"])]
-    for cx, (key, name, tech, desc) in zip(cols, services):
-        d.container(key, cx - 140, 110, 280, 110, name, tech, desc)
+    services = [("issue", "issue", [SPRING, "outbox publisher with confirms;", "idempotent consumer"]),
+                ("dispatch", "dispatch", [SPRING, "outbox publisher with confirms;", "idempotent consumer"]),
+                ("notification", "notification", [SPRING, "idempotent consumer"]),
+                ("ai", "ai-triage-consumer", ["Python 3.14", "stateless: classifies,", "publishes, then acknowledges"])]
+    for cx, (key, name, details) in zip(cols, services):
+        d.comp(key, cx - 140, 150, 280, 100, name, "container", details)
 
-    d.node("rabbitmq", 95, 280, 1740, 520, "rabbitmq",
-           "Container: RabbitMQ 4.x · one node · one broker user per service (ADR-005)", fill=ELEMENT)
-    queues = [("qi", "issue.inbox", ["delivery limit 5"], "TriageSuggested,\ndispatch events", "ack after commit"),
-              ("qd", "dispatch.inbox", ["delivery limit 5"], "IssueStateChanged,\nMembership*", "ack after commit"),
-              ("qn", "notification.inbox", ["delivery limit 5"], "NotificationRequested", "ack after commit"),
-              ("qa", "ai-triage.requests", ["delivery limit 5;", "point to point, private text"], "issue.TriageRequested\nonly",
-               "ack after publishing")]
-    d.container("ex", 200, 560, 1300, 62, "bmc.events", "Durable topic exchange · routing key <producer>.<eventType>",
-                fill=PART)
-    for cx, (key, name, desc, binding, ack) in zip(cols, queues):
-        d.container(key, cx - 105, 360, 210, 90, name, "Quorum queue", desc, shape="queue",
-                    fill=PART)
-        d.rel([(cx, 560), (cx, 450)], binding, at=(cx + 8, 505), bg=ELEMENT)
-        d.rel([(cx, 360), (cx, 220)], f"delivers\n[AMQP · {ack}]", at=(cx + 8, 243), bg=NODE)
-        d.rel([(cx - 125, 220), (cx - 125, 560)], "publishes\n[AMQP" + (", confirms]" if key != "qa" else "]"),
-              at=(cx - 133, 315), anchor="end", bg=ELEMENT)
+    d.holder("rabbitmq", 95, 330, 1740, 520, "rabbitmq", "container",
+             ["RabbitMQ 4.x · one node · one broker user per service (ADR-005)"])
+    d.lollipop(1710, 307, "AMQP", (1710, 330))
+    d.comp("ex", 200, 610, 1300, 62, "bmc.events", "exchange",
+           ["durable topic exchange · routing key <producer>.<eventType>"])
+    queues = [("qi", "issue.inbox", ["quorum · delivery limit 5"], "TriageSuggested,\ndispatch events",
+               "ack after commit"),
+              ("qd", "dispatch.inbox", ["quorum · delivery limit 5"], "IssueStateChanged,\nMembership*",
+               "ack after commit"),
+              ("qn", "notification.inbox", ["quorum · delivery limit 5"], "NotificationRequested", "ack after commit"),
+              ("qa", "ai-triage.requests", ["quorum · delivery limit 5", "point to point, private text"],
+               "issue.TriageRequested\nonly", "ack after publishing")]
+    for cx, (key, name, details, binding, ack) in zip(cols, queues):
+        d.comp(key, cx - 105, 410, 210, 90, name, "queue", details)
+        d.dep([(cx, 610), (cx, 500)], binding, at=(cx + 8, 545), bg=BLUE)
+        d.dep([(cx, 410), (cx, 250)], f"delivers\n{ack}", at=(cx + 8, 280), bg=BLUE)
+        d.dep([(cx - 125, 250), (cx - 125, 610)], "publishes" + ("\nwith confirms" if key != "qa" else ""),
+              at=(cx - 133, 368), anchor="end", bg=BLUE)
 
-    d.container("dlx", 1600, 360, 220, 90, "bmc.dlx", "Dead-letter exchange", ["at-least-once"], fill=PART)
-    d.container("dlq", 1600, 520, 220, 100, "<queue>.dlq", "Quorum queue · TTL 7 days",
-                ["one per queue;", "replay by runbook"], shape="queue", fill=PART)
-    d.rel([(1485, 405), (1600, 405)], "after 5 deliveries\n(every queue)", at=(1542, 372), anchor="middle",
-          dashed=True, bg=ELEMENT)
-    d.rel([(1710, 450), (1710, 520)], "routes", at=(1718, 485), dashed=True, bg=ELEMENT)
+    d.comp("dlx", 1600, 410, 220, 90, "bmc.dlx", "exchange", ["dead-letter · at-least-once"])
+    d.comp("dlq", 1600, 570, 220, 100, "<queue>.dlq", "queue", ["one per queue · TTL 7 days", "replay by runbook"])
+    d.dep([(1485, 455), (1600, 455)], "after 5 deliveries\n(every queue)", at=(1542, 420), anchor="middle", bg=BLUE)
+    d.dep([(1710, 500), (1710, 570)], "routes", at=(1718, 535), bg=BLUE)
 
-    d.note(200, 665, 430, ["Outbox rows wait as pending while the broker is",
+    d.note(200, 705, 430, ["Outbox rows wait as pending while the broker is",
                            "down; the publisher retries with backoff (2 s",
-                           "doubling, cap 5 min) without limit."], attach=(205, 470))
-    d.note(680, 665, 430, ["The Spring consumers keep processed event IDs,",
+                           "doubling, cap 5 min) without limit."], attach=(205, 510))
+    d.note(680, 705, 430, ["The Spring consumers keep processed event IDs,",
                            "so a duplicate is acknowledged without",
                            "repeating the effect (ADR-003)."])
-    d.note(1160, 665, 430, ["TriageRequested is the only message with private",
+    d.note(1160, 705, 430, ["TriageRequested is the only message with private",
                             "report text: bound only to ai-triage.requests,",
-                            "never logged; its DLQ copy expires after 7 days."], attach=(1380, 622))
+                            "never logged; its DLQ copy expires after 7 days."], attach=(1380, 672))
     return d
 
 
 def p4():
     d = Diagram("p4-data-and-platform", "P4 · Data stores and platform connections",
-                "C4 deployment view of stores and platform calls · ADR-001, ADR-004, ADR-010 · arrows from client "
-                "to server · proposed", 1900, 830)
-    d.node("host", 40, 80, 1820, 720, "Demonstration host", "Deployment node: Docker host · internal network")
+                "UML deployment diagram of stores and platform calls · ADR-001, ADR-004, ADR-010 · arrows from user "
+                "to used · proposed", 1900, 830)
+    d.node("host", 40, 80, 1820, 720, "Demonstration host", "device", ["Docker host · internal network"])
 
-    d.container("sim", 140, 110, 220, 90, "calendar-sim", "Container: Spring Boot · Java 25", ["in memory, fixed seed"])
-    d.container("mailpit", 380, 110, 220, 90, "mailpit", "Container: Mailpit 1.32", ["SMTP capture, demo only"])
-    d.container("keycloak", 680, 110, 220, 90, "keycloak", "Container: Keycloak 26.8",
-                ["accounts, credentials,", "account email"])
+    d.comp("sim", 140, 150, 220, 90, "calendar-sim", "container", ["Spring Boot · Java 25", "in memory, fixed seed"])
+    d.comp("mailpit", 380, 150, 220, 90, "mailpit", "container", ["Mailpit 1.32", "SMTP capture, demo only"])
+    d.comp("keycloak", 680, 150, 220, 90, "keycloak", "container", ["Keycloak 26.8", "accounts, account email"])
+    d.lollipop(250, 262, "HTTP API", (250, 240))
+    d.lollipop(490, 262, "SMTP", (490, 240), at="w")
+    d.lollipop(800, 262, "Admin API", (800, 240), at="w")
 
-    d.container("dispatch", 140, 300, 220, 100, "dispatch", "Container: Spring Boot",
-                ["interventions, bookings,", "contractors"])
-    d.container("notification", 380, 300, 220, 100, "notification", "Container: Spring Boot",
-                ["inbox, preferences,", "delivery log"])
-    d.container("issue", 960, 300, 320, 100, "issue", "Container: Spring Boot",
-                ["reports, issues, memberships,", "attachments"])
-    d.container("backup", 1370, 300, 220, 100, "backup job", "Not placed (P-03)",
-                ["container and schedule", "still open"], dashed=True)
+    d.comp("dispatch", 140, 340, 220, 100, "dispatch", "container", ["Spring Boot", "interventions, bookings"])
+    d.comp("notification", 380, 340, 220, 100, "notification", "container", ["Spring Boot", "inbox, delivery log"])
+    d.comp("issue", 960, 340, 320, 100, "issue", "container", ["Spring Boot",
+                                                               "reports, issues, memberships, attachments"])
+    d.comp("backup", 1370, 340, 220, 100, "backup job", "job", ["container and schedule", "not placed (P-03)"],
+           dashed=True)
 
-    d.node("mysql", 120, 480, 980, 240, "mysql", "Container: MySQL 8.4 LTS · one instance", fill=ELEMENT)
+    d.holder("mysql", 120, 520, 980, 200, "mysql", "container", ["MySQL 8.4 LTS · one instance"])
     for x, owner in ((150, "dispatch"), (390, "notification"), (630, "keycloak"), (870, "issue")):
-        d.container("db-" + owner, x, 500, 200, 110, owner, "Database", ["owner: " + owner], shape="db", fill=PART)
-    d.node("garage", 1130, 480, 480, 240, "garage", "Container: Garage 2.5 · S3 subset · single node", fill=ELEMENT)
-    d.container("ba", 1150, 500, 210, 110, "bmc-attachments", "Bucket", ["report photos;", "candidate, post-MVP"],
-                fill=PART)
-    d.container("bb", 1380, 500, 210, 110, "bmc-backups", "Bucket", ["MySQL dumps"], fill=PART)
+        d.comp("db-" + owner, x, 540, 200, 100, owner, "database", ["owner: " + owner], icon="database")
+    d.holder("garage", 1130, 520, 480, 200, "garage", "container", ["Garage 2.5 · S3 subset · single node"])
+    d.lollipop(1240, 497, "S3 API", (1240, 520), at="w")
+    d.comp("ba", 1150, 540, 210, 100, "bmc-attachments", "bucket", ["report photos;", "candidate, post-MVP"],
+           icon="artifact")
+    d.comp("bb", 1380, 540, 210, 100, "bmc-backups", "bucket", ["MySQL dumps"], icon="artifact")
 
-    d.rel([(250, 300), (250, 200)], "books visits\n[HTTP, Idempotency-Key]", at=(258, 240), bg=NODE)
-    d.rel([(490, 300), (490, 200)], "sends email\n[SMTP]", at=(498, 240), bg=NODE)
-    d.rel([(680, 155), (600, 155)], "[SMTP]", at=(640, 143), anchor="middle", bg=NODE)
-    d.rel([(600, 350), (800, 350), (800, 200)], "Admin API · view-users", at=(700, 338), anchor="middle",
-          dashed=True, bg=NODE)
-    d.rel([(860, 200), (860, 465), (730, 465), (730, 500)], "[JDBC]", at=(868, 420), bg=NODE)
-    d.rel([(250, 400), (250, 500)], "[JDBC]", at=(258, 445), bg=NODE)
-    d.rel([(490, 400), (490, 500)], "[JDBC]", at=(498, 445), bg=NODE)
-    d.rel([(990, 400), (990, 500)], "[JDBC]", at=(998, 445), bg=NODE)
-    d.rel([(1240, 400), (1240, 500)], "stores photos\n[S3]", at=(1248, 440), bg=NODE)
-    d.rel([(1480, 400), (1480, 500)], "writes dumps\n[S3]", at=(1488, 440), dashed=True, bg=NODE)
-    d.rel([(1590, 350), (1700, 350), (1700, 760), (610, 760), (610, 720)], "dump · placement open (P-03)",
-          at=(1150, 760), anchor="middle", dashed=True, bg=NODE)
+    d.dep([(250, 340), (250, 271)], "books visits\nIdempotency-Key", at=(258, 292), bg=BLUE)
+    d.dep([(490, 340), (490, 271)], "sends email", at=(498, 305), bg=BLUE)
+    d.dep([(700, 240), (700, 262), (499, 262)])
+    d.dep([(600, 390), (800, 390), (800, 271)], "Admin API · view-users", at=(700, 378), anchor="middle", bg=BLUE)
+    d.dep([(860, 240), (860, 505), (730, 505), (730, 540)], "JDBC", at=(868, 460), bg=BLUE)
+    d.dep([(250, 440), (250, 540)], "JDBC", at=(258, 488), bg=BLUE)
+    d.dep([(490, 440), (490, 540)], "JDBC", at=(498, 488), bg=BLUE)
+    d.dep([(990, 440), (990, 540)], "JDBC", at=(998, 488), bg=BLUE)
+    d.dep([(1240, 440), (1240, 488)], "stores photos", at=(1248, 462), bg=BLUE)
+    d.dep([(1480, 440), (1480, 497), (1249, 497)], "writes dumps", at=(1488, 466), bg=BLUE)
+    d.dep([(1590, 390), (1700, 390), (1700, 765), (610, 765), (610, 720)], "dump · placement open (P-03)",
+          at=(1150, 765), anchor="middle", bg=BLUE)
 
-    d.note(1000, 105, 520, ["Every Spring service also needs Keycloak's signing keys;",
+    d.note(1000, 140, 520, ["Every Spring service also needs Keycloak's signing keys;",
                             "that connection is not drawn and its route is open (P-05).",
                             "Calls to a platform component or to the calendar are not",
                             "service-to-service calls (ADR-001)."], attach=d.p("keycloak", "e", 0.4))
@@ -250,128 +244,132 @@ def p4():
 
 def p5():
     d = Diagram("p5-health-and-metrics", "P5 · Health, metrics and logs",
-                "C4 deployment view of health and metrics paths · ADR-004, ADR-012 · proposed", 1720, 840)
-    d.node("device", 40, 80, 480, 170, "User device", "Deployment node: browser or installed PWA")
-    d.container("web", 245, 98, 250, 85, "BMC web app", "PWA · /status page and banner", ["public, no login"])
-    d.container("operator", 1280, 70, 200, 120, "Operator", "Person", ["reads the dashboard"], shape="person",
-                fill=EXTERNAL)
+                "UML deployment diagram of health and metrics paths · ADR-004, ADR-012 · proposed", 1720, 900)
+    d.node("device", 40, 80, 480, 190, "User device", "device", ["browser or installed PWA"])
+    d.comp("web", 225, 150, 290, 80, "BMC web app", "component", ["/status page and banner", "public, no login"])
+    d.actor("operator", 1380, 90, "Operator", ["reads the dashboard"])
     d.note(560, 85, 600, ["Public capabilities: Report a fault, Schedule interventions, Notifications,",
                           "Suggestions, Calendar sync, Sign-in, Photo upload; infrastructure is",
-                          "never listed by name (ADR-012)."], attach=(690, 340))
+                          "never listed by name (ADR-012)."], attach=(690, 420))
 
-    d.node("host", 40, 300, 1640, 440, "Demonstration host", "Deployment node: Docker host")
-    d.container("traefik", 255, 340, 230, 90, "traefik", "Container: Traefik 3.7", ["health check before routing"])
-    d.container("gatus", 575, 340, 230, 90, "gatus", "Container: Gatus 5.37", ["capability checks, 30 days"])
-    d.container("prom", 895, 340, 230, 90, "prometheus", "Container: Prometheus 3.x", ["scrapes /metrics, alerts"])
-    d.container("grafana", 1265, 340, 230, 90, "grafana", "Container: Grafana 13", ["operator dashboard"])
+    d.node("host", 40, 320, 1640, 490, "Demonstration host", "device", ["Docker host"])
+    d.comp("traefik", 255, 420, 230, 90, "traefik", "container", ["Traefik 3.7", "health check before routing"])
+    d.comp("gatus", 575, 420, 230, 90, "gatus", "container", ["Gatus 5.37", "capability checks, 30 days"])
+    d.comp("prom", 895, 420, 230, 90, "prometheus", "container", ["Prometheus 3.x", "scrapes /metrics, alerts"])
+    d.comp("grafana", 1265, 420, 230, 90, "grafana", "container", ["Grafana 13", "operator dashboard"])
+    d.lollipop(370, 401, "HTTPS 443", (370, 420), at="w")
+    d.dep([(370, 230), (370, 392)], "GET /status/api", at=(378, 285))
 
-    d.boundary("bmc", 70, 500, 560, 200, "BMC services · readiness covers own database", colour=GREY)
-    for x, y, name, check in ((85, 515, "issue", "Actuator readiness · /metrics"),
-                              (355, 515, "dispatch", "Actuator readiness · /metrics"),
-                              (85, 585, "notification", "Actuator readiness · /metrics"),
-                              (355, 585, "ai-triage-web", "Flask health · /metrics")):
-        d.container(name, x, y, 255, 58, name, None, [check])
-    d.boundary("plat", 660, 500, 990, 200, "Platform checks · rolled up into public capabilities", colour=GREY)
+    d.boundary("bmc", 70, 580, 560, 200, "BMC services · readiness covers own database")
+    for x, y, name, check in ((85, 595, "issue", "Actuator readiness · /metrics"),
+                              (355, 595, "dispatch", "Actuator readiness · /metrics"),
+                              (85, 670, "notification", "Actuator readiness · /metrics"),
+                              (355, 670, "ai-triage-web", "Flask health · /metrics")):
+        d.comp(name, x, y, 260, 62, name, "container", [check])
+    d.boundary("plat", 660, 580, 990, 200, "Platform checks · rolled up into public capabilities")
     for i, (name, check) in enumerate((("oauth2-proxy", "/ready · /metrics"),
                                        ("rabbitmq", "diagnostics ping · metrics plugin"),
                                        ("keycloak", "/health/ready, port 9000"), ("mysql", "query-level check"),
                                        ("garage", "admin GET /health"), ("mailpit", "readyz"),
                                        ("calendar-sim", "calendar sync capability"))):
-        d.container("t-" + name, 675 + 240 * (i % 4), 515 + 70 * (i // 4), 230, 58, name, None, [check])
+        d.comp("t-" + name, 675 + 240 * (i % 4), 595 + 75 * (i // 4), 230, 62, name, "container", [check])
 
-    d.rel([(370, 183), (370, 340)], "GET /status/api\n[HTTPS]", at=(378, 258))
-    d.rel([(485, 385), (575, 385)], "/status/api", at=(530, 373), anchor="middle", bg=NODE)
-    d.rel([(1380, 190), (1380, 340)], "reads dashboards\n[access in demo: open]", at=(1388, 252), dashed=True)
-    d.rel([(1265, 385), (1125, 385)], "queries", at=(1195, 373), anchor="middle", bg=NODE)
-    d.rel([(895, 385), (805, 385)], "scrape", at=(850, 373), anchor="middle", bg=NODE)
-    d.rel([(1010, 340), (1010, 318), (440, 318), (440, 340)], "scrape · network open (P-01)", at=(725, 318),
-          anchor="middle", dashed=True, bg=NODE)
-    d.rel([(370, 430), (370, 500)], "readiness of issue,\ndispatch, notification", at=(378, 455), bg=NODE)
-    d.rel([(600, 430), (600, 500)], "readiness", at=(608, 462), bg=NODE)
-    d.rel([(760, 430), (760, 500)], "platform checks", at=(768, 462), bg=NODE)
-    d.rel([(950, 430), (950, 482), (530, 482), (530, 500)], "scrape /metrics", at=(958, 455), bg=NODE)
-    d.rel([(1080, 430), (1080, 500)], "scrape oauth2-proxy,\nrabbitmq", at=(1088, 455), bg=NODE)
+    d.dep([(485, 465), (575, 465)], "/status/api", at=(530, 453), anchor="middle", bg=BLUE)
+    d.dep([(895, 465), (805, 465)], "scrape", at=(850, 453), anchor="middle", bg=BLUE)
+    d.dep([(1265, 465), (1125, 465)], "queries", at=(1195, 453), anchor="middle", bg=BLUE)
+    d.dep([(1010, 420), (1010, 394), (440, 394), (440, 420)], "scrape · network open (P-01)", at=(725, 394),
+          anchor="middle", bg=BLUE)
+    d.path([(1380, 196), (1380, 420)], "access in demo: open", at=(1388, 270), dashed=True)
+    d.dep([(370, 510), (370, 580)], "readiness of issue,\ndispatch, notification", at=(378, 530), bg=BLUE)
+    d.dep([(600, 510), (600, 580)], "readiness", at=(608, 545), bg=BLUE)
+    d.dep([(790, 510), (790, 580)], "platform checks", at=(798, 545), bg=BLUE)
+    d.dep([(950, 510), (950, 560), (530, 560), (530, 580)], "/metrics", at=(958, 532), bg=BLUE)
+    d.dep([(1080, 510), (1080, 580)], "/metrics of oauth2-proxy,\nrabbitmq", at=(1088, 530), bg=BLUE)
 
-    d.note(70, 760, 620, ["Logs are structured with correlationId and traceparent; where they are",
+    d.note(70, 830, 620, ["Logs are structured with correlationId and traceparent; where they are",
                           "collected is left to DEVOPS-02 (EN01-U12), so no log collector is drawn."])
     return d
 
 
 def p6():
     d = Diagram("p6-delivery-path", "P6 · Environments and delivery path",
-                "C4 deployment view of the proposed delivery path · ADR-004, PR #40 (open) · arrows follow code and "
-                "images · no pipeline, image or host exists yet", 1900, 730)
-    d.node("laptop", 40, 80, 300, 200, "Developer laptop", "Deployment node: Docker Engine + Compose")
-    d.container("wc", 65, 100, 250, 100, "Working copy", "Git · compose.yaml", ["smaller profile set"])
+                "UML deployment diagram of the proposed delivery path · ADR-004, PR #40 (open) · no pipeline, image "
+                "or host exists yet", 1900, 790)
+    d.node("laptop", 40, 80, 300, 220, "Developer laptop", "device", ["Docker Engine + Compose"])
+    d.comp("wc", 65, 160, 250, 80, "Working copy", "artifact", ["Git checkout, compose.yaml", "smaller profile set"],
+           icon="artifact")
 
-    d.node("github", 380, 80, 1480, 360, "GitHub", "Deployment node: github.com · DEVOPS-01 proposal, PR #40 (open)")
-    d.container("repo", 405, 100, 230, 100, "Repository", "Git", ["feature/* → dev → main;", "release: protected v* tag"])
-    d.node("actions", 670, 100, 890, 280, "GitHub Actions",
-           "Deployment node: runners · proposed stages, no pipeline yet", fill=NODE_IN)
+    d.node("github", 380, 80, 1480, 400, "GitHub", None, ["github.com · DEVOPS-01 proposal, PR #40 (open)"])
+    d.comp("repo", 405, 160, 230, 100, "Repository", "repository", ["Git · feature/* → dev → main",
+                                                                    "release: protected v* tag"])
+    d.node("actions", 670, 150, 890, 300, "GitHub Actions", "executionEnvironment",
+           ["proposed stages, no pipeline yet"], align="left")
     stages = [("Lint, unit tests", []), ("Contract checks", ["buf lint,", "buf breaking"]),
               ("Boundary tests", ["ArchUnit,", "import-linter, ESLint"]),
               ("Integration tests", ["real MySQL 8.4", "and RabbitMQ"]),
               ("Multi-arch build", ["amd64, arm64;", "method open (EN01-U9)"])]
-    for i, (name, desc) in enumerate(stages):
+    for i, (name, details) in enumerate(stages):
         x = 690 + 175 * i
-        d.container(f"s{i}", x, 115, 155, 125, name, f"Stage {i + 1}", desc, fill=PART)
+        d.comp(f"s{i}", x, 215, 155, 125, name, f"job {i + 1}", details)
         if i:
-            d.rel([(x - 20, 177), (x, 177)])
-    d.container("ghcr", 1590, 100, 250, 100, "GHCR", "Container registry", ["one image per app;",
-                                                                           "built once, promoted by tag"])
+            d.dep([(x - 20, 277), (x, 277)])
+    d.comp("ghcr", 1590, 160, 250, 100, "GHCR", "registry", ["one image per app;", "built once, promoted by tag"])
 
-    d.node("host", 1100, 500, 760, 200, "Demonstration host", "Deployment node: Docker host")
-    d.container("env", 1130, 520, 300, 110, "Host or CI environment", "Configuration source",
-                [".env with secrets,", "never in Git"])
-    d.container("stack", 1560, 520, 270, 110, "BMC stack", "Docker Compose · compose.yaml",
-                ["compose pull, then up -d;", "rollback: previous tag"])
+    d.node("host", 1100, 540, 760, 220, "Demonstration host", "device", ["Docker host"])
+    d.comp("env", 1130, 610, 300, 110, "Host or CI environment", "artifact", [".env with secrets,", "never in Git"],
+           icon="artifact")
+    d.comp("stack", 1560, 610, 270, 110, "Docker Compose", "executionEnvironment",
+           ["compose.yaml", "compose pull, then up -d;", "rollback: previous tag"])
 
-    d.rel([(315, 150), (405, 150)], "push", at=(360, 138), anchor="middle")
-    d.rel([(635, 150), (690, 150)], "runs", at=(662, 138), anchor="middle", bg=NODE)
-    d.rel([(1545, 150), (1590, 150)])
-    d.rel([(1715, 200), (1715, 520)], "pulls the same image\n[HTTPS]", at=(1723, 462))
-    d.rel([(1430, 575), (1560, 575)], "injected at deploy", at=(1495, 563), anchor="middle", bg=NODE)
+    d.dep([(315, 200), (405, 200)], "push", at=(360, 188), anchor="middle")
+    d.dep([(635, 250), (690, 250)], "runs", at=(662, 238), anchor="middle", bg=BLUE)
+    d.dep([(1545, 250), (1590, 250)])
+    d.path([(1715, 260), (1715, 610)], "pull the same image · HTTPS", at=(1723, 505))
+    d.dep([(1560, 665), (1430, 665)], "reads at deploy", at=(1495, 653), anchor="middle", bg=BLUE)
 
-    d.note(1000, 258, 540, ["Multi-arch availability is recorded for the Traefik, RabbitMQ,",
+    d.note(1000, 360, 540, ["Multi-arch availability is recorded for the Traefik, RabbitMQ,",
                             "MySQL, Mailpit, Temurin and python images, not yet for",
                             "Keycloak, oauth2-proxy, Garage, Prometheus, Grafana or nginx",
                             "(spike item 8, ADR-004)."], attach=d.p("s4", "s"))
-    d.note(405, 230, 240, ["Required checks are configured", "only when the pipeline exists."])
+    d.note(405, 300, 240, ["Required checks are configured", "only when the pipeline exists."])
     return d
 
 
 def p7():
     d = Diagram("p7-compose-profiles", "P7 · Compose profiles and rollout",
-                "C4 deployment view of the Compose profile sets in the proposed order · ADR-004 · to decide at the "
-                "team review (EN01-U1)", 1900, 530)
-    d.node("host", 40, 80, 1820, 420, "Demonstration host", "Deployment node: one compose.yaml with profiles")
+                "UML deployment diagram of the Compose profile sets in the proposed order · ADR-004 · to decide at the "
+                "team review (EN01-U1)", 1900, 560)
+    d.node("host", 40, 80, 1820, 450, "Demonstration host", "device", ["one compose.yaml with profiles"])
 
-    d.node("core", 70, 100, 520, 345, "First", "Compose profile: core · eight containers", fill=NODE_IN)
-    core = [("traefik", "Traefik 3.7", "box"), ("oauth2-proxy", "oauth2-proxy 7.15", "box"),
-            ("keycloak", "Keycloak 26.8", "box"), ("client", "nginx", "box"),
-            ("issue", "Spring Boot", "box"), ("dispatch", "Spring Boot", "box"),
-            ("mysql", "MySQL 8.4 LTS", "db"), ("rabbitmq", "RabbitMQ 4.x", "queue")]
-    for i, (name, tech, shape) in enumerate(core):
-        d.container("c-" + name, 90 + 250 * (i % 2), 115 + 72 * (i // 2), 235, 62, name, tech, shape=shape)
+    d.node("core", 70, 150, 540, 355, "First: profile core", "profile set", ["eight containers"])
+    core = [("traefik", "Traefik 3.7"), ("oauth2-proxy", "oauth2-proxy 7.15"), ("keycloak", "Keycloak 26.8"),
+            ("client", "nginx"), ("issue", "Spring Boot"), ("dispatch", "Spring Boot"),
+            ("mysql", "MySQL 8.4 LTS"), ("rabbitmq", "RabbitMQ 4.x")]
+    for i, (name, version) in enumerate(core):
+        d.comp("c-" + name, 85 + 260 * (i % 2), 210 + 70 * (i // 2), 245, 60, name, "container", [version],
+               icon="database" if name == "mysql" else "component")
 
-    d.node("slice", 660, 100, 520, 345, "When the slice needs it", "Compose: no profile name yet", fill=NODE_IN)
-    for i, (name, desc) in enumerate((("ai-triage-web", ["reporting works", "without it (NFR-03)"]),
-                                      ("ai-triage-consumer", ["with ai-triage-web"]),
-                                      ("notification", ["as soon as US-10", "is in the slice"]),
-                                      ("calendar-sim", ["when dispatch", "books a visit"]))):
-        d.container("l-" + name, 680 + 250 * (i % 2), 115 + 105 * (i // 2), 235, 92, name, None, desc)
-    d.note(680, 345, 480, ["Memory of each set is not measured", "(EN01-U3, spike item 8)."])
+    d.node("slice", 670, 150, 540, 355, "When the slice needs it", "profile set", ["no profile name yet"])
+    for i, (name, details) in enumerate((("ai-triage-web", ["reporting works", "without it (NFR-03)"]),
+                                         ("ai-triage-consumer", ["with ai-triage-web"]),
+                                         ("notification", ["as soon as US-10", "is in the slice"]),
+                                         ("calendar-sim", ["when dispatch", "books a visit"]))):
+        d.comp("l-" + name, 685 + 260 * (i % 2), 210 + 103 * (i // 2), 250, 92, name, "container", details)
+    d.note(685, 425, 505, ["Memory of each set is not measured (EN01-U3, spike item 8)."])
 
-    d.node("later", 1250, 100, 580, 345, "Later", "Compose profiles, own names", fill=NODE_IN)
-    for i, (name, profile, desc) in enumerate((("mailpit", "profile demo", ["email channel only"]),
-                                               ("gatus", "profile status (proposed)", ["/status page, banner"]),
-                                               ("prometheus", "profile observability", []),
-                                               ("grafana", "profile observability", []),
-                                               ("garage", "profile storage (proposed)", ["before backup and restore"]))):
-        d.container("x-" + name, 1270 + 280 * (i % 2), 115 + 90 * (i // 2), 260, 78, name, profile, desc)
+    d.node("later", 1270, 150, 560, 355, "Later: own profiles", "profile set",
+           ["demo, status, observability, storage"])
+    for i, (name, profile, details) in enumerate((("mailpit", "profile demo", ["email channel only"]),
+                                                  ("gatus", "profile status (proposed)", ["/status page, banner"]),
+                                                  ("prometheus", "profile observability", []),
+                                                  ("grafana", "profile observability", []),
+                                                  ("garage", "profile storage (proposed)",
+                                                   ["before backup and restore"]))):
+        d.comp("x-" + name, 1285 + 275 * (i % 2), 210 + 90 * (i // 2), 260, 80, name, "container",
+               [profile] + details)
 
-    d.rel([(590, 270), (660, 270)], "then", at=(625, 258), anchor="middle", bg=NODE)
-    d.rel([(1180, 270), (1250, 270)], "then", at=(1215, 258), anchor="middle", bg=NODE)
+    d.dep([(610, 330), (670, 330)], "then", at=(640, 318), anchor="middle", bg=BLUE)
+    d.dep([(1210, 330), (1270, 330)], "then", at=(1240, 318), anchor="middle", bg=BLUE)
     return d
 
 

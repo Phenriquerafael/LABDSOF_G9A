@@ -12,7 +12,7 @@ Sources for the seven physical (deployment) views of [07b — Physical views](..
 | `p6()` | P6 | Laptop → GitHub → Actions stages → GHCR → host, secrets |
 | `p7()` | P7 | Compose profile sets in the proposed rollout order |
 
-The figures are [C4](https://c4model.com/) deployment diagrams in the Visual Paradigm palette of the team's other diagrams: three-dimensional deployment nodes with the name at the bottom left, container instances labelled `[Container: technology]`, cylinders for databases and queues, dashed boundaries, UML notes and relationships labelled with `[protocol]`. `vpdraw.py` holds the shapes and palette; `views.py` places every shape by hand, so a picture changes only when its source changes. Every figure has a title and a subtitle naming its scope and sources; P1 carries a key.
+The figures are UML deployment diagrams in the style Visual Paradigm gives them: one blue fill (`#83C6EF`), black outlines, three-dimensional nodes with a bold name under a «stereotype» at the top, components with the component icon, provided interfaces as lollipops, plain communication paths labelled with the protocol, and dashed dependency arrows. `vpdraw.py` holds the shapes; `views.py` places every shape by hand, so a picture changes only when its source changes. Every figure has a title and a subtitle naming its scope and sources; P1 carries a key.
 
 ## Rendering
 
@@ -28,18 +28,19 @@ The SVG step needs only Python 3 (standard library). The PNG step screenshots ea
 
 | Element | Meaning |
 |---|---|
-| Three-dimensional box, name at the bottom left | A C4 deployment node: the user device, GitHub, the Docker host, a Compose network grouping (lighter cyan), a runner, or a container drawn open to show what is inside it (traefik, rabbitmq, mysql, garage; yellow) |
-| Yellow rounded box | A container instance (one image, one Compose service): name in bold, `[Container: technology]`, then its role |
-| Pale yellow shape inside a container | Something that runs inside it: a Traefik middleware, a RabbitMQ exchange or queue, a database, a bucket, a CI stage |
-| Cylinder | A database; a horizontal cylinder is a queue |
-| Green box or person | A person or a system outside the BMC deployment: the operator, GHCR, the AI provider, the off-host backup copy |
-| Dashed rectangle | A boundary: red for a trust boundary, grey for a set of routes or checks |
-| Note with a folded corner | An open item of [07b §10](../../07b-physical-views.md#10-open-items-found-while-drawing-the-views), a limit or a source, joined to its subject by a dashed line |
-| Solid arrow | A relationship the design requires, labelled with what it does and `[protocol]`, from the side that opens it to the side that serves it (P3 and P6 follow the message or the image instead, as their subtitles say; in P7 the arrows give the rollout order) |
-| Dashed arrow or border | Optional, administrative, not yet placed or still open, or a dead-letter path |
+| Three-dimensional box, name at the top | A UML node: «device» for the user device and the Docker host, «network» for a Compose network grouping, «executionEnvironment» for the browser, the CI runners or Docker Compose, «profile set» in P7, «external system» outside the host |
+| Rectangle with the component icon | A «container» (one image, one Compose service), or a part of one: «entrypoint» and «middleware» in Traefik, «exchange» and «queue» in RabbitMQ, «bucket» in Garage, «job» in CI. A container drawn open shows its parts and has its name at the bottom left |
+| Rectangle with the cylinder or page icon | A «database», or an «artifact» such as the working copy or the `.env` file |
+| Ball on a stick (lollipop) | An interface the component provides: HTTPS 443 on Traefik, AMQP, S3 API, SMTP, Admin API, HTTP API, the oauth2-proxy session check |
+| Stick figure | An actor: the operator |
+| Dashed rectangle | A boundary: a trust boundary, or a set of routes or checks (not a UML element) |
+| Note with a folded corner | An open item of [07b §10](../../07b-physical-views.md#10-open-items-found-while-drawing-the-views), a limit or a source, anchored by a dashed line |
+| Solid line | A communication path, labelled with the route or protocol; no arrow, as UML draws it |
+| Dashed arrow | A dependency or information flow, from the user to what it uses; in P3 it follows the message, in P6 the code and images, in P7 the rollout order |
+| Dashed outline | Optional or not yet placed: the off-host backup copy, the backup job, Grafana access in demo |
 
 Nothing here may state a technology, version or placement that an ADR does not state. The `.svg` files are the primary images used by the document; the `.png` files are the same picture as a raster fallback.
 
 ## Tooling note
 
-The notation is C4 and the colours are Visual Paradigm's, but the files are not Visual Paradigm projects: no `.vpp` file exists and the figures were not opened in Visual Paradigm.
+The notation is UML and the look is Visual Paradigm's, but the files are not Visual Paradigm projects: no `.vpp` file exists and the figures were not opened in Visual Paradigm.
