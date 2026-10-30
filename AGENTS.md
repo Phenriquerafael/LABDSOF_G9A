@@ -11,8 +11,9 @@ Canonical copies live in `.agents/skills/` (open standard), mirrored byte-for-by
 - `labdsof-workflow` — full team workflow and repository map.
 - `grilling` — relentless design-tree interview in rounds, to stress-test a plan or decision; triggers on "grill me" phrasing.
 - `grill-me` — user-invoked entry point that starts a `grilling` session.
+- `takeover` — take over an existing PR, branch or agent thread, preserving the original contributors' credit.
 
-`grilling` and `grill-me` are vendored from `mattpocock/skills` (MIT); keep their `LICENSE` files and pinned `source`.
+`grilling` and `grill-me` are vendored from `mattpocock/skills` (MIT) and `takeover` from `rmotafreitas/dotfiles` (MIT); keep their `LICENSE` files, pinned `source` and `SOURCE.md`.
 
 ## Non-negotiables
 
