@@ -1,56 +1,43 @@
 # [US-01] Record and view a report
 
-## Identification
+## Planning
 
-- Local ID / epic: US-01 / [EP-01 — Reporting and tracking](../epics/EP-01-reporting-and-tracking.md) (direct child).
-- Requirement(s), hypothesis/finding and journey: RF-01; P1/P5; J1; NFR-01/02/03/04/05/07/09; [requirements](../../requirements.md), [vision](../../04-product-vision.md), [assignment](../../../LABDSOF-26-27-Assignment.md).
-- Proposed MoSCoW priority / reason: Must — establishes the persistent reporting journey required by the MVP.
-- Official milestone: proposed S2 initial delivery and S3 refinement/evaluation; No Sprint 1 implementation commitment.
-- Blocking decisions/dependencies: DEC-04 and DEC-07 in the [decision register](../../planning/decisions-and-feedback.md). Close applicable EN-01 refinements before implementation readiness.
-
-[EN-01 design](EN-01-technical-design.md) and EN-02 implementation foundations (see the [product backlog](../../06-product-backlog.md#3-discovery-and-engineering)). The minimal report/query path can form part of EN-02; count its implementation once. AI classification is not a prerequisite.
-
-The [technical design](../../08-technical-design.md) and [access matrix](../../09-security-privacy.md#2-proposed-access-matrix) are conceptual inputs, not accepted stack/contracts. These criteria describe behaviour without selecting a framework, database, broker or provider.
-
-Draft status: Backlog; technical refinement required before Ready. No GitHub story URL recorded. Sandro Dias under [PLAN-01](PLAN-01-prepare-reporting-and-tracking-stories.md). Implementation allocation: see the [backlog index](../README.md#ep-01-story-drafts-and-planning-allocation).
+- Epic: [EP-01 — Reporting and tracking](../epics/EP-01-reporting-and-tracking.md).
+- Priority: Must.
+- Sprint: implement in S2 and refine/evaluate in S3.
+- Dependencies: [EN-01](EN-01-technical-design.md) for design and access rules, and EN-02 in the [product backlog](../../06-product-backlog.md#3-discovery-and-engineering) for implementation foundations. Count a shared report/query implementation once. AI is not a prerequisite.
 
 ## Story
 
-As a **resident**, I want to **report a fault in my building and retrieve its receipt**, so that **management can track the issue and I know it was received**.
+As a **resident**, I want to **report a fault in my building and view its receipt**, so that **I know management has received it**.
 
 ## Scope
 
-Included: Text report, authorised building/area selection, immediate receipt, own-report retrieval and persistence. Include server-side access checks and safe handling of a retried submission.
+Submit a text report, select an authorised building/area, receive an ID and view the saved report and status. Handle retried submissions safely.
 
-Excluded: AI inference, duplicate matching/merging, photographs, shared publication (US-04), notification delivery (US-10), intervention actions and unrestricted access to another resident's private text.
+This story does not cover AI, duplicate matching, photographs, shared publication, notification delivery or intervention actions.
 
 ## Acceptance criteria
 
-- [ ] **Receipt:** Given a resident who belongs to the selected building and valid text/area, when they submit, then one report/issue is persisted and an ID with a “received” status is returned without waiting for AI.
-- [ ] **Own-report retrieval:** Given the author and the returned ID, when they query the report after a backend restart, then the saved report and authorised status are available.
-- [ ] **Invalid input:** Given blank or invalid text, an invalid area or an area belonging to another building, when submitted, then a clear validation error is returned and no partial report is created. Final field limits belong to R02.
-- [ ] **Denied access:** Given an unauthenticated caller or a user without the required building/resource permission, when they submit, list, query or modify a report through the API, then access is denied without exposing private data. Same-building membership alone does not grant access to another resident's raw text.
-- [ ] **Retry:** Given a successful submission whose response was lost, when the same operation is retried with the same idempotency identity, including concurrent retries, then one logical report exists and the caller can obtain its original receipt. Reusing that identity with different content must not silently replace the original report; refine the exact conflict contract under R02.
-- [ ] **Unavailable dependency:** Given AI is disabled or unavailable, then valid reporting and own-report retrieval still work. If persistence itself fails, show a failure/retry outcome and do not claim the report was received unless it was durably saved.
-- [ ] **Usable and private interface:** The form supports keyboard use, labels and understandable errors. Render submitted text safely and keep private text/identities out of logs and unrelated views.
+- [ ] Save a valid report from a resident of the selected building and return its ID and “received” status without waiting for AI.
+- [ ] Let the author retrieve the saved report and authorised status using its ID, including after a backend restart.
+- [ ] Reject blank or invalid text, invalid areas and areas from another building with a clear error. Do not create a partial report.
+- [ ] Check permissions in the backend for submission, listing, reading and modification. Unauthenticated or unauthorised users cannot access private data; belonging to the same building does not allow someone to read another resident's raw text.
+- [ ] If the response is lost, repeating the submission with the same idempotency key must return the original receipt without creating another report, including concurrent retries. Reject reuse of the key with different content without changing the original.
+- [ ] Keep reporting and retrieval available when AI is disabled or unavailable. If storage fails, show a failure/retry message and do not claim the report was received unless it was durably saved.
+- [ ] Support keyboard use, labels and understandable validation errors. Display submitted text safely and keep private text and identities out of logs and unrelated views.
 
 ## Verification and risks
 
-Use synthetic residents in buildings A/B, an administrator and a contractor. Verify successful submission/query after restart, invalid fields/area, direct API denial for other users/buildings, duplicate concurrent retries, persistence failure and AI disabled. Include a form→receipt→query end-to-end path and keyboard/error checks. Capture environment, IDs/counts and sanitised logs; use the agreed NFR-05 scenario after thresholds are frozen.
+Use synthetic residents from two buildings, an administrator and a contractor. Test submission, retrieval after restart, invalid fields, denied API access, concurrent retries, storage failure and unavailable AI. Include the form-to-receipt journey, keyboard checks and the agreed NFR-05 performance scenario.
 
-Principal risks: A successful-looking receipt without persistence, cross-building leakage, duplicate reports from network retries and confusing server denial with client-only button hiding.
+The main risks are false receipts, duplicate reports and private data reaching other users. Keep the environment, record counts and sanitised logs as evidence.
 
-This is a story draft: these are planned implementation checks, not executed tests. PLAN-01 validates document content, traceability, consistency and links only.
+References: RF-01, P1/P5, J1 and NFR-01/02/03/04/05/07/09 in the [requirements](../../requirements.md).
 
 ## Ready / Done
 
-Technical refinement: R01 — stack/component boundaries; R02 — report/API/data/idempotency contract; R03 — identity/access; R06 — environment and evidence.
+Before starting, agree the report fields/limits, building/area rules, API responses, storage ownership, idempotency scope/lifetime and conflict behaviour, identity/access rules and test environment. Confirm DEC-04/07 through EN-01 and the [technical design](../../08-technical-design.md).
 
-Close the applicable rows of the [EP-01 refinement register](../ep01-technical-refinement.md) using EN-01 decision/contract evidence; record any justified non-applicability. Do not invent concrete endpoints, queue names, database schemas or retry thresholds before those decisions.
-
-- Implementation owner / independent reviewer / estimate / capacity / sprint:
-- Refinement closure references and remaining limitations:
-- [ ] DoR reviewed by the team; date/author:
-- [ ] DoD verified with links to PR, tests and demonstration:
-
-See [definition-of-ready.md](../../governance/definition-of-ready.md) and [definition-of-done.md](../../governance/definition-of-done.md). Do not mark Ready without estimates/capacity, agreed owner/reviewer and resolved dependencies. Record actual implementation/test/demo evidence before checking Done.
+- [ ] Ready: owner, reviewer, estimate and sprint capacity agreed; [DoR](../../governance/definition-of-ready.md) reviewed by the team. Date/author:
+- [ ] Done: acceptance criteria met, changes reviewed, and PR, tests and demonstration linked according to the [DoD](../../governance/definition-of-done.md).
