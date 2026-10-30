@@ -3,8 +3,7 @@
   <bpmn:collaboration id="Collab_request">
     <bpmn:participant id="P_bmc" name="BMC — intervention request and response (owner: Dispatch Service)" processRef="Process_request" />
     <bpmn:participant id="P_issue" name="Issue Service" />
-    <bpmn:messageFlow id="M_d_check_P_issue" sourceRef="d_check" targetRef="P_issue" />
-    <bpmn:messageFlow id="M_P_issue_d_check" name="context request / answer" sourceRef="P_issue" targetRef="d_check" />
+    <bpmn:messageFlow id="M_P_issue_d_check" name="Issue events (projection)" sourceRef="P_issue" targetRef="d_check" />
     <bpmn:messageFlow id="M_d_send_P_issue" name="approved" sourceRef="d_send" targetRef="P_issue" />
     <bpmn:messageFlow id="M_d_accept_P_issue" name="response" sourceRef="d_accept" targetRef="P_issue" />
   </bpmn:collaboration>
@@ -41,7 +40,7 @@
       <bpmn:incoming>F_a_start_a_select</bpmn:incoming>
       <bpmn:outgoing>F_a_select_d_check</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:serviceTask id="d_check" name="Check Issue context (fail closed)">
+    <bpmn:serviceTask id="d_check" name="Check projected Issue context">
       <bpmn:incoming>F_a_select_d_check</bpmn:incoming>
       <bpmn:outgoing>F_d_check_d_ok</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -162,7 +161,6 @@
       <bpmndi:BPMNEdge id="F_c_resp_c_counter_di" bpmnElement="F_c_resp_c_counter"><di:waypoint x="1580" y="404" /><di:waypoint x="1580" y="366" /><bpmndi:BPMNLabel><dc:Bounds x="1487" y="376" width="90" height="28" /></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="F_c_resp_d_decline_di" bpmnElement="F_c_resp_d_decline"><di:waypoint x="1580" y="454" /><di:waypoint x="1580" y="682" /><di:waypoint x="1642" y="682" /><bpmndi:BPMNLabel><dc:Bounds x="1505" y="642" width="90" height="14" /></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="F_c_counter_a_approve_di" bpmnElement="F_c_counter_a_approve"><di:waypoint x="1580" y="282" /><di:waypoint x="1580" y="110" /><di:waypoint x="908" y="110" /><di:waypoint x="908" y="132" /></bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="M_d_check_P_issue_di" bpmnElement="M_d_check_P_issue"><di:waypoint x="416" y="536" /><di:waypoint x="416" y="60" /></bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="M_P_issue_d_check_di" bpmnElement="M_P_issue_d_check"><di:waypoint x="460" y="60" /><di:waypoint x="460" y="536" /><bpmndi:BPMNLabel><dc:Bounds x="464" y="66" width="90" height="28" /></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="M_d_send_P_issue_di" bpmnElement="M_d_send_P_issue"><di:waypoint x="1252" y="536" /><di:waypoint x="1252" y="60" /><bpmndi:BPMNLabel><dc:Bounds x="1258" y="66" width="90" height="14" /></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="M_d_accept_P_issue_di" bpmnElement="M_d_accept_P_issue"><di:waypoint x="1762" y="536" /><di:waypoint x="1762" y="60" /><bpmndi:BPMNLabel><dc:Bounds x="1768" y="66" width="90" height="14" /></bpmndi:BPMNLabel></bpmndi:BPMNEdge>

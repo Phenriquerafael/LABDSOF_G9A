@@ -32,13 +32,13 @@ Willingness to pay and buyer identity are unvalidated. Interviews with volunteer
 - Duplicate suggestions, when implemented, are reviewed and preserve original reports.
 - Small contractor catalogue; explainable rule-based ranking, without a marketplace.
 - Approval authorises the request; a booking is confirmed only after contractor acceptance and calendar registration, or explicit manual confirmation.
-- One notification channel, “This affects me too” participation, history and optional basic cost.
+- One notification channel (email as a second channel proposed in [ADR-007](adr/ADR-007-notification-service.md), DEC-06 pending), “This affects me too” participation, history and optional basic cost.
 - The administrator closes the issue after contractor-reported completion, or with recorded justification.
 - Approval, acceptance, booking confirmation, completion report and closure are distinct recorded steps ([vision §4.3](04-product-vision.md#43-distinct-steps-dec-10)).
 
 **Sprint 1:** discovery, decisions and design. The evaluator clarified that the walking skeleton is optional; the team decided not to develop it this sprint (DEC-11, recorded on 2026-10-10). **Sprint 2:** first operational version of the cycle. **Sprint 3:** complete, evaluate and strengthen the same MVP.
 
-Photos, AI visual analysis, cost charts and narrative summaries are **post-MVP** candidates, without a Sprint 3 commitment. Automatic expense approval is outside the baseline. IoT is excluded from the MVP (DEC-01, BA/PO proposal of 2026-10-19, team agreement pending); reopening it requires a scope review ([vision §4.2](04-product-vision.md#42-iot-decision-dec-01)).
+Photos, AI visual analysis, cost charts and narrative summaries are **post-MVP** candidates (report photos without visual analysis are a post-MVP candidate in the [decision register](planning/decisions-and-feedback.md#stack-revision--en-01-01-2026-10-27) pending a DEC entry), without a Sprint 3 commitment. Automatic expense approval is outside the baseline. IoT is excluded from the MVP (DEC-01, BA/PO proposal of 2026-10-19, team agreement pending); reopening it requires a scope review ([vision §4.2](04-product-vision.md#42-iot-decision-dec-01)).
 
 ## 3. Value and measurement
 
@@ -61,11 +61,11 @@ The assignment requires a non-AI baseline **or** fallback. We propose both to ev
 
 ## 5. Proposed technical direction
 
-Two independently deployable backend components: **Issue Service** (issues, triage and history) and **Dispatch Service** (contractors and interventions), with asynchronous processing. Stack, queue and deployment to be decided in [ADR-001](adr/ADR-001-backend-boundaries.md) and DEC-04.
+Two independently deployable backend components: **Issue Service** (issues, triage and history) and **Dispatch Service** (contractors and interventions), with a separate Notification service and AI triage service, one deployable per bounded context. Services communicate only through asynchronous messages (transactional outbox and RabbitMQ). The proposed stack is Spring Boot on Java for the services, Flask on Python for AI triage, a React client and MySQL 8.4, deployed with Compose behind a single Traefik edge. Boundaries, stack, messaging, deployment, identity and the other choices are proposed in [ADR-001–012](adr/README.md), revised on 2026-10-27 (DEC-04, team review pending; not accepted).
 
 Proposed integration: a calendar with a realistic simulator as the initial planning option; provider and final implementation in DEC-06. A modular monolith requires justification and lecturer acceptance; this exception has not already been granted.
 
-Mock authentication is permitted for the MVP. Authorisation by role, building and intervention remains enforced and tested. See [security](09-security-privacy.md).
+Mock authentication is permitted for the MVP (§6.6); the Tech Lead proposes Keycloak for accounts and sign-in, with the browser session held at the edge by oauth2-proxy (a Backend-for-Frontend), instead of the 2026-10-15 own login ([ADR-005](adr/ADR-005-authentication-authorisation.md)). Building memberships stay in the Issue Service; authorisation by role, building and intervention is enforced in each service and tested. See [security](09-security-privacy.md).
 
 ## 6. Execution
 

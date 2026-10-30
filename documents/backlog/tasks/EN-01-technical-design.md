@@ -14,9 +14,9 @@ Provide a coherent, justified technical direction for the next implementation cy
 
 ## Child tasks
 
-- [ ] [EN-01-01 — Select the stack and accept architecture decisions](EN-01-01-select-stack-and-boundaries.md)
+- [ ] [EN-01-01 — Select the stack, accept architecture decisions and consolidate the views](EN-01-01-select-stack-and-boundaries.md)
 - [ ] [EN-01-02 — Consolidate the domain model and contract outlines](EN-01-02-define-domain-and-contracts.md)
-- [ ] [EN-01-03 — Consolidate architecture and deployment views](EN-01-03-consolidate-architecture-views.md)
+- [EN-01-03 — Consolidate architecture and deployment views](EN-01-03-consolidate-architecture-views.md): merged into EN-01-01 on 2026-10-30
 - [ ] [EN-01-04 — Review the initial security and privacy assessment](EN-01-04-review-security-and-privacy.md)
 
 ## Parent completion criteria

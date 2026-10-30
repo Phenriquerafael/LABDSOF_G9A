@@ -50,7 +50,7 @@ Checked on 2026-10-29 with `gh issue list --repo Phenriquerafael/LABDSOF_G9A --s
 | DISC-03-05 | [#18](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/18) |
 | EN-01-01 | [#15](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/15) |
 | EN-01-02 | [#14](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/14) |
-| EN-01-03 | [#13](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/13) |
+| EN-01-03 | [#13](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/13), closed 2026-10-30: merged into EN-01-01 (#15) |
 | EN-01-04 | [#12](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/12) |
 
 Other remote issues without a draft here (US-01/02/04/10, PLAN-01/02/03, DEVOPS-01/02, AGENT-01/02, DISC-03-06) are outside this 24-draft package.
@@ -67,9 +67,9 @@ Other remote issues without a draft here (US-01/02/04/10, PLAN-01/02/03, DEVOPS-
 | [DISC-03-03 — Refine vision, journeys and success criteria](tasks/DISC-03-03-refine-product-vision.md) | Afonso | Martim | DISC-01-03, DISC-02-02 |
 | [DISC-03-04 — Prioritise backlog and prepare the release plan](tasks/DISC-03-04-prioritise-and-plan-backlog.md) | Pedro | Sandro | DISC-03-01, DISC-03-03, EN-01-01 |
 | [DISC-03-05 — Prepare Sprint 1 review and record stakeholder feedback](tasks/DISC-03-05-record-sprint-review.md) | Martim | Ricardo | DISC-03-04, EN-01, AI-01 |
-| [EN-01-01 — Select the stack and accept architecture decisions](tasks/EN-01-01-select-stack-and-boundaries.md) | Ricardo | Martim | None |
+| [EN-01-01 — Select the stack, accept architecture decisions and consolidate the views](tasks/EN-01-01-select-stack-and-boundaries.md) | Ricardo | Martim | None for the stack; EN-01-02 for the views |
 | [EN-01-02 — Consolidate the domain model and contract outlines](tasks/EN-01-02-define-domain-and-contracts.md) | Afonso | Ricardo | DISC-03-03, EN-01-01 |
-| [EN-01-03 — Consolidate architecture and deployment views](tasks/EN-01-03-consolidate-architecture-views.md) | Ricardo | Sandro | EN-01-01, EN-01-02 |
+| [EN-01-03 — Consolidate architecture and deployment views](tasks/EN-01-03-consolidate-architecture-views.md) | Merged into EN-01-01 on 2026-10-30 | — | — |
 | [EN-01-04 — Review the initial security and privacy assessment](tasks/EN-01-04-review-security-and-privacy.md) | Martim | Ricardo | EN-01-01, EN-01-02 |
 | [AI-01 — Assess the AI opportunity and define evaluation](tasks/AI-01-assess-ai-opportunity.md) | Sandro | Afonso | DISC-01-03, DISC-03-03 |
 

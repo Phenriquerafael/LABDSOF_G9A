@@ -35,8 +35,8 @@ GitHub notification delivery also depends on the account's repository watch and 
 - Proposed primary user: professional administrator; residents and contractors participate in the workflow.
 - Outcome to investigate: reduce the administrator's active coordination time.
 - AI: correctable suggestions, with a non-AI baseline and fallback; actions approved by the authorised user.
-- Proposed MVP: text, small catalogue, one notification channel, calendar/simulator, states and history.
-- Post-MVP: photos, cost analytics and narrative summaries.
+- Proposed MVP: text, small catalogue, one notification channel (email as a second channel proposed in ADR-007), calendar/simulator, states and history.
+- Post-MVP: photos, cost analytics and narrative summaries (report photos without visual analysis are a post-MVP candidate in the [decision register](documents/planning/decisions-and-feedback.md#stack-revision--en-01-01-2026-10-27) pending a DEC entry).
 - **IoT is proposed as excluded from the MVP** (DEC-01, BA/PO proposal of 2026-10-19, team agreement pending).
 
 <!-- ## How to interpret statuses
@@ -59,8 +59,8 @@ File numbering matches the assignment deliverables; document 08 links to the ADR
 | [05 — Product Backlog](documents/05-product-backlog.md) | 5 | Proposed epics, criteria and MoSCoW | Prioritise with stakeholders, estimate and assign |
 | [Functional requirements and NFRs](documents/requirements.md) | Supports 4/5/7 | Initial list | Validate needs and targets |
 | [06 — Responsible AI Assessment](documents/06-responsible-ai-assessment.md) | 6 | Workflow and evaluation proposal | Validated need, provider, dataset and criteria |
-| [07 — Technical Design](documents/07-technical-design.md) | 7 | Domain model, state rules and contract outlines (EN-01-02 proposal) with [contract examples](documents/07a-contract-examples.md) | Stack decisions (EN-01-01), rule validation (DEC-10) and executable contracts |
-| [08 — Architecture Decision Records](documents/08-architecture-decision-records.md) / [ADR-001](documents/adr/ADR-001-backend-boundaries.md) | 8 | One proposed ADR | Choices and consequences accepted with evidence |
+| [07 — Technical Design](documents/07-technical-design.md) | 7 | Domain model, state rules and contract outlines (EN-01-02 proposal) with [contract examples](documents/07a-contract-examples.md) and [physical views](documents/07b-physical-views.md) (EN-01-01, 2026-10-29); units, messaging, identity, deployment, health and status page revised to the EN-01-01 proposal on 2026-10-27 | Team review of ADR-001–012 and the spike (EN-01-01), rule validation (DEC-10) and executable contracts |
+| [08 — Architecture Decision Records](documents/08-architecture-decision-records.md) / [ADR index](documents/adr/README.md) | 8 | Twelve proposed ADRs (ADR-001–006 revised and ADR-007–012 added on 2026-10-27) with an evidence register; none accepted | Team review, spike and acceptance with evidence |
 | [09 — Security and privacy](documents/09-security-privacy.md) | 9 | Initial assessment | Policies/review; controls in implementation |
 | [10 — Walking Skeleton](documents/10-walking-skeleton.md) | 10, optional per evaluator | Not selected for Sprint 1 (DEC-11) | Plan retained for later implementation; not a Sprint 1 blocker |
 | [BMC workflows](documents/workflows/bmc-workflows.md) | Supports 4, 5 and 6 | Proposal with decision diagrams; validation pending | Validation with administrators and contractors; decisions recorded in the DEC register |

@@ -1,6 +1,6 @@
 # Product Backlog
 
-**Status:** proposal v0.2 · **Sprint:** 1 · **Priority:** not yet validated with the customer/lecturers
+**Status:** proposal v0.2 · **Sprint:** 1 · **Priority:** not yet validated with the customer/lecturers · US-10 annotated on 2026-10-27 (EN-01-01, pending agreement)
 
 Corresponds to deliverable 5 in §7.1.2. This document defines the product backlog items. No remote issues, estimates, assignments or implementations are assumed.
 
@@ -153,7 +153,7 @@ As an administrator, I want to verify completion to close the issue with a histo
 
 As a participant, I want to receive authorised updates to track the issue.
 
-- One proposed in-app channel; state events generate notifications with unique IDs.
+- One proposed in-app channel; state events generate notifications with unique IDs. EN-01-01 proposes email as a second channel on 2026-10-27 ([ADR-007](adr/ADR-007-notification-service.md), DEC-06, pending team review); these criteria are unchanged until that is agreed.
 - Recipients and content respect visibility and optional preferences.
 - Retries do not duplicate notifications; failure is observable without rolling back issue state.
 - Status queries work even if notifications fail.
@@ -193,7 +193,7 @@ As an administrator, I want to synchronise with the calendar used in operations.
 
 ## 5. Won't in this baseline / alternatives
 
-Photos and visual analysis, cost charts/summaries, payments, marketplace, native apps, automatic approval and subscriptions. IoT, monitoring and prediction are **excluded from the MVP** (DEC-01, BA/PO proposal of 2026-10-19 in [vision §4.2](04-product-vision.md#42-iot-decision-dec-01), team agreement pending); reopening requires a scope review.
+Photos and visual analysis, cost charts/summaries, payments, marketplace, native apps, automatic approval and subscriptions. Report photos without visual analysis are a design candidate recorded in the [decision register](planning/decisions-and-feedback.md#stack-revision--en-01-01-2026-10-27), pending a DEC entry and the team review; no story exists, and this baseline still excludes them. IoT, monitoring and prediction are **excluded from the MVP** (DEC-01, BA/PO proposal of 2026-10-19 in [vision §4.2](04-product-vision.md#42-iot-decision-dec-01), team agreement pending); reopening requires a scope review.
 
 ## 6. Stakeholder validation and release
 
