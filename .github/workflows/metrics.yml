@@ -2,7 +2,7 @@ name: Metrics Snapshot
 
 on:
   schedule:
-    - cron: "0 0 * * *" # Daily at midnight in Lisbon
+    - cron: "0 18 * * *" # Daily at midnight in Lisbon
       timezone: "Europe/Lisbon"
   workflow_dispatch:
 

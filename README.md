@@ -1,5 +1,8 @@
 # Building Maintenance Coordinator · LABDSOF 26/27
 
+[![Validate chart data](https://github.com/Phenriquerafael/LABDSOF_G9A/actions/workflows/check-sprints.yml/badge.svg)](https://github.com/Phenriquerafael/LABDSOF_G9A/actions/workflows/check-sprints.yml)
+[![Metrics Snapshot](https://github.com/Phenriquerafael/LABDSOF_G9A/actions/workflows/metrics.yml/badge.svg)](https://github.com/Phenriquerafael/LABDSOF_G9A/actions/workflows/metrics.yml)
+
 **BMC** is a proposed platform to help condominium administrators and residents coordinate faults: from the first report through intervention and closure, with traceable information and AI-assisted triage.
 
 **Current stage: Sprint 1 — discovery, validation and design.** The repository contains planning documentation and templates. **It does not yet contain an application, software tests, CI/CD or executable deployment.**
@@ -12,6 +15,17 @@
 2. Learn about the [strategy](documents/building-maintenance-coordinator-strategy.md) and [vision/scope](documents/04-product-vision.md).
 3. Consult the [Sprint 1 plan](documents/planning/sprint-1-plan.md), [backlog](documents/05-product-backlog.md) and [pending decisions](documents/planning/decisions-and-feedback.md).
 4. To contribute, use the [team working agreement](documents/governance/team-working-agreement.md), [DoR](documents/governance/definition-of-ready.md), [DoD](documents/governance/definition-of-done.md) and [Git workflow](documents/governance/git-workflow.md).
+
+## Test GitHub notifications
+
+The [Test GitHub notifications workflow](.github/workflows/test-notifications.yml) can be started manually to verify failure notifications without changing the production workflows:
+
+1. Open **Actions → Test GitHub notifications → Run workflow**.
+2. Set **simulate_failure** to `true` and start the workflow.
+3. Confirm that the run fails and that the expected GitHub notification is received.
+4. Run it again with **simulate_failure** set to `false` to confirm the successful path.
+
+GitHub notification delivery also depends on the account's repository watch and notification settings.
 
 ## Proposed product
 
@@ -62,7 +76,7 @@ File numbering matches the assignment deliverables; document 08 links to the ADR
 | [Git workflow](documents/governance/git-workflow.md) | Proposal; remote protections not verified |
 | [Issues, labels and milestones](documents/governance/issue-management.md) | Local conventions; remote configuration pending |
 | [Sprint 1 plan](documents/planning/sprint-1-plan.md) | Phases, dependencies and exit criteria |
-| [Epic and Sprint 1 task issue drafts](documents/backlog/README.md) | 5 epics, 4 parent tasks and 15 delivery tasks; proposed allocations; remote publication unverified and no new sprint commitments |
+| [Epic and Sprint 1 task issue drafts](documents/backlog/README.md) | 5 epics, 4 parent tasks and 15 delivery tasks; proposed allocations; all 24 drafts published as GitHub issues (checked 2026-10-29; see the [mapping](documents/backlog/README.md#published-issue-mapping)); no new sprint commitments |
 | [Sprint B backlog](documents/planning/sprint-b-backlog.md) | Candidates; no Ready commitments |
 | [Decisions and feedback](documents/planning/decisions-and-feedback.md) | Evaluator clarification and team decisions recorded; other questions remain open |
 | [Story](.github/ISSUE_TEMPLATE/user-story.md), [epic](.github/ISSUE_TEMPLATE/epic.md), [task/spike](.github/ISSUE_TEMPLATE/task.md), [bug](.github/ISSUE_TEMPLATE/bug.md) | Local GitHub templates; labels/milestones to select after setup |
