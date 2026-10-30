@@ -1,39 +1,35 @@
 # Definition of Ready (DoR)
 
-**Status:** proposal v0.1 · ratification pending (DEC-09)
+**Status:** proposal v0.2 · ratification pending (DEC-09)
 
-The DoR is the agreement for selecting work with sufficient clarity. A completed template does not prove that the team discussed it. Uncertain items remain in Backlog/Refinement; research can be planned as a task or spike with a verifiable outcome.
+An item is Ready when the team has enough information to start developing it. Keep its ID, title, epic and relevant requirement/source identified.
 
-## Common checklist
+## Checklist
 
-- [ ] Stable ID, title, type and link to the epic/objective.
-- [ ] Explicit problem, beneficiary or technical outcome; source identified (assignment, hypothesis, finding).
-- [ ] Included/excluded scope and observable acceptance criteria.
-- [ ] Proposed priority discussed; changes with the customer/stakeholders recorded.
-- [ ] Dependencies and blocking decisions resolved, or work reduced to a bounded investigation.
-- [ ] Relevant data, access, failure and quality risks identified.
-- [ ] Appropriate verification strategy and accessible data/environment.
-- [ ] Estimate made by the team; fits the selected capacity and period.
-- [ ] Owner and reviewer agreed during planning.
-- [ ] Team understands the item and records the date/author of the DoR check.
+- [ ] The story explains who needs the feature, what they want and why.
+- [ ] Scope and acceptance criteria are clear, including success, errors and denied access where applicable.
+- [ ] Relevant dependencies are identified and no unresolved decision prevents work from starting.
+- [ ] The team knows how to verify the result, has the data/access needed to start, and understands the relevant permissions, failure and quality risks.
+- [ ] The team understands the item and considers it clear enough to develop.
 
-## Additional criteria by type
+For a technical or documentation task, state the intended outcome instead of a user story.
 
-| Type | Before Ready |
+## Additional criteria when applicable
+
+| Type | Information needed before Ready |
 |---|---|
-| Story | “As a… I want… so that…”, examples of success, error and denied access |
-| Integration | Contract, authentication, timeout and behaviour with invalid/duplicate data defined |
-| AI | Example inputs/outputs, baseline/fallback, evaluation criteria and planned prompt/model version |
-| Research | Question, method, recruitment, participant safeguards and data location/retention defined |
-| Spike | Question to resolve, effort limit and expected artefact; does not promise implementation of an unknown solution |
-| Documentation | Audience, decision it supports, sources and reviewer defined |
+| Integration | Contract, authentication, timeout and handling of invalid or duplicate data |
+| AI | Example inputs/outputs, baseline/fallback, evaluation criteria and planned model/prompt version |
+| Research | Question, method, sources/participants, access and data handling |
+| Spike | Question, effort limit and expected result |
+| Documentation | Audience, purpose and sources |
 
-## Verification record
+Only the details needed to start must be settled. Later implementation work, completed evaluations and final results are not prerequisites for Ready.
 
-| Item | Missing criteria | Blocking decision | Estimate | Owner/reviewer | Ready confirmed by/date |
-|---|---|---|---|---|---|
-| To be completed during refinement | — | — | — | — | — |
+## Planning and review
 
-**Do not select items that fail the DoR as commitments.** An investigation can meet its own DoR without first resolving the question it is intended to investigate.
+Priority, estimate, sprint and capacity are agreed during planning, before committing the item to a sprint.
 
-Reference indicated in planning: [Scrum Inc — Definition of Ready](https://www.scruminc.com/definition-of-ready/). The address returned 404 when accessed on 2026-10-07; the checklist above is a team-specific proposal, not a transcription of the source.
+Assign the owner during planning or before work starts. Choose the reviewer when opening the PR; independent review is required before Done according to the [DoD](definition-of-done.md).
+
+Items with questions that prevent development remain in Refinement; a bounded investigation can be planned separately.
