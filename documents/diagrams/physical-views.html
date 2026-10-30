@@ -1,0 +1,719 @@
+<!doctype html>
+<!--
+  BMC physical views P1-P6: source of documents/diagrams/physical-views/*.svg,
+  which documents/07b-physical-views.md embeds.
+  Each view is plain data in VIEWS below (groups, containers, connections).
+  ELK (Eclipse Layout Kernel, elkjs 0.9.3) computes the layout and orthogonal
+  edge routes; renderView() draws the SVG. Open this file in a browser, check
+  the views, then use "Download SVG" under each view and replace the matching
+  file in documents/diagrams/physical-views/.
+  Arrows point from the side that opens a connection to the side that serves it.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BMC physical views</title>
+<style>
+  body { margin: 0; background: #f6f8fa; color: #1f2328; font: 14px/1.45 "Segoe UI", "Helvetica Neue", Arial, sans-serif; }
+  header { padding: 20px 24px 8px; }
+  header h1 { margin: 0 0 4px; font-size: 22px; }
+  header p { margin: 0; color: #57606a; max-width: 960px; }
+  section { margin: 18px 24px; padding: 14px; background: #fff; border: 1px solid #d0d7de; border-radius: 10px; }
+  section .bar { display: flex; gap: 8px; align-items: center; margin-bottom: 10px; }
+  section .bar strong { margin-right: auto; }
+  section .scroll { overflow-x: auto; }
+  button { font: inherit; font-size: 13px; padding: 4px 10px; border: 1px solid #d0d7de; border-radius: 6px; background: #f6f8fa; cursor: pointer; }
+  button:hover { background: #eaeef2; }
+  #error { color: #b91c1c; padding: 0 24px; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/elkjs@0.9.3/lib/elk.bundled.js"></script>
+</head>
+<body>
+<header>
+  <h1>BMC physical views</h1>
+  <p>Proposed deployment of the EN-01-01 design (ADR-001–012, not accepted). Nothing is built or deployed. Text and open items are in <code>documents/07b-physical-views.md</code>.</p>
+</header>
+<p id="error"></p>
+<main id="views"></main>
+
+<script id="bmc-physical-views">
+(function (root) {
+  'use strict';
+
+  // ---------- Palette and categories ----------
+  const CAT = {
+    edge:     { color: '#2563eb', tint: '#eff6ff', tag: 'EDGE', legend: 'Edge' },
+    svc:      { color: '#16a34a', tint: '#f0fdf4', tag: 'BMC SERVICE', legend: 'BMC service' },
+    worker:   { color: '#16a34a', tint: '#f0fdf4', tag: 'BMC WORKER', legend: 'BMC worker' },
+    platform: { color: '#d97706', tint: '#fffbeb', tag: 'PLATFORM', legend: 'Platform component' },
+    store:    { color: '#7c3aed', tint: '#f5f3ff', tag: 'DATA', legend: 'Data store' },
+    obs:      { color: '#0d9488', tint: '#f0fdfa', tag: 'OPERATIONS', legend: 'Operations' },
+    ext:      { color: '#475569', tint: '#f1f5f9', tag: 'OUTSIDE THE HOST', legend: 'Outside the host' },
+    open:     { color: '#6b7280', tint: '#f9fafb', tag: 'OPEN', legend: 'Open, not decided' },
+    never:    { color: '#b91c1c', tint: '#fef2f2', tag: 'NOT ROUTED', legend: 'Not routed' },
+    step:     { color: '#16a34a', tint: '#f0fdf4', tag: 'CI STAGE', legend: 'CI stage' }
+  };
+  const GROUP = {
+    host:    { fill: '#f8fafc', stroke: '#334155', dash: '',    width: 2,   label: '#0f172a' },
+    netEdge: { fill: '#eff6ff', stroke: '#2563eb', dash: '6 4', width: 1.5, label: '#1e3a8a' },
+    netDual: { fill: '#ecfeff', stroke: '#0e7490', dash: '6 4', width: 1.5, label: '#164e63' },
+    netInt:  { fill: '#f5f3ff', stroke: '#6d28d9', dash: '6 4', width: 1.5, label: '#4c1d95' },
+    trust:   { fill: '#fff7f7', stroke: '#dc2626', dash: '8 4', width: 1.8, label: '#991b1b' },
+    box:     { fill: '#ffffff', stroke: '#94a3b8', dash: '',    width: 1.2, label: '#334155' },
+    zone:    { fill: '#f8fafc', stroke: '#94a3b8', dash: '4 4', width: 1.2, label: '#334155' }
+  };
+  const PILL = { edge: '#2563eb', internal: '#6d28d9' };
+  const LINE = {
+    solid:  { color: '#475569', width: 1.5, dash: '' },
+    dashed: { color: '#64748b', width: 1.4, dash: '6 4' },
+    thick:  { color: '#1d4ed8', width: 3,   dash: '' },
+    deny:   { color: '#b91c1c', width: 1.5, dash: '3 3' },
+    bind:   { color: '#b45309', width: 1.3, dash: '2 3' },
+    hidden: null
+  };
+  const FONT = "'Segoe UI', 'Helvetica Neue', Arial, sans-serif";
+  const MONO = "Consolas, 'SF Mono', 'DejaVu Sans Mono', monospace";
+
+  // ---------- Small builders ----------
+  // node: N(id, name, tech, cat, { note, w, icon, lines })
+  function N(id, name, tech, cat, o) { return Object.assign({ id, name, tech: tech || '', cat }, o || {}); }
+  // group: G(id, label, style, children, { sub, pills })
+  function G(id, label, style, children, o) { return Object.assign({ id, label, style, children, group: true }, o || {}); }
+  // edge: E(from, to, label, style)
+  function E(from, to, label, style) { return { from, to, label: label || '', style: style || 'solid' }; }
+
+  // ---------- Views ----------
+  const VIEWS = [
+    {
+      id: 'p1-deployment-overview',
+      title: 'P1 · Deployment overview',
+      subtitle: 'All seventeen containers of ADR-004 on one Docker host, grouped by the Compose networks they join. Only Traefik publishes ports.',
+      direction: 'RIGHT',
+      nodeWidth: 196,
+      forceOrder: true,
+      nodes: [
+        N('device', 'User device', 'Browser or installed PWA · online only (ADR-011)', 'ext', { icon: 'device' }),
+        G('host', 'Demonstration host', 'host', [
+          G('netEdge', 'edge network only', 'netEdge', [
+            N('traefik', 'traefik', 'Traefik 3.7 · publishes 80 / 443, the only published ports', 'edge', { icon: 'router' }),
+            N('o2p', 'oauth2-proxy', 'oauth2-proxy 7.15 · browser session (BFF), cookie only', 'edge', { icon: 'shield' }),
+            N('client', 'client', 'nginx serving the React + Vite build, incl. public /status page', 'edge', { icon: 'window' })
+          ], { pills: ['edge'] }),
+          G('netDual', 'edge + internal', 'netDual', [
+            N('issue', 'issue', 'Spring Boot 4.1 · Java 25 · REST + events', 'svc', { icon: 'service' }),
+            N('dispatch', 'dispatch', 'Spring Boot 4.1 · Java 25 · REST + events', 'svc', { icon: 'service' }),
+            N('notification', 'notification', 'Spring Boot 4.1 · Java 25 · in-app + email', 'svc', { icon: 'service' }),
+            N('keycloak', 'keycloak', 'Keycloak 26.8 · realm bmc · login and accounts', 'platform', { icon: 'key' }),
+            N('gatus', 'gatus', 'Gatus 5.37 · status aggregator, JSON API only', 'obs', { icon: 'pulse' })
+          ], { pills: ['edge', 'internal'] }),
+          G('netInt', 'internal network only', 'netInt', [
+            N('aiweb', 'ai-triage-web', 'Flask + Gunicorn · health, /metrics, /classify', 'worker', { icon: 'service' }),
+            N('aicon', 'ai-triage-consumer', 'Same image · pika consumer of ai-triage.requests', 'worker', { icon: 'gear' }),
+            N('sim', 'calendar-sim', 'Spring Boot · in memory from a fixed seed', 'platform', { icon: 'calendar' }),
+            N('rabbitmq', 'rabbitmq', 'RabbitMQ 4.x · quorum queues + DLQs', 'platform', { icon: 'queue' }),
+            N('mysql', 'mysql', 'MySQL 8.4 LTS · 4 databases, 1 user each', 'store', { icon: 'db' }),
+            N('garage', 'garage', 'Garage 2.5 · S3 subset · attachments + backups', 'store', { icon: 'bucket' }),
+            N('mailpit', 'mailpit', 'Mailpit 1.32 · SMTP capture (demo)', 'platform', { icon: 'mail' }),
+            N('prom', 'prometheus', 'Prometheus 3.x · metrics', 'obs', { icon: 'chart' }),
+            N('grafana', 'grafana', 'Grafana 13 · operator dashboard', 'obs', { icon: 'chart' })
+          ], { pills: ['internal'] })
+        ], { sub: 'One Docker host · Engine + Compose · linux/amd64 or linux/arm64 · college server expected, not confirmed (EN01-U3)' }),
+        N('ghcr', 'GitHub Container Registry', 'Multi-arch images, built once in CI', 'ext', { icon: 'box' }),
+        N('aiprov', 'AI provider API', 'Candidate only: Gemini Flash · choice is DEC-05', 'ext', { icon: 'cloud' }),
+        N('r2', 'Off-host backup copy', 'Cloudflare R2 bucket · optional (ADR-010)', 'ext', { icon: 'bucket' })
+      ],
+      edges: [
+        E('device', 'traefik', 'HTTPS 443', 'thick'),
+        E('traefik', 'client', '', 'solid'),
+        E('traefik', 'o2p', '', 'solid'),
+        E('traefik', 'issue', '/api/*', 'solid'),
+        E('traefik', 'dispatch', '', 'solid'),
+        E('traefik', 'notification', '', 'solid'),
+        E('traefik', 'keycloak', '/auth/*', 'solid'),
+        E('traefik', 'gatus', '/status/api', 'solid'),
+        E('issue', 'rabbitmq', '', 'hidden'),
+        E('dispatch', 'mysql', '', 'hidden'),
+        E('notification', 'mailpit', '', 'hidden'),
+        E('gatus', 'prom', '', 'hidden'),
+        E('keycloak', 'mysql', '', 'hidden'),
+        E('issue', 'garage', '', 'hidden'),
+        E('aicon', 'aiprov', 'HTTPS · only egress needed', 'solid'),
+        E('garage', 'r2', 'backup copy', 'dashed'),
+        E('grafana', 'ghcr', '', 'hidden'),
+        E('host', 'ghcr', 'docker compose pull', 'dashed')
+      ],
+      legend: ['cats', 'thick', 'solid', 'dashed', 'nets']
+    },
+
+    {
+      id: 'p2-edge-and-trust',
+      title: 'P2 · Edge routing and trust boundaries',
+      subtitle: 'Every public route of ADR-004. ForwardAuth and StripPrefix are Traefik middlewares. Traefik Proxy has no JWT middleware, so each service validates the token itself (ADR-005).',
+      direction: 'RIGHT',
+      nodeWidth: 220,
+      forceOrder: true,
+      nodes: [
+        N('browser', 'Browser or PWA', 'Holds only the encrypted oauth2-proxy session cookie · one origin, no CORS', 'ext', { icon: 'device' }),
+        G('tb1', 'Trust boundary 1 · internet → traefik', 'trust', [
+          N('router', 'Router', 'TLS ends here (certificate source open) · Headers + RateLimit on every route', 'edge', { icon: 'router' }),
+          N('fa', 'ForwardAuth', 'Asks oauth2-proxy · no session → 401 · session → Authorization: Bearer', 'edge', { icon: 'shield' }),
+          N('strip', 'StripPrefix', 'Removes /api/<service>; services serve service-relative paths', 'edge', { icon: 'router' })
+        ], { sub: 'traefik: the only container with published ports' }),
+        G('public', 'Public upstreams', 'zone', [
+          N('client', 'client', 'nginx · / and /status · the status page works while sign-in is down', 'edge', { icon: 'window' }),
+          N('gatus', 'gatus', '/status/api · rewritten to the read-only JSON API (spike item 11)', 'obs', { icon: 'pulse' }),
+          N('o2p', 'oauth2-proxy', '/oauth2/* · starts and ends the browser session', 'edge', { icon: 'shield' }),
+          N('keycloak', 'keycloak', '/auth/* · login, sign-up, email verification', 'platform', { icon: 'key' })
+        ], { sub: 'Reachable without an API session' }),
+        G('tb2', 'Trust boundary 2 · traefik → services', 'trust', [
+          N('issue', 'issue', 'Validates the JWT · authorises by membership', 'svc', { icon: 'service' }),
+          N('dispatch', 'dispatch', 'Validates the JWT · authorises by assignment and projection', 'svc', { icon: 'service' }),
+          N('notification', 'notification', 'Validates the JWT · authorises by inbox owner', 'svc', { icon: 'service' })
+        ], { sub: 'Out-of-scope resources answer 404' }),
+        N('never', 'Never routed', '', 'never', { icon: 'block', w: 250, lines: [
+          'Gatus UI · Traefik API and dashboard',
+          'Health and Actuator endpoints · /metrics',
+          'AI /classify · simulator scenario control',
+          'RabbitMQ management · Garage · Mailpit UI',
+          'Grafana, Keycloak admin console: open'
+        ] })
+      ],
+      edges: [
+        E('browser', 'router', 'HTTPS 443', 'thick'),
+        E('router', 'client', '/ , /status', 'solid'),
+        E('router', 'gatus', '/status/api', 'solid'),
+        E('router', 'o2p', '/oauth2/*', 'solid'),
+        E('router', 'keycloak', '/auth/*', 'solid'),
+        E('router', 'fa', '/api/<service>/*', 'solid'),
+        E('fa', 'strip', 'session valid', 'solid'),
+        E('fa', 'o2p', 'session check', 'dashed'),
+        E('strip', 'issue', '', 'solid'),
+        E('strip', 'dispatch', '', 'solid'),
+        E('strip', 'notification', '', 'solid'),
+        E('o2p', 'keycloak', 'OIDC code flow', 'dashed'),
+        E('router', 'never', 'no route', 'deny')
+      ],
+      legend: ['cats', 'thick', 'solid', 'dashed', 'deny', 'trust']
+    },
+
+    {
+      id: 'p3-messaging',
+      title: 'P3 · Messaging through RabbitMQ',
+      subtitle: 'Message flow, left to right. Publishers write an outbox row in the same transaction and publish with confirms; consumers acknowledge after commit and deduplicate by eventId (ADR-003).',
+      direction: 'RIGHT',
+      nodeWidth: 200,
+      forceOrder: true,
+      nodes: [
+        G('pubs', 'Publishers', 'zone', [
+          N('pi', 'issue', 'Outbox publisher · TriageRequested, IssueStateChanged, Membership*, NotificationRequested', 'svc', { icon: 'service' }),
+          N('pd', 'dispatch', 'Outbox publisher · intervention and booking events, NotificationRequested', 'svc', { icon: 'service' }),
+          N('pa', 'ai-triage-consumer', 'TriageSuggested, then acks the request', 'worker', { icon: 'gear' })
+        ]),
+        G('rmq', 'rabbitmq', 'box', [
+          N('ex', 'bmc.events', 'Durable topic exchange · routing key <producer>.<eventType>', 'platform', { icon: 'queue' }),
+          N('qi', 'issue.inbox', 'Quorum queue · delivery limit 5', 'platform', { icon: 'queue', w: 180 }),
+          N('qd', 'dispatch.inbox', 'Quorum queue · delivery limit 5', 'platform', { icon: 'queue', w: 180 }),
+          N('qn', 'notification.inbox', 'Quorum queue · delivery limit 5', 'platform', { icon: 'queue', w: 180 }),
+          N('qa', 'ai-triage.requests', 'Point to point · the only private-text message · DLQ TTL 7 days', 'platform', { icon: 'queue', w: 180 }),
+          N('dlx', 'bmc.dlx', 'Dead-letter exchange · at-least-once', 'platform', { icon: 'queue', w: 180 }),
+          N('dlq', '<queue>.dlq', 'One per queue · DLQ-depth alert · replay by runbook', 'platform', { icon: 'queue', w: 180 })
+        ], { sub: 'One node · one user per service, least privilege' }),
+        G('cons', 'Consumers', 'zone', [
+          N('ci', 'issue', 'TriageSuggested, Dispatch events → history and state', 'svc', { icon: 'service' }),
+          N('cd', 'dispatch', 'IssueStateChanged, Membership* → projections', 'svc', { icon: 'service' }),
+          N('cn', 'notification', 'NotificationRequested → in-app + email', 'svc', { icon: 'service' }),
+          N('ca', 'ai-triage-consumer', 'TriageRequested → rules + provider', 'worker', { icon: 'gear' })
+        ])
+      ],
+      edges: [
+        E('pi', 'ex', 'publish + confirms', 'solid'),
+        E('pd', 'ex', 'publish + confirms', 'solid'),
+        E('pa', 'ex', 'publish', 'solid'),
+        E('ex', 'qi', 'TriageSuggested, Dispatch events', 'bind'),
+        E('ex', 'qd', 'IssueStateChanged, Membership*', 'bind'),
+        E('ex', 'qn', 'NotificationRequested', 'bind'),
+        E('ex', 'qa', 'TriageRequested only', 'bind'),
+        E('qi', 'ci', 'deliver', 'solid'),
+        E('qd', 'cd', 'deliver', 'solid'),
+        E('qn', 'cn', 'deliver', 'solid'),
+        E('qa', 'ca', 'deliver', 'solid'),
+        E('qa', 'dlx', 'after 5 deliveries', 'deny'),
+        E('dlx', 'dlq', '', 'deny')
+      ],
+      legend: ['cats', 'solid', 'bind', 'dlq'],
+      note: 'Binding labels name the events each queue receives (ADR-003); exact routing keys belong in the AsyncAPI document, not written yet. Every queue dead-letters the same way; one path is drawn. Whether ReportSubmitted and other Issue-only events are published is open (ADR-001).'
+    },
+
+    {
+      id: 'p4-data-and-platform',
+      title: 'P4 · Data stores and platform connections',
+      subtitle: 'Each service reaches only its own database (ADR-001). Calls to Keycloak, object storage, SMTP or the calendar are platform calls, not service-to-service calls. Arrows point from client to server.',
+      direction: 'RIGHT',
+      nodeWidth: 200,
+      forceOrder: true,
+      nodes: [
+        N('issue', 'issue', 'Reports, issues, memberships, attachments', 'svc', { icon: 'service' }),
+        N('dispatch', 'dispatch', 'Interventions, bookings, contractors', 'svc', { icon: 'service' }),
+        N('notification', 'notification', 'Inbox, preferences, delivery log', 'svc', { icon: 'service' }),
+        N('backup', 'backup job', 'Placement, schedule owner and credentials open (P-03)', 'open', { icon: 'clock' }),
+        N('keycloak', 'keycloak', 'Accounts and credentials · sends account emails', 'platform', { icon: 'key' }),
+        G('mysql', 'mysql', 'box', [
+          N('dbi', 'issue', 'Database · user issue', 'store', { icon: 'db', w: 170 }),
+          N('dbd', 'dispatch', 'Database · user dispatch', 'store', { icon: 'db', w: 170 }),
+          N('dbn', 'notification', 'Database · user notification', 'store', { icon: 'db', w: 170 }),
+          N('dbk', 'keycloak', 'Database · user keycloak', 'store', { icon: 'db', w: 170 })
+        ], { sub: 'MySQL 8.4 · one instance' }),
+        G('garage', 'garage', 'box', [
+          N('ba', 'bmc-attachments', 'Report photos · post-MVP candidate', 'store', { icon: 'bucket', w: 170 }),
+          N('bb', 'bmc-backups', 'MySQL dumps · optional R2 copy', 'store', { icon: 'bucket', w: 170 })
+        ], { sub: 'Never routed' }),
+        N('sim', 'calendar-sim', 'Booking, query, cancel · failure scenarios', 'platform', { icon: 'calendar' }),
+        N('mailpit', 'mailpit', 'SMTP capture in dev and demo', 'platform', { icon: 'mail' })
+      ],
+      edges: [
+        E('issue', 'dbi', 'JDBC', 'solid'),
+        E('issue', 'ba', 'S3 · storage port', 'solid'),
+        E('dispatch', 'dbd', 'JDBC', 'solid'),
+        E('dispatch', 'sim', 'HTTP · Idempotency-Key', 'solid'),
+        E('notification', 'dbn', 'JDBC', 'solid'),
+        E('notification', 'keycloak', 'Admin API · view-users', 'dashed'),
+        E('notification', 'mailpit', 'SMTP', 'solid'),
+        E('keycloak', 'dbk', 'JDBC', 'solid'),
+        E('keycloak', 'mailpit', 'SMTP', 'solid'),
+        E('backup', 'mysql', 'dump', 'dashed'),
+        E('backup', 'bb', 'write', 'dashed')
+      ],
+      legend: ['cats', 'solid', 'dashed'],
+      note: 'Every Spring service also fetches Keycloak signing keys to validate tokens; that path is open (P-05) and not drawn.'
+    },
+
+    {
+      id: 'p5-health-and-metrics',
+      title: 'P5 · Health, metrics and the public status page',
+      subtitle: 'Gatus polls readiness directly on the internal network; Traefik checks readiness before routing; Prometheus scrapes metrics; Grafana is the operator view (ADR-004, ADR-012).',
+      direction: 'RIGHT',
+      nodeWidth: 200,
+      forceOrder: true,
+      nodes: [
+        G('viewers', 'Who reads the results', 'zone', [
+          N('public', 'Public /status page', 'And the role-filtered banner in the app', 'ext', { icon: 'device' }),
+          N('operator', 'Operator', 'Grafana access in demo is open', 'ext', { icon: 'user' })
+        ]),
+        N('grafana', 'grafana', 'Outbox lag, DLQ depth, retries, fallback rate, errors, notification failures', 'obs', { icon: 'chart' }),
+        N('prom', 'prometheus', 'Scrapes /metrics · alerts if the Gatus series disappears', 'obs', { icon: 'chart' }),
+        N('gatus', 'gatus', 'Capability checks · 30 days of results on a volume', 'obs', { icon: 'pulse' }),
+        N('traefik', 'traefik', 'loadBalancer.healthcheck · stops routing to unready services', 'edge', { icon: 'router' }),
+        G('bmc', 'BMC services', 'box', [
+          N('issue', 'issue', 'Actuator readiness · Micrometer', 'svc', { icon: 'service', w: 185 }),
+          N('dispatch', 'dispatch', 'Actuator readiness · Micrometer', 'svc', { icon: 'service', w: 185 }),
+          N('notification', 'notification', 'Actuator readiness · Micrometer', 'svc', { icon: 'service', w: 185 }),
+          N('aiweb', 'ai-triage-web', 'Flask health · prometheus_client', 'worker', { icon: 'service', w: 185 })
+        ], { sub: 'Readiness covers the own database, not the broker' }),
+        G('plat', 'Platform checks', 'box', [
+          N('o2p', 'oauth2-proxy', '/ready · /metrics', 'edge', { icon: 'shield', w: 185 }),
+          N('rabbitmq', 'rabbitmq', 'diagnostics ping · Prometheus plugin', 'platform', { icon: 'queue', w: 185 }),
+          N('kc', 'keycloak', '/health/ready on port 9000', 'platform', { icon: 'key', w: 185 }),
+          N('mysql', 'mysql', 'Query-level check', 'store', { icon: 'db', w: 185 }),
+          N('garage', 'garage', 'Admin GET /health', 'store', { icon: 'bucket', w: 185 }),
+          N('mailpit', 'mailpit', 'readyz', 'platform', { icon: 'mail', w: 185 }),
+          N('sim', 'calendar-sim', 'Calendar sync capability', 'platform', { icon: 'calendar', w: 185 })
+        ], { sub: 'Rolled up into capabilities, never named publicly' })
+      ],
+      edges: [
+        E('public', 'gatus', 'GET /status/api via traefik', 'thick'),
+        E('operator', 'grafana', 'access open', 'dashed'),
+        E('grafana', 'prom', 'queries', 'solid'),
+        E('prom', 'gatus', 'scrape', 'dashed'),
+        E('prom', 'traefik', 'scrape (network: P-01)', 'dashed'),
+        E('prom', 'bmc', 'scrape /metrics', 'dashed'),
+        E('prom', 'o2p', 'scrape', 'dashed'),
+        E('prom', 'rabbitmq', 'scrape', 'dashed'),
+        E('gatus', 'bmc', 'readiness', 'solid'),
+        E('gatus', 'plat', 'platform checks', 'solid'),
+        E('traefik', 'issue', 'readiness', 'solid'),
+        E('traefik', 'dispatch', '', 'solid'),
+        E('traefik', 'notification', '', 'solid')
+      ],
+      legend: ['cats', 'thick', 'solid', 'dashed']
+    },
+
+    {
+      id: 'p6-delivery-path',
+      title: 'P6 · Environments and delivery path',
+      subtitle: 'Proposed in ADR-004 and the DEVOPS-01 proposal (PR #40, open). No pipeline, image or host exists yet. Arrows follow the flow of code and images.',
+      direction: 'DOWN',
+      nodeWidth: 230,
+      forceOrder: true,
+      nodes: [
+        N('laptop', 'Developer laptop', 'docker compose up with profile core, plus observability or demo when needed', 'ext', { icon: 'device' }),
+        G('github', 'GitHub', 'host', [
+          N('repo', 'Repository', 'feature/* → dev → main · release by a protected v* tag', 'edge', { icon: 'branch' }),
+          G('ci', 'GitHub Actions · proposed stages', 'zone', [
+            N('s1', 'Lint and unit tests', 'Every app', 'step', { icon: 'check' }),
+            N('s2', 'Contract checks', 'buf lint and buf breaking on the .proto files', 'step', { icon: 'check' }),
+            N('s3', 'Boundary tests', 'ArchUnit, import-linter, eslint-plugin-boundaries (ADR-009)', 'step', { icon: 'check' }),
+            N('s4', 'Integration tests', 'Real MySQL 8.4 and RabbitMQ containers', 'step', { icon: 'check' }),
+            N('s5', 'Multi-arch build', 'linux/amd64 and linux/arm64 · build method open (EN01-U9)', 'step', { icon: 'box' })
+          ], { sub: 'No workflow exists yet' }),
+          N('ghcr', 'GHCR', 'One image per app · built once, promoted by tag', 'store', { icon: 'box' })
+        ], { sub: 'Repository, CI and registry' }),
+        N('secrets', 'Host or CI environment', 'Secrets and .env values · never in Git', 'open', { icon: 'key' }),
+        N('host', 'Demonstration host', 'compose.yaml · docker compose pull, then up -d · rollback: previous image tag', 'ext', { icon: 'server' })
+      ],
+      edges: [
+        E('laptop', 'repo', 'push · pull request', 'solid'),
+        E('repo', 's1', '', 'solid'),
+        E('s1', 's2', '', 'solid'),
+        E('s2', 's3', '', 'solid'),
+        E('s3', 's4', '', 'solid'),
+        E('s4', 's5', '', 'solid'),
+        E('s5', 'ghcr', 'push tagged images', 'solid'),
+        E('ghcr', 'host', 'the same image is pulled and run', 'thick'),
+        E('secrets', 'host', 'injected at deploy', 'dashed')
+      ],
+      legend: ['cats', 'solid', 'thick', 'dashed']
+    },
+
+    {
+      id: 'p7-compose-profiles',
+      title: 'P7 · Compose profiles and rollout order',
+      subtitle: 'ADR-004 proposal for the first vertical slice, to decide at the team review (EN01-U1). Memory of each set is not measured (spike item 8).',
+      direction: 'RIGHT',
+      nodeWidth: 200,
+      forceOrder: true,
+      nodes: [
+        G('first', 'First · profile core · 8 containers', 'netEdge', [
+          N('c1', 'Edge and sign-in', 'traefik · oauth2-proxy · keycloak', 'edge', { icon: 'router' }),
+          N('c2', 'Data and messaging', 'mysql · rabbitmq', 'store', { icon: 'db' }),
+          N('c3', 'Business and client', 'issue · dispatch · client', 'svc', { icon: 'service' })
+        ], { sub: 'Sign-in and the BFF session are needed by every journey' }),
+        G('slice', 'When the slice includes the step', 'netDual', [
+          N('l1', 'AI triage', 'ai-triage-web + ai-triage-consumer · reporting works without them (NFR-03)', 'worker', { icon: 'gear' }),
+          N('l2', 'notification', 'Needed as soon as US-10 is in the slice', 'svc', { icon: 'service' }),
+          N('l3', 'calendar-sim', 'Needed when dispatch books a visit', 'platform', { icon: 'calendar' })
+        ], { sub: 'No profile name proposed yet' }),
+        G('later', 'Later · own profiles', 'netInt', [
+          N('x1', 'demo', 'mailpit + synthetic realm users', 'platform', { icon: 'mail' }),
+          N('x2', 'status (proposed name)', 'gatus, with the /status page and banner', 'obs', { icon: 'pulse' }),
+          N('x3', 'observability', 'prometheus + grafana · standard in demo and release', 'obs', { icon: 'chart' }),
+          N('x4', 'storage (proposed name)', 'garage · needed before the backup and restore exercise', 'store', { icon: 'bucket' })
+        ])
+      ],
+      edges: [
+        E('first', 'slice', 'then', 'thick'),
+        E('slice', 'later', 'then', 'thick')
+      ],
+      legend: ['cats']
+    }
+  ];
+
+  // ---------- Text metrics (deterministic, so browser and headless exports match) ----------
+  function charW(ch) {
+    if (' '.includes(ch)) return 0.28;
+    if ('il.,:;|!\'`'.includes(ch)) return 0.25;
+    if ('fjrt()[]{}/\\-'.includes(ch)) return 0.36;
+    if ('mwMW'.includes(ch)) return 0.86;
+    if (/[A-Z]/.test(ch)) return 0.66;
+    if (/[0-9]/.test(ch)) return 0.56;
+    if ('·→<>+*=_#@&%'.includes(ch)) return 0.6;
+    return 0.54;
+  }
+  function textWidth(s, size, bold) {
+    let w = 0;
+    for (const ch of s) w += charW(ch);
+    return w * size * (bold ? 1.08 : 1) * 1.04;
+  }
+  function wrap(s, size, max, bold) {
+    if (!s) return [];
+    const words = s.split(' ');
+    const out = [];
+    let line = '';
+    for (const word of words) {
+      const t = line ? line + ' ' + word : word;
+      if (textWidth(t, size, bold) <= max || !line) line = t;
+      else { out.push(line); line = word; }
+    }
+    if (line) out.push(line);
+    return out;
+  }
+  function esc(s) {
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  // ---------- Card geometry ----------
+  const PAD_X = 14, TAG_H = 14, NAME_H = 19, TECH_LH = 14.5, LIST_LH = 16, PAD_TOP = 11, PAD_BOT = 11;
+  function measureNode(n, width) {
+    const w = n.w || width;
+    const inner = w - PAD_X * 2 - 4;
+    const tech = wrap(n.tech, 11, inner);
+    const lines = (n.lines || []).flatMap(l => wrap(l, 11, inner));
+    const h = PAD_TOP + TAG_H + NAME_H + tech.length * TECH_LH + lines.length * LIST_LH + PAD_BOT;
+    return { w, h: Math.max(h, 58), tech, lines };
+  }
+  const GROUP_PAD = { top: 50, side: 18, bottom: 18 };
+
+  // ---------- ELK graph ----------
+  function toElk(view) {
+    const meta = {};
+    function build(n) {
+      if (n.group) {
+        meta[n.id] = n;
+        const headW = textWidth(n.label, 14, true) + (n.pills || []).reduce((a, p) => a + textWidth(p, 10, true) + 22, 0) + 44;
+        const minW = Math.max(headW, n.sub ? textWidth(n.sub, 11) + 40 : 0);
+        return {
+          id: n.id,
+          layoutOptions: {
+            'elk.padding': `[top=${n.sub ? GROUP_PAD.top + 14 : GROUP_PAD.top},left=${GROUP_PAD.side},bottom=${GROUP_PAD.bottom},right=${GROUP_PAD.side}]`,
+            'elk.nodeSize.constraints': 'MINIMUM_SIZE',
+            'elk.nodeSize.minimum': `(${Math.ceil(minW)}, 60)`
+          },
+          children: n.children.map(build)
+        };
+      }
+      const m = measureNode(n, view.nodeWidth);
+      meta[n.id] = Object.assign({}, n, { m });
+      return { id: n.id, width: m.w, height: m.h };
+    }
+    const graph = {
+      id: 'root',
+      layoutOptions: {
+        'elk.algorithm': 'layered',
+        'elk.direction': view.direction,
+        'elk.hierarchyHandling': 'INCLUDE_CHILDREN',
+        'elk.edgeRouting': 'ORTHOGONAL',
+        'elk.spacing.nodeNode': '22',
+        'elk.layered.spacing.nodeNodeBetweenLayers': '50',
+        'elk.spacing.edgeNode': '16',
+        'elk.spacing.edgeEdge': '10',
+        'elk.layered.spacing.edgeNodeBetweenLayers': '20',
+        'elk.layered.spacing.edgeEdgeBetweenLayers': '10',
+        'elk.spacing.edgeLabel': '4',
+        'elk.edgeLabels.placement': 'CENTER',
+        'elk.layered.considerModelOrder.strategy': 'NODES_AND_EDGES',
+        'elk.layered.nodePlacement.strategy': 'NETWORK_SIMPLEX',
+        'elk.layered.mergeEdges': 'false',
+        'elk.json.edgeCoords': 'CONTAINER',
+        'elk.layered.crossingMinimization.forceNodeModelOrder': view.forceOrder ? 'true' : 'false',
+        'elk.padding': '[top=0,left=0,bottom=0,right=0]'
+      },
+      children: view.nodes.map(build),
+      edges: view.edges.map((e, i) => {
+        const edge = { id: 'e' + i, sources: [e.from], targets: [e.to] };
+        if (e.label && e.style !== 'hidden') {
+          edge.labels = [{ text: e.label, width: textWidth(e.label, 10.5) + 12, height: 18 }];
+        }
+        return edge;
+      })
+    };
+    return { graph, meta };
+  }
+
+  // ---------- Icons (24x24 strokes, drawn at 15 px) ----------
+  const ICON = {
+    service: 'M4 5h16v6H4zM4 13h16v6H4zM7 8h.01M7 16h.01',
+    gear: 'M12 8a4 4 0 1 0 0 8a4 4 0 1 0 0-8zM12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2',
+    db: 'M4 6c0-1.7 3.6-3 8-3s8 1.3 8 3-3.6 3-8 3-8-1.3-8-3zM4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3',
+    bucket: 'M4 7h16l-2 13H6zM3 7c0-1.5 4-3 9-3s9 1.5 9 3',
+    queue: 'M3 6h18M3 12h18M3 18h18M17 3l4 3-4 3',
+    router: 'M3 12h18M12 3v18M7 7l-4 5 4 5M17 7l4 5-4 5',
+    shield: 'M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z',
+    key: 'M8 14a4 4 0 1 1 0-8a4 4 0 1 1 0 8zM11 11h10M18 11v4M15 11v3',
+    window: 'M3 4h18v16H3zM3 9h18M7 6.5h.01',
+    pulse: 'M3 12h4l3-7 4 14 3-7h4',
+    chart: 'M4 20V4M4 20h16M8 16v-4M12 16V8M16 16v-6',
+    mail: 'M3 6h18v12H3zM3 6l9 7 9-7',
+    calendar: 'M4 5h16v15H4zM4 10h16M8 3v4M16 3v4',
+    device: 'M7 3h10v18H7zM10 18h4',
+    cloud: 'M7 18a4 4 0 0 1-.5-8A6 6 0 0 1 18 9a4.5 4.5 0 0 1-.5 9z',
+    box: 'M12 3l8 4v10l-8 4-8-4V7zM4 7l8 4 8-4M12 11v10',
+    block: 'M12 3a9 9 0 1 0 0 18a9 9 0 1 0 0-18zM5.6 5.6l12.8 12.8',
+    clock: 'M12 3a9 9 0 1 0 0 18a9 9 0 1 0 0-18zM12 7v5l3 2',
+    user: 'M12 4a4 4 0 1 0 0 8a4 4 0 1 0 0-8zM4 21c0-4 3.6-7 8-7s8 3 8 7',
+    server: 'M4 4h16v7H4zM4 13h16v7H4zM8 7.5h.01M8 16.5h.01',
+    branch: 'M6 3v12M18 9a3 3 0 1 0 0-6a3 3 0 1 0 0 6zM6 21a3 3 0 1 0 0-6a3 3 0 1 0 0 6zM18 9c0 6-12 3-12 9',
+    check: 'M4 12l5 5L20 6'
+  };
+  function icon(name, x, y, color) {
+    const d = ICON[name];
+    if (!d) return '';
+    return `<path d="${d}" transform="translate(${x} ${y}) scale(0.625)" fill="none" stroke="${color}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>`;
+  }
+
+  // ---------- Rendering ----------
+  function roundedPath(pts, r) {
+    pts = pts.filter((p, i) => i === 0 || Math.hypot(p.x - pts[i - 1].x, p.y - pts[i - 1].y) > 0.5);   // drop zero-length segments
+    if (pts.length < 2) return '';
+    let d = `M${pts[0].x},${pts[0].y}`;
+    for (let i = 1; i < pts.length - 1; i++) {
+      const p0 = pts[i - 1], p1 = pts[i], p2 = pts[i + 1];
+      const d1 = Math.hypot(p1.x - p0.x, p1.y - p0.y), d2 = Math.hypot(p2.x - p1.x, p2.y - p1.y);
+      const rr = Math.min(r, d1 / 2, d2 / 2);
+      const a = { x: p1.x - (p1.x - p0.x) / d1 * rr, y: p1.y - (p1.y - p0.y) / d1 * rr };
+      const b = { x: p1.x + (p2.x - p1.x) / d2 * rr, y: p1.y + (p2.y - p1.y) / d2 * rr };
+      d += ` L${a.x},${a.y} Q${p1.x},${p1.y} ${b.x},${b.y}`;
+    }
+    const last = pts[pts.length - 1];
+    return d + ` L${last.x},${last.y}`;
+  }
+
+  function renderCard(n, x, y, w, h) {
+    const c = CAT[n.cat];
+    const dashed = n.cat === 'ext' || n.cat === 'open' || n.cat === 'never';
+    let s = `<g class="node" data-id="${esc(n.id)}">`;
+    s += `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="9" fill="#ffffff" stroke="${c.color}" stroke-width="1.4"${dashed ? ' stroke-dasharray="5 3"' : ''} filter="url(#shadow)"/>`;
+    s += `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="9" fill="${c.tint}" opacity="0.55"/>`;
+    s += `<rect x="${x}" y="${y + 8}" width="4" height="${h - 16}" rx="2" fill="${c.color}"/>`;
+    let ty = y + PAD_TOP + 9;
+    s += `<text x="${x + PAD_X}" y="${ty}" font-family="${FONT}" font-size="9" font-weight="700" letter-spacing="0.9" fill="${c.color}">${esc(c.tag)}</text>`;
+    s += icon(n.icon, x + w - PAD_X - 15, y + 9, c.color);
+    ty += NAME_H;
+    const mono = /^[a-z0-9-]+$/.test(n.name) || /^<?[a-z0-9.-]+>?[a-z0-9.-]*$/.test(n.name);
+    s += `<text x="${x + PAD_X}" y="${ty - 3}" font-family="${mono ? MONO : FONT}" font-size="${mono ? 13.5 : 13.5}" font-weight="700" fill="#0f172a">${esc(n.name)}</text>`;
+    for (const t of n.m.tech) { ty += TECH_LH; s += `<text x="${x + PAD_X}" y="${ty - 2}" font-family="${FONT}" font-size="11" fill="#475569">${esc(t)}</text>`; }
+    for (const t of n.m.lines) { ty += LIST_LH; s += `<text x="${x + PAD_X}" y="${ty - 2}" font-family="${FONT}" font-size="11" fill="#7f1d1d">• ${esc(t)}</text>`; }
+    return s + '</g>';
+  }
+
+  function renderGroup(g, x, y, w, h) {
+    const st = GROUP[g.style];
+    let s = `<g class="group" data-id="${esc(g.id)}">`;
+    s += `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="14" fill="${st.fill}" stroke="${st.stroke}" stroke-width="${st.width}"${st.dash ? ` stroke-dasharray="${st.dash}"` : ''}/>`;
+    let lx = x + 16;
+    s += `<text x="${lx}" y="${y + 26}" font-family="${FONT}" font-size="14" font-weight="700" fill="${st.label}">${esc(g.label)}</text>`;
+    lx += textWidth(g.label, 14, true) + 10;
+    for (const p of g.pills || []) {
+      const pw = textWidth(p, 10, true) + 16;
+      s += `<rect x="${lx}" y="${y + 13}" width="${pw}" height="18" rx="9" fill="${PILL[p]}"/>`;
+      s += `<text x="${lx + pw / 2}" y="${y + 26}" text-anchor="middle" font-family="${FONT}" font-size="10" font-weight="700" fill="#ffffff">${esc(p)}</text>`;
+      lx += pw + 6;
+    }
+    if (g.sub) {
+      s += `<text x="${x + 16}" y="${y + 44}" font-family="${FONT}" font-size="11" fill="#475569">${esc(g.sub)}</text>`;
+    }
+    return s + '</g>';
+  }
+
+  function renderLegend(view, x, y, maxW) {
+    const items = [];
+    const used = new Set();
+    (function walk(list) { for (const n of list) { if (n.group) walk(n.children); else used.add(n.cat); } })(view.nodes);
+    for (const k of view.legend) {
+      if (k === 'cats') {
+        for (const c of Object.keys(CAT)) if (used.has(c)) items.push({ kind: 'cat', c, text: CAT[c].legend });
+      } else if (k === 'nets') {
+        items.push({ kind: 'pill', p: 'edge', text: 'edge network' });
+        items.push({ kind: 'pill', p: 'internal', text: 'internal network' });
+      } else if (k === 'trust') {
+        items.push({ kind: 'trust', text: 'Trust boundary' });
+      } else {
+        const label = { solid: 'Required connection', dashed: 'Optional, later or administrative', thick: 'Main path', deny: 'Refused: no route', dlq: 'Dead-lettering', bind: 'Exchange binding' }[k];
+        items.push({ kind: 'line', k: k === 'dlq' ? 'deny' : k, text: label });
+      }
+    }
+    let s = '', cx = x, cy = y;
+    for (const it of items) {
+      const w = 34 + textWidth(it.text, 11) + 22;
+      if (cx + w > x + maxW) { cx = x; cy += 24; }
+      if (it.kind === 'cat') {
+        s += `<rect x="${cx}" y="${cy - 10}" width="24" height="14" rx="4" fill="${CAT[it.c].tint}" stroke="${CAT[it.c].color}" stroke-width="1.3"/>`;
+        s += `<rect x="${cx}" y="${cy - 8}" width="3" height="10" rx="1.5" fill="${CAT[it.c].color}"/>`;
+      } else if (it.kind === 'pill') {
+        s += `<rect x="${cx}" y="${cy - 10}" width="24" height="14" rx="7" fill="${PILL[it.p]}"/>`;
+      } else if (it.kind === 'trust') {
+        s += `<rect x="${cx}" y="${cy - 10}" width="24" height="14" rx="4" fill="#fff7f7" stroke="#dc2626" stroke-dasharray="4 2" stroke-width="1.5"/>`;
+      } else {
+        const L = LINE[it.k];
+        s += `<line x1="${cx}" y1="${cy - 3}" x2="${cx + 20}" y2="${cy - 3}" stroke="${L.color}" stroke-width="${L.width}"${L.dash ? ` stroke-dasharray="${L.dash}"` : ''} marker-end="url(#arrow-${it.k})"/>`;
+      }
+      s += `<text x="${cx + 32}" y="${cy + 1}" font-family="${FONT}" font-size="11" fill="#334155">${esc(it.text)}</text>`;
+      cx += w;
+    }
+    return { svg: s, height: cy - y + 16 };
+  }
+
+  async function renderView(elk, view) {
+    const { graph, meta } = toElk(view);
+    const out = await elk.layout(graph);
+    const M = 24;            // outer margin
+    const HEAD = 70;         // title block
+    const W = Math.max(out.width, 760);
+    const legendProbe = renderLegend(view, 0, 0, W);
+    const note = wrap(view.note || '', 11.5, W);
+    const H = HEAD + out.height + 26 + legendProbe.height + (note.length ? note.length * 16 + 8 : 0);
+    const ox = M, oy = M + HEAD;
+
+    const groups = [], cards = [], edges = [], labels = [];
+    const abs = { root: { x: ox, y: oy } };   // edge coordinates are relative to the edge's container
+    (function walk(n, px, py) {
+      for (const c of n.children || []) {
+        const ax = px + c.x, ay = py + c.y;
+        abs[c.id] = { x: ax, y: ay };
+        const m = meta[c.id];
+        if (m.group) { groups.push(renderGroup(m, ax, ay, c.width, c.height)); walk(c, ax, ay); }
+        else cards.push(renderCard(m, ax, ay, c.width, c.height));
+      }
+    })(out, ox, oy);
+
+    out.edges.forEach((e, i) => {
+      const src = view.edges[i];
+      const L = LINE[src.style];
+      if (!L) return;
+      const base = abs[e.container] || abs.root;
+      for (const sec of e.sections || []) {
+        const pts = [sec.startPoint].concat(sec.bendPoints || [], [sec.endPoint]).map(p => ({ x: p.x + base.x, y: p.y + base.y }));
+        edges.push(`<path d="${roundedPath(pts, 8)}" fill="none" stroke="${L.color}" stroke-width="${L.width}"${L.dash ? ` stroke-dasharray="${L.dash}"` : ''} stroke-linejoin="round" marker-end="url(#arrow-${src.style})"/>`);
+      }
+      for (const lb of e.labels || []) {
+        const lx = lb.x + base.x, ly = lb.y + base.y;
+        labels.push(`<rect x="${lx}" y="${ly}" width="${lb.width}" height="${lb.height}" rx="9" fill="#ffffff" stroke="#cbd5e1"/>` +
+          `<text x="${lx + lb.width / 2}" y="${ly + 12.6}" text-anchor="middle" font-family="${FONT}" font-size="10.5" fill="#1e293b">${esc(lb.text)}</text>`);
+      }
+    });
+
+    const legend = renderLegend(view, ox, oy + out.height + 34, W);
+    const totalW = W + M * 2, totalH = H + M * 2;
+    const markers = Object.entries(LINE).filter(([, L]) => L).map(([k, L]) =>
+      `<marker id="arrow-${k}" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="${k === 'thick' ? 4.5 : 7}" markerHeight="${k === 'thick' ? 4.5 : 7}" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="${L.color}"/></marker>`).join('');
+    const sub = wrap(view.subtitle, 12.5, W);
+    return `<svg xmlns="http://www.w3.org/2000/svg" width="${totalW}" height="${totalH}" viewBox="0 0 ${totalW} ${totalH}" role="img" aria-labelledby="${view.id}-title ${view.id}-desc">` +
+      `<title id="${view.id}-title">${esc(view.title)}</title><desc id="${view.id}-desc">${esc(view.subtitle)}</desc>` +
+      `<defs>${markers}<filter id="shadow" x="-10%" y="-10%" width="120%" height="130%"><feDropShadow dx="0" dy="1" stdDeviation="1.2" flood-color="#0f172a" flood-opacity="0.12"/></filter></defs>` +
+      `<rect width="100%" height="100%" fill="#ffffff"/>` +
+      `<text x="${M}" y="${M + 22}" font-family="${FONT}" font-size="20" font-weight="700" fill="#0f172a">${esc(view.title)}</text>` +
+      sub.map((t, i) => `<text x="${M}" y="${M + 44 + i * 17}" font-family="${FONT}" font-size="12.5" fill="#475569">${esc(t)}</text>`).join('') +
+      `<text x="${M + W}" y="${M + 22}" text-anchor="end" font-family="${FONT}" font-size="11" fill="#94a3b8">BMC · proposed, not deployed · EN-01-03</text>` +
+      groups.join('') + edges.join('') + labels.join('') + cards.join('') + legend.svg +
+      note.map((t, i) => `<text x="${ox}" y="${oy + out.height + 34 + legend.height + 12 + i * 16}" font-family="${FONT}" font-size="11.5" font-style="italic" fill="#475569">${esc(t)}</text>`).join('') +
+      `</svg>`;
+  }
+
+  root.BMCViews = { VIEWS, renderView };
+})(typeof window !== 'undefined' ? window : globalThis);
+</script>
+
+<script>
+  (async function () {
+    if (typeof ELK === 'undefined') {
+      document.getElementById('error').textContent = 'elkjs could not be loaded from cdn.jsdelivr.net; the views need it to lay out.';
+      return;
+    }
+    const elk = new ELK();
+    const main = document.getElementById('views');
+    for (const view of BMCViews.VIEWS) {
+      const svg = await BMCViews.renderView(elk, view);
+      const sec = document.createElement('section');
+      sec.innerHTML = `<div class="bar"><strong>${view.title}</strong><button type="button">Download SVG</button></div><div class="scroll">${svg}</div>`;
+      sec.querySelector('button').addEventListener('click', () => {
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(new Blob([svg], { type: 'image/svg+xml' }));
+        a.download = view.id + '.svg';
+        a.click();
+        URL.revokeObjectURL(a.href);
+      });
+      main.appendChild(sec);
+    }
+  })().catch(err => { document.getElementById('error').textContent = 'Layout failed: ' + err.message; });
+</script>
+</body>
+</html>
