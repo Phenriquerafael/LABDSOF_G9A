@@ -60,13 +60,15 @@ For AI-01, Ricardo supports review of interface assumptions and Martim supports 
 
 ## EP-01 story drafts and planning allocation
 
-| Item | Preparation owner | Independent reviewer | Implementation allocation |
-|---|---|---|---|
-| [PLAN-01](tasks/PLAN-01-prepare-reporting-and-tracking-stories.md) | Sandro | Pedro | Documentation only; no implementation assignment |
-| [US-01](tasks/US-01-record-and-view-report.md) | Select during story refinement  | Select during story refinement | Owner, reviewer, estimate and capacity assigned before Ready |
-| [US-02](tasks/US-02-triage-manually-and-track-states.md) | Select during story refinement  | Select during story refinement | Owner, reviewer, estimate and capacity assigned before Ready |
-| [US-04](tasks/US-04-publish-shared-issue-and-confirm-impact.md) | Select during story refinement  | Select during story refinement | Owner, reviewer, estimate and capacity assigned before Ready |
-| [US-10](tasks/US-10-notify-changes.md) | Select during story refinement  | Select during story refinement | Owner, reviewer, estimate and capacity assigned before Ready |
+| Item | Estimate | Preparation owner | Independent reviewer | Implementation allocation |
+|---|---|---|---|---|
+| [PLAN-01](tasks/PLAN-01-prepare-reporting-and-tracking-stories.md) | Separate preparation task | Sandro | Pedro | Documentation only; no implementation assignment |
+| [US-01](tasks/US-01-record-and-view-report.md) | 5 SP | Select during story refinement | Select when opening the PR | Owner before starting; sprint/capacity during planning |
+| [US-02](tasks/US-02-triage-manually-and-track-states.md) | 8 SP | Select during story refinement | Select when opening the PR | Owner before starting; sprint/capacity during planning |
+| [US-04](tasks/US-04-publish-shared-issue-and-confirm-impact.md) | 5 SP | Select during story refinement | Select when opening the PR | Owner before starting; sprint/capacity during planning |
+| [US-10](tasks/US-10-notify-changes.md) | 8 SP | Select during story refinement | Select when opening the PR | Owner before starting; sprint/capacity during planning |
+
+Initial estimates recorded on 2026-10-30: **26 SP** for US-01/02/04/10. These are planning estimates, not a recorded team estimation session or a capacity commitment. They include each story's UI/API work, persistence, authorisation, tests and review, assuming shared EN-02/03 foundations. Estimate those foundations separately and count shared work once; points are not hours.
 
 These stories preserve their existing local IDs and Must priorities; none is Ready or implemented. Use the [EP-01 technical-refinement register](ep01-technical-refinement.md) for open EN-01 decisions and closure evidence. It covers stack/boundaries, data/API contracts, identity/access, state/audit/concurrency, event/notification semantics and the verification environment. Close applicable entries before implementation readiness; do not invent a selected stack to complete a draft.
 

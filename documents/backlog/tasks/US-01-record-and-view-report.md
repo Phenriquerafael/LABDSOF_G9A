@@ -4,6 +4,7 @@
 
 - Epic: [EP-01 — Reporting and tracking](../epics/EP-01-reporting-and-tracking.md).
 - Priority: Must.
+- Estimate: 5 story points — report form/API, persistence, building permissions, safe retries and tests.
 - Sprint: implement in S2 and refine/evaluate in S3.
 - Dependencies: [EN-01](EN-01-technical-design.md) for design and access rules, and EN-02 in the [product backlog](../../06-product-backlog.md#3-discovery-and-engineering) for implementation foundations. Count a shared report/query implementation once. AI is not a prerequisite.
 
@@ -39,5 +40,5 @@ References: RF-01, P1/P5, J1 and NFR-01/02/03/04/05/07/09 in the [requirements](
 
 Before starting, agree the report fields/limits, building/area rules, API responses, storage ownership, idempotency scope/lifetime and conflict behaviour, identity/access rules and test environment. Confirm DEC-04/07 through EN-01 and the [technical design](../../08-technical-design.md).
 
-- [ ] Ready: owner, reviewer, estimate and sprint capacity agreed; [DoR](../../governance/definition-of-ready.md) reviewed by the team. Date/author:
-- [ ] Done: acceptance criteria met, changes reviewed, and PR, tests and demonstration linked according to the [DoD](../../governance/definition-of-done.md).
+- [ ] Ready: estimate recorded, blocking decisions resolved and [DoR](../../governance/definition-of-ready.md) reviewed by the team.
+- [ ] Done: acceptance criteria met, changes reviewed, PR and tests.

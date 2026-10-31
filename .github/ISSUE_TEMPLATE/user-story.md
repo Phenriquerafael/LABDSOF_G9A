@@ -13,7 +13,9 @@ assignees: ""
 - Proposed MoSCoW priority / reason:
 - Official milestone: S1 / S2 / S3 — select after configuration.
 - Suggested labels: type:story, area:…, priority:…
-- Owner / reviewer / estimate: to be agreed.
+- Estimate (story points) / short reason:
+- Owner: assign during planning or before starting.
+- Reviewer: choose when opening the PR.
 - Blocking decisions/dependencies:
 
 ## Story
@@ -39,7 +41,7 @@ If AI is involved: inputs/outputs, baseline/fallback and evaluation protocol.
 
 ## Ready / Done
 
-- [ ] DoR reviewed by the team; date/author:
+- [ ] Estimate recorded, blocking decisions resolved and DoR reviewed by the team; date/author:
 - [ ] DoD verified with links to PR, tests and demonstration:
 
-See documents/governance/definition-of-ready.md and definition-of-done.md. Do not mark Ready without estimates/capacity and resolved dependencies.
+See documents/governance/definition-of-ready.md and definition-of-done.md. An estimate and resolved blocking dependencies are required before Ready. Select the sprint and check capacity during planning.

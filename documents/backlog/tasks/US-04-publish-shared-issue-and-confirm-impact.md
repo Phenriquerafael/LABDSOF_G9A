@@ -4,6 +4,7 @@
 
 - Epic: [EP-01 — Reporting and tracking](../epics/EP-01-reporting-and-tracking.md).
 - Priority: Must.
+- Estimate: 5 story points — shared summary, impact confirmation, preferences, privacy and concurrent-action tests.
 - Sprint: implement in S2 and refine/evaluate in S3.
 - Dependencies: [US-01](US-01-record-and-view-report.md) and [US-02](US-02-triage-manually-and-track-states.md). [US-10](US-10-notify-changes.md) uses the events/preferences, but notification delivery is not needed to publish or confirm impact.
 
@@ -41,5 +42,5 @@ References: RF-04, P2/P5, J1–J2, assignment 5.5 and NFR-01/02/04/07/09 in the 
 
 Before starting, agree summary fields/limits, field visibility, membership checks, contribution/subscription storage, API responses, events/preferences and test cases with EN-01. Confirm DEC-04/07 and data ownership using the [technical design](../../08-technical-design.md) and [access matrix](../../09-security-privacy.md#2-proposed-access-matrix).
 
-- [ ] Ready: owner, reviewer, estimate and sprint capacity agreed; [DoR](../../governance/definition-of-ready.md) reviewed by the team. Date/author:
-- [ ] Done: acceptance criteria met, changes reviewed, and PR, tests and demonstration linked according to the [DoD](../../governance/definition-of-done.md).
+- [ ] Ready: estimate recorded, blocking decisions resolved and [DoR](../../governance/definition-of-ready.md) reviewed by the team.
+- [ ] Done: acceptance criteria met, changes reviewed, PR and tests.

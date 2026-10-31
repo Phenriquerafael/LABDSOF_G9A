@@ -59,7 +59,7 @@ Once published, attach each story as a sub-issue of this epic and link its actua
 ## Dependencies and risks
 
 - EP-00 research and scope decisions inform requirements; EN-01/02 provide design and implementation foundations, and EN-03 accompanies delivery. EN-02 is excluded from Sprint 1 under DEC-11.
-- Build US-01 before US-02/04. US-10 depends on US-02/04 and EP-03's US-07 events; this does not block starting the reporting slice while intervention work is unfinished.
+- Build US-01 before US-02/04. US-10 depends on US-02/04 and EP-03's US-07/08/09 response, booking and completion events; this does not block starting the reporting slice while intervention work is unfinished.
 - Resolve DEC-06 (notification channel), DEC-07 (visibility/data) and DEC-10 (state rules) to the level needed by each story. Use the [decision register](../../planning/decisions-and-feedback.md).
 - Apply [NFR-01/02/04/05/06/07/09](../../requirements.md) and the [access matrix](../../09-security-privacy.md#2-proposed-access-matrix); reporting must not require AI availability.
 - Review risks of private-data leakage through lists/history/notifications, duplicate delivery and misleading status projections. Keep Issue-owned state and Dispatch-originated updates consistent with the [technical design](../../08-technical-design.md).

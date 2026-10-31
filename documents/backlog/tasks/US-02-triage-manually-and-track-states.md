@@ -4,6 +4,7 @@
 
 - Epic: [EP-01 — Reporting and tracking](../epics/EP-01-reporting-and-tracking.md).
 - Priority: Must.
+- Estimate: 8 story points — manual triage, state/history views, permissions, concurrent edits and tests.
 - Sprint: implement in S2 and refine/evaluate in S3.
 - Dependencies: [US-01](US-01-record-and-view-report.md) for saved reports and [EN-01](EN-01-technical-design.md) for permissions, states and contracts. Manual triage does not require AI or the whole intervention epic.
 
@@ -40,5 +41,5 @@ References: RF-02, P1/P3, J1–J2 and NFR-01/02/03/06/07/09 in the [requirements
 
 Before starting, agree allowed labels/transitions, required reasons, audit fields, public history, version conflicts, permissions, late AI handling and intervention status events. Confirm DEC-04/07/10, component/data ownership and the test environment with EN-01 using the [technical design](../../08-technical-design.md).
 
-- [ ] Ready: owner, reviewer, estimate and sprint capacity agreed; [DoR](../../governance/definition-of-ready.md) reviewed by the team. Date/author:
-- [ ] Done: acceptance criteria met, changes reviewed, and PR, tests and demonstration linked according to the [DoD](../../governance/definition-of-done.md).
+- [ ] Ready: estimate recorded, blocking decisions resolved and [DoR](../../governance/definition-of-ready.md) reviewed by the team.
+- [ ] Done: acceptance criteria met, changes reviewed, PR and tests.

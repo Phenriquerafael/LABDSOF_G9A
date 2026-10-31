@@ -40,6 +40,26 @@ Detailed issue bodies and child tasks for [DISC-01](backlog/tasks/DISC-01-user-r
 | EN-03 / Must | Delivery/quality: independent components or accepted exception; CI/CD, authorisation/contract/journey tests, logs/health/metrics/correlation, queue/AI/calendar failures and backup/restore; evidence for applicable NFRs | EN-01/02; accompanies stories | S2, strengthened in S3 |
 | EN-04 / Must | Final evaluation: AI/baseline, usability, accessibility, security, performance, dashboard, architecture evolution, limitations, roadmap and contributions; reproducible results and environment | Operational increment, DEC-08 | S3 |
 
+### Sprint 2 journey coverage
+
+Deliver J2, the [main journey](04-product-vision.md#j2--triage-and-coordinate-main-journey), from a resident's report through triage, contractor coordination and booking to completion/closure, with authorised status updates. This supports the [assignment's Sprint 2 objective and deliverables](../LABDSOF-26-27-Assignment.md#72-sprint-2-build-and-operate-the-vertical-slice).
+
+| Journey step | Stories / work |
+|---|---|
+| Report and retrieve the receipt | US-01 |
+| Review triage, including initial AI and non-AI continuity | US-02; US-03 and separate fallback to review under PLAN-02 |
+| Publish a safe summary and confirm impact | US-04; the ethical-participation mechanism in assignment 5.5 |
+| Select contractor, approve terms and receive a response | US-06/07, to review under PLAN-03 |
+| Confirm a booking or expose pending/manual/failure status | US-08, to review under PLAN-03 |
+| Report completion, validate, close and reopen | US-09, to review under PLAN-03 |
+| Follow authorised status/history and receive updates | US-01/02/10; include response, booking and completion/closure events |
+
+PLAN-01 covers the four EP-01 stories needed by this baseline: **5 + 8 + 5 + 8 = 26 SP**. Estimates and short reasons are in each story; the [index](backlog/README.md#ep-01-story-drafts-and-planning-allocation) explains their assumptions. This is not the whole Sprint 2 estimate.
+
+EN-02/03 must also cover the client/backend foundations, authentication (mocked if agreed, with real authorisation checks), persistence, API contracts, two backend components or an approved alternative, asynchronous delivery, CI/CD, tests, logs/health/metrics and a demonstrated failure. AI and calendar integration come from PLAN-02/03; simulator support remains the initial calendar approach. Estimate shared engineering work separately, without counting story-level work twice.
+
+US-05/11/12/13 remain conditional extensions. The full AI comparison belongs to Sprint 3; Sprint 2 still needs initial AI behaviour and a non-AI baseline or fallback. No extra EP-01 story is needed for the currently agreed scope. DoR review must still confirm the applicable EN-01 contracts, access, states/events and test environment before selecting implementation work.
+
 ## 4. Stories and criteria
 
 The criteria below apply the needs to each delivery. Detailed definitions are maintained in the [AI assessment](07-responsible-ai-assessment.md#4-provisional-criteria), [domain states](08-technical-design.md#3-states-and-business-rules), [access matrix](09-security-privacy.md#2-proposed-access-matrix) and [NFRs](requirements.md#non-functional-requirements--constraints). Changes to those definitions require a review of the affected stories.
@@ -48,7 +68,7 @@ PLAN-01 expands EP-01's existing stories into individual drafts linked below. Th
 
 ### US-01 — Record and view a report · Must · EP-01
 
-**Detailed draft:** [US-01](backlog/tasks/US-01-record-and-view-report.md).
+**Detailed draft:** [US-01](backlog/tasks/US-01-record-and-view-report.md). **Initial estimate:** 5 SP.
 
 As a resident, I want to report a fault in my building so that management can track it.
 
@@ -62,7 +82,7 @@ As a resident, I want to report a fault in my building so that management can tr
 
 ### US-02 — Triage manually and track states · Must · EP-01
 
-**Detailed draft:** [US-02](backlog/tasks/US-02-triage-manually-and-track-states.md).
+**Detailed draft:** [US-02](backlog/tasks/US-02-triage-manually-and-track-states.md). **Initial estimate:** 8 SP.
 
 As an administrator, I want to review issues and their history to decide the next step.
 
@@ -87,7 +107,7 @@ As an administrator, I want a category and urgency suggestion to reduce triage e
 
 ### US-04 — Publish a shared issue and confirm impact · Must · EP-01
 
-**Detailed draft:** [US-04](backlog/tasks/US-04-publish-shared-issue-and-confirm-impact.md).
+**Detailed draft:** [US-04](backlog/tasks/US-04-publish-shared-issue-and-confirm-impact.md). **Initial estimate:** 5 SP.
 
 As a resident, I want to confirm that a shared problem affects me to provide useful information without repeating the report.
 
@@ -158,7 +178,7 @@ As an administrator, I want to verify completion to close the issue with a histo
 
 ### US-10 — Notify changes · Must · EP-01
 
-**Detailed draft:** [US-10](backlog/tasks/US-10-notify-changes.md).
+**Detailed draft:** [US-10](backlog/tasks/US-10-notify-changes.md). **Initial estimate:** 8 SP.
 
 As a participant, I want to receive authorised updates to track the issue.
 
@@ -167,7 +187,7 @@ As a participant, I want to receive authorised updates to track the issue.
 - Retries do not duplicate notifications; failure is observable without rolling back issue state.
 - Status queries work even if notifications fail.
 
-**Source:** RF-10; NFR-01/04/06. **Dependencies:** US-02/04/07, DEC-06. **Horizon:** S2.
+**Source:** RF-10; NFR-01/04/06. **Dependencies:** US-02/04/07/08/09, DEC-06. **Horizon:** S2.
 
 ### US-11 — Record a basic cost · Should · EP-03
 
