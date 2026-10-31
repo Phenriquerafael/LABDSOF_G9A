@@ -36,11 +36,28 @@ Detailed issue bodies and child tasks for [DISC-01](backlog/tasks/DISC-01-user-r
 | DISC-02 / Must | Complete comparison: exact, dated sources; §5.2 criteria; include an informal alternative and a comparable maintenance/helpdesk product; conclusion separates evidence from inference | Selection of comparables | S1 |
 | DISC-03 / Must | Ratify organisation and review scope/priorities: roles/board/DoR/DoD; DEC-01/03/09 and DEC-10 discussion; actual feedback recorded. Document at least one decision revised following lecturer feedback during the project | Team and stakeholder availability | S1, follow-up S2/S3 |
 | [AI-01](backlog/tasks/AI-01-assess-ai-opportunity.md) / Must | Review the AI opportunity: user-need evidence/limitations, workflow, representative/adverse examples, evaluation criteria and dataset plan, baseline/fallback, human control and cost assumptions; DEC-05/08 updated. Design assessment only; no executed evaluation required | DISC-01 synthesis, reviewed vision; supports US-03 | S1 |
-| [PLAN-02](backlog/tasks/PLAN-02-prepare-ai-and-fallback-stories.md) / Must candidate | Prepare US-03/05/14/15 drafts, separate classification/fallback/evaluation, and record technical refinements; owner Sandro Dias. Drafting does not implement or validate AI | Existing scope/AI-01; confirm applicable EN-01/DEC-05/08 decisions listed in the stories before Ready | S1 drafting for S2/S3 |
+| [PLAN-02](backlog/README.md#ep-02-story-drafts-and-planning-allocation) / Must candidate | Prepare US-03/05/14/15 drafts, separate classification/fallback/evaluation, and record technical refinements; owner Sandro Dias. Drafting does not implement or validate AI | Existing scope/AI-01; confirm applicable EN-01/DEC-05/08 decisions listed in the stories before Ready | S1 drafting for S2/S3 |
 | EN-01 / Must | Consolidate design: context, components, model, API/events, data ownership, deployment and threats; ADRs record alternatives and actual decisions | DEC-04/07, vision | S1 |
 | EN-02 / Must for later implementation foundations; optional in S1 | Walking skeleton: client→backend→persistence→query after restart; automated build, initial test and containers with reproducible instructions; linked evidence. Not selected for Sprint 1 (DEC-11) | EN-01 | S2 planning candidate; no Sprint 1 commitment |
 | EN-03 / Must | Delivery/quality: independent components or accepted exception; CI/CD, authorisation/contract/journey tests, logs/health/metrics/correlation, queue/AI/calendar failures and backup/restore; evidence for applicable NFRs | EN-01/02; accompanies stories | S2, strengthened in S3 |
 | EN-04 / Must | Final evaluation: consumes the AI-specific US-15 report once, alongside usability, accessibility, security, performance, dashboard, architecture evolution, limitations, roadmap and contributions; reproducible results and environment | Operational increment, DEC-08 | S3 |
+
+### EP-02 contribution to Sprint 2
+
+The [main journey J2](04-product-vision.md#j2--triage-and-coordinate-main-journey) needs a first working AI capability and non-AI continuity in S2, as required by [assignment 7.2](../LABDSOF-26-27-Assignment.md#72-sprint-2-build-and-operate-the-vertical-slice).
+
+| Work | Scope / initial estimate | Horizon |
+|---|---|---|
+| US-14 | Versioned rules, independent alerts and manual continuity; 5 SP | Required in S2; no provider dependency |
+| US-03 | Asynchronous validated AI suggestions and human correction; 8 SP | Required in S2, integrated with US-01/02/14 |
+| US-15 | Synthetic dataset/protocol and comparative report; 8 SP total | Prepare data in S2; complete the formal evaluation in S3 |
+| US-05 | Reviewed, reversible duplicate links; 8 SP | Conditional S3 candidate; does not block the main journey |
+
+The required classification/fallback implementation totals **13 SP**. Dataset preparation belongs to US-15's single 8-SP estimate, not another 8-SP Sprint 2 commitment. Its report is consumed once by EN-04. Select any US-05 pair evaluation explicitly and review the evaluation estimate when its scope is agreed.
+
+The existing stories cover EP-02's part of S2; no additional AI story is needed for the currently defined journey. US-01/02 provide reporting, manual decisions and authorised status; US-06–09 provide contractor coordination, booking and closure; US-10 provides updates. Shared deployment, authentication/authorisation, persistence, contracts, jobs, tests, CI/CD and observability remain EN-02/03 work and must not be counted twice.
+
+Readiness still depends on the relevant EN-01/DEC-05/08 decisions: rules and labels, schema/prompt/model, job/result contracts, timeout/retry limits, access, budget and test/evaluation data. Scope and estimates alone do not close those decisions. Initial AI/rules checks belong to US-03/14; US-15's final comparison is not a prerequisite for delivering the S2 increment.
 
 ## 4. Stories and criteria
 
@@ -71,7 +88,7 @@ As an administrator, I want to review issues and their history to decide the nex
 
 ### US-03 — Suggest category and urgency with AI · Must · EP-02
 
-**Detailed draft:** [US-03](backlog/tasks/US-03-classify-with-ai.md).
+**Detailed draft:** [US-03](backlog/tasks/US-03-classify-with-ai.md). **Initial estimate:** 8 SP.
 
 As an administrator, I want a category and urgency suggestion to reduce triage effort while retaining the final decision.
 
@@ -97,7 +114,7 @@ As a resident, I want to confirm that a shared problem affects me to provide use
 
 ### US-05 — Review duplicate suggestions · Should · EP-02
 
-**Detailed draft:** [US-05](backlog/tasks/US-05-review-duplicate-suggestions.md). Selection and evaluation remain conditional; if selected, US-15 supplies its pair-evaluation report without duplicate effort.
+**Detailed draft:** [US-05](backlog/tasks/US-05-review-duplicate-suggestions.md). **Initial estimate:** 8 SP. Selection and evaluation remain conditional; if selected, US-15 supplies its pair-evaluation report without duplicate effort.
 
 As an administrator, I want to identify reports of the same fault to coordinate a single response.
 
@@ -106,7 +123,7 @@ As an administrator, I want to identify reports of the same fault to coordinate 
 - Do not expose private text in resident searches or mix buildings.
 - Measure precision/recall on annotated pairs; choose rules or embeddings after evaluation.
 
-**Source:** RF-05; NFR-01/10. **Dependencies:** US-01/02, P2, DEC-05. **Horizon:** S2/S3 if capacity allows.
+**Source:** RF-05; NFR-01/10. **Dependencies:** US-01/02, P2, DEC-05. **Horizon:** S3 candidate; S2 only if selected without displacing the core journey.
 
 ### US-06 — Select a contractor · Must · EP-03
 
@@ -198,7 +215,7 @@ As an administrator, I want to synchronise with the calendar used in operations.
 
 ### US-14 — Continue triage without AI · Must · EP-02
 
-**Detailed draft:** [US-14](backlog/tasks/US-14-continue-triage-without-ai.md).
+**Detailed draft:** [US-14](backlog/tasks/US-14-continue-triage-without-ai.md). **Initial estimate:** 5 SP.
 
 As an administrator, I want independent rules and manual review when AI cannot provide a usable suggestion so that issues remain actionable.
 
@@ -212,7 +229,7 @@ As an administrator, I want independent rules and manual review when AI cannot p
 
 ### US-15 — Evaluate AI-assisted triage against the non-AI baseline · Must · EP-02
 
-**Detailed draft:** [US-15](backlog/tasks/US-15-evaluate-ai-against-baseline.md).
+**Detailed draft:** [US-15](backlog/tasks/US-15-evaluate-ai-against-baseline.md). **Initial estimate:** 8 SP.
 
 As a product owner, I want reproducible comparison evidence so that AI usefulness, operating cost and limitations can be assessed.
 

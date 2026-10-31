@@ -4,6 +4,7 @@
 
 - Epic: [EP-02 — Assisted triage and reviewed links](../epics/EP-02-assisted-triage.md).
 - Priority: Must.
+- Estimate: 5 story points — versioned rules, critical alerts, visible fallback, recovery and provider-free failure tests.
 - Sprint: implement in S2 and refine in S3.
 - Dependencies: US-01/02 in the [product backlog](../../05-product-backlog.md#4-stories-and-criteria) and the agreed rules. No AI provider, credentials or successful US-03 call are required.
 
@@ -41,5 +42,5 @@ References: RF-02/03, P3/P7, J1–J2 and NFR-01/02/03/04/06. Assignment: 5.6.2 a
 
 Before starting, agree the rule inputs/expected outputs, versions, critical alerts, manual/fallback states, permissions and retry limits.
 
-- [ ] Ready: owner, reviewer, estimate and sprint capacity agreed; [DoR](../../governance/definition-of-ready.md) reviewed by the team. Date/author:
-- [ ] Done: acceptance criteria met, changes reviewed, and PR, tests and demonstration linked according to the [DoD](../../governance/definition-of-done.md).
+- [ ] Ready: estimate recorded, blocking decisions resolved and [DoR](../../governance/definition-of-ready.md) reviewed by the team.
+- [ ] Done: acceptance criteria met, changes reviewed, PR and tests.

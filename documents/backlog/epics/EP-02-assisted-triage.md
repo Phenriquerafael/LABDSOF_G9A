@@ -23,11 +23,19 @@ Excluded: Autonomous approvals, unreviewed report merges and a general-purpose c
 
 ## Story preparation and S2/S3 drafts
 
-- [ ] [PLAN-02 — Prepare AI user stories and a separate fallback story](../tasks/PLAN-02-prepare-ai-and-fallback-stories.md) · preparation owner Sandro Dias.
+- [ ] [PLAN-02 — Prepare AI user stories and a separate fallback story](../README.md#ep-02-story-drafts-and-planning-allocation) · preparation owner Sandro Dias.
 - [ ] [US-03 — Suggest category and urgency with AI](../tasks/US-03-classify-with-ai.md) · Must · S2.
 - [ ] [US-14 — Continue triage without AI](../tasks/US-14-continue-triage-without-ai.md) · Must · S2; provider-free baseline/continuity.
 - [ ] [US-05 — Review duplicate suggestions](../tasks/US-05-review-duplicate-suggestions.md) · Should · S2/S3 only if selected.
 - [ ] [US-15 — Evaluate AI-assisted triage against the non-AI baseline](../tasks/US-15-evaluate-ai-against-baseline.md) · Must · S2 preparation, S3 formal evaluation.
+
+## Sprint 2 coverage and estimates
+
+US-14 (5 SP) and US-03 (8 SP) provide the required S2 AI/fallback increment. Implement provider-free continuity first, then integrate the AI path with US-01/02. Protect human decisions and critical alerts in both paths.
+
+US-15 (8 SP total) prepares data/protocol in S2 and completes the formal comparison in S3; EN-04 reuses the report. US-05 (8 SP) remains conditional and must not displace the main journey. Estimates include story-specific verification and assume shared EN-02/03 foundations.
+
+Each story lists its decisions before Ready. Estimate first; assign the implementation owner before starting and the reviewer when opening the PR. Do not treat optional selection, dataset preparation or an initial estimate as completed implementation or team approval.
 
 ## Completion criterion
 

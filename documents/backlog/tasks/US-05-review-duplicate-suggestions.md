@@ -4,7 +4,8 @@
 
 - Epic: [EP-02 — Assisted triage and reviewed links](../epics/EP-02-assisted-triage.md).
 - Priority: Should.
-- Sprint: S2/S3, if selected after reviewing its value and available capacity.
+- Estimate: 8 story points — candidate matching, permissions, reversible links, concurrency and matching tests.
+- Sprint: S3 candidate; include in S2 only if selected without displacing the core journey.
 - Dependencies: US-01/02 in the [product backlog](../../05-product-backlog.md#4-stories-and-criteria) and the duplicate-matching approach in DEC-05. This feature does not depend on successful AI classification.
 
 ## Story
@@ -15,7 +16,7 @@ As an **administrator**, I want to **review reports that may refer to the same f
 
 Suggest possible duplicates within the same building and explain each suggestion. The administrator can confirm or reject a link and undo it later.
 
-Use simple rules or optional embeddings, depending on the agreed approach. [US-15](US-15-evaluate-ai-against-baseline.md) will include duplicate evaluation only if this feature is selected.
+The initial estimate assumes simple rules. Optional embeddings need an agreed approach and an estimate review. [US-15](US-15-evaluate-ai-against-baseline.md) will include duplicate evaluation only if this feature is selected.
 
 This story does not cover automatic merging, closing or reprioritising reports, matching across buildings or sending interventions.
 
@@ -42,5 +43,5 @@ References: RF-05, P2, J2 and NFR-01/02/04/10.
 
 Before starting, confirm that the feature is selected. Agree the matching method, input/output examples, filters, permissions, version checks and evaluation targets.
 
-- [ ] Ready: owner, reviewer, estimate and sprint capacity agreed; [DoR](../../governance/definition-of-ready.md) reviewed by the team. Date/author:
-- [ ] Done: acceptance criteria met, changes reviewed, and PR, tests and demonstration linked according to the [DoD](../../governance/definition-of-done.md).
+- [ ] Ready: estimate recorded, blocking decisions resolved and [DoR](../../governance/definition-of-ready.md) reviewed by the team.
+- [ ] Done: acceptance criteria met, changes reviewed, PR and tests.

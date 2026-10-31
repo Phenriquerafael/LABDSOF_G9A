@@ -32,7 +32,7 @@ Excluded: Training/inference code, a full dataset, executed AI evaluation, and c
 - [Product vision](../../04-product-vision.md) — update the relevant sections and link the change/review evidence.
 - [Requirements/NFRs](../../requirements.md) — update the relevant sections and link the change/review evidence.
 - [Product backlog](../../05-product-backlog.md) — US-03/14 implementation split, conditional US-05 and US-15/EN-04 evaluation ownership.
-- [PLAN-02 story drafts/refinements](PLAN-02-prepare-ai-and-fallback-stories.md) — consume this assessment without treating its design completion as inference or evaluation delivery.
+- [PLAN-02 story drafts/refinements](../README.md#ep-02-story-drafts-and-planning-allocation) — consume this assessment without treating its design completion as inference or evaluation delivery.
 
 ## Verification
 
