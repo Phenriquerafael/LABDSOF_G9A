@@ -4,6 +4,7 @@
 
 - Epic: [EP-03 — Intervention and closure](../epics/EP-03-intervention-and-closure.md).
 - Priority: Must.
+- Estimate: 8 story points — versioned proposals, approval and contractor responses, events and permission/concurrency tests.
 - Sprint: S2.
 - Dependencies: [US-06](US-06-select-a-contractor.md) for the selected contractor and draft request; US-02 in the [product backlog](../../05-product-backlog.md#4-stories-and-criteria) for authorised status/history.
 
@@ -40,5 +41,5 @@ References: RF-07, P6, PS-08, J2–J3 and NFR-01/02/04/06/09. Assignment: 6.3–
 
 Before starting, confirm DEC-10's version, counterproposal and cancellation rules. Agree request/response fields, service ownership, permissions, event contracts and retry limits with EN-01 using the [technical design](../../07-technical-design.md) and [contract examples](../../07a-contract-examples.md). Decide whether a response deadline is included; silence must never count as acceptance.
 
-- [ ] Ready: owner, reviewer, estimate and sprint capacity agreed; [DoR](../../governance/definition-of-ready.md) reviewed by the team. Date/author:
-- [ ] Done: acceptance criteria met, changes reviewed, and PR, tests and demonstration linked according to the [DoD](../../governance/definition-of-done.md).
+- [ ] Ready: estimate recorded, blocking decisions resolved and [DoR](../../governance/definition-of-ready.md) reviewed by the team.
+- [ ] Done: acceptance criteria met, changes reviewed, PR and tests.

@@ -4,7 +4,8 @@
 
 - Epic: [EP-03 — Intervention and closure](../epics/EP-03-intervention-and-closure.md).
 - Priority: Could; select only if useful provider access and sprint capacity are available.
-- Sprint: S3 candidate.
+- Estimate: 8 story points — one provider adapter, credentials/permissions, contract mapping and integration/failure tests.
+- Sprint: S3, if selected.
 - Dependencies: [US-08](US-08-confirm-booking-and-handle-failures.md), DEC-06 provider/access decision and an authorised test calendar.
 
 ## Story
@@ -40,5 +41,5 @@ References: RF-08, P6, J2–J3 and NFR-01/02/04/06/09/11. Assignment: 6.5–6.8.
 
 Before starting, select the extension explicitly and confirm DEC-06, provider permissions/access, contract mapping, data handling, rate limits, timeout/retry settings, reconciliation and test cleanup. Agree how to disable the adapter without losing track of existing bookings.
 
-- [ ] Ready: owner, reviewer, estimate and sprint capacity agreed; [DoR](../../governance/definition-of-ready.md) reviewed by the team. Date/author:
-- [ ] Done: acceptance criteria met, changes reviewed, and PR, contract/provider checks and demonstration linked according to the [DoD](../../governance/definition-of-done.md).
+- [ ] Ready: estimate recorded, blocking decisions resolved and [DoR](../../governance/definition-of-ready.md) reviewed by the team.
+- [ ] Done: acceptance criteria met, changes reviewed, PR and contract/provider checks.

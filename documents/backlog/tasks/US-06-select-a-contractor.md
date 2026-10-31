@@ -4,6 +4,7 @@
 
 - Epic: [EP-03 — Intervention and closure](../epics/EP-03-intervention-and-closure.md).
 - Priority: Must.
+- Estimate: 5 story points — catalogue filtering, explained ordering, draft selection, permissions and retry/concurrency tests.
 - Sprint: S2.
 - Dependencies: US-02 in the [product backlog](../../05-product-backlog.md#4-stories-and-criteria) for manual triage and authorised issue access.
 
@@ -40,5 +41,5 @@ References: RF-06, P1/P6, J2 and NFR-01/02/09. Assignment: 6.2–6.3.
 
 Before starting, agree the catalogue fields and fixtures, eligibility rules, initial ordering, draft ownership and save/version contract with EN-01. Confirm the relevant DEC-07/10 rules in the [technical design](../../07-technical-design.md).
 
-- [ ] Ready: owner, reviewer, estimate and sprint capacity agreed; [DoR](../../governance/definition-of-ready.md) reviewed by the team. Date/author:
-- [ ] Done: acceptance criteria met, changes reviewed, and PR, tests and demonstration linked according to the [DoD](../../governance/definition-of-done.md).
+- [ ] Ready: estimate recorded, blocking decisions resolved and [DoR](../../governance/definition-of-ready.md) reviewed by the team.
+- [ ] Done: acceptance criteria met, changes reviewed, PR and tests.

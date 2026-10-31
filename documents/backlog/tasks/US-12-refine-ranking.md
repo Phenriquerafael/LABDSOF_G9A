@@ -4,7 +4,8 @@
 
 - Epic: [EP-03 — Intervention and closure](../epics/EP-03-intervention-and-closure.md).
 - Priority: Should; include only with useful, available data and sprint capacity.
-- Sprint: S3 candidate.
+- Estimate: 5 story points — scoring rules, explained ordering, missing/stale data, fallback and comparison tests.
+- Sprint: S3, if selected.
 - Dependencies: [US-06](US-06-select-a-contractor.md), evidence that additional criteria help selection, and documented data sources.
 
 ## Story
@@ -40,5 +41,5 @@ References: RF-06, P6, J2 and NFR-01/02. Assignment: 6.2–6.3; [optional-featur
 
 Before starting, select the extension explicitly and agree data sources/freshness, criteria, weights, units, missing-data handling, fallback and comparison cases. Confirm catalogue ownership and the ranking contract with EN-01.
 
-- [ ] Ready: owner, reviewer, estimate and sprint capacity agreed; [DoR](../../governance/definition-of-ready.md) reviewed by the team. Date/author:
-- [ ] Done: acceptance criteria met, changes reviewed, and PR, tests, comparison results and demonstration linked according to the [DoD](../../governance/definition-of-done.md).
+- [ ] Ready: estimate recorded, blocking decisions resolved and [DoR](../../governance/definition-of-ready.md) reviewed by the team. Date/author:
+- [ ] Done: acceptance criteria met, changes reviewed, PR, tests and comparison results.

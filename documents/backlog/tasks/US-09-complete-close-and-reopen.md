@@ -4,6 +4,7 @@
 
 - Epic: [EP-03 — Intervention and closure](../epics/EP-03-intervention-and-closure.md).
 - Priority: Must.
+- Estimate: 8 story points — completion/rework, cross-service closure/reopening, history and permission/concurrency tests.
 - Sprint: S2, refined in S3.
 - Dependencies: [US-07](US-07-approve-request-and-obtain-response.md) and [US-08](US-08-confirm-booking-and-handle-failures.md) for the intervention cycle; US-02 in the [product backlog](../../05-product-backlog.md#4-stories-and-criteria) for authorised issue transitions/history.
 
@@ -41,5 +42,5 @@ References: RF-09, P1, J2–J3 and NFR-01/02/04/06/09/11. Assignment: 6.6–6.8.
 
 Before starting, confirm DEC-10's completion, rework, manual closure and reopening rules. Agree required fields, service/data ownership, version checks, cancellation and state/event contracts with EN-01 and US-02/10 using the [technical design](../../07-technical-design.md).
 
-- [ ] Ready: owner, reviewer, estimate and sprint capacity agreed; [DoR](../../governance/definition-of-ready.md) reviewed by the team. Date/author:
-- [ ] Done: acceptance criteria met, changes reviewed, and PR, tests and demonstration linked according to the [DoD](../../governance/definition-of-done.md).
+- [ ] Ready: estimate recorded, blocking decisions resolved and [DoR](../../governance/definition-of-ready.md) reviewed by the team.
+- [ ] Done: acceptance criteria met, changes reviewed, PR and tests.

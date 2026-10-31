@@ -4,7 +4,8 @@
 
 - Epic: [EP-03 — Intervention and closure](../epics/EP-03-intervention-and-closure.md).
 - Priority: Should; include only if evidence and capacity justify it.
-- Sprint: S3 candidate; may start in S2 if selected without displacing the core cycle.
+- Estimate: 3 story points — optional cost fields, contractor proposal, administrator confirmation, history and validation/access tests.
+- Sprint: S3, if selected. May start in S2 if there is capacity.
 - Dependencies: [US-09](US-09-complete-close-and-reopen.md) for the intervention history and closure flow.
 
 ## Story
@@ -39,5 +40,5 @@ References: RF-11, P1, J2–J3 and NFR-01/02/09. Assignment: 6.6–6.8.
 
 Before starting, select this extension explicitly and agree supported currencies, amount precision/limits, source fields, visibility, correction rules and data/API ownership with EN-01 and DEC-07/10.
 
-- [ ] Ready: owner, reviewer, estimate and sprint capacity agreed; [DoR](../../governance/definition-of-ready.md) reviewed by the team. Date/author:
-- [ ] Done: acceptance criteria met, changes reviewed, and PR, tests and demonstration linked according to the [DoD](../../governance/definition-of-done.md).
+- [ ] Ready: estimate recorded, blocking decisions resolved and [DoR](../../governance/definition-of-ready.md) reviewed by the team.
+- [ ] Done: acceptance criteria met, changes reviewed, PR and tests.

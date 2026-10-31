@@ -70,20 +70,17 @@ For AI-01, Ricardo supports review of interface assumptions and Martim supports 
 
 ## EP-03 story drafts and planning allocation
 
-| Item | Drafting owner | Independent review / implementation planning |
-|---|---|---|
-| PLAN-03 | Sandro Dias (user-assigned) | Another team member reviews preparation; record estimate and PR/review evidence during planning |
-| [US-06](tasks/US-06-select-a-contractor.md) | Sandro Dias under PLAN-03 | Must; catalogue filtering and administrator selection in S2 |
-| [US-07](tasks/US-07-approve-request-and-obtain-response.md) | Sandro Dias under PLAN-03 | Must; versioned approval and contractor response in S2 |
-| [US-08](tasks/US-08-confirm-booking-and-handle-failures.md) | Sandro Dias under PLAN-03 | Must; simulator, confirmation and failure handling in S2 |
-| [US-09](tasks/US-09-complete-close-and-reopen.md) | Sandro Dias under PLAN-03 | Must; completion and closure in S2, refined in S3 |
-| [US-11](tasks/US-11-record-a-basic-cost.md) | Sandro Dias under PLAN-03 | Should; basic cost only if selected and capacity permits |
-| [US-12](tasks/US-12-refine-ranking.md) | Sandro Dias under PLAN-03 | Should; S3 ranking refinement with justified data |
-| [US-13](tasks/US-13-integrate-a-real-calendar.md) | Sandro Dias under PLAN-03 | Could; S3 real provider only with access and capacity |
+| Item | Estimate | Drafting owner | Independent review / implementation planning |
+|---|---|---|---|
+| PLAN-03 | Separate preparation task | Sandro Dias (user-assigned) | Another team member reviews preparation; record estimate and PR/review evidence during planning |
+| [US-06](tasks/US-06-select-a-contractor.md) | 5 SP | Sandro Dias under PLAN-03 | Must; catalogue filtering and administrator selection in S2 |
+| [US-07](tasks/US-07-approve-request-and-obtain-response.md) | 8 SP | Sandro Dias under PLAN-03 | Must; versioned approval and contractor response in S2 |
+| [US-08](tasks/US-08-confirm-booking-and-handle-failures.md) | 8 SP | Sandro Dias under PLAN-03 | Must; simulator, confirmation and failure handling in S2 |
+| [US-09](tasks/US-09-complete-close-and-reopen.md) | 8 SP | Sandro Dias under PLAN-03 | Must; completion and closure in S2, refined in S3 |
+| [US-11](tasks/US-11-record-a-basic-cost.md) | 3 SP | Sandro Dias under PLAN-03 | Should; S3 cost recording only if selected and capacity permits |
+| [US-12](tasks/US-12-refine-ranking.md) | 5 SP | Sandro Dias under PLAN-03 | Should; S3 ranking refinement with justified data |
+| [US-13](tasks/US-13-integrate-a-real-calendar.md) | 8 SP | Sandro Dias under PLAN-03 | Could; S3 real provider only with access and capacity |
 
-Preparation record (2026-10-29): seven drafts preserve the existing IDs and priorities. Required decisions are listed in each story's Ready / Done section. Implementation owner/reviewer, estimates, sprint capacity and applicable EN-01/DEC-06/07/10 decisions must be agreed before Ready. The simulator remains the initial integration; optional cost never blocks closure.
-
-Review the versioned approval/acceptance flow, uncertain booking outcomes, manual confirmation, cancellation, closure and reopening against RF-06–09/11 and the applicable NFRs. Add the actual PR and independent review evidence when available. No implementation, provider setup or independent approval is claimed.
 
 ## Sprint 1 deliverable coverage
 

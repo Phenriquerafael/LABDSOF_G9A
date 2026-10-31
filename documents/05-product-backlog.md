@@ -43,6 +43,28 @@ Detailed issue bodies and child tasks for [DISC-01](backlog/tasks/DISC-01-user-r
 | EN-03 / Must | Delivery/quality: independent components or accepted exception; CI/CD, authorisation/contract/journey tests, logs/health/metrics/correlation, queue/AI/calendar failures and backup/restore; evidence for applicable NFRs | EN-01/02; accompanies stories | S2, strengthened in S3 |
 | EN-04 / Must | Final evaluation: consumes the AI-specific US-15 report once, alongside usability, accessibility, security, performance, dashboard, architecture evolution, limitations, roadmap and contributions; reproducible results and environment | Operational increment, DEC-08 | S3 |
 
+### EP-03 contribution to Sprint 2
+
+Complete the intervention steps of [main journey J2](04-product-vision.md#j2--triage-and-coordinate-main-journey) and the contractor's J3, supporting the [assignment's end-to-end Sprint 2 objective](../LABDSOF-26-27-Assignment.md#72-sprint-2-build-and-operate-the-vertical-slice).
+
+| Story | Initial estimate | Horizon |
+|---|---|---|
+| US-06 — Select an eligible contractor | 5 SP | Required in S2 |
+| US-07 — Approve terms and obtain a contractor response | 8 SP | Required in S2 |
+| US-08 — Confirm booking and handle failures | 8 SP | Required in S2, using a realistic simulator |
+| US-09 — Complete, validate, close and reopen | 8 SP | Required in S2 |
+| US-11 — Record an optional basic cost | 3 SP | S3 if selected; may start in S2 if there is capacity |
+| US-12 — Refine ranking | 5 SP | S3 if selected |
+| US-13 — Add a real calendar provider | 8 SP | S3 if selected and provider access is available |
+
+The required cycle totals **29 SP**; the optional extensions add **16 SP**. These are initial story estimates, not a sprint capacity commitment. The [index](backlog/README.md#ep-03-story-drafts-and-planning-allocation) records their assumptions. Count shared reporting, identity, jobs, persistence and delivery foundations once.
+
+Implement US-06 → US-07 → US-08 → US-09 after the necessary US-01/02 reporting/manual-triage slice. Integrate response, booking and completion events with US-02/10 without making notification delivery a condition for saving business decisions. US-03/14 add the S2 AI/fallback path; EN-02/03 provide deployment, contracts, authentication/authorisation, tests, CI/CD and observability.
+
+The four core stories cover EP-03's part of S2; no additional intervention story is needed for the current scope. Keep the failure/reconciliation cases in US-08, human approval and validation, and closure without cost in the S2 increment. Advanced ranking and a real provider are optional, while the simulator must exercise realistic external failures.
+
+Before Ready, confirm the applicable EN-01/DEC-06/07/10 decisions: catalogue eligibility, proposal/state rules, service/data ownership, API/event contracts, adapter/authentication, idempotency, versions, reconciliation, timeout/retry limits and the test environment. An estimate does not resolve those decisions.
+
 ## 4. Stories and criteria
 
 The criteria below apply the needs to each delivery. Detailed definitions are maintained in the [AI assessment](06-responsible-ai-assessment.md#4-provisional-criteria), [domain states](07-technical-design.md#3-states-and-business-rules), [access matrix](09-security-privacy.md#2-proposed-access-matrix) and [NFRs](requirements.md#non-functional-requirements--constraints). Changes to those definitions require a review of the affected stories.
@@ -111,7 +133,7 @@ As an administrator, I want to identify reports of the same fault to coordinate 
 
 ### US-06 — Select a contractor · Must · EP-03
 
-**Detailed draft:** [US-06](backlog/tasks/US-06-select-a-contractor.md).
+**Detailed draft:** [US-06](backlog/tasks/US-06-select-a-contractor.md). **Initial estimate:** 5 SP.
 
 As an administrator, I want to select an eligible contractor to prepare the intervention.
 
@@ -124,7 +146,7 @@ As an administrator, I want to select an eligible contractor to prepare the inte
 
 ### US-07 — Approve a request and obtain a response · Must · EP-03
 
-**Detailed draft:** [US-07](backlog/tasks/US-07-approve-request-and-obtain-response.md).
+**Detailed draft:** [US-07](backlog/tasks/US-07-approve-request-and-obtain-response.md). **Initial estimate:** 8 SP.
 
 As an administrator, I want to authorise a request and know the contractor's response to coordinate the intervention.
 
@@ -138,7 +160,7 @@ As an administrator, I want to authorise a request and know the contractor's res
 
 ### US-08 — Confirm calendar booking and handle failures · Must · EP-03
 
-**Detailed draft:** [US-08](backlog/tasks/US-08-confirm-booking-and-handle-failures.md).
+**Detailed draft:** [US-08](backlog/tasks/US-08-confirm-booking-and-handle-failures.md). **Initial estimate:** 8 SP.
 
 As an administrator, I want to know whether the booking was actually recorded to avoid communicating a false date.
 
@@ -152,7 +174,7 @@ As an administrator, I want to know whether the booking was actually recorded to
 
 ### US-09 — Complete, close and reopen · Must · EP-03
 
-**Detailed draft:** [US-09](backlog/tasks/US-09-complete-close-and-reopen.md).
+**Detailed draft:** [US-09](backlog/tasks/US-09-complete-close-and-reopen.md). **Initial estimate:** 8 SP.
 
 As an administrator, I want to verify completion to close the issue with a history.
 
@@ -172,11 +194,11 @@ As a participant, I want to receive authorised updates to track the issue.
 - Retries do not duplicate notifications; failure is observable without rolling back issue state.
 - Status queries work even if notifications fail.
 
-**Source:** RF-10; NFR-01/04/06. **Dependencies:** US-02/04/07, DEC-06. **Horizon:** S2.
+**Source:** RF-10; NFR-01/04/06. **Dependencies:** US-02/04/07/08/09, DEC-06. **Horizon:** S2.
 
 ### US-11 — Record a basic cost · Should · EP-03
 
-**Detailed draft:** [US-11](backlog/tasks/US-11-record-a-basic-cost.md). Select or defer explicitly based on evidence and capacity.
+**Detailed draft:** [US-11](backlog/tasks/US-11-record-a-basic-cost.md). **Initial estimate:** 3 SP. Select or defer explicitly based on evidence and capacity.
 
 As an administrator, I want to record known costs to maintain intervention history.
 
@@ -185,11 +207,11 @@ As an administrator, I want to record known costs to maintain intervention histo
 - Residents do not receive costs/private data by default.
 - Does not include payments, aggregations or AI summaries.
 
-**Source:** RF-11; NFR-01/02. **Dependencies:** US-09, DEC-07/10. **Horizon:** S2/S3 if capacity allows.
+**Source:** RF-11; NFR-01/02. **Dependencies:** US-09, DEC-07/10. **Horizon:** S3 if selected; may start in S2 if there is capacity.
 
 ### US-12 — Refine ranking · Should · EP-03
 
-**Detailed draft:** [US-12](backlog/tasks/US-12-refine-ranking.md). Select or defer explicitly based on evidence and capacity.
+**Detailed draft:** [US-12](backlog/tasks/US-12-refine-ranking.md). **Initial estimate:** 5 SP. Select or defer explicitly based on evidence and capacity.
 
 As an administrator, I want to compare additional criteria to select among eligible contractors.
 
@@ -201,7 +223,7 @@ As an administrator, I want to compare additional criteria to select among eligi
 
 ### US-13 — Integrate a real calendar · Could · EP-03
 
-**Detailed draft:** [US-13](backlog/tasks/US-13-integrate-a-real-calendar.md). Select or defer explicitly based on evidence and capacity.
+**Detailed draft:** [US-13](backlog/tasks/US-13-integrate-a-real-calendar.md). **Initial estimate:** 8 SP. Select or defer explicitly based on evidence and capacity.
 
 As an administrator, I want to synchronise with the calendar used in operations.
 
@@ -209,7 +231,7 @@ As an administrator, I want to synchronise with the calendar used in operations.
 - Credentials stay outside Git; permissions and revocation are documented.
 - Test availability and failure without compromising reproducible evaluation.
 
-**Source:** RF-08. **Dependencies:** US-08, DEC-06, provider access. **Horizon:** if capacity allows.
+**Source:** RF-08. **Dependencies:** US-08, DEC-06, provider access. **Horizon:** S3 if selected and capacity allows.
 
 ### US-14 — Continue triage without AI · Must · EP-02
 

@@ -4,6 +4,7 @@
 
 - Epic: [EP-03 — Intervention and closure](../epics/EP-03-intervention-and-closure.md).
 - Priority: Must.
+- Estimate: 8 story points — calendar simulator/adapter, reconciliation, manual confirmation/cancellation and failure/recovery tests.
 - Sprint: S2, with recovery checks refined in S3.
 - Dependencies: [US-07](US-07-approve-request-and-obtain-response.md) for agreed terms and contractor acceptance. Coordinate status/history and notification events with US-02/10 in the [product backlog](../../05-product-backlog.md#4-stories-and-criteria).
 
@@ -41,5 +42,5 @@ References: RF-08, P6, PS-07, J2–J3 and NFR-01/02/04/06/09/11. Assignment: 6.5
 
 Before starting, agree the adapter and simulator contract, authentication, data ownership, states, time-zone handling, timeout/retry limits, idempotency, reconciliation triggers and test scenarios. Confirm DEC-06/10 and EN-01's [calendar contract](../../07-technical-design.md#45-calendarsimulator-contract-outline), including cancellation and manual-action races.
 
-- [ ] Ready: owner, reviewer, estimate and sprint capacity agreed; [DoR](../../governance/definition-of-ready.md) reviewed by the team. Date/author:
-- [ ] Done: acceptance criteria met, changes reviewed, and PR, failure/recovery tests and demonstration linked according to the [DoD](../../governance/definition-of-done.md).
+- [ ] Ready: estimate recorded, blocking decisions resolved and [DoR](../../governance/definition-of-ready.md) reviewed by the team.
+- [ ] Done: acceptance criteria met, changes reviewed, PR and failure/recovery tests.
