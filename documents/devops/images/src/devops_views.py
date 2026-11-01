@@ -33,8 +33,8 @@ def dr1():
     for i, owner in enumerate(("issue", "dispatch", "notification", "keycloak")):
         d.comp("db-" + owner, 572 + 100 * i, 200, 96, 60, owner, "database", icon="database")
     d.holder("garage", 560, 340, 420, 150, "garage", "container", ["Garage 2.5 · single node, no redundancy"])
-    d.comp("attach", 575, 368, 220, 70, "bmc-attachments", "bucket", ["post-MVP candidate;", "backup open"],
-           icon="artifact", dashed=True)
+    d.comp("attach", 575, 368, 220, 70, "bmc-attachments", "bucket", ["report photos, personal data", "copied nightly"],
+           icon="artifact")
 
     d.node("bk", 1180, 90, 280, 420, "Backup host", "device", ["proposal, not in ADR-004"], dashed=True)
     d.holder("bgarage", 1200, 150, 240, 150, "garage", "container", ["Garage 2.5 · single node"])
@@ -47,8 +47,8 @@ def dr1():
 
     d.path([(1000, 235), (1215, 235)], "mysqldump\nnightly", at=(1108, 200), anchor="middle", bg=BLUE)
     d.dep([(1290, 510), (1290, 560)], "optional", at=(1298, 530), bg=BLUE)
-    d.note(40, 650, 1000, ["Backed up: the four service databases (outbox and Keycloak realm data included), "
-                           "then bmc-attachments once in use.",
+    d.note(40, 650, 1000, ["Backed up: the four service databases (outbox and Keycloak realm data included) and "
+                           "the report photos in bmc-attachments.",
                            "Rebuilt from Git and the image tag: containers. Restored by hand: secrets, never from a dump."])
     return d
 
@@ -56,23 +56,30 @@ def dr1():
 def dr2():
     d = Diagram("dr-2-backup-flow", "DR · Nightly backup flow",
                 "Proposal following ADR-004 decision D2 · DR.md section 4.1 · not run yet",
-                1000, 720)
-    d.node("db", 40, 90, 600, 400, "Database host", "device", ["cron runs on the host, not in a container"])
+                1000, 760)
+    d.node("db", 40, 90, 600, 420, "Database host", "device", ["cron runs on the host, not in a container"])
     d.comp("cron", 70, 150, 220, 80, "nightly backup", "cron job", ["read-only backup user"])
     d.comp("mysql", 330, 150, 280, 80, "mysql", "container", ["MySQL 8.4 LTS"], icon="database")
     d.path([(290, 190), (330, 190)], "dump", at=(310, 170), anchor="middle", bg=BLUE)
     d.path([(180, 230), (180, 470), (910, 470), (910, 258)], "copy via Garage S3 API", at=(545, 458),
            anchor="middle", bg=BLUE)
 
+    d.holder("photos", 310, 260, 300, 160, "garage", "container", ["Garage 2.5 · on the Database host"])
+    d.comp("photos-bk", 330, 290, 260, 60, "bmc-attachments", "bucket", ["report photos, personal data"],
+           icon="artifact")
+    d.path([(460, 350), (460, 490), (940, 490), (940, 258)], "photos, nightly copy", at=(560, 508),
+           anchor="middle", bg=BLUE)
+
     d.node("bk", 700, 90, 260, 200, "Backup host", "device", ["proposal, not in ADR-004"], dashed=True)
     d.holder("bgarage", 720, 150, 220, 130, "garage", "container", ["Garage 2.5"])
     d.comp("bb", 735, 172, 190, 50, "bmc-backups", "bucket", icon="artifact")
 
-    d.note(40, 540, 900, ["1  mysqldump of each database with the read-only backup user; nothing is written back.",
+    d.note(40, 560, 900, ["1  mysqldump of each database with the read-only backup user; nothing is written back.",
                           "2  Compress the dump and write a SHA-256 checksum beside it.",
                           "3  Copy both files to bmc-backups with the bucket key from the host environment.",
-                          "4  Next night: restore the newest dump into a scratch container and compare row counts;",
-                          "    a failure raises an alert. Local copies older than a day are deleted."])
+                          "4  Copy new or changed photos to bmc-backups/attachments/ and write a checksum manifest.",
+                          "5  Next night: restore the newest dump into a scratch container and compare row counts and",
+                          "    the photo manifest; a failure raises an alert. Local copies older than a day are deleted."])
     return d
 
 

@@ -16,7 +16,7 @@ The system runs on three machines, following ADR-004 and the physical views:
 | Machine | Runs | Provider |
 |---|---|---|
 | Application host | Docker Compose: Traefik, client, services, RabbitMQ, Prometheus, Grafana and the other application containers | Not chosen (college server, VPS or VM; EN01-U3) |
-| Database host | MySQL 8.4 (one database per service: `issue`, `dispatch`, `notification`, `keycloak`), Garage with `bmc-attachments`, and the nightly backup job | Not chosen; separate from the application host |
+| Database host | MySQL 8.4 (one database per service: `issue`, `dispatch`, `notification`, `keycloak`), Garage with `bmc-attachments` (report photos), and the nightly backup job | Not chosen; separate from the application host |
 | Backup host | Garage with the `bmc-backups` bucket (proposal, see section 2) | Not chosen |
 
 The database is **not** in Amazon RDS. ADR-004 runs MySQL as a container on a Docker host, and this document follows it. Section 2 records what changed from the earlier AWS plan.
@@ -48,7 +48,7 @@ Out of scope: multi-region recovery, log and metric history, and production comp
 ## 3. What is backed up
 
 1. **The four service databases:** `issue`, `dispatch`, `notification` and `keycloak`. They include the outbox tables for events not yet sent, and Keycloak's realm data, including its signing keys. A separate export of the token signing key is therefore not needed, but the spike must confirm that the keys are in the database dump.
-2. **Attachments:** `bmc-attachments` on Garage on the Database host. Report photos are a candidate, post-MVP (ADR-010). If they are adopted, their bucket must be backed up as well, and the nightly job does not cover it yet.
+2. **Report photos:** `bmc-attachments` on Garage on the Database host. The team has adopted report photos (ADR-010), so the bucket is backed up nightly with the databases (section 4.1, step 5). Photos are personal data (DEC-07): their copies follow the same retention rule, which is still open.
 3. **RabbitMQ definitions** (exchanges, queues, bindings, users), if RabbitMQ is adopted (ADR-003). Messages in flight are covered by the outbox.
 4. **Backup metadata** for each run: checksum, size, time and row counts.
 
@@ -63,6 +63,7 @@ Scope of this section: ADR-004 decision D2 (review decisions register). The step
 | Copy | Frequency | Retention (proposal) | Where it lands |
 |---|---|---|---|
 | `mysqldump` of each service database, read-only backup user | Nightly (ADR-004) | Set when the restore is tested; the register records no retention yet | Garage `bmc-backups` (Backup host, proposal) |
+| `bmc-attachments` copy (report photos) | Nightly, changed files only | Open with DEC-07 | Garage `bmc-backups`, under `attachments/` |
 | Volume snapshot of the MySQL data | Not in ADR-004; open | Open | Open |
 | Off-host copy to Cloudflare R2 | Optional, outside the academic release | Open | Not in release |
 | RabbitMQ definitions | With the nightly job, if RabbitMQ is used | Open | `bmc-backups` |
@@ -78,8 +79,9 @@ Commands are examples with placeholders. They must be checked against the MySQL 
    `mysqldump --single-transaction --user=<backup-user> <db-name> > /var/backups/bmc-<db>-<UTC timestamp>.sql` (the `--single-transaction` flag is for InnoDB and needs checking against the MySQL 8.4 manual).
 3. Compress each dump, and write a SHA-256 checksum next to it.
 4. Copy the dump and checksum to the Garage bucket `bmc-backups` through its S3 API, with the bucket key kept in the host environment.
-5. Delete local copies older than a day; the retention of the bucket is set separately.
-6. Every night, restore the newest dump into a scratch MySQL container and compare row counts for the main tables. A failure raises an alert.
+5. Copy each new or changed object from `bmc-attachments` to `bmc-backups` under `attachments/`, and write a manifest that lists the SHA-256 checksum of every photo. The copy tool is not chosen; the S3 API is the interface.
+6. Delete local copies older than a day; the retention of the bucket is set separately.
+7. Every night, restore the newest dump into a scratch MySQL container and compare row counts for the main tables, and compare the photo manifest with the copied objects. A failure raises an alert.
 
 **Credentials:** the backup user and the bucket key are in the host environment, never in Git (ADR-004, P-03).
 
@@ -93,6 +95,8 @@ Commands are examples with placeholders. They must be checked against the MySQL 
 
 Each run records a checksum, size, time and row counts for the main tables. A restore is accepted only if the checksum matches, the row counts match the recorded values (allowing for writes after the dump), and a known record is found in each main table.
 
+Photos: the restored `attachments/` objects must match the manifest for each checksum, and every photo referenced by a restored report must exist. A missing photo is reported as a data gap, not silently accepted.
+
 A failed or missing backup raises an alert, because the RPO is then no longer true.
 
 ---
@@ -105,7 +109,7 @@ Based on the ADR-004 runbook (backup and restore kept simple for the academic re
 2. Pick the newest dump that passes its checksum.
 3. Start a MySQL container on the Database host (or a replacement host) from the same image tag as production.
 4. Restore secrets from the host environment or CI secrets, never from a dump.
-5. Load each service's dump into its database. Keycloak's dump is restored with its own database.
+5. Load each service's dump into its database. Keycloak's dump is restored with its own database. Copy the `attachments/` objects back into `bmc-attachments` and check them against the manifest.
 6. Run the integrity checks. If they fail, go back to step 2 and choose an older copy.
 7. Start the services in dependency order: Keycloak, then Issue and Dispatch, then Notification, then the gateway. Each must pass its readiness check (ADR-012 names the endpoints).
 8. Restore RabbitMQ, if used: import the definitions; each service's outbox republishes unsent events.
@@ -122,6 +126,7 @@ If the Database host is lost, the Garage bucket on the Backup host (if adopted) 
 | Rows deleted by a user or operator | Find the deletion time; freeze the affected writes if needed | Restore to a scratch database and copy missing rows back, or restore fully within the RPO |
 | Bad migration | Roll back the application image; stop further migrations | Restore the dump taken before the migration, if the schema changed |
 | Database failure | Readiness fails for the affected services; return explicit errors, never a false acknowledgement | Restore the dump (section 6) |
+| Photos lost or unreadable | Report the affected reports; keep the manifest for evidence | Restore from `bmc-backups/attachments/`; a photo not in any copy is recorded as lost |
 | Corruption found by checks | Freeze writes; keep the damaged copy for analysis | Restore the last copy that passes |
 | Database host lost | Prometheus cannot scrape the database host (P-08 gap) and the uptime check must cover it | Runbook steps 3 to 9 |
 | Application host lost | The external uptime check reports it | Rebuild from the image tag and Compose file; the database host is unaffected |
@@ -152,7 +157,7 @@ Planned, not yet executed.
 - **Garage has a single node** and no redundancy (E46). A failure of the Database host can take the backups with it unless the Backup host exists.
 - **Off-host copy:** Cloudflare R2 is optional and outside the academic release (ADR-004, ADR-010).
 - **Volume snapshots and retention** are not set in ADR-004.
-- **Attachments:** `bmc-attachments` needs its own backup if report photos are adopted.
+- **Photo retention:** how long photo copies are kept, and when they are deleted, is open under DEC-07. The register needs a DEC entry for the adoption (ADR-010 points to a DEC entry opened by Afonso).
 - **Provider choice** for each host is open (P-07, EN01-U3), and the PR #48 AWS proposal conflicts with ADR-004.
 - The runbook has not been tested.
 - No external sources are cited yet. MySQL and Garage behaviour must be checked against their current documentation before the team relies on it.
