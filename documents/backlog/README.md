@@ -1,16 +1,16 @@
 # Epic, planning task and user story specifications
 
-**Status:** local issue specifications and allocation index, originally drafted in October 2026. All 24 drafts in this folder are published as GitHub issues (mapping below, checked 2026-10-29 via the GitHub API); each draft's publication field records its issue. GitHub owns live status, assignees and estimates. Functional roles do not override the task allocation below.
+**Status:** local issue specifications and allocation index, originally drafted in October 2026. The original 24 drafts have published issue mappings checked on 2026-10-29. PLAN-01 and the four reporting/tracking stories also map to existing issues, checked on 2026-11-01; this package now contains 29 draft/record files. GitHub owns live status, assignees and estimates. Functional roles do not override the task allocation below.
 
-This folder contains **5 epic specifications, 4 parent-task specifications, 15 original Sprint 1 delivery-task specifications and 4 EP-02 story drafts**. Published and draft records retain their individual publication state; these counts do not imply completion. The [product backlog](../05-product-backlog.md) remains the scope and priority overview. Existing product documents hold the deliverables; these files specify the work and its completion evidence.
+This folder contains **5 epic drafts, 4 parent-task drafts, 16 delivery/planning-task records and 4 user-story drafts**: all product epics and the detailed Sprint 1 research, planning and design tasks. The [product backlog](../05-product-backlog.md) remains the scope and priority overview. Existing product documents hold the deliverables; these files specify the work and its completion evidence.
 
-The walking skeleton (EN-02) is excluded from Sprint 1 under DEC-11. EP-01/EP-03 now have epic drafts for later implementation; their US stories are defined in the product backlog but do not yet have separate issue draft files here. EP-02 now has individual US-03/05/14/15 drafts for later delivery, prepared under PLAN-02. EP-02/EP-04 span later sprints; neither AI-01 nor PLAN-02 completes implementation or final evaluation. Drafting or publishing a future epic does not commit implementation to Sprint 1.
+The walking skeleton (EN-02) is excluded from Sprint 1 under DEC-11. EP-01 now has separate US-01/02/04/10 drafts for S2 delivery and S3 refinement/evaluation; their technical details are completed after stack/architecture decisions. EP-02/EP-03 implementation stories remain in the product backlog without individual files in this package. EP-02/EP-04 also span later sprints; their Sprint 1 tasks do not complete the entire epic. Drafting or publishing a future story does not commit implementation to Sprint 1.
 
 ## Hierarchy and issue index
 
 Use epic → parent task → delivery task for broad discovery/engineering items. AI-01 is a direct task under EP-02. Stable IDs are local identifiers, not GitHub issue numbers.
 
-For implementation, use epic → user story → implementation subtask when needed. Keep dependency links separate from parent/child relationships. This package currently has 28 issue specification/draft files in `epics/` and `tasks/`, excluding this README; reconcile with existing remote issues by stable ID before publishing to avoid duplicates.
+For implementation, use epic → user story → implementation subtask when needed. Keep dependency links separate from parent/child relationships. PLAN-01 is a direct preparation task under EP-01, alongside the stories it prepares. This package currently has 29 issue draft/record files in `epics/` and `tasks/`; reconcile with existing remote issues by stable ID before publishing to avoid duplicates. The technical-refinement register is supporting documentation, not an additional issue or six extra tasks.
 
 | Epic draft | Parent/direct item | Purpose |
 |---|---|---|
@@ -52,8 +52,13 @@ Checked on 2026-10-29 with `gh issue list --repo Phenriquerafael/LABDSOF_G9A --s
 | EN-01-02 | [#14](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/14) |
 | EN-01-03 | [#13](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/13) |
 | EN-01-04 | [#12](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/12) |
+| PLAN-01 | [#8](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/8) |
+| US-01 | [#5](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/5) |
+| US-02 | [#4](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/4) |
+| US-04 | [#3](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/3) |
+| US-10 | [#2](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/2) |
 
-Other remote issues without a draft here (US-01/02/04/10, PLAN-01/02/03, DEVOPS-01/02, AGENT-01/02, DISC-03-06) are outside this 24-draft package.
+PLAN-01 and US-01/02/04/10 map to existing issues (verified by stable ID on 2026-11-01); these drafts do not create new work items. Other remote issues without a draft here (PLAN-02/03, DEVOPS-01/02, AGENT-01/02, DISC-03-06) are outside this 29-record package.
 
 | Delivery task | Proposed owner | Proposed reviewer | Predecessors for completion |
 |---|---|---|---|
@@ -91,6 +96,21 @@ This README is the single local source for task ownership and review allocation.
 
 For AI-01, Ricardo supports review of interface assumptions and Martim supports review of data handling as needed; Afonso remains the proposed primary reviewer.
 
+## EP-01 story drafts and planning allocation
+
+| Item | Estimate | Preparation owner | Independent reviewer | Implementation allocation |
+|---|---|---|---|---|
+| [PLAN-01](tasks/PLAN-01-prepare-reporting-and-tracking-stories.md) | Separate preparation task | Sandro | Pedro | Documentation only; no implementation assignment |
+| [US-01](tasks/US-01-record-and-view-report.md) | 5 SP | Select during story refinement | Agree before Ready | Owner before Ready; sprint/capacity during planning |
+| [US-02](tasks/US-02-triage-manually-and-track-states.md) | 8 SP | Select during story refinement | Agree before Ready | Owner before Ready; sprint/capacity during planning |
+| [US-04](tasks/US-04-publish-shared-issue-and-confirm-impact.md) | 5 SP | Select during story refinement | Agree before Ready | Owner before Ready; sprint/capacity during planning |
+| [US-10](tasks/US-10-notify-changes.md) | 8 SP | Select during story refinement | Agree before Ready | Owner before Ready; sprint/capacity during planning |
+
+Initial estimates recorded on 2026-10-30: **26 SP** for US-01/02/04/10. These are planning estimates, not a recorded team estimation session or a capacity commitment. They include each story's UI/API work, persistence, authorisation, tests and review, assuming shared EN-02/03 foundations. Estimate those foundations separately and count shared work once; points are not hours.
+
+These stories preserve their existing local IDs and Must priorities; none is Ready or implemented. Use the [EP-01 technical-refinement register](ep01-technical-refinement.md) for open EN-01 decisions and closure evidence. It covers stack/boundaries, data/API contracts, identity/access, state/audit/concurrency, event/notification semantics and the verification environment. Close applicable entries before implementation readiness; do not invent a selected stack to complete a draft.
+
+S2 is the proposed initial delivery horizon, with S3 refinement/evaluation. Confirm the configured milestone during planning without assuming that narrative sprint names and remote milestone names are interchangeable. A drafting assignment to Sandro does not automatically assign all implementation to him. Keep the authored preparation record separate from independent review, actual PR/merge and implementation evidence.
 ## EP-02 story drafts and planning allocation
 
 | Item | Estimate | Drafting owner | Independent review / implementation planning |

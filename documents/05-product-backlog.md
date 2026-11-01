@@ -1,6 +1,6 @@
 # Product Backlog
 
-**Status:** proposal v0.2 · **Sprint:** 1 · **Priority:** not yet validated with the customer/lecturers
+**Status:** proposal v0.3 · **Sprint:** 1 · **Priority:** not yet validated with the customer/lecturers
 
 Corresponds to deliverable 5 in §7.1.2. This document defines the product backlog items. No remote issues, estimates, assignments or implementations are assumed.
 
@@ -8,9 +8,7 @@ Corresponds to deliverable 5 in §7.1.2. This document defines the product backl
 
 MoSCoW refers to the **academic release**: Must = essential for the cycle/obligations; Should = valuable but can be simplified; Could = optional; Won't = outside this release. This is a proposal for the prioritisation session, not its outcome.
 
-This document defines proposed scope and priorities, not live workflow status. Published research items and draft items coexist; use the [allocation and issue index](backlog/README.md) and linked GitHub issues for status, estimates and review evidence. Team roles do not override task allocation.
-
-None of these items is declared Ready by this document; the team must record the applicable DoR evidence.
+Local proposals do not establish live workflow status or readiness. See the [published issue mapping](backlog/README.md#published-issue-mapping) for existing issues; GitHub owns live status. No implementation story is declared Ready by this drafting work. Sandro Dias owns PLAN-01 preparation, as instructed by the user; implementation owners, independent reviewers, estimates and capacity are agreed during planning. Team role assignments are confirmed in the [agreement](governance/team-working-agreement.md), but do not automatically assign individual implementation items. The [issue drafts](backlog/README.md) contain task/story criteria, allocation and evidence references. Capacity and DoR discussion: [Sprint B](planning/sprint-b-backlog.md).
 
 **Scope update recorded on 2026-10-10 (DEC-11):** the evaluator clarified that the walking skeleton is optional in Sprint 1. The team will not develop it this sprint. EN-02 is retained as a foundation for later implementation planning; its technical outcomes support the Sprint 2 delivery requirements.
 
@@ -35,6 +33,7 @@ Detailed issue bodies and child tasks for [DISC-01](backlog/tasks/DISC-01-user-r
 | DISC-01 / Must | Gather evidence: actual method/participants recorded; findings linked to P1–P7; explicit limitations and decisions. If access fails, document attempts and alternative evidence without claiming validation | Research plan, access/retention | S1 |
 | DISC-02 / Must | Complete comparison: exact, dated sources; §5.2 criteria; include an informal alternative and a comparable maintenance/helpdesk product; conclusion separates evidence from inference | Selection of comparables | S1 |
 | DISC-03 / Must | Ratify organisation and review scope/priorities: roles/board/DoR/DoD; DEC-01/03/09 and DEC-10 discussion; actual feedback recorded. Document at least one decision revised following lecturer feedback during the project | Team and stakeholder availability | S1, follow-up S2/S3 |
+| [PLAN-01](backlog/tasks/PLAN-01-prepare-reporting-and-tracking-stories.md) / Must candidate | Prepare detailed US-01/02/04/10 drafts under EP-01; preserve IDs/priorities, link dependencies and identify technical refinements. Sandro Dias owns preparation; independent review/PR evidence completes the task, not the stories | Existing scope/requirements; unresolved technical details tracked against EN-01 in the [refinement register](backlog/ep01-technical-refinement.md) | S1 drafting for S2/S3; no implementation commitment |
 | [AI-01](backlog/tasks/AI-01-assess-ai-opportunity.md) / Must | Review the AI opportunity: user-need evidence/limitations, workflow, representative/adverse examples, evaluation criteria and dataset plan, baseline/fallback, human control and cost assumptions; DEC-05/08 updated. Design assessment only; no executed evaluation required | DISC-01 synthesis, reviewed vision; supports US-03 | S1 |
 | [PLAN-02](backlog/README.md#ep-02-story-drafts-and-planning-allocation) / Must candidate | Prepare US-03/05/14/15 drafts, separate classification/fallback/evaluation, and record technical refinements; owner Sandro Dias. Drafting does not implement or validate AI | Existing scope/AI-01; confirm applicable EN-01/DEC-05/08 decisions listed in the stories before Ready | S1 drafting for S2/S3 |
 | EN-01 / Must | Consolidate design: context, components, model, API/events, data ownership, deployment and threats; ADRs record alternatives and actual decisions | DEC-04/07, vision | S1 |
@@ -59,11 +58,35 @@ The existing stories cover EP-02's part of S2; no additional AI story is needed 
 
 Readiness still depends on the relevant EN-01/DEC-05/08 decisions: rules and labels, schema/prompt/model, job/result contracts, timeout/retry limits, access, budget and test/evaluation data. Scope and estimates alone do not close those decisions. Initial AI/rules checks belong to US-03/14; US-15's final comparison is not a prerequisite for delivering the S2 increment.
 
+### Sprint 2 journey coverage
+
+Deliver J2, the [main journey](04-product-vision.md#j2--triage-and-coordinate-main-journey), from a resident's report through triage, contractor coordination and booking to completion/closure, with authorised status updates. This supports the [assignment's Sprint 2 objective and deliverables](../LABDSOF-26-27-Assignment.md#72-sprint-2-build-and-operate-the-vertical-slice).
+
+| Journey step | Stories / work |
+|---|---|
+| Report and retrieve the receipt | US-01 |
+| Review triage, including initial AI and non-AI continuity | US-02; US-03 and separate fallback to review under PLAN-02 |
+| Publish a safe summary and confirm impact | US-04; the ethical-participation mechanism in assignment 5.5 |
+| Select contractor, approve terms and receive a response | US-06/07, to review under PLAN-03 |
+| Confirm a booking or expose pending/manual/failure status | US-08, to review under PLAN-03 |
+| Report completion, validate, close and reopen | US-09, to review under PLAN-03 |
+| Follow authorised status/history and receive updates | US-01/02/10; include response, booking and completion/closure events |
+
+PLAN-01 covers the four EP-01 stories needed by this baseline: **5 + 8 + 5 + 8 = 26 SP**. Estimates and short reasons are in each story; the [index](backlog/README.md#ep-01-story-drafts-and-planning-allocation) explains their assumptions. This is not the whole Sprint 2 estimate.
+
+EN-02/03 must also cover the client/backend foundations, authentication (mocked if agreed, with real authorisation checks), persistence, API contracts, two backend components or an approved alternative, asynchronous delivery, CI/CD, tests, logs/health/metrics and a demonstrated failure. AI and calendar integration come from PLAN-02/03; simulator support remains the initial calendar approach. Estimate shared engineering work separately, without counting story-level work twice.
+
+US-05/11/12/13 remain conditional extensions. The full AI comparison belongs to Sprint 3; Sprint 2 still needs initial AI behaviour and a non-AI baseline or fallback. No extra EP-01 story is needed for the currently agreed scope. DoR review must still confirm the applicable EN-01 contracts, access, states/events and test environment before selecting implementation work.
+
 ## 4. Stories and criteria
 
 The criteria below apply the needs to each delivery. Detailed definitions are maintained in the [AI assessment](06-responsible-ai-assessment.md#4-provisional-criteria), [domain states](07-technical-design.md#3-states-and-business-rules), [access matrix](09-security-privacy.md#2-proposed-access-matrix) and [NFRs](requirements.md#non-functional-requirements--constraints). Changes to those definitions require a review of the affected stories.
 
+PLAN-01 expands EP-01's existing stories into individual drafts linked below. This section retains the scope/priority overview; detailed scenarios live in the story files. The [refinement register](backlog/ep01-technical-refinement.md) tracks technical decisions to close after stack/architecture selection. S2 delivery and S3 refinement refer to the same stories and are not duplicate estimates or work items.
+
 ### US-01 — Record and view a report · Must · EP-01
+
+**Detailed draft:** [US-01](backlog/tasks/US-01-record-and-view-report.md). **Initial estimate:** 5 SP.
 
 As a resident, I want to report a fault in my building so that management can track it.
 
@@ -76,6 +99,8 @@ As a resident, I want to report a fault in my building so that management can tr
 **Source:** RF-01; NFR-01/02/05/07/09. **Dependencies:** EN-01/02, DEC-07. **Horizon:** S2, minimal slice in the skeleton.
 
 ### US-02 — Triage manually and track states · Must · EP-01
+
+**Detailed draft:** [US-02](backlog/tasks/US-02-triage-manually-and-track-states.md). **Initial estimate:** 8 SP.
 
 As an administrator, I want to review issues and their history to decide the next step.
 
@@ -101,6 +126,8 @@ As an administrator, I want a category and urgency suggestion to reduce triage e
 **Source:** RF-03; NFR-01/02/03/04/06/10. **Dependencies:** US-01/02, US-14, AI-01, applicable EN-01/DEC-05/08 refinements. **Horizon:** S2, refined/evaluated in S3.
 
 ### US-04 — Publish a shared issue and confirm impact · Must · EP-01
+
+**Detailed draft:** [US-04](backlog/tasks/US-04-publish-shared-issue-and-confirm-impact.md). **Initial estimate:** 5 SP.
 
 As a resident, I want to confirm that a shared problem affects me to provide useful information without repeating the report.
 
@@ -173,6 +200,8 @@ As an administrator, I want to verify completion to close the issue with a histo
 
 ### US-10 — Notify changes · Must · EP-01
 
+**Detailed draft:** [US-10](backlog/tasks/US-10-notify-changes.md). **Initial estimate:** 8 SP.
+
 As a participant, I want to receive authorised updates to track the issue.
 
 - One proposed in-app channel; state events generate notifications with unique IDs.
@@ -180,7 +209,7 @@ As a participant, I want to receive authorised updates to track the issue.
 - Retries do not duplicate notifications; failure is observable without rolling back issue state.
 - Status queries work even if notifications fail.
 
-**Source:** RF-10; NFR-01/04/06. **Dependencies:** US-02/04/07, DEC-06. **Horizon:** S2.
+**Source:** RF-10; NFR-01/04/06. **Dependencies:** US-02/04/07/08/09, DEC-06. **Horizon:** S2.
 
 ### US-11 — Record a basic cost · Should · EP-03
 
