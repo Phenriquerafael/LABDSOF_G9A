@@ -26,6 +26,10 @@
 <path d="M1000 235 L1215 235" stroke="#000000" stroke-width="1.4" fill="none"/>
 <text stroke="#83C6EF" stroke-width="5" stroke-linejoin="round" x="1108" y="200" font-size="12" fill="#000000" text-anchor="middle" dominant-baseline="central">mysqldump</text><text x="1108" y="200" font-size="12" fill="#000000" text-anchor="middle" dominant-baseline="central">mysqldump</text>
 <text stroke="#83C6EF" stroke-width="5" stroke-linejoin="round" x="1108" y="215" font-size="12" fill="#000000" text-anchor="middle" dominant-baseline="central">nightly</text><text x="1108" y="215" font-size="12" fill="#000000" text-anchor="middle" dominant-baseline="central">nightly</text>
+<path d="M140 510 L140 560" stroke="#000000" stroke-width="1.4" fill="none" stroke-dasharray="8 5" marker-end="url(#open)"/>
+<text stroke="#83C6EF" stroke-width="5" stroke-linejoin="round" x="148" y="540" font-size="12" fill="#000000" text-anchor="start" dominant-baseline="central">reads at start</text><text x="148" y="540" font-size="12" fill="#000000" text-anchor="start" dominant-baseline="central">reads at start</text>
+<path d="M480 595 L764.0 595.0 Q770 595 770.0 589.0 L770 510" stroke="#000000" stroke-width="1.4" fill="none" stroke-dasharray="8 5" marker-end="url(#open)"/>
+<text stroke="#83C6EF" stroke-width="5" stroke-linejoin="round" x="625" y="585" font-size="12" fill="#000000" text-anchor="middle" dominant-baseline="central">DB user, bucket key, app secrets</text><text x="625" y="585" font-size="12" fill="#000000" text-anchor="middle" dominant-baseline="central">DB user, bucket key, app secrets</text>
 <path d="M480 300 L540 300" stroke="#000000" stroke-width="1.4" fill="none" stroke-dasharray="8 5" marker-end="url(#open)"/>
 <text stroke="#83C6EF" stroke-width="5" stroke-linejoin="round" x="510" y="288" font-size="12" fill="#000000" text-anchor="middle" dominant-baseline="central">JDBC</text><text x="510" y="288" font-size="12" fill="#000000" text-anchor="middle" dominant-baseline="central">JDBC</text>
 <path d="M1290 510 L1290 560" stroke="#000000" stroke-width="1.4" fill="none" stroke-dasharray="8 5" marker-end="url(#open)"/>

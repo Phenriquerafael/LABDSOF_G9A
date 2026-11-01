@@ -46,6 +46,8 @@ def dr1():
            icon="artifact")
 
     d.path([(1000, 235), (1215, 235)], "mysqldump\nnightly", at=(1108, 200), anchor="middle", bg=BLUE)
+    d.dep([(140, 510), (140, 560)], "reads at start", at=(148, 540), anchor="start", bg=BLUE)
+    d.dep([(480, 595), (770, 595), (770, 510)], "DB user, bucket key, app secrets", at=(625, 585), anchor="middle", bg=BLUE)
     d.dep([(480, 300), (540, 300)], "JDBC", at=(510, 288), anchor="middle", bg=BLUE)
     d.dep([(1290, 510), (1290, 560)], "optional", at=(1298, 530), bg=BLUE)
     d.note(40, 650, 1000, ["Backed up: the four service databases (outbox and Keycloak realm data included) and "
