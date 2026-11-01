@@ -1,7 +1,7 @@
 # ADR-009 — Internal architecture: hexagonal layers, dependency injection and enforcement
 
 **Status:** Proposed
-**Date:** 2026-10-27
+**Date:** 2026-11-01
 **Participants:** Ricardo (P2, Tech Lead) — proposer; team review pending
 **Related decision:** DEC-04
 **Supersedes / superseded by:** —
@@ -46,7 +46,7 @@ The rule is only worth having if it is checked. Conventions without a failing bu
 | Flask | Manual composition root in `create_app()` (and a matching consumer factory): build adapters, build the facade, pass them in. No DI library |
 | React client | React Context composition root: `<ServicesProvider>` and `useServices()` |
 
-**Client ports.** TypeScript interfaces `IssueApi`, `DispatchApi`, `NotificationApi`, `AuthSession` and `Clock`, implemented over the generated OpenAPI fetch client. TanStack Query hooks call ports obtained from `useServices()`; tests provide fake implementations. A custom `AuthProvider` loads the session from `GET /api/issue/me` and redirects to `/oauth2/start` on `401` ([ADR-005](ADR-005-authentication-authorisation.md)). Hiding UI is never the authorisation control.
+**Client ports.** TypeScript interfaces `IssueApi`, `DispatchApi`, `NotificationApi`, `AuthSession` and `Clock`, implemented over the generated OpenAPI fetch client. TanStack Query hooks call ports obtained from `useServices()`; tests provide fake implementations. A custom `AuthProvider` loads the session from `GET /api/issue/me` and navigates to the edge plugin's login URI on `401` ([ADR-005](ADR-005-authentication-authorisation.md)). Hiding UI is never the authorisation control.
 
 **Mapping of EN-01-02 to `domain`.** The aggregates of [design §2](../07-technical-design.md#2-domain-model-and-data-ownership) become domain packages: in Issue — `Report`, `Issue`, `TriageSuggestion`, `ImpactConfirmation`, `Membership`; in Dispatch — `Intervention`, `ProposalVersion`, `Booking`, `Contractor`. `Invitation` and `Attachment` (Issue) and the projections (Dispatch) are additions of this proposal and not yet in EN-01-02. The transition allow-lists of [design §3](../07-technical-design.md#3-states-and-business-rules) are domain methods that reject anything not listed, without side effects. Versions (`If-Match`) and event-version rules are enforced in `application`.
 
@@ -104,3 +104,5 @@ Spike item 10: ArchUnit `onionArchitecture()` runs on Java 25 and fails on a del
 ## Record
 
 2026-10-27 — proposed by Ricardo (Tech Lead) after a structured design interview; drafting and source checks AI-assisted (new ADR). Reason: one architectural pattern across Java, Python and TypeScript with executable boundary checks. Evidence: [evidence register](README.md#evidence-register-en-01-01) E14, E55–E57. Affected documents: [technical design §1](../07-technical-design.md#1-context-and-boundaries). Final decision, date and participants: pending team review. Issue [#15](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/15).
+
+2026-11-01 (second revision) — the client's `AuthProvider` now navigates to the login URI of the edge OIDC plugin (traefik-oidc-auth) instead of `/oauth2/start`, because oauth2-proxy was removed by Ricardo (Tech Lead) after Martim's [PR #52](https://github.com/Phenriquerafael/LABDSOF_G9A/pull/52); drafting AI-assisted. Evidence: E88; [second revision](../planning/decisions-and-feedback.md#second-revision--en-01-01-2026-11-01). Affected documents: [ADR-005](ADR-005-authentication-authorisation.md). Still Proposed; final decision pending team review.

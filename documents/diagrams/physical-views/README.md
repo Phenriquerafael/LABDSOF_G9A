@@ -4,11 +4,11 @@ Sources for the seven physical (deployment) views of [07b — Physical views](..
 
 | Function in `views.py` | Figure | Subject |
 |---|---|---|
-| `p1()` | P1 | Host, the fifteen services grouped by network, the Traefik routes, the `egress` network, external nodes |
-| `p2()` | P2 | Traefik routes and middlewares, both trust boundaries, never-routed endpoints |
+| `p1()` | P1 | Application host with twelve services by network, database and backup hosts, the private link, the `egress` network, external nodes |
+| `p2()` | P2 | Traefik routes and middlewares, the OIDC plugin, both trust boundaries, never-routed endpoints |
 | `p3()` | P3 | Publishers, `bmc.events`, quorum queues, dead-lettering, consumers |
-| `p4()` | P4 | One database per service, Garage buckets, SMTP, Google Calendar and the simulator, Keycloak Admin API, backup cron job |
-| `p5()` | P5 | Compose and Traefik health checks, Prometheus scrapes, Grafana; the deferred status page |
+| `p4()` | P4 | Database host (MySQL, one database per service, Garage, backup cron) and backup host (`bmc-backups`) |
+| `p5()` | P5 | Compose and Traefik health checks, Prometheus scrapes, Grafana, the database host and P-08; the deferred status page |
 | `p6()` | P6 | Laptop → GitHub → Actions stages → GHCR → host, secrets |
 | `p7()` | P7 | Compose profile sets in the proposed rollout order |
 
@@ -28,10 +28,10 @@ The SVG step needs only Python 3 (standard library). The PNG step screenshots ea
 
 | Element | Meaning |
 |---|---|
-| Three-dimensional box, name at the top | A UML node: «device» for the user device and the Docker host, «network» for a Compose network grouping, «executionEnvironment» for the browser, the CI runners or Docker Compose, «profile set» in P7, «external system» outside the host (Google Calendar, the AI provider, R2) |
-| Rectangle with the component icon | A «container» (one image, one Compose service), or a part of one: «entrypoint» and «middleware» in Traefik, «exchange» and «queue» in RabbitMQ, «bucket» in Garage, «job» in CI, «cron job» for the host backup. A container drawn open shows its parts and has its name at the bottom left |
+| Three-dimensional box, name at the top | A UML node: «device» for the user device and the application, database and backup hosts, «network» for a Compose network grouping, «executionEnvironment» for the browser, the CI runners or Docker Compose, «profile set» in P7, «external system» outside the host (Google Calendar, the AI provider, R2) |
+| Rectangle with the component icon | A «container» (one image, one Compose service), or a part of one: «entrypoint» and «middleware» in Traefik, «exchange» and «queue» in RabbitMQ, «bucket» in Garage, «job» in CI, «cron job» for the backup on the database host. A container drawn open shows its parts and has its name at the bottom left |
 | Rectangle with the cylinder or page icon | A «database», or an «artifact» such as the working copy or the `.env` file |
-| Ball on a stick (lollipop) | An interface the component provides: HTTPS 443 on Traefik, AMQP, S3 API, SMTP, Admin API, HTTP API, the oauth2-proxy session check |
+| Ball on a stick (lollipop) | An interface the component provides: HTTPS 443 on Traefik, AMQP, S3 API, SMTP, Admin API, HTTP API |
 | Stick figure | An actor: the operator |
 | Dashed rectangle | A boundary: a trust boundary, or a set of routes or checks (not a UML element) |
 | Note with a folded corner | An open item of [07b §10](../../07b-physical-views.md#10-open-items-found-while-drawing-the-views), a limit or a source, anchored by a dashed line |

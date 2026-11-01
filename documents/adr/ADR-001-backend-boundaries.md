@@ -1,7 +1,7 @@
 # ADR-001 — Backend boundaries, data ownership and communication
 
 **Status:** Proposed
-**Date:** 2026-10-27
+**Date:** 2026-11-01
 **Participants:** Ricardo (P2, Tech Lead) — proposer; Afonso (P3) to confirm the authorisation-context change in the Dispatch section below; team review pending
 **Related decision:** DEC-04 (also DEC-06 for notifications)
 **Supersedes / superseded by:** revises in place the 2026-10-15 version of this ADR (nothing had been accepted or merged); see [Record](#record)
@@ -52,7 +52,7 @@ The 2026-10-15 proposal (Issue + Dispatch + triage worker, notifications inside 
 ## Consequences
 
 - Each service has its own build, image, configuration, health checks and migrations; deployment order is not coupled because contracts are versioned ([ADR-003](ADR-003-asynchronous-messaging-rabbitmq.md)).
-- **Shared infrastructure** — single points of failure, stated as limits of the academic release: one MySQL 8.4 instance (a database and user per service, plus `keycloak`), one RabbitMQ node, one host. Mitigations: separate users and grants; broker-down behaviour that leaves business data intact (outbox rows stay pending); health and readiness checks; restart policies; DLQ and outbox-lag alerts; backup and restore exercise ([ADR-004](ADR-004-deployment-contract.md)). A node or host loss is not mitigated in the MVP.
+- **Shared infrastructure** — single points of failure, stated as limits of the academic release: one MySQL 8.4 instance (a database and user per service, plus `keycloak`), one RabbitMQ node, one application host and one database host ([ADR-004](ADR-004-deployment-contract.md)). Mitigations: separate users and grants; broker-down behaviour that leaves business data intact (outbox rows stay pending); health and readiness checks; restart policies; DLQ and outbox-lag alerts; backup and restore exercise ([ADR-004](ADR-004-deployment-contract.md)). A node or host loss is not mitigated in the MVP.
 - Eventual consistency is visible to users (history may show Dispatch events late; "triage pending"; "membership data as of …").
 - Tests must cover consumer unavailability, redelivery, out-of-order events, stale projections and delayed updates (NFR-04).
 - Effort is higher than options B–D; a cost this proposal carries to meet §6.2 without an exception. Re-estimate at Sprint B planning.
@@ -68,3 +68,4 @@ Open items: which Dispatch-driven events Dispatch notifies directly and which Is
 - 2026-10-07 — first proposal: Issue and Dispatch services with a triage worker.
 - 2026-10-15 — first proposed in EN-01-01 by Ricardo (Tech Lead), revising the 2026-10-07 draft: Issue + Dispatch + triage worker, notifications as an Issue module, synchronous HTTP for immediate answers, HTTP relay, no broker (E03).
 - 2026-10-27 — revised by Ricardo (Tech Lead) after a structured design interview; drafting and source checks AI-assisted. Reason: notifications and AI triage become separate deployables; all service-to-service communication moves to RabbitMQ; EN-01-02 §4.3 replaced by a Dispatch projection. Evidence: [evidence register](README.md#evidence-register-en-01-01) E01, E03, E27, E38; issue [#15](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/15). Affected documents: [technical design](../07-technical-design.md) §1, §2.1, §4.2–§4.4, [ADR index](README.md), DEC-04/06. Final decision, date and participants: pending team review.
+- 2026-11-01 (second revision) — shared-infrastructure line updated by Ricardo (Tech Lead) for the separate database host proposed in ADR-004 after Martim's PR #52; drafting AI-assisted. No change to boundaries or ownership.

@@ -31,16 +31,15 @@ def p1():
            ["one multi-arch image per app"])
 
     d.node("host", 40, 350, 1820, 830, "Application host", "device",
-           ["one Docker host · Docker Engine + Compose · twelve services here, MySQL and Garage on the database host · "
+           ["one Docker host · Docker Engine + Compose · twelve services · MySQL and Garage on the database host · "
             "linux/amd64 or linux/arm64 · host choice open (EN01-U3)"])
     d.node("n1", 70, 430, 1080, 200, "edge network only", "network", align="left")
-    d.comp("traefik", 180, 490, 240, 85, "traefik", "container", ["Traefik 3.7", "only published ports: 80, 443"])
-    d.comp("client", 520, 490, 240, 85, "client", "container", ["nginx", "serves the React build"])
-    d.comp("o2p", 860, 490, 240, 85, "oauth2-proxy", "container", ["oauth2-proxy 7.15", "browser session (BFF)"])
+    d.comp("traefik", 180, 490, 300, 85, "traefik", "container", ["Traefik 3.7 · only published ports: 80, 443",
+                                                                  "OIDC plugin: session, Bearer token"])
+    d.comp("client", 580, 490, 240, 85, "client", "container", ["nginx", "serves the React build"])
     d.lollipop(300, 468, "HTTPS 443", (300, 490))
     d.dep([(300, 277), (300, 459)], "uses", at=(308, 320))
-    d.path([(420, 532), (520, 532)], "/", at=(470, 520), anchor="middle", bg=BLUE)
-    d.path([(372, 575), (372, 600), (980, 600), (980, 575)], "/oauth2/*", at=(676, 600), anchor="middle", bg=BLUE)
+    d.path([(480, 532), (580, 532)], "/", at=(530, 520), anchor="middle", bg=BLUE)
 
     d.node("n2", 70, 680, 1500, 175, "edge + internal networks", "network", align="left")
     routed = [("issue", ["issue", SPRING, "reports, issues, memberships"], "/api/issue/*"),
@@ -60,16 +59,20 @@ def p1():
             ("prom", 845, "prometheus", ["Prometheus 3.x", "metrics and alerts"]),
             ("ai", 1095, "ai-triage", ["Python 3.14 · web + consumer", "also on egress"])):
         d.comp(key, x, 955, 220, 85, name, "container", details)
+    d.comp("sim", 95, 1055, 220, 85, "calendar-sim", "container", ["Spring Boot · Java 25", "tests, offline, failure demos"])
 
-    d.path([(1860, 540), (1960, 540)], "MySQL [TCP]", at=(1910, 526), anchor="middle", bg=BLUE)
+    d.path([(1860, 540), (1960, 540)], "private link", at=(1910, 526), anchor="middle")
     d.node("dbhost", 1960, 430, 300, 420, "Database host", "device",
-           ["second machine · placement not in ADR-004"])
+           ["second machine · placement open (EN01-U3)"])
     d.comp("mysql", 1990, 500, 240, 85, "mysql", "container",
            ["MySQL 8.4 LTS", "one database per service"], icon="database")
     d.comp("garage", 1990, 620, 240, 85, "garage", "container",
-           ["Garage 2.5 · single node", "bmc-attachments · bmc-backups"])
-    d.comp("mysqld-exporter", 1990, 720, 240, 62, "mysqld_exporter", "container", ["MySQL metrics; not in ADR-004"])
-    d.path([(850, 1040), (850, 1120), (2100, 1120), (2100, 782)], "scrape over private link (P-08)",
+           ["Garage 2.5 · single node", "bmc-attachments"])
+    d.comp("mysqld-exporter", 1990, 720, 240, 62, "mysqld_exporter", "container", ["MySQL metrics (P-08)"])
+    d.node("bkhost", 1960, 920, 300, 170, "Backup host", "device", ["third machine"])
+    d.comp("bgarage", 1990, 990, 240, 70, "garage", "container", ["Garage 2.5", "bmc-backups"])
+    d.path([(2245, 850), (2245, 920)], "nightly mysqldump", at=(2237, 885), anchor="end")
+    d.path([(850, 1040), (850, 1120), (1900, 1120), (1900, 751), (1990, 751)], "scrape over private link (P-08)",
            at=(1650, 1120), anchor="middle", dashed=True, bg=BLUE)
 
     d.node("egress", 1610, 780, 220, 95, "egress", "network", ["the only way out"])
@@ -83,10 +86,10 @@ def p1():
     d.path([(1790, 875), (1790, 1230)], "classifies report text", at=(1782, 1198), anchor="end")
     d.path([(1670, 240), (1670, 350)], "image pull · HTTPS", at=(1678, 318))
 
-    d.note(1200, 450, 330, ["ADR-004: keycloak joins edge for /auth/*", "and internal for its MySQL database."],
+    d.note(1200, 450, 330, ["ADR-004: keycloak joins edge for /auth/* and", "internal for Mailpit; MySQL is reached over", "the private link."],
            attach=d.p("keycloak", "n"))
     d.note(860, 1052, 290, ["Open (P-01): prometheus is on internal", "only, yet ADR-004 has it scrape",
-                            "traefik and oauth2-proxy, on edge only."], attach=d.p("prom", "s"))
+                            "traefik, which is on edge only."], attach=d.p("prom", "s"))
     d.note(1180, 1052, 380, ["Connections from the services to the broker,",
                              "databases, storage, mail and the calendar",
                              "are drawn in P3 and P4."])
@@ -110,8 +113,9 @@ def p2():
     d.lollipop(570, 407, "HTTPS 443", (570, 425))
     d.dep([(570, 220), (570, 398)], "uses", at=(578, 290))
     d.comp("router", 460, 445, 220, 95, "Router", "entrypoint", ["TLS terminates here;", "matches the route rules"])
-    d.comp("fa", 790, 445, 220, 95, "ForwardAuth", "middleware", ["/api/* only: asks oauth2-proxy;",
-                                                                  "no session → 401"])
+    d.comp("fa", 790, 445, 220, 95, "OIDC auth", "middleware", ["traefik-oidc-auth plugin (E88);",
+                                                                "no session on /api/* → 401;",
+                                                                "own callback, login, logout paths"])
     d.comp("strip", 1132, 445, 220, 95, "StripPrefix", "middleware", ["removes /api/<service>;",
                                                                       "then RateLimit, Headers"])
     d.dep([(680, 492), (790, 492)], "/api/*", at=(735, 480), anchor="middle", bg=BLUE)
@@ -121,16 +125,14 @@ def p2():
                             "RabbitMQ management, Garage", "Mailpit UI (SSH tunnel in demos)",
                             "Open: Keycloak paths kept unrouted,", "how Grafana is reached in demo"])
 
-    d.boundary("public", 70, 690, 1030, 240, "Public routes · no ForwardAuth, no API session")
+    d.boundary("public", 70, 690, 1030, 240, "Public routes · no API session")
     for key, x, w, name, details, route, drop in (
             ("client", 95, 240, "client", ["nginx", "static files"], "/", 215),
-            ("keycloak", 375, 240, "keycloak", ["Keycloak 26.8", "sign-in pages"], "/auth/*", 495),
-            ("o2p", 655, 300, "oauth2-proxy", ["oauth2-proxy 7.15", "Authorization: Bearer <access token>"],
-             "/oauth2/*", 715)):
+            ("keycloak", 375, 300, "keycloak", ["Keycloak 26.8", "sign-in pages, OIDC endpoints"], "/auth/*", 495)):
         d.comp(key, x, 745, w, 95, name, "container", details)
         d.path([(570, 540), (570, 665), (drop, 665), (drop, 745)], route, at=(drop + 8, 727), bg=BLUE)
-    d.lollipop(900, 722, "session check", (900, 745))
-    d.dep([(900, 540), (900, 713)], "asks", at=(908, 668), bg=BLUE)
+    d.dep([(900, 540), (900, 610), (640, 610), (640, 745)], "code exchange, JWKS", at=(770, 598), anchor="middle",
+          bg=BLUE)
 
     d.boundary("tb2", 1110, 690, 730, 240, "Trust boundary 2 · inside each service")
     for i, (key, check) in enumerate((("issue", "membership check"), ("dispatch", "assignment check"),
@@ -142,10 +144,10 @@ def p2():
         d.path([(1242, 540), (1242, 665), (cx, 665), (cx, 745)] if cx != 1242 else [(1242, 540), (1242, 745)],
                route, at=(cx + 8, 727), bg=BLUE)
 
-    d.note(200, 1010, 560, ["oauth2-proxy builds Authorization from the access_token claim",
-                            "(injectResponseHeaders, prefix \"Bearer \"); --set-authorization-header",
-                            "would send the ID token (E86). Audience checked in spike item 3."],
-           attach=d.p("o2p", "s"))
+    d.note(120, 1010, 620, ["The plugin keeps the session in an encrypted HttpOnly cookie and sends",
+                            "Authorization: Bearer <access token> upstream (Headers template, E88). It is a",
+                            "community plugin and Traefik plugins are experimental (E89); spike item 3."],
+           attach=d.p("fa", "s", 0.2))
     d.note(1130, 1010, 520, ["Traefik Proxy has no JWT middleware: each Spring service is an",
                              "OAuth2 resource server, authorises against its own data and",
                              "answers 404 outside the caller's scope (ADR-005)."],
@@ -209,12 +211,12 @@ def p3():
 
 
 def p4():
-    d = Diagram("p4-data-and-platform", "P4 · Data stores and platform connections",
-                "UML deployment diagram of stores and platform calls · ADR-001, ADR-004, ADR-006, ADR-010 · arrows "
-                "from user to used · proposed", 1900, 780)
+    d = Diagram("p4-data-and-platform", "P4 · Data stores and the backup",
+                "UML deployment diagram of the data stores and the backup · ADR-001, ADR-004, ADR-010 · arrows from "
+                "user to used · proposed", 1900, 780)
 
     d.node("dbhost", 40, 100, 1820, 310, "Database host", "device",
-           ["second machine · placement not in ADR-004"])
+           ["second machine · placement open (EN01-U3) · reached over the private link"])
     d.holder("mysql", 120, 160, 980, 200, "mysql", "container",
              ["MySQL 8.4 LTS · one instance, one database per service · scales vertically"])
     for x, owner in ((150, "dispatch"), (390, "notification"), (630, "keycloak"), (870, "issue")):
@@ -228,10 +230,10 @@ def p4():
     d.dep([(1735, 280), (1735, 385), (610, 385), (610, 360)],
           "mysqldump · read-only backup user", at=(1150, 385), anchor="middle", bg=BLUE)
 
-    d.node("backuphost", 1600, 460, 260, 240, "Backup host", "device", ["where backups are stored"])
+    d.node("backuphost", 1600, 460, 260, 240, "Backup host", "device", ["third machine"])
     d.holder("bgarage", 1620, 520, 220, 160, "garage", "container", ["Garage 2.5 · single node"])
     d.comp("bb", 1640, 542, 180, 62, "bmc-backups", "bucket", ["nightly dumps"], icon="artifact")
-    d.dep([(1800, 280), (1800, 542)], "writes dumps", at=(1808, 340), anchor="start", bg=BLUE)
+    d.dep([(1800, 280), (1800, 542)], "writes dumps", at=(1792, 440), anchor="end")
     return d
 
 
@@ -265,27 +267,27 @@ def p5():
                               (355, 600, "ai-triage", "Flask health · /metrics")):
         d.comp(name, x, y, 260, 62, name, "container", [check])
     d.boundary("plat", 660, 510, 990, 210, "Platform checks · Compose health checks")
-    for i, (name, check) in enumerate((("oauth2-proxy", "/ready · /metrics (P-01)"),
-                                       ("rabbitmq", "diagnostics ping · metrics plugin"),
-                                       ("keycloak", "/health/ready, port 9000"), ("mailpit", "readyz"))):
+    for i, (name, check) in enumerate((("rabbitmq", "diagnostics ping · metrics plugin"),
+                                       ("keycloak", "/health/ready, port 9000"), ("mailpit", "readyz"),
+                                       ("calendar-sim", "no health check stated (P-04)"))):
         d.comp("t-" + name, 675 + 240 * (i % 4), 525 + 75 * (i // 4), 230, 62, name, "container", [check])
 
     d.dep([(370, 435), (370, 510)], "readiness of issue,\ndispatch, notification", at=(378, 458), bg=BLUE)
     d.dep([(615, 435), (615, 490), (600, 490), (600, 510)], "/metrics", at=(606, 462), anchor="end", bg=BLUE)
-    d.dep([(740, 435), (740, 510)], "/metrics of rabbitmq,\noauth2-proxy", at=(748, 458), bg=BLUE)
+    d.dep([(740, 435), (740, 510)], "/metrics of\nrabbitmq", at=(748, 458), bg=BLUE)
 
     d.path([(648, 435), (648, 785), (1020, 785), (1020, 870)], "", dashed=True)
     d.path([(648, 785), (400, 785), (400, 870)], "scrape over private link (P-08)", at=(656, 650), anchor="start",
            dashed=True, bg=BLUE)
-    d.node("dbhost", 40, 800, 1640, 230, "Database host", "device", ["second machine · placement not in ADR-004"])
+    d.node("dbhost", 40, 800, 1640, 230, "Database host", "device", ["second machine · placement open (EN01-U3)"])
     d.comp("t-mysql", 530, 870, 260, 62, "mysql", "container", ["mysqladmin ping"], icon="database")
     d.comp("t-garage", 890, 870, 260, 62, "garage", "container", ["admin GET /health"])
-    d.comp("mysqld-exporter", 300, 870, 200, 62, "mysqld_exporter", "container", ["MySQL metrics; not in ADR-004"])
+    d.comp("mysqld-exporter", 300, 870, 200, 62, "mysqld_exporter", "container", ["MySQL metrics (P-08)"])
     d.dep([(500, 901), (530, 901)])
 
-    d.note(1200, 905, 460, ["Open (P-08): the scrape path, mysqld_exporter and", "Garage metrics are not in ADR-004; verify Garage."])
+    d.note(1200, 905, 460, ["Open (P-08): how Prometheus reaches the database host is not", "specified; Garage's metrics endpoint is not verified."])
     d.note(70, 1050, 760, ["Every container should have a Compose health check; startup order uses condition: service_healthy.",
-                          "Open for client and the ai-triage consumer process (P-04). Logs are structured with",
+                          "Open for client, calendar-sim and the ai-triage consumer (P-04). Logs are structured with",
                           "correlationId and traceparent; where they are collected is left to DEVOPS-02 (EN01-U12)."])
     return d
 
@@ -328,7 +330,7 @@ def p6():
 
     d.note(1000, 360, 540, ["Multi-arch availability is recorded for the Traefik, RabbitMQ,",
                             "MySQL, Mailpit, Temurin and python images, not yet for",
-                            "Keycloak, oauth2-proxy, Garage, Prometheus, Grafana or nginx",
+                            "Keycloak, Garage, mysqld_exporter, Prometheus, Grafana or nginx",
                             "(spike item 8, ADR-004)."], attach=d.p("s4", "s"))
     d.note(405, 300, 240, ["Required checks are configured", "only when the pipeline exists."])
     return d
@@ -338,12 +340,12 @@ def p7():
     d = Diagram("p7-compose-profiles", "P7 · Compose profiles and rollout",
                 "UML deployment diagram of the Compose profile sets in the proposed order · ADR-004 · to decide at the "
                 "team review (EN01-U1)", 1900, 640)
-    d.node("host", 40, 80, 1820, 530, "Application host", "device", ["one compose.yaml with profiles"])
+    d.node("host", 40, 80, 1820, 530, "Application host", "device", ["one compose.yaml with profiles · mysql and garage are drawn for the rollout order; they run on the database and backup hosts"])
 
-    d.node("core", 70, 150, 540, 430, "First: profile core", "profile set", ["nine containers"])
-    core = [("traefik", "Traefik 3.7"), ("oauth2-proxy", "oauth2-proxy 7.15"), ("keycloak", "Keycloak 26.8"),
+    d.node("core", 70, 150, 540, 430, "First: profile core", "profile set", ["eight containers"])
+    core = [("traefik", "Traefik 3.7 · OIDC plugin"), ("keycloak", "Keycloak 26.8"),
             ("client", "nginx"), ("issue", "Spring Boot"), ("dispatch", "Spring Boot"),
-            ("mysql", "MySQL 8.4 LTS"), ("rabbitmq", "RabbitMQ 4.x"), ("mailpit", "SMTP for Keycloak email")]
+            ("rabbitmq", "RabbitMQ 4.x"), ("mailpit", "SMTP for Keycloak email"), ("mysql", "on the database host")]
     for i, (name, version) in enumerate(core):
         d.comp("c-" + name, 85 + 260 * (i % 2), 210 + 70 * (i // 2), 245, 60, name, "container", [version],
                icon="database" if name == "mysql" else "component")
@@ -359,7 +361,7 @@ def p7():
     for i, (name, profile, details) in enumerate((("prometheus", "profile observability", []),
                                                   ("grafana", "profile observability", []),
                                                   ("garage", "profile storage (proposed)",
-                                                   ["before backup and restore"]))):
+                                                   ["database and backup hosts"]))):
         d.comp("x-" + name, 1285 + 275 * (i % 2), 210 + 90 * (i // 2), 260, 80, name, "container",
                [profile] + details)
     d.note(1285, 405, 520, ["Profile demo adds only the synthetic realm users (ADR-005).",

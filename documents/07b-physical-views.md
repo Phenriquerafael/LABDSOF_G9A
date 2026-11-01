@@ -1,6 +1,6 @@
 # Physical Views
 
-**Status:** proposed physical (deployment) view · Sprint 1, deliverable 7 "Deployment view" · EN-01-01 ([#15](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/15); EN-01-03, #13, merged into it on 2026-10-30) · drawn on 2026-10-29 from the EN-01-01 proposal ([ADR-001–012](adr/README.md), team review pending), redrawn on 2026-10-30 as UML deployment diagrams in the Visual Paradigm style, revised on 2026-11-01 after Martim's and Copilot's reviews of PR #45 ([register](planning/decisions-and-feedback.md)) · nothing is built, deployed or measured
+**Status:** proposed physical (deployment) view · Sprint 1, deliverable 7 "Deployment view" · EN-01-01 ([#15](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/15); EN-01-03, #13, merged into it on 2026-10-30) · drawn on 2026-10-29 from the EN-01-01 proposal ([ADR-001–012](adr/README.md), team review pending), redrawn on 2026-10-30 as UML deployment diagrams in the Visual Paradigm style, revised on 2026-11-01 after Martim's and Copilot's reviews of PR #45 and again after Martim's PR #52 (database and backup hosts, the OIDC plugin; [register](planning/decisions-and-feedback.md)) · nothing is built, deployed or measured
 
 These views show where the proposed BMC software runs: the nodes, the containers on each node, the networks that connect them, the only published port, the persistent state and the systems outside the host. They are the physical view of the [technical design](07-technical-design.md) (its §7 is the summary) and follow [ADR-004](adr/ADR-004-deployment-contract.md) for containers, networks, profiles and pipeline, [ADR-005](adr/ADR-005-authentication-authorisation.md) for identity and [ADR-012](adr/ADR-012-health-and-status-page.md) for health checks. Where this document adds a detail that no ADR states, the text says so and the detail is listed in [§10 Open items](#10-open-items-found-while-drawing-the-views). If this document and an ADR differ, the ADR wins until the team review decides otherwise.
 
@@ -11,9 +11,9 @@ Notation used in every figure:
 | Element | Meaning |
 |---|---|
 | Three-dimensional box, name at the top | A UML node: «device» for the user device and the Docker host, «network» for a Compose network grouping, «executionEnvironment» for the browser, the CI runners or Docker Compose, «profile set» in P7, «external system» outside the host |
-| Rectangle with the component icon | A «container» (one image, one Compose service), or a part of one: «entrypoint» and «middleware» in Traefik, «exchange» and «queue» in RabbitMQ, «bucket» in Garage, «job» in CI. A container drawn open shows its parts and has its name at the bottom left |
+| Rectangle with the component icon | A «container» (one image, one Compose service), or a part of one: «entrypoint» and «middleware» in Traefik, «exchange» and «queue» in RabbitMQ, «bucket» in Garage, «job» in CI, «cron job» for the backup on the database host. A container drawn open shows its parts and has its name at the bottom left |
 | Rectangle with the cylinder or page icon | A «database», or an «artifact» such as the working copy or the `.env` file |
-| Ball on a stick (lollipop) | An interface the component provides: HTTPS 443 on Traefik, AMQP, S3 API, SMTP, Admin API, HTTP API, the oauth2-proxy session check |
+| Ball on a stick (lollipop) | An interface the component provides: HTTPS 443 on Traefik, AMQP, S3 API, SMTP, Admin API, HTTP API |
 | Stick figure | An actor: the operator |
 | Dashed rectangle | A boundary: a trust boundary, or a set of routes or checks (not a UML element) |
 | Note with a folded corner | An open item of §10, a limit or a source, anchored by a dashed line |
@@ -26,20 +26,22 @@ Notation used in every figure:
 | Node | What runs there | Source |
 |---|---|---|
 | User device | A browser or the installed PWA; online only, nothing is queued | [ADR-011](adr/ADR-011-installable-pwa-client.md) |
-| Demonstration host | One Docker host with Docker Engine and Compose, linux/amd64 or linux/arm64. College servers are expected, not confirmed; the contract does not depend on the choice | ADR-004, EN01-U3 (Martim) |
+| Application host | One Docker host with Docker Engine and Compose, linux/amd64 or linux/arm64, running the twelve services. College servers are expected, not confirmed; the contract does not depend on the choice | ADR-004, EN01-U3 (Martim) |
+| Database host | A second machine for MySQL, Garage (`bmc-attachments`), `mysqld_exporter` and the nightly backup cron job, reached from the application host over a private link; placement and how the link is built are open | ADR-004, ADR-010, EN01-U3 |
+| Backup host | A third machine running Garage with the `bmc-backups` bucket, so the dumps leave the database host's failure domain | ADR-004, ADR-010 |
 | GitHub | Repository, GitHub Actions (no pipeline exists yet) and GitHub Container Registry (GHCR) for the multi-arch images | ADR-004, PR [#40](https://github.com/Phenriquerafael/LABDSOF_G9A/pull/40) (open) |
 | AI provider | External model API, reached by `ai-triage` over the `egress` network; Gemini Flash is the candidate adapter, the choice stays DEC-05 | [ADR-008](adr/ADR-008-ai-triage-service.md) |
 | Google Calendar | The live external calendar, reached by `dispatch` through `CalendarPort` over the `egress` network; the simulator inside the host covers tests, offline work and failure demos | [ADR-006](adr/ADR-006-calendar-simulator.md) |
-| Off-host backup target | Optional Cloudflare R2 bucket for a copy of the backups, because single-node Garage has no redundancy; not part of the academic release | [ADR-010](adr/ADR-010-object-storage.md) |
-| Developer laptop | The same `compose.yaml` with a smaller profile set | ADR-004 |
+| Off-host backup target | Optional Cloudflare R2 bucket, kept in ADR-010 as an alternative target; not needed for the academic release now that a backup host exists | [ADR-010](adr/ADR-010-object-storage.md) |
+| Developer laptop | The same `compose.yaml` with a smaller profile set, plus a local set for MySQL and Garage (definition open, DEVOPS-02) | ADR-004 |
 
 ## 2. View P1 — Deployment overview
 
-All fifteen services of ADR-004 run on one Docker host (sixteen containers if the `ai-triage` consumer runs as its own Compose service, spike item 7). A container can join more than one Compose network (Docker documents a service attached to both a `front-tier` and a `back-tier` network, [Compose networks reference](https://docs.docker.com/reference/compose-file/networks/), accessed 2026-10-29), so Figure P1 groups containers by the networks they join. ADR-004 has three: `edge`, `internal` and `egress`, the only way out to the internet, joined by `ai-triage` and `dispatch`.
+Twelve services of ADR-004 run on the application host (thirteen containers if the `ai-triage` consumer runs as its own Compose service, spike item 7); MySQL, Garage and `mysqld_exporter` run on the database host, and the backups go to Garage on the backup host. A container can join more than one Compose network (Docker documents a service attached to both a `front-tier` and a `back-tier` network, [Compose networks reference](https://docs.docker.com/reference/compose-file/networks/), accessed 2026-10-29), so Figure P1 groups containers by the networks they join. ADR-004 has three: `edge`, `internal` and `egress`, the only way out to the internet, joined by `ai-triage` and `dispatch`.
 
-[![Figure P1 — Deployment overview: the user device reaches Traefik over HTTPS 443; inside the demonstration host, nested network nodes edge only, edge plus internal, and internal only hold the fifteen services; Traefik routes to client, oauth2-proxy, issue, notification, keycloak and dispatch; dispatch and ai-triage reach the egress network, which leads to the Google Calendar API and the AI provider; garage can copy backups to the optional R2 bucket and the host pulls images from GHCR; notes mark P-01 and the egress proxy left open](diagrams/physical-views/p1-deployment-overview.svg)](diagrams/physical-views/p1-deployment-overview.svg)
+[![Figure P1 — Deployment overview: the user device reaches Traefik over HTTPS 443; inside the application host, nested network nodes edge only, edge plus internal, and internal only hold the twelve services; Traefik, with the OIDC plugin, routes to client, issue, notification, keycloak and dispatch; dispatch and ai-triage reach the egress network, which leads to the Google Calendar API and the AI provider; a private link joins the database host (mysql, garage, mysqld_exporter), which sends nightly dumps to the backup host; prometheus would scrape the exporter over the private link (P-08); the host pulls images from GHCR; notes mark P-01 and the egress proxy left open](diagrams/physical-views/p1-deployment-overview.svg)](diagrams/physical-views/p1-deployment-overview.svg)
 
-*Figure P1. Containers grouped by the networks they join.* ADR-004 puts Traefik "and the services it routes to" on `edge`, puts the data stores, broker, mail capture, metrics and the simulator on `internal`, and gives `ai-triage` and `dispatch` the `egress` network for the AI provider and Google Calendar. Keycloak joins `edge` for `/auth/*` and `internal` for its MySQL database. `ai-triage` is one service drawn as one box: one image running a web process and a consumer process (ADR-008). No allow-list proxy is put on `egress` for the MVP; that stays open for EN-01-04. The figure draws each Traefik route by path, without its middlewares (those are in P2); the connections from the services to the broker, databases, storage, mail and calendar are left to P3 and P4 so that P1 stays readable at this size.
+*Figure P1. Containers grouped by the networks they join.* ADR-004 puts Traefik "and the services it routes to" on `edge`, puts the broker, mail capture, metrics and the simulator on `internal`, and gives `ai-triage` and `dispatch` the `egress` network for the AI provider and Google Calendar. Keycloak joins `edge` for `/auth/*` and `internal`; it and the Spring services reach MySQL on the database host over the private link, whose construction is open (ADR-004). `ai-triage` is one service drawn as one box: one image running a web process and a consumer process (ADR-008). No allow-list proxy is put on `egress` for the MVP; that stays open for EN-01-04. The figure draws each Traefik route by path, without its middlewares (those are in P2); the connections from the services to the broker, databases, storage, mail and calendar are left to P3 and P4 so that P1 stays readable at this size.
 
 ### Container catalogue
 
@@ -47,8 +49,7 @@ Container names are proposed Compose service names; `ai-triage` may become two C
 
 | Container | Runtime | Networks | Persistent state | Compose profile (ADR-004) | Health check ([ADR-012](adr/ADR-012-health-and-status-page.md)) |
 |---|---|---|---|---|---|
-| `traefik` | Traefik 3.7 | edge | none (TLS certificate source open) | `core` | `ping` |
-| `oauth2-proxy` | oauth2-proxy 7.15 | edge | none: encrypted cookie session, Redis optional | `core` | `/ready` |
+| `traefik` | Traefik 3.7 with the `traefik-oidc-auth` plugin (E88) | edge | none: the OIDC session is an encrypted cookie in the browser (TLS certificate source open) | `core` | `ping` |
 | `client` | nginx serving the React + Vite build | edge | none | `core` | not stated (P-04) |
 | `issue` | Spring Boot 4.1.2, Java 25 | edge, internal | database `issue` in MySQL; objects in Garage | `core` | Actuator readiness, path per DEVOPS-02 |
 | `dispatch` | Spring Boot 4.1.2, Java 25 | edge, internal, egress | database `dispatch` in MySQL | `core` | Actuator readiness |
@@ -57,27 +58,29 @@ Container names are proposed Compose service names; `ai-triage` may become two C
 | `ai-triage` | Python 3.14, Flask 3.1.3, Gunicorn web process and a pika consumer process from the same image | internal, egress | none (stateless) | added when triage is in the slice | Flask health route; none stated for the consumer process (P-04) |
 | `calendar-sim` | Spring Boot, Java 25 | internal | none: in memory from a fixed seed; a restart is the "external system lost data" scenario ([ADR-006](adr/ADR-006-calendar-simulator.md)) | added when Dispatch books a visit in tests or failure demos | not stated (P-04) |
 | `rabbitmq` | RabbitMQ 4.x | internal | quorum queues and DLQs on a volume (P-06) | `core` | `rabbitmq-diagnostics -q ping`, at most every 30 s |
-| `mysql` | MySQL 8.4 LTS | internal | one database per service (`issue`, `dispatch`, `notification`, `keycloak`) on a volume (P-06); scales vertically | `core` | `mysqladmin ping`; a query-level check is a spike detail |
-| `garage` | Garage 2.5, single node | internal | buckets `bmc-attachments` and `bmc-backups` on a volume (P-06) | `storage` (proposed name) | admin `GET /health` |
+| `mysql` (database host) | MySQL 8.4 LTS | database host, private link | one database per service (`issue`, `dispatch`, `notification`, `keycloak`) on a volume (P-06); scales vertically | `core`, defined outside the application host's Compose project (how is open) | `mysqladmin ping`; a query-level check is a spike detail |
+| `garage` (database host) | Garage 2.5, single node | database host, private link | bucket `bmc-attachments` on a volume (P-06) | `storage` (proposed name), outside the application host's Compose project | admin `GET /health` |
+| `mysqld_exporter` (database host) | MySQL metrics exporter | database host | none | with `mysql` | not stated (P-08) |
+| `garage` (backup host) | Garage 2.5, single node | backup host | bucket `bmc-backups` on a volume (P-06) | `storage`, outside the application host's Compose project | admin `GET /health` |
 | `mailpit` | Mailpit 1.32 | internal | captured mail only, disposable; inbox shown through an SSH tunnel in demos | `core` (Keycloak's verification email) | `readyz` |
 | `prometheus` | Prometheus 3.x | internal | time series on a volume (P-06) | `observability` | `/-/ready` |
 | `grafana` | Grafana 13 | internal | dashboards on a volume or provisioned from files (P-06) | `observability` | `/api/health` |
 
-Backups are a cron job on the host, not a container: a nightly `mysqldump` of each database into `bmc-backups`, with a read-only backup user and the bucket key in the host environment (ADR-004, ADR-010). DEVOPS-02 owns the schedule, rotation and the restore exercise.
+Backups are a cron job on the database host, not a container: a nightly `mysqldump` of each database into `bmc-backups` on the backup host, with a read-only backup user and the bucket key in the host environment (ADR-004, ADR-010). DEVOPS-02 owns the schedule, rotation and the restore exercise.
 
 ## 3. View P2 — Edge routing and trust boundaries
 
 Traefik is the only container with a published port. Every public route, its upstream and its middlewares come from the ADR-004 route table.
 
-[![Figure P2 — Edge routing and trust boundaries: the web app on the user device reaches the traefik container inside trust boundary 1; its Router sends public paths to client, keycloak and oauth2-proxy and /api/* through ForwardAuth, which checks the session with oauth2-proxy and answers 401 without one, and StripPrefix to issue, dispatch and notification inside trust boundary 2, where each validates the JWT; a note lists the endpoints that are never routed](diagrams/physical-views/p2-edge-and-trust.svg)](diagrams/physical-views/p2-edge-and-trust.svg)
+[![Figure P2 — Edge routing and trust boundaries: the web app on the user device reaches the traefik container inside trust boundary 1; its Router sends public paths to client and keycloak and /api/* through the OIDC auth middleware (the traefik-oidc-auth plugin), which keeps the session itself, talks to Keycloak for the code exchange and keys, and answers 401 without a session, and StripPrefix to issue, dispatch and notification inside trust boundary 2, where each validates the JWT; a note lists the endpoints that are never routed](diagrams/physical-views/p2-edge-and-trust.svg)](diagrams/physical-views/p2-edge-and-trust.svg)
 
-*Figure P2. The path of one request through the edge; arrows follow the request.* Traefik Proxy has no JWT middleware, so the gateway is not the security control: each Spring service is an OAuth2 resource server and authorises against its own data, answering `404` outside the caller's scope (ADR-005). The figure draws that second boundary around the three API services and lists the endpoints that are never routed in a note instead of drawing refused arrows. oauth2-proxy builds the `Authorization: Bearer` header from the access token through `injectResponseHeaders`; its `--set-authorization-header` option would send the ID token instead (E86), and the forwarded token's audience is checked in spike item 3. The public `/status` page and the `/status/api` route are deferred past the MVP with Gatus (ADR-012).
+*Figure P2. The path of one request through the edge; arrows follow the request.* Traefik Proxy has no JWT middleware, so the gateway is not the security control: each Spring service is an OAuth2 resource server and authorises against its own data, answering `404` outside the caller's scope (ADR-005). The figure draws that second boundary around the three API services and lists the endpoints that are never routed in a note instead of drawing refused arrows. There is no oauth2-proxy: the middleware is the community plugin `traefik-oidc-auth` (E88), the OIDC relying party for the confidential client `bmc-edge`. It keeps the session in an encrypted `HttpOnly`, `Secure` cookie, answers `401` to API calls without a session, handles its own callback, login and logout paths, and sends `Authorization: Bearer <access token>` upstream through a `Headers` template, renewing the token itself. Traefik's plugin system is marked experimental (E89), so the plugin version is pinned and spike item 3 tests it (ADR-005). The public `/status` page and the `/status/api` route are deferred past the MVP with Gatus (ADR-012).
 
 | Boundary | What crosses it | Control (proposed, not verified) |
 |---|---|---|
 | Internet → `traefik` | Browser requests on 443 | TLS at Traefik (certificate source open, ADR-004); `HttpOnly`, `Secure`, `SameSite=Strict` session cookie; custom header on state-changing requests (ADR-005) |
-| `traefik` → services | Requests with `Authorization: Bearer <access token>` from oauth2-proxy | Signature, issuer, audience and expiry checked in each service; membership or assignment check in the owning service |
-| Services → `mysql`, `rabbitmq`, `garage` | SQL, AMQP, S3 | One database user, one broker user and one storage key per service; no shared superuser; each broker user may publish only under its own routing-key prefix (topic permissions, E85) (ADR-003, ADR-005, ADR-010) |
+| `traefik` → services | Requests with `Authorization: Bearer <access token>` added by the OIDC plugin | Signature, issuer, audience and expiry checked in each service; membership or assignment check in the owning service |
+| Services → `rabbitmq`; services → `mysql`, `garage` over the private link to the database host | AMQP; SQL and S3 | One database user, one broker user and one storage key per service; no shared superuser; each broker user may publish only under its own routing-key prefix (topic permissions, E85) (ADR-003, ADR-005, ADR-010) |
 | Host → outside | AI provider calls from `ai-triage`; Google Calendar calls from `dispatch`; later a real SMTP server | Only the `egress` network reaches the internet, and only `ai-triage` and `dispatch` join it; an allow-list proxy is open for EN-01-04 (ADR-004) |
 | `TriageRequested` messages | The only message with private report text | Point-to-point queue, never logged; DLQ TTL 7 days, live-queue and outbox retention not set yet (EN01-U6) (ADR-003, ADR-008) |
 
@@ -89,13 +92,24 @@ Messages flow from the publishers through the `bmc.events` topic exchange to one
 
 *Figure P3. Publishers, exchange, queues and consumers.* Every Spring consumer acknowledges only after its transaction commits and deduplicates by `eventId`; `ai-triage` acknowledges a request only after its `TriageSuggested` reply is confirmed with no return. Publishers use `mandatory` publishing: an outbox row is marked sent only on a positive confirm with no return, because RabbitMQ also confirms a message that reaches no queue (E84), and the deployment declares queues and bindings before any publisher starts. Outbox rows wait as `pending` while the broker is down ([design §5](07-technical-design.md#5-asynchronous-workflow-and-consistency)). `TriageRequested` is the only message with private report text: it is bound only to `ai-triage.requests`, never logged, and its dead-letter copy expires after 7 days; how long it may wait in the live queue or the outbox is not set yet (EN01-U6). Whether Issue events with no consumer outside Issue (`ReportSubmitted` and others) are published at all is open (ADR-001), so they are not drawn.
 
-## 5. View P4 — Data stores and platform connections
+## 5. View P4 — Data stores and the backup
 
-Inside the host, services reach only their own database and talk to each other only through RabbitMQ (ADR-001). Calls to a platform component (Keycloak, object storage, SMTP) or to the external calendar are not service-to-service calls.
+Services reach only their own database, over the private link to the database host, and talk to each other only through RabbitMQ (ADR-001). Calls to a platform component (Keycloak, object storage, SMTP) or to the external calendar are not service-to-service calls.
 
-[![Figure P4 — Data stores and platform connections: issue, dispatch, notification and keycloak each reach their own database in one MySQL instance; issue writes report photos to the garage bucket bmc-attachments; dispatch calls the Google Calendar API, or calendar-sim in tests and failure demos; notification and keycloak send SMTP to mailpit; notification calls the Keycloak Admin API; a nightly cron job on the host dumps MySQL into bmc-backups](diagrams/physical-views/p4-data-and-platform.svg)](diagrams/physical-views/p4-data-and-platform.svg)
+[![Figure P4 — Data stores on the database and backup hosts: one MySQL instance with one database per service (dispatch, notification, keycloak, issue) and garage with the bucket bmc-attachments behind its S3 API on the database host; a nightly cron job on the database host runs mysqldump with a read-only backup user and writes the dumps to the bucket bmc-backups in garage on the backup host](diagrams/physical-views/p4-data-and-platform.svg)](diagrams/physical-views/p4-data-and-platform.svg)
 
-*Figure P4. Who connects to which store and platform component; arrows point from client to server.* Every Spring service also needs Keycloak's signing keys to validate tokens; that connection is omitted from the figure and its route is open (P-05). Whether the Notification service publishes events of its own is not stated in ADR-007, so no publish arrow is drawn.
+*Figure P4. Where the data lives and how it is backed up.* The figure shows the stores only. The connections to them, and the platform calls, are:
+
+| Client | Server | Protocol |
+|---|---|---|
+| `issue`, `dispatch`, `notification`, `keycloak` | their own database in `mysql` (database host) | JDBC over the private link |
+| `issue` | `garage` bucket `bmc-attachments` (database host) | S3 over the private link |
+| `dispatch` | Google Calendar API, or `calendar-sim` in tests and failure demos | HTTPS over `egress`; HTTP on `internal` |
+| `notification`, `keycloak` | `mailpit` | SMTP |
+| `notification` | Keycloak Admin API (`view-users`) | HTTPS on `internal` |
+| backup cron job (database host) | `mysql`; `garage` bucket `bmc-backups` (backup host) | `mysqldump` with a read-only user; S3 |
+
+Every Spring service also needs Keycloak's signing keys to validate tokens; that connection's route is open (P-05). Whether the Notification service publishes events of its own is not stated in ADR-007, so no publish arrow is drawn.
 
 Worker ownership, as far as the ADRs state it:
 
@@ -107,11 +121,11 @@ Worker ownership, as far as the ADRs state it:
 | Calendar retries and reconciliation | Inside `dispatch`, against Google Calendar or the simulator | ADR-006, design §4.5 |
 | Projection snapshot and rebuild | `issue` republishes memberships and issue states for `dispatch` (runbook step) | ADR-004, design §4.3 |
 | Health and metrics | Compose health checks, Traefik's load-balancer health check, Prometheus scrapes | ADR-012 |
-| Database backups | A nightly cron job on the host, not a container | ADR-004, ADR-010 |
+| Database backups | A nightly cron job on the database host, writing to the backup host | ADR-004, ADR-010 |
 
 ## 6. View P5 — Health, metrics and logs
 
-[![Figure P5 — Health, metrics and logs for the MVP: the operator reads grafana, which queries prometheus; prometheus scrapes the services, rabbitmq and oauth2-proxy, and traefik over a network path that is still open; traefik checks readiness of issue, dispatch and notification; every container should have a Compose health check (open for `client`, `calendar-sim` and the `ai-triage` consumer, P-04); blackbox_exporter is added only if readiness must be probed; a note records that the public status page and banner are deferred](diagrams/physical-views/p5-health-and-metrics.svg)](diagrams/physical-views/p5-health-and-metrics.svg)
+[![Figure P5 — Health, metrics and logs for the MVP: the operator reads grafana, which queries prometheus; prometheus scrapes the services and rabbitmq, and traefik over a network path that is still open, and would scrape mysqld_exporter on the database host over the private link (P-08); traefik checks readiness of issue, dispatch and notification; every container should have a Compose health check (open for `client`, `calendar-sim` and the `ai-triage` consumer, P-04); blackbox_exporter is added only if readiness must be probed; a note records that the public status page and banner are deferred](diagrams/physical-views/p5-health-and-metrics.svg)](diagrams/physical-views/p5-health-and-metrics.svg)
 
 *Figure P5. Health and metrics paths for the MVP.* Gatus is dropped for the MVP (ADR-012): Prometheus scrapes each service's metrics endpoint and alerts on its `up` series, readiness stays in the Compose health checks and Traefik's load-balancer check, and `blackbox_exporter` is added only if readiness endpoints must be probed directly. The public `/status` page and the status banner relied on Gatus and are deferred past the MVP; users still see degraded states in context, such as a pending booking or "triage pending — classify manually". The Grafana dashboard shows outbox lag, DLQ depth, consumer retries, AI fallback rate, pending bookings, error rate, notification failures and projection freshness (ADR-004). Logs are structured with `correlationId` and `traceparent`; where they are collected (Loki or another tool) is left to DEVOPS-02 (EN01-U12), so no log collector is drawn. Prometheus sits on `internal` and Traefik on `edge` only, so the "scrape Traefik" line needs one of them to join the other network (P-01).
 
@@ -119,9 +133,9 @@ Worker ownership, as far as the ADRs state it:
 
 No pipeline, image or host exists yet. This view shows the proposed path from a commit to a running host, as in ADR-004 and the DEVOPS-01 proposal (PR [#40](https://github.com/Phenriquerafael/LABDSOF_G9A/pull/40), open, not merged).
 
-[![Figure P6 — Environments and delivery path: a commit on the developer laptop is pushed to the GitHub repository (feature, dev, main, release by v tag); proposed GitHub Actions stages run lint and unit tests, contract checks, boundary tests, integration tests and a multi-arch build; images are pushed to GHCR; the demonstration host runs docker compose pull and up with the same image, with secrets injected from the host or CI environment](diagrams/physical-views/p6-delivery-path.svg)](diagrams/physical-views/p6-delivery-path.svg)
+[![Figure P6 — Environments and delivery path: a commit on the developer laptop is pushed to the GitHub repository (feature, dev, main, release by v tag); proposed GitHub Actions stages run lint and unit tests, contract checks, boundary tests, integration tests and a multi-arch build; images are pushed to GHCR; the application host runs docker compose pull and up with the same image, with secrets injected from the host or CI environment](diagrams/physical-views/p6-delivery-path.svg)](diagrams/physical-views/p6-delivery-path.svg)
 
-*Figure P6. Proposed environments and delivery path; arrows follow code and images.* How arm64 images are built (emulation or native runners) is open (EN01-U9). Multi-arch availability is recorded for Traefik, RabbitMQ, MySQL, Mailpit, Temurin and python images, not yet for Keycloak, oauth2-proxy, Garage, Prometheus, Grafana or nginx (spike item 8, ADR-004).
+*Figure P6. Proposed environments and delivery path; arrows follow code and images.* How arm64 images are built (emulation or native runners) is open (EN01-U9). Multi-arch availability is recorded for Traefik, RabbitMQ, MySQL, Mailpit, Temurin and python images, not yet for Keycloak, Garage, `mysqld_exporter`, Prometheus, Grafana or nginx (spike item 8, ADR-004).
 
 ### Configuration and secrets per container
 
@@ -130,36 +144,38 @@ Values come from the host or CI environment through `.env` (a `.env.example` wit
 | Container | Secrets it needs |
 |---|---|
 | `traefik` | TLS certificate or its issuing account (source open) |
-| `oauth2-proxy` | `bmc-edge` client secret, cookie secret |
+| `traefik` (OIDC plugin) | `bmc-edge` client secret, the plugin's 32-character encryption `Secret` |
 | `keycloak` | admin password, `keycloak` database user, SMTP settings |
 | `issue` | `issue` database user, broker user, `bmc-attachments` storage key |
 | `dispatch` | `dispatch` database user, broker user, Google Calendar credentials (service account or OAuth client, spike item) |
 | `notification` | `notification` database user, broker user, `notification-service` client secret, SMTP settings |
 | `ai-triage` | broker user, AI provider key (when AI is enabled) |
 | `mysql`, `rabbitmq`, `garage`, `grafana` | their own admin credentials |
-| backup cron job (host) | read-only MySQL backup user, `bmc-backups` storage key; R2 key only if the optional copy is used |
+| backup cron job (database host) | read-only MySQL backup user, `bmc-backups` storage key on the backup host |
 
 ## 8. View P7 — Compose profiles and rollout
 
-ADR-004 proposes starting the first vertical slice with nine containers, including Mailpit because Keycloak's verification email needs SMTP, and adding the rest as stories need them. This is a proposal for the team review (EN01-U1); the memory of each set is not measured (EN01-U3, spike item 8).
+ADR-004 proposes starting the first vertical slice with eight containers (seven on the application host and MySQL on the database host), including Mailpit because Keycloak's verification email needs SMTP, and adding the rest as stories need them. This is a proposal for the team review (EN01-U1); the memory of each set is not measured (EN01-U3, spike item 8).
 
-[![Figure P7 — Compose profiles and rollout order: first the core profile with nine containers including mailpit, then ai-triage, notification and calendar-sim when the slice includes them, then the observability and storage profiles; the demo profile adds only synthetic realm users](diagrams/physical-views/p7-compose-profiles.svg)](diagrams/physical-views/p7-compose-profiles.svg)
+[![Figure P7 — Compose profiles and rollout order: first the core profile with eight containers including mailpit and MySQL on the database host, then ai-triage, notification and calendar-sim when the slice includes them, then the observability and storage profiles; the demo profile adds only synthetic realm users](diagrams/physical-views/p7-compose-profiles.svg)](diagrams/physical-views/p7-compose-profiles.svg)
 
-*Figure P7. Profile sets in the proposed order.* `storage` is a profile name proposed in ADR-004, and the `status` profile went with Gatus; the AI, Notification and simulator containers have no profile name yet.
+*Figure P7. Profile sets in the proposed order.* `mysql` and `garage` are drawn in the sets for the rollout order only: they run on the database and backup hosts, outside the application host's Compose project, and on a laptop one machine runs everything (definition open, DEVOPS-02). `storage` is a profile name proposed in ADR-004, and the `status` profile went with Gatus; the AI, Notification and simulator containers have no profile name yet.
 
 ## 9. Failure domains
 
-One host, one MySQL instance and one RabbitMQ node are single points of failure, stated as limits of the academic release (ADR-001, ADR-004). The behaviour of each failure is in [design §6](07-technical-design.md#6-external-integration-and-degraded-mode); this table only maps it onto the physical units.
+The application host, the database host, one MySQL instance and one RabbitMQ node are single points of failure, stated as limits of the academic release (ADR-001, ADR-004). The behaviour of each failure is in [design §6](07-technical-design.md#6-external-integration-and-degraded-mode); this table only maps it onto the physical units.
 
 | Physical unit fails | What stops | What keeps working |
 |---|---|---|
-| Demonstration host | Everything | Nothing; recovery is a restore on a host from the GHCR images and the latest dump, which sits on the same host unless the optional off-host copy is used |
+| Application host | Everything users see | Nothing; recovery is a new application host from the GHCR images |
+| Database host | All services and Keycloak (no data), photo storage | Nothing that needs data; recovery is a restore from the latest dump on the backup host |
+| Backup host | New backups | Everything else; the next nightly run fails until it returns |
 | `mysql` | All services and Keycloak | Nothing that needs data; explicit errors, no false acknowledgement |
 | `rabbitmq` | Event delivery between services | User requests in each service; events wait in the outbox |
 | `keycloak` | New sign-in, registration and token refresh | Requests with a still-valid token (to confirm in the spike) |
 | `ai-triage` or the provider | Suggestions | Reporting and manual triage; rules fallback when only the provider is down |
 | Google Calendar (or `calendar-sim` in tests and demos) | Calendar sync | Bookings stay `requested` or `uncertain`; manual confirmation |
-| `garage` | Photo upload and backups | Reports without photos |
+| `garage` (database host) | Photo upload | Reports without photos |
 
 ## 10. Open items found while drawing the views
 
@@ -167,19 +183,19 @@ These do not change any ADR. They are inputs for the team review (EN01-U1) and t
 
 | ID | Item | Why it matters | Proposed owner |
 |---|---|---|---|
-| P-01 | Prometheus is on `internal`, while Traefik and oauth2-proxy are on `edge` only, yet ADR-004 has Prometheus scrape both | Either Prometheus also joins `edge`, or Traefik and oauth2-proxy also join `internal` | Martim (DEVOPS-02) with Ricardo |
+| P-01 | Prometheus is on `internal`, while Traefik is on `edge` only, yet ADR-004 has Prometheus scrape it | Either Prometheus also joins `edge`, or Traefik also joins `internal` | Martim (DEVOPS-02) with Ricardo |
 | P-02 | If `internal` is declared with `internal: true` ("an externally isolated network", [Compose networks reference](https://docs.docker.com/reference/compose-file/networks/), accessed 2026-10-29), the AI containers cannot reach the provider, and a later real SMTP server would be unreachable for Notification and Keycloak | ADR-004 says only the AI service needs egress but does not say how that is given; one option is a third `egress` network joined only by the containers that need it | Ricardo (ADR-004), Martim. **Settled 2026-11-01:** ADR-004 adds an `egress` network joined only by `ai-triage` and `dispatch` |
-| P-03 | The backup job has no container, schedule owner or credentials placement | It needs MySQL read access and a storage key, so where it runs changes the secret list | Martim (DEVOPS-02). **Settled 2026-11-01:** a cron job on the host, with a read-only backup user and the `bmc-backups` key in the host environment (ADR-004, ADR-010) |
+| P-03 | The backup job has no container, schedule owner or credentials placement | It needs MySQL read access and a storage key, so where it runs changes the secret list | Martim (DEVOPS-02). **Settled 2026-11-01:** a cron job on the database host writing to Garage on the backup host, with a read-only backup user and the `bmc-backups` key in the host environment (ADR-004, ADR-010) |
 | P-04 | No health check is stated for `client`, the `ai-triage` consumer process and `calendar-sim` | `depends_on: condition: service_healthy` cannot wait on a container without a health check | Martim (DEVOPS-02, EN01-U13) |
 | P-05 | Tokens carry Keycloak's public issuer URL, but the services validate them from the internal network | How services fetch the signing keys (through Traefik or directly from `keycloak` on an internal URL) has to work with the issuer check | Ricardo (ADR-005 spike item) |
 | P-06 | Volumes for `mysql`, `rabbitmq`, `garage`, `prometheus` and `grafana` are implied by their persistent state but not listed in ADR-004 | Backups, restore and a host move depend on which volumes exist | Martim (DEVOPS-02) |
 | P-07 | The DEVOPS-02 proposal (PR [#48](https://github.com/Phenriquerafael/LABDSOF_G9A/pull/48), open) assumes nginx or an API gateway, PostgreSQL and an EC2 container or Amazon RDS, while ADR-004 proposes Traefik, MySQL 8.4 and any Docker host | The two proposals cannot both describe the same deployment | Martim and Ricardo, at the team review |
-| P-08 | MySQL and Garage are on the database host, which the views draw apart from the application host, but no ADR scrape target or exporter covers them, so they have no `up` series and the "service gone" alert does not see them | Either Prometheus reaches the database host over a private link (a path not in ADR-004), or those services get an exporter; the health checks on that host are a separate question | Martim (DEVOPS-02) with Ricardo |
+| P-08 | MySQL and Garage are on the database host, which the views draw apart from the application host, but no ADR scrape target or exporter covers them, so they have no `up` series and the "service gone" alert does not see them | ADR-004 now has the private link and `mysqld_exporter`, but not how Prometheus's scrape crosses that link, and Garage's metrics endpoint is not verified; the health checks on that host are a separate question | Martim (DEVOPS-02) with Ricardo |
 
 ## 11. Limits of these views
 
 - They describe a proposed design. No container, network, image, pipeline or host exists, and nothing was run or measured.
-- The memory of the full stack and of the minimal profile is unknown until spike item 8; it may change which profiles run together on the demonstration host.
+- The memory of the full stack and of the minimal profile is unknown until spike item 8; it may change which profiles run together on the application host.
 - Container names, the grouping by networks in Figure P1, the volume list and items P-01 to P-07 are this document's proposals; the ADRs stay the source for decisions.
 - The SVG and PNG files were generated on 2026-11-01 by `views.py` (Python 3.13; PNG through a headless Chromium); the reviewer should check them in the GitHub preview of the PR, because GitHub renders SVG through its own sanitiser. Labels use Arial with Liberation Sans and Helvetica as fallbacks, so text widths can shift slightly on a system that has none of them.
 - The figures follow UML deployment notation in the Visual Paradigm style; they are not Visual Paradigm projects, no `.vpp` file exists, and they were not opened in Visual Paradigm.

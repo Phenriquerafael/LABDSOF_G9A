@@ -65,7 +65,7 @@ Two independently deployable backend components: **Issue Service** (issues, tria
 
 Proposed integration: Google Calendar behind a provider-neutral port, with a realistic simulator kept for tests and failure demonstrations ([ADR-006](adr/ADR-006-calendar-simulator.md), revised on 2026-11-01, team review pending); final decision in DEC-06. A modular monolith requires justification and lecturer acceptance; this exception has not already been granted.
 
-Mock authentication is permitted for the MVP (§6.6); the Tech Lead proposes Keycloak for accounts and sign-in, with the browser session held at the edge by oauth2-proxy (a Backend-for-Frontend), instead of the 2026-10-15 own login ([ADR-005](adr/ADR-005-authentication-authorisation.md)). Building memberships stay in the Issue Service; authorisation by role, building and intervention is enforced in each service and tested. See [security](09-security-privacy.md).
+Mock authentication is permitted for the MVP (§6.6); the Tech Lead proposes Keycloak for accounts and sign-in, with the browser session held at the edge by Traefik's OIDC plugin, traefik-oidc-auth (a Backend-for-Frontend), instead of the 2026-10-15 own login ([ADR-005](adr/ADR-005-authentication-authorisation.md)). Building memberships stay in the Issue Service; authorisation by role, building and intervention is enforced in each service and tested. See [security](09-security-privacy.md).
 
 ## 6. Execution
 

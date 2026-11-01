@@ -48,7 +48,7 @@ Each Spring service exposes Actuator liveness and readiness groups (E73); the Fl
 
 ### Monitoring
 
-Prometheus scrapes each service's metrics endpoint (Actuator/Micrometer, Flask `prometheus_client`), RabbitMQ, Traefik and oauth2-proxy (E36, E39, E58). The per-target `up` series and alerts on it cover “service gone”; readiness stays in the container health checks (below) and in Traefik's load-balancer health check. blackbox_exporter is added only if readiness endpoints must be probed directly. Grafana is the §6.7 dashboard ([ADR-004](ADR-004-deployment-contract.md)).
+Prometheus scrapes each service's metrics endpoint (Actuator/Micrometer, Flask `prometheus_client`), RabbitMQ and Traefik (E36, E39, E58). It would also scrape `mysqld_exporter` (MySQL metrics) and Garage's metrics on the database host over the private link ([ADR-004](ADR-004-deployment-contract.md)); that path is not yet specified and Garage's metrics endpoint is not verified, so neither is claimed here and both stay open (P-08 of the [physical views](../07b-physical-views.md), Martim with Ricardo). Until then MySQL and Garage have no `up` series. The per-target `up` series and alerts on it cover “service gone”; readiness stays in the container health checks (below) and in Traefik's load-balancer health check. blackbox_exporter is added only if readiness endpoints must be probed directly. Grafana is the §6.7 dashboard ([ADR-004](ADR-004-deployment-contract.md)).
 
 ### How degraded states reach users in the MVP
 
@@ -62,15 +62,15 @@ In context, where the user meets them, not on a separate page: booking pending o
 | ai-triage (web process) | Flask health route | The consumer process's check depends on spike item 7 (one container or two) |
 | Keycloak | `/health/ready` on management port 9000 with `KC_HEALTH_ENABLED` | Via Bash `/dev/tcp`: curl was removed from the image (E77) |
 | RabbitMQ | `rabbitmq-diagnostics -q ping`, at most every 30 s | The CLI has a performance cost (E77) |
-| MySQL | `mysqladmin ping` | Exits 0 even on “Access denied” (E77), so it does not prove credentials work; a query-level check is a spike detail |
-| Garage | admin `GET /health` | 200 with quorum, else 503 (E78) |
-| oauth2-proxy | `/ready` | E78 |
+| MySQL (database host) | `mysqladmin ping` | Exits 0 even on “Access denied” (E77), so it does not prove credentials work; a query-level check is a spike detail |
+| Garage (database host and backup host) | admin `GET /health` | 200 with quorum, else 503 (E78) |
+| `mysqld_exporter` (database host) | Not stated | A spike detail (P-08) |
 | Mailpit | `readyz` | E78 |
 | Prometheus | `/-/ready` | E78 |
 | Grafana | `/api/health` | E78 |
 | Traefik | `ping` | E74 |
 
-Gatus is not in the MVP, so it has no row. Startup order uses `depends_on` with `condition: service_healthy` (long syntax; the short syntax does not wait, E79). Whether each image contains curl or wget for HTTP checks is a spike detail.
+Gatus is not in the MVP, so it has no row; nor does oauth2-proxy, which the second revision of 2026-11-01 removed (the OIDC plugin runs inside Traefik, [ADR-005](ADR-005-authentication-authorisation.md)). Startup order uses `depends_on` with `condition: service_healthy` (long syntax; the short syntax does not wait, E79). MySQL and Garage run on the database host, outside the application host's Compose project, so `depends_on` there cannot wait for them; how the services wait for the database at startup is a spike detail. Whether each image contains curl or wget for HTTP checks is a spike detail.
 
 ## Deferred design: Gatus and the public status page
 
@@ -88,7 +88,7 @@ Not publicly exposed, with these principles (E75). Gatus would sit on the `inter
 
 #### Routing and public content
 
-- `/status` is a **public page of the React app** (no login; also “Service status” in the app menu). It must bypass ForwardAuth so it works when Sign-in is down.
+- `/status` is a **public page of the React app** (no login; also “Service status” in the app menu). It must bypass the OIDC middleware so it works when Sign-in is down.
 - Traefik routes **only** Gatus's read-only JSON under `/status/api`, rewritten to `/api/v1/endpoints/statuses` and the uptime-data endpoints. The longer prefix must win over the SPA route (rule priority to confirm in the spike).
 - **Spike item 11:** confirm that the `hide-*` settings also strip the JSON output. If not, the raw API is never routed publicly and the fallback is decided at the spike (for example a filtering step); the page is not built on an unsanitised API.
 - Public content: one overall sentence and a capability list. No versions, hostnames, container names, error messages or stack traces; full detail only on the internal network and in Grafana.
@@ -113,7 +113,7 @@ Capability names: Report a fault · Schedule interventions · Notifications · S
 | Notifications | Notification readiness + Mailpit/SMTP + RabbitMQ (with the broker down nothing is delivered until it recovers) |
 | Suggestions | AI triage service health + RabbitMQ (with the broker down no `TriageRequested` is delivered; manual triage still works) |
 | Calendar sync | The configured calendar (Google Calendar or the simulator, [ADR-006](ADR-006-calendar-simulator.md)) |
-| Sign-in | Keycloak ready + oauth2-proxy ready |
+| Sign-in | Keycloak ready (the OIDC plugin runs inside Traefik) |
 | Photo upload | Garage health |
 
 MySQL would get a query-level check here, because `mysqladmin ping` exits 0 even on “Access denied” (E77).
@@ -152,3 +152,5 @@ Review after the spike and when DEVOPS-02 fixes the endpoint names.
 2026-10-27 — proposed by Ricardo (Tech Lead) after a structured design interview; drafting and source checks AI-assisted (new ADR). Reason: §6.7/§6.8 need health and a user-visible degraded state; Gatus is small, Git-configured and internal. Evidence: [evidence register](README.md#evidence-register-en-01-01) E01, E73–E83; DEVOPS-02 [#42](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/42); issue [#15](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/15). Affected documents: ADR-004, [technical design §6, §7](../07-technical-design.md#6-external-integration-and-degraded-mode), [register §5](../planning/decisions-and-feedback.md#5-en-01-01-unresolved-details). Final decision, date and participants: pending team review.
 
 2026-11-01 — revised by Ricardo (Tech Lead) after Martim's review of [PR #45](https://github.com/Phenriquerafael/LABDSOF_G9A/pull/45) (2026-10-31) and the Copilot review of 2026-10-31; drafting AI-assisted. Reason: Gatus is dropped for the MVP; monitoring is health endpoints, container and Traefik health checks, Prometheus `up` and alerts (blackbox_exporter only if needed) and Grafana; the public `/status` page, `/status/api` and the banner, fed by Gatus, are deferred past the MVP with Gatus as the candidate; degraded states are shown in context; EN01-U14 and EN01-U15 deferred. Evidence: E36, E39, E58, E73–E79; [review decisions](../planning/decisions-and-feedback.md#review-decisions--en-01-01-2026-11-01). Affected documents: [ADR-004](ADR-004-deployment-contract.md), [ADR-011](ADR-011-installable-pwa-client.md), [ADR-010](ADR-010-object-storage.md), [technical design §1, §4, §6, §7](../07-technical-design.md#6-external-integration-and-degraded-mode), [requirements](../requirements.md) (NFR-06), [register §5](../planning/decisions-and-feedback.md#5-en-01-01-unresolved-details). Still Proposed; final decision pending team review.
+
+2026-11-01 (second revision) — revised by Ricardo (Tech Lead) after Martim's [PR #52](https://github.com/Phenriquerafael/LABDSOF_G9A/pull/52); drafting AI-assisted. Reason: oauth2-proxy is removed ([ADR-005](ADR-005-authentication-authorisation.md)), so its health check, scrape target and Sign-in check go; MySQL and Garage move to the database host and a second Garage to the backup host; `mysqld_exporter` added; the scrape path to the database host and Garage's metrics endpoint are recorded as open, not claimed (P-08, Martim with Ricardo). Evidence: E77–E79, E88; [second revision](../planning/decisions-and-feedback.md#second-revision--en-01-01-2026-11-01). Affected documents: [ADR-004](ADR-004-deployment-contract.md), [technical design §7](../07-technical-design.md#7-proposed-deployment-and-operations). Still Proposed; final decision pending team review.

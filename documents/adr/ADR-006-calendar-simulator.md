@@ -63,7 +63,7 @@ For option D only the event-ID facts are sourced (E87); its credential, quota an
 
 ## Verification and review
 
-Sprint B evidence to produce (none exists yet): success; timeout-after-create with reconciliation; duplicate request (one booking); conflict; invalid/incomplete response; simulator stopped and restarted (`discrepancy`); Dispatch started while the simulator is down. The tests run against the simulator container, with the in-process fake used only for unit tests. Against Google, with test credentials (spike item): create with the booking ID as event ID, query by ID, cancel, and a forced client timeout followed by reconciliation by ID leaves one event. EN-01-01 consolidates the integration view. Review if Google credentials or quota fail the spike, or if the simulator's memory cost is a problem on the demonstration host (EN01-U3).
+Sprint B evidence to produce (none exists yet): success; timeout-after-create with reconciliation; duplicate request (one booking); conflict; invalid/incomplete response; simulator stopped and restarted (`discrepancy`); Dispatch started while the simulator is down. The tests run against the simulator container, with the in-process fake used only for unit tests. Against Google, with test credentials (spike item): create with the booking ID as event ID, query by ID, cancel, and a forced client timeout followed by reconciliation by ID leaves one event. EN-01-01 consolidates the integration view. Review if Google credentials or quota fail the spike, or if the simulator's memory cost is a problem on the application host (EN01-U3).
 
 ## Record
 

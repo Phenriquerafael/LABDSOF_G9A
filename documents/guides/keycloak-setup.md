@@ -1,12 +1,12 @@
 # Keycloak setup guide (design level)
 
-**Status:** planned configuration, not executed — no Keycloak instance has been set up (EN-01-01, 2026-10-27; revised 2026-11-01 after the PR #45 reviews)
+**Status:** planned configuration, not executed — no Keycloak instance has been set up (EN-01-01, 2026-10-27; revised 2026-11-01 after the PR #45 reviews, and again the same day: the traefik-oidc-auth plugin replaces oauth2-proxy)
 
-**Audience:** the team members who will set up identity in the spike (Ricardo, Afonso, Martim for infrastructure). Decision and reasons: [ADR-005](../adr/ADR-005-authentication-authorisation.md). Evidence IDs (E27, E31 …) refer to the [evidence register](../adr/README.md#evidence-register-en-01-01). Anything marked **to confirm in the spike** is not in the register and must be checked against the Keycloak, oauth2-proxy or Traefik documentation before use. Placeholders such as `<KEYCLOAK_ADMIN_PASSWORD>` stand for values that come from the environment; no real secret, hostname or password belongs in this file or in Git.
+**Audience:** the team members who will set up identity in the spike (Ricardo, Afonso, Martim for infrastructure). Decision and reasons: [ADR-005](../adr/ADR-005-authentication-authorisation.md). Evidence IDs (E27, E88 …) refer to the [evidence register](../adr/README.md#evidence-register-en-01-01). Anything marked **to confirm in the spike** is not in the register and must be checked against the Keycloak, traefik-oidc-auth or Traefik documentation before use. Placeholders such as `<KEYCLOAK_ADMIN_PASSWORD>` stand for values that come from the environment; no real secret, hostname or password belongs in this file or in Git.
 
 ## 1. Purpose and scope
 
-The guide describes what to configure so that spike items 1 (Keycloak 26.8 on MySQL 8.4 with realm import) and 3 (Traefik ForwardAuth → oauth2-proxy returns `401` to API calls and passes the bearer token) can be run. It does not cover production hardening, token lifetimes, logout or cookie-secret rotation (EN01-U6, EN-01-04), and it does not describe how the services validate tokens beyond the points that affect Keycloak. Keycloak stays the identity provider; a managed identity provider was considered and not adopted for the MVP ([ADR-005](../adr/ADR-005-authentication-authorisation.md)). Social login could be added later with Keycloak's identity brokering; it is not in the MVP.
+The guide describes what to configure so that spike items 1 (Keycloak 26.8 on MySQL 8.4 with realm import) and 3 (Traefik's OIDC plugin returns `401` to API calls without a session and forwards the access token) can be run. It does not cover production hardening, token lifetimes or rotation of the plugin's `Secret` (EN01-U6, EN-01-04), and it does not describe how the services validate tokens beyond the points that affect Keycloak. Keycloak stays the identity provider; a managed identity provider was considered and not adopted for the MVP ([ADR-005](../adr/ADR-005-authentication-authorisation.md)). Social login could be added later with Keycloak's identity brokering; it is not in the MVP.
 
 ## 2. Components and how they connect
 
@@ -14,19 +14,17 @@ The guide describes what to configure so that spike items 1 (Keycloak 26.8 on My
 flowchart LR
   B[Browser] -->|HTTPS, one origin| T[Traefik]
   T -->|/| N[client nginx]
-  T -->|/oauth2/*| O[oauth2-proxy]
   T -->|/auth/*| K[Keycloak]
-  T -->|ForwardAuth on /api/*| O
-  T -->|/api/issue/*, /api/dispatch/*, /api/notifications/*| S[Issue, Dispatch, Notification]
-  O -->|OIDC, code flow| K
+  T -->|/api/issue/*, /api/dispatch/*, /api/notifications/*, Bearer access token| S[Issue, Dispatch, Notification]
+  T -->|OIDC plugin: code flow with PKCE, token renewal| K
   S -.->|fetch signing keys| K
   NS[Notification service account] -.->|client credentials, view-users| K
-  K --> M[(MySQL 8.4: database keycloak)]
+  K -->|private link| M[(MySQL 8.4 on the database host: database keycloak)]
   K -->|verification email, SMTP| P[Mailpit]
 ```
 
-- Only Traefik is exposed. The browser sees one origin; `/auth/*` is Keycloak, `/oauth2/*` is oauth2-proxy.
-- On `/api/*` Traefik asks oauth2-proxy (ForwardAuth). With a valid session oauth2-proxy answers with `Authorization: Bearer <access token>`, built from the `access_token` claim through `injectResponseHeaders` (E86, section 9), and Traefik copies it to the service (E32). Without one it answers `401`.
+- Only Traefik is exposed. The browser sees one origin; `/auth/*` is Keycloak; the plugin's callback, login and logout paths are answered by Traefik's OIDC middleware itself (section 9). There is no oauth2-proxy.
+- On `/api/*` Traefik's OIDC middleware, the community plugin traefik-oidc-auth (E88), checks the session cookie. With a valid session it adds `Authorization: Bearer <access token>` and Traefik forwards the request to the service; without one it answers `401` (section 9).
 - The services are resource servers: they fetch Keycloak's signing keys and validate issuer, audience and expiry themselves (E16). Traefik Proxy cannot validate JWTs (E35).
 - The Notification service logs in to Keycloak as a service account to look up email addresses by `sub`.
 
@@ -56,7 +54,7 @@ The MySQL instance is shared with `issue`, `dispatch` and `notification`; the tw
 | Realm import | Mount `infra/keycloak/bmc-realm.json` into `/opt/keycloak/data/import/` and start with `--import-realm` (E29) | Planned |
 | Admin bootstrap | Initial admin user and password from `<KEYCLOAK_ADMIN_USER>` and `<KEYCLOAK_ADMIN_PASSWORD>`; change or remove after setup | Variable names **to confirm in the spike** |
 | Health | A health endpoint for the Compose health check | **To confirm in the spike** |
-| Networks | Keycloak on the `edge` network, so Traefik can route `/auth/*`, and on the `internal` network for its MySQL database; reachable from outside only through `/auth/*`; the admin console is not published beyond what the spike needs | [ADR-004](../adr/ADR-004-deployment-contract.md) |
+| Networks | Keycloak on the `edge` network, so Traefik can route `/auth/*`, and on the `internal` network for Mailpit; it reaches its MySQL database on the database host over the private link (how the link is built is open, DEVOPS-02); reachable from outside only through `/auth/*`; the admin console is not published beyond what the spike needs | [ADR-004](../adr/ADR-004-deployment-contract.md) |
 
 ## 5. Realm `bmc` as code
 
@@ -70,7 +68,7 @@ The MySQL instance is shared with `issue`, `dispatch` and `notification`; the tw
 
 | Client | Type | Grant | Redirect URIs | Purpose |
 |---|---|---|---|---|
-| `bmc-edge` | Confidential; secret `<BMC_EDGE_CLIENT_SECRET>` from the environment | Authorization code (PKCE with S256 **to confirm in the spike**); refresh token | `https://<PUBLIC_HOST>/oauth2/callback`; post-logout redirect `https://<PUBLIC_HOST>/` | Used by oauth2-proxy for the browser session. Needs an **audience mapper** so the access token's audience is valid for oauth2-proxy and the services (E31) |
+| `bmc-edge` | Confidential; secret `<BMC_EDGE_CLIENT_SECRET>` from the environment | Authorization code with PKCE (`UsePkce` in the plugin, E88; the method **to confirm in the spike**); refresh token | `https://<PUBLIC_HOST>/oidc/callback` (the plugin's default callback, E88); valid post-logout redirect also `https://<PUBLIC_HOST>/oidc/callback`, because Keycloak returns there so the plugin can clear its session before sending the user to its own `PostLogoutRedirectUri` (default `/`, E88) | Used by the traefik-oidc-auth plugin in Traefik for the browser session (E88). Needs an **audience mapper** so the access token carries the audience the services require |
 | `notification-service` | Confidential; secret `<NOTIFICATION_CLIENT_SECRET>` from the environment | Client credentials only (service account enabled) | none | Notification looks up an email address by `sub`; the service account gets the realm-management role `view-users` and nothing else (E17) |
 | Issue → Keycloak | Not planned | — | — | Created only if the invitation flow proves to need it, with minimal rights |
 | Services (Issue, Dispatch, Notification) | No client | — | — | They only validate JWTs against the issuer and its signing keys (E16) |
@@ -97,9 +95,9 @@ Tokens carry `sub` (and the realm roles above); they never carry building roles.
 | # | Where | Step |
 |---|---|---|
 | 1 | Browser | The visitor opens the app; the SPA loads (`/` is public) and calls `GET /api/issue/me` |
-| 2 | Traefik / oauth2-proxy | No session: `401`; the SPA navigates to `/oauth2/start?rd=<path>` |
+| 2 | Traefik (OIDC plugin) | No session: `401`; the SPA navigates to the plugin's login URI |
 | 3 | **Keycloak** | The visitor chooses "Register", fills the form and verifies the email address (message in Mailpit in dev/demo), then logs in |
-| 4 | oauth2-proxy | Callback `/oauth2/callback`, session cookie set, redirect to `<path>` |
+| 4 | Traefik (OIDC plugin) | Callback (`/oidc/callback` by default), session cookie set; how the user returns to the requested path is a spike detail |
 | 5 | **Issue** | The SPA calls the registration endpoint (to define in the EN-01-01 views); Issue creates the organisation, the first building and an administrator membership for the authenticated `sub`, and a profile row keyed by `sub` |
 | 6 | **Issue** | The administrator creates one invitation per fraction (workflow 2) |
 
@@ -108,14 +106,14 @@ Tokens carry `sub` (and the realm roles above); they never carry building roles.
 | # | Where | Step |
 |---|---|---|
 | 1 | **Issue** | The administrator creates an invitation: random single-use token, stored hashed, valid 7 days, bound to a fraction |
-| 2 | Issue → Notification | `NotificationRequested` with the invitee's address and link; Notification sends the email (Mailpit in dev/demo). The link is `https://<PUBLIC_HOST>/invite#t=<token>`: the token is in the fragment, which the browser never sends to Traefik or oauth2-proxy |
+| 2 | Issue → Notification | `NotificationRequested` with the invitee's address and link; Notification sends the email (Mailpit in dev/demo). The link is `https://<PUBLIC_HOST>/invite#t=<token>`: the token is in the fragment, which the browser never sends to Traefik |
 | 3 | Browser | The resident opens the link; the SPA reads the token from the fragment, removes it from the address bar and keeps it in `sessionStorage` until step 6 |
-| 4 | Traefik / oauth2-proxy | No session: `401`, then `/oauth2/start` with `rd=/invite`; the token is not in `rd` or in any logged path |
+| 4 | Traefik (OIDC plugin) | No session: `401`, then the plugin's login URI; the token is not in any URL or logged path |
 | 5 | **Keycloak** | The resident registers (and verifies the email) or logs in |
 | 6 | **Issue** | `POST /api/issue/invitations/acceptance` with the session and the token in the JSON body; the SPA then deletes it from `sessionStorage` whatever the outcome: the token is checked (valid, unused, unexpired) and the token's `email` claim must equal the invitee address with `email_verified` true (otherwise `403`); then the membership is bound to the `sub` and the token is marked used |
 | 7 | **Issue** | If the token is expired or used, the resident asks the administrator for a new one |
 
-Proposed after review (2026-10-27): the verified email must match the invitation address, so a forwarded link cannot be accepted by another account; the administrator revokes and reissues an invitation sent to a wrong address. To confirm in the spike: the access token passed by oauth2-proxy carries `email` and `email_verified` (Keycloak's `email` client scope). EN-01-04 reviews the rule.
+Proposed after review (2026-10-27): the verified email must match the invitation address, so a forwarded link cannot be accepted by another account; the administrator revokes and reissues an invitation sent to a wrong address. To confirm in the spike: the access token forwarded by the plugin carries `email` and `email_verified` (Keycloak's `email` client scope). EN-01-04 reviews the rule.
 
 ### Contractor registration (workflow 9)
 
@@ -128,20 +126,24 @@ Proposed after review (2026-10-27): the verified email must match the invitation
 
 **Not used:** Issue creating Keycloak users through the Admin API with an "execute actions" email. Reasons in [ADR-005](../adr/ADR-005-authentication-authorisation.md#onboarding-flows).
 
-## 9. oauth2-proxy settings that matter
+## 9. Traefik OIDC plugin settings that matter
+
+The plugin is **traefik-oidc-auth** (sevensolutions, MIT), a community project, not a Traefik Labs product; it acts as the OIDC relying party and lists Keycloak as a supported provider (E88). Traefik's plugin system is experimental and subject to change (E89). Option names below are those in the plugin's documentation (E88).
 
 | Setting | Planned value | Status |
 |---|---|---|
-| Provider | `keycloak-oidc`, issuer URL of realm `bmc`, client `bmc-edge`, client secret from `<BMC_EDGE_CLIENT_SECRET>` | E31; flag names **to confirm in the spike** |
-| Reverse proxy | `--reverse-proxy=true` | E32 |
-| Session | Encrypted cookie session (default); Redis is the documented alternative if cookies grow too large | E31; size with Keycloak tokens **to confirm in the spike** |
-| Cookie flags | `HttpOnly`, `Secure`, `SameSite=Strict`; cookie secret `<OAUTH2_PROXY_COOKIE_SECRET>` generated per environment, never committed | Planned; accepted secret length and flag names **to confirm in the spike** |
-| Upstream header | `Authorization: Bearer <access token>`, built with the alpha configuration `injectResponseHeaders`: header `Authorization`, claim source `access_token`, prefix `Bearer `; forwarded by Traefik through `authResponseHeaders`. `injectResponseHeaders` needs oauth2-proxy's alpha configuration file, which replaces the legacy header flags; any other header (such as an access-token header) is another `injectResponseHeaders` entry. Do not use `--set-authorization-header` or `--pass-authorization-header`: both put the ID token in `Authorization` | E32, E86; audience of the forwarded token **to confirm in spike item 3** |
-| API routes | No-auto-redirect behaviour so unauthenticated API calls get `401`, not a redirect to the login page | E32 |
-| Redirect URL | `https://<PUBLIC_HOST>/oauth2/callback`, same as the `bmc-edge` redirect URI | Planned |
-| Token refresh | Whether oauth2-proxy refreshes the access token before expiry and with which lifetimes | Open (EN01-U6) |
+| Installation | Traefik static configuration `experimental.plugins` with `moduleName: "github.com/sevensolutions/traefik-oidc-auth"` and a pinned `version` (`v0.22.0`, the latest release, published 2026-10-25); alternatively `experimental.localPlugins` loads it from a local directory | E88, E89; loading method **to confirm in the spike** |
+| Provider | `Provider.Url` = issuer URL of realm `bmc`; `ClientId` `bmc-edge`; `ClientSecret` from `<BMC_EDGE_CLIENT_SECRET>` | E88 |
+| PKCE | `UsePkce: true` (the default is false) | E88 |
+| Session secret | `Secret` = `<OIDC_PLUGIN_SECRET>`, a 32-character string generated per environment, never committed | E88 |
+| Session cookie | `SessionCookie` with `Secure` and `HttpOnly` (both true by default); `SameSite=Strict` | E88 for `Secure` and `HttpOnly`; the `SameSite` option **to confirm in the spike** |
+| Token validation | `TokenValidation` (`AccessToken`, `IdToken` or `Introspection`; default `IdToken`) and `ValidAudience` (default: the client id), set so that the forwarded access token carries the audience the services require | E88; values **to confirm in spike item 3** |
+| API routes | `UnauthenticatedBehavior: Unauthorized` on the `/api/*` routers, so an API call without a session gets `401`; `Auto` would redirect HTML requests | E88 |
+| Upstream header | `Headers` entry `Authorization: Bearer {{ .accessToken }}` | E88; audience of the forwarded token **to confirm in spike item 3** |
+| Callback, login, logout | `CallbackUri` (default `/oidc/callback`, same as the `bmc-edge` redirect URI), `LoginUri` (optional in the plugin, no default; must be set here, because a `401` from `/api/*` sends the client to it), `LogoutUri` (default `/logout`); exact paths a spike detail | E88 |
+| Token renewal | The plugin renews the access token automatically after `TokenRenewalThreshold` (default 0.75) of its lifetime; the lifetimes themselves are open | E88; lifetimes open (EN01-U6) |
 
-Traefik side: a ForwardAuth middleware pointing at oauth2-proxy's auth endpoint on the `edge` network (the only network Traefik and oauth2-proxy share), used by the `/api/*` routers; no middleware on `/` and `/auth/*`; `/oauth2/*` routed to oauth2-proxy; RateLimit on `/auth/*` and `/oauth2/*` (E35). The CSRF request header is enforced by the services or an edge middleware (EN-01-04).
+Traefik side: the OIDC middleware on the `/api/*` routers and on the routers that carry the plugin's callback, login and logout paths; no middleware on `/` and `/auth/*`; RateLimit on `/auth/*` and the plugin's paths (E35). The CSRF request header is enforced by the services or an edge middleware (EN-01-04).
 
 ## 10. Troubleshooting and pitfalls
 
@@ -152,11 +154,11 @@ Traefik side: a ForwardAuth middleware pointing at oauth2-proxy's auth endpoint 
 | Container killed or restarts under load | No memory limit, or a limit below the base need | Set a limit; base is about 1250 MB; heap is 70% of the limit (E28) |
 | Login redirects point to an internal hostname or `http://` | Hostname or proxy settings missing | Set the public hostname and proxy headers (names to confirm) |
 | Services reject valid tokens with an issuer error | `iss` is the public URL, but the service was configured with the internal one | Configure the public issuer and an internal key URL; check `issuer-uri` and `jwk-set-uri` (E16) |
-| oauth2-proxy rejects the token or the services reject the audience | Audience mapper missing on `bmc-edge` | Add it and decode the access token in the spike (E31) |
-| Services receive an ID token instead of the access token | `--set-authorization-header` or `--pass-authorization-header` in use | Build `Authorization` from the `access_token` claim with `injectResponseHeaders` (E86) |
-| API call returns a `302` to the login page | Wrong route: the no-redirect behaviour is not applied | Fix the Traefik router; expect `401` (E32) |
+| The plugin rejects the token or the services reject the audience | Audience mapper missing on `bmc-edge`, or `TokenValidation` and `ValidAudience` do not match the token | Add the mapper, set the two options and decode the access token in the spike (E88) |
+| Services receive no bearer token or the wrong token | The `Headers` entry does not send `Authorization: Bearer {{ .accessToken }}` | Fix the entry (E88) |
+| API call returns a `302` to the login page | `UnauthenticatedBehavior` is not `Unauthorized` on that router (`Auto` redirects HTML requests) | Fix the Traefik router; expect `401` (E88) |
 | Login loops or "CSRF cookie" errors after returning from Keycloak | `SameSite=Strict` or `Secure` conflicts with the redirect, or HTTP on a local host | Spike item; Keycloak is on the same origin, so the callback should be same-site (to confirm) |
-| Cookie too large, session lost | Tokens exceed the cookie limit | Check cookie size; use Redis (E31) |
+| Cookie too large, session lost | Tokens exceed the cookie limit | Check cookie size in spike item 3; if it fails, option B in [ADR-005](../adr/ADR-005-authentication-authorisation.md) is the fallback |
 | Realm change in the JSON has no effect | The realm already exists, so the import is skipped (E29) | Reset the dev database or change the realm through a procedure |
 | Demo users missing | A second import file for the same realm is skipped (E29) | See section 5 |
 | Verification email does not arrive | SMTP host, port or from address wrong | Read Mailpit's UI and Keycloak's SMTP test |
@@ -165,10 +167,10 @@ Traefik side: a ForwardAuth middleware pointing at oauth2-proxy's auth endpoint 
 ## 11. What the spike must confirm
 
 1. Keycloak 26.8 starts on MySQL 8.4 with the two MySQL settings and imports `bmc-realm.json` (spike item 1); the option names marked "to confirm" above.
-2. Traefik ForwardAuth → oauth2-proxy returns `401` to an API call without a session and forwards the access token (not the ID token) in `Authorization` with a session, with the audience the services require (spike item 3); the SPA can then navigate to `/oauth2/start` and return.
+2. The traefik-oidc-auth plugin returns `401` (not a redirect) to an API call without a session and, with a session, forwards the access token in `Authorization` with the audience the services require; logout and token renewal work (spike item 3); the SPA can then navigate to the plugin's login URI and return.
 3. The access token's issuer, audience and roles as the services need them; a service validates it locally.
-4. Cookie size and `SameSite=Strict` through the login redirects; if they fail, record option B in [ADR-005](../adr/ADR-005-authentication-authorisation.md) as adopted.
-5. How secrets enter the realm without being in Git, and how demo users are created.
+4. Cookie size with Keycloak's tokens and `SameSite=Strict` through the login redirects; if they fail, record option B in [ADR-005](../adr/ADR-005-authentication-authorisation.md) as adopted.
+5. How secrets enter the realm and the plugin without being in Git, how the plugin is loaded (module name and version or a local directory, E89), and how demo users are created.
 6. The Notification service account can read an email address by `sub` with `view-users` only.
 7. The measured memory of Keycloak in the full Compose stack (spike item 8, EN01-U3).
 
