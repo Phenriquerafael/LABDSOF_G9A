@@ -1,78 +1,39 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 560" width="900" height="560" font-family="sans-serif" font-size="16">
-  <title>Requests and logs</title>
-  <style>
-    .node { fill: #ececff; stroke: #9370db; stroke-width: 1.5; }
-    .opt { fill: #f7f7f7; stroke: #9370db; stroke-width: 1.5; stroke-dasharray: 6 4; }
-    .line { stroke: #333; stroke-width: 1.5; fill: none; }
-    .dash { stroke-dasharray: 6 4; }
-    .lbl { fill: #222; font-size: 14; }
-    .sub { font-size: 14; }
-  </style>
-  <defs>
-    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
-      <path d="M0,0 L10,5 L0,10 z" fill="#333"/>
-    </marker>
-  </defs>
-  <rect width="900" height="560" fill="#ffffff"/>
-
-  <!-- User and gateway -->
-  <rect class="node" x="20" y="170" width="170" height="70" rx="8"/>
-  <text x="105" y="210" text-anchor="middle">User</text>
-
-  <rect class="node" x="250" y="170" width="180" height="70" rx="8"/>
-  <text x="340" y="202" text-anchor="middle">gateway</text>
-  <text class="sub" x="340" y="224" text-anchor="middle">creates X-Request-ID</text>
-
-  <line class="line" x1="190" y1="195" x2="248" y2="195" marker-end="url(#arrow)"/>
-  <line class="line" x1="248" y1="220" x2="190" y2="220" marker-end="url(#arrow)"/>
-  <text class="lbl" x="219" y="182" text-anchor="middle">request</text>
-  <text class="lbl" x="219" y="256" text-anchor="middle">response</text>
-
-  <!-- Each request goes to one service, chosen by path -->
-  <line class="line" x1="430" y1="186" x2="558" y2="75" marker-end="url(#arrow)"/>
-  <line class="line" x1="430" y1="205" x2="558" y2="175" marker-end="url(#arrow)"/>
-  <line class="line" x1="430" y1="224" x2="558" y2="275" marker-end="url(#arrow)"/>
-  <text class="lbl" x="440" y="112">/dispatch</text>
-  <text class="lbl" x="440" y="168">/auth</text>
-  <text class="lbl" x="440" y="296">/issue</text>
-
-  <rect class="node" x="560" y="40" width="300" height="70" rx="8"/>
-  <text x="710" y="70" text-anchor="middle">Dispatch</text>
-  <text class="sub" x="710" y="92" text-anchor="middle">reads X-Request-ID</text>
-
-  <rect class="node" x="560" y="140" width="300" height="70" rx="8"/>
-  <text x="710" y="170" text-anchor="middle">auth</text>
-  <text class="sub" x="710" y="192" text-anchor="middle">reads X-Request-ID</text>
-
-  <rect class="node" x="560" y="240" width="300" height="70" rx="8"/>
-  <text x="710" y="270" text-anchor="middle">Issue</text>
-  <text class="sub" x="710" y="292" text-anchor="middle">reads X-Request-ID</text>
-
-  <!-- Logs from every service and RabbitMQ go to Loki -->
-  <line class="line dash" x1="860" y1="75" x2="882" y2="75"/>
-  <line class="line dash" x1="860" y1="175" x2="882" y2="175"/>
-  <line class="line dash" x1="860" y1="275" x2="882" y2="275"/>
-  <polyline class="line dash" points="882,75 882,455 862,455" marker-end="url(#arrow)"/>
-  <text class="lbl" x="560" y="512">JSON logs from every service and from RabbitMQ</text>
-
-  <rect class="opt" x="560" y="420" width="300" height="70" rx="8"/>
-  <text x="710" y="450" text-anchor="middle">Loki + Alloy</text>
-  <text class="sub" x="710" y="472" text-anchor="middle">(optional)</text>
-
-  <rect class="opt" x="250" y="420" width="200" height="70" rx="8"/>
-  <text x="350" y="450" text-anchor="middle">RabbitMQ</text>
-  <text class="sub" x="350" y="472" text-anchor="middle">logs to stdout</text>
-
-  <line class="line dash" x1="450" y1="455" x2="558" y2="455" marker-end="url(#arrow)"/>
-
-  <!-- Grafana queries Loki -->
-  <rect class="node" x="20" y="320" width="200" height="70" rx="8"/>
-  <text x="120" y="350" text-anchor="middle">Grafana</text>
-  <text class="sub" x="120" y="372" text-anchor="middle">search by request_id</text>
-
-  <line class="line dash" x1="220" y1="355" x2="558" y2="440" marker-end="url(#arrow)"/>
-  <text class="lbl" x="330" y="380">query</text>
-
-  <!-- Legend -->
-  <text class="lbl" x="20" y="540">Dashed border = optional component. Dashed arrow = log or query path.</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="600" viewBox="0 0 1500 600" font-family="Arial, 'Liberation Sans', Helvetica, sans-serif">
+<title>Observability · Requests and logs</title>
+<defs><marker id="open" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto"><path d="M1 1 L11 6 L1 11" fill="none" stroke="#000000" stroke-width="1.4"/></marker></defs>
+<rect width="100%" height="100%" fill="#FFFFFF"/>
+<path d="M300 100 l14 -14 h1000 l-14 14 z" fill="#83C6EF" stroke="#000000" stroke-width="1.4"/>
+<path d="M1300 100 l14 -14 v400 l-14 14 z" fill="#83C6EF" stroke="#000000" stroke-width="1.4"/>
+<rect x="300" y="100" width="1000" height="400" fill="#83C6EF" stroke="#000000" stroke-width="1.4"/>
+<text x="800.0" y="118" font-size="11.5" fill="#000000" text-anchor="middle" dominant-baseline="central">«device»</text><text x="800.0" y="133" font-size="13.5" font-weight="bold" fill="#000000" text-anchor="middle" dominant-baseline="central">Application host</text><text x="800.0" y="148" font-size="11" fill="#1F2A33" text-anchor="middle" dominant-baseline="central">Docker Compose</text>
+<path d="M120 90 L120.0 199.0 Q120 205 126.0 205.0 L320 205" stroke="#000000" stroke-width="1.4" fill="none" stroke-dasharray="8 5" marker-end="url(#open)"/>
+<text stroke="#83C6EF" stroke-width="5" stroke-linejoin="round" x="150" y="195" font-size="12" fill="#000000" text-anchor="start" dominant-baseline="central">HTTPS 443</text><text x="150" y="195" font-size="12" fill="#000000" text-anchor="start" dominant-baseline="central">HTTPS 443</text>
+<path d="M520 205 L640 205" stroke="#000000" stroke-width="1.4" fill="none" stroke-dasharray="8 5" marker-end="url(#open)"/>
+<text stroke="#83C6EF" stroke-width="5" stroke-linejoin="round" x="580" y="190" font-size="12" fill="#000000" text-anchor="middle" dominant-baseline="central">X-Request-ID</text><text x="580" y="190" font-size="12" fill="#000000" text-anchor="middle" dominant-baseline="central">X-Request-ID</text>
+<path d="M840 205 L900 205" stroke="#000000" stroke-width="1.4" fill="none" stroke-dasharray="8 5" marker-end="url(#open)"/>
+<path d="M740 240 L740 330" stroke="#000000" stroke-width="1.4" fill="none" stroke-dasharray="8 5" marker-end="url(#open)"/>
+<text stroke="#83C6EF" stroke-width="5" stroke-linejoin="round" x="748" y="290" font-size="12" fill="#000000" text-anchor="start" dominant-baseline="central">logs</text><text x="748" y="290" font-size="12" fill="#000000" text-anchor="start" dominant-baseline="central">logs</text>
+<path d="M840 360 L1340 345" stroke="#000000" stroke-width="1.4" fill="none" stroke-dasharray="8 5" marker-end="url(#open)"/>
+<text stroke="#83C6EF" stroke-width="5" stroke-linejoin="round" x="1090" y="340" font-size="12" fill="#000000" text-anchor="middle" dominant-baseline="central">optional</text><text x="1090" y="340" font-size="12" fill="#000000" text-anchor="middle" dominant-baseline="central">optional</text>
+<text x="20" y="28" font-size="18" font-weight="bold" fill="#000000" text-anchor="start" dominant-baseline="central">Observability · Requests and logs</text>
+<text x="20" y="50" font-size="12" fill="#444444" text-anchor="start" dominant-baseline="central">Correlation ID created at the gateway and forwarded · OBSERVABILITY.md sections 4.1 and 4.2</text>
+<circle cx="120" cy="70" r="10" fill="#83C6EF" stroke="#000000" stroke-width="1.6"/><path d="M120 80 v26 M102 90 h36 M120 106 l-14 20 M120 106 l14 20" stroke="#000000" stroke-width="1.6" fill="none"/>
+<text x="120" y="140" font-size="13.5" font-weight="bold" fill="#000000" text-anchor="middle" dominant-baseline="central">Browser</text><text x="120" y="155" font-size="11" fill="#1F2A33" text-anchor="middle" dominant-baseline="central">sends a request</text>
+<rect x="320" y="170" width="200" height="70" fill="#83C6EF" stroke="#000000" stroke-width="1.4"/>
+<rect x="499" y="178" width="11" height="16" stroke="#000000" stroke-width="1.1" fill="#83C6EF"/><rect x="496" y="181" width="7" height="3.5" stroke="#000000" stroke-width="1.1" fill="#83C6EF"/><rect x="496" y="187" width="7" height="3.5" stroke="#000000" stroke-width="1.1" fill="#83C6EF"/>
+<text x="420.0" y="190.0" font-size="11.5" fill="#000000" text-anchor="middle" dominant-baseline="central">«container»</text><text x="420.0" y="205.0" font-size="13.5" font-weight="bold" fill="#000000" text-anchor="middle" dominant-baseline="central">traefik</text><text x="420.0" y="220.0" font-size="11" fill="#1F2A33" text-anchor="middle" dominant-baseline="central">creates X-Request-ID</text>
+<rect x="640" y="170" width="200" height="70" fill="#83C6EF" stroke="#000000" stroke-width="1.4"/>
+<rect x="819" y="178" width="11" height="16" stroke="#000000" stroke-width="1.1" fill="#83C6EF"/><rect x="816" y="181" width="7" height="3.5" stroke="#000000" stroke-width="1.1" fill="#83C6EF"/><rect x="816" y="187" width="7" height="3.5" stroke="#000000" stroke-width="1.1" fill="#83C6EF"/>
+<text x="740.0" y="190.0" font-size="11.5" fill="#000000" text-anchor="middle" dominant-baseline="central">«container»</text><text x="740.0" y="205.0" font-size="13.5" font-weight="bold" fill="#000000" text-anchor="middle" dominant-baseline="central">issue</text><text x="740.0" y="220.0" font-size="11" fill="#1F2A33" text-anchor="middle" dominant-baseline="central">logs JSON, forwards ID</text>
+<rect x="900" y="170" width="200" height="70" fill="#83C6EF" stroke="#000000" stroke-width="1.4"/>
+<rect x="1079" y="178" width="11" height="16" stroke="#000000" stroke-width="1.1" fill="#83C6EF"/><rect x="1076" y="181" width="7" height="3.5" stroke="#000000" stroke-width="1.1" fill="#83C6EF"/><rect x="1076" y="187" width="7" height="3.5" stroke="#000000" stroke-width="1.1" fill="#83C6EF"/>
+<text x="1000.0" y="190.0" font-size="11.5" fill="#000000" text-anchor="middle" dominant-baseline="central">«container»</text><text x="1000.0" y="205.0" font-size="13.5" font-weight="bold" fill="#000000" text-anchor="middle" dominant-baseline="central">dispatch</text><text x="1000.0" y="220.0" font-size="11" fill="#1F2A33" text-anchor="middle" dominant-baseline="central">logs JSON, forwards ID</text>
+<rect x="640" y="330" width="200" height="60" fill="#83C6EF" stroke="#000000" stroke-width="1.4"/>
+<path d="M817 338 h8 l5 5 v11 h-13 z M825 338 v5 h5" stroke="#000000" stroke-width="1.1" fill="#83C6EF"/>
+<text x="740.0" y="345.0" font-size="11.5" fill="#000000" text-anchor="middle" dominant-baseline="central">«artifact»</text><text x="740.0" y="360.0" font-size="13.5" font-weight="bold" fill="#000000" text-anchor="middle" dominant-baseline="central">container stdout</text><text x="740.0" y="375.0" font-size="11" fill="#1F2A33" text-anchor="middle" dominant-baseline="central">JSON lines, one per event</text>
+<rect x="1340" y="300" width="140" height="90" fill="#83C6EF" stroke="#000000" stroke-width="1.4" stroke-dasharray="8 5"/>
+<rect x="1459" y="308" width="11" height="16" stroke="#000000" stroke-width="1.1" fill="#83C6EF"/><rect x="1456" y="311" width="7" height="3.5" stroke="#000000" stroke-width="1.1" fill="#83C6EF"/><rect x="1456" y="317" width="7" height="3.5" stroke="#000000" stroke-width="1.1" fill="#83C6EF"/>
+<text x="1410.0" y="330.0" font-size="11.5" fill="#000000" text-anchor="middle" dominant-baseline="central">«container»</text><text x="1410.0" y="345.0" font-size="13.5" font-weight="bold" fill="#000000" text-anchor="middle" dominant-baseline="central">Loki (optional)</text><text x="1410.0" y="360.0" font-size="11" fill="#1F2A33" text-anchor="middle" dominant-baseline="central">by request_id</text>
+<path d="M40 520 h1190 l10 10 v49 h-1200 z" fill="#FFFFFF" stroke="#000000" stroke-width="1.1"/><path d="M1230 520 v10 h10" fill="none" stroke="#000000" stroke-width="1.1"/>
+<text x="49" y="534.5" font-size="11.5" fill="#000000" text-anchor="start" dominant-baseline="central">The ID is created at the gateway, returned to the client, and forwarded by every service.</text><text x="49" y="549.5" font-size="11.5" fill="#000000" text-anchor="start" dominant-baseline="central">OpenTelemetry (traceparent) is the upgrade path (OBSERVABILITY.md section 4.2).</text><text x="49" y="564.5" font-size="11.5" fill="#000000" text-anchor="start" dominant-baseline="central">Text still says nginx for the gateway; ADR-004 and this figure say Traefik.</text>
 </svg>
