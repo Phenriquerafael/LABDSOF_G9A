@@ -1,6 +1,6 @@
 # [EP-01] Residents report and track issues with appropriate visibility
 
-- Publication: Draft — not published by this change; GitHub issue URL: pending. Prepared on 2026-10-15.
+- Publication: Published as [#10](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/10) on 2026-10-15 (checked 2026-10-29); GitHub owns live status. Prepared on 2026-10-15.
 - Workflow: Backlog; type: epic; suggested labels: `type:epic`, `area:product`.
 - Allocation: see the [backlog README](../README.md); confirm coordinator and reviewer during planning.
 - Horizon: S1 discovery/design inputs; implementation in S2, refinement and evaluation in S3. No Sprint 1 implementation commitment.

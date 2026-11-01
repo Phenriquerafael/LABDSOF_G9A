@@ -1,6 +1,6 @@
 # [EN-01] Consolidate technical design, ADRs and security
 
-- Publication: Draft — not published; GitHub issue URL: pending.
+- Publication: Published as [#16](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/16) on 2026-10-10 (checked 2026-10-29); GitHub owns live status.
 - Workflow: Backlog; type: parent task; suggested labels: `type:task`, `area:backend`, `priority:must`.
 - Epic: [EP-04](../epics/EP-04-engineering-and-quality.md).
 - Allocation: see the [backlog README](../README.md).
