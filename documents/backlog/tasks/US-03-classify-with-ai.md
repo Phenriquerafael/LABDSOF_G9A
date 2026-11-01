@@ -4,6 +4,7 @@
 
 - Epic: [EP-02 — Assisted triage and reviewed links](../epics/EP-02-assisted-triage.md).
 - Priority: Must.
+- Estimate: 8 story points — provider integration, asynchronous suggestions, output validation, protected human review and failure/security tests.
 - Sprint: implement in S2 and evaluate/refine in S3.
 - Dependencies: US-01/02 in the [product backlog](../../05-product-backlog.md#4-stories-and-criteria) for reporting and manual triage, and [US-14](US-14-continue-triage-without-ai.md) for rules and fallback.
 
@@ -43,5 +44,5 @@ References: RF-03, P3/P7, J2 and NFR-01/02/03/04/06/10. Assignment: 5.6 and 6.3.
 
 Before starting, agree the example inputs/expected outputs, provider/model, prompt version, allowed labels, response format, timeout, retry limits, budget and access.
 
-- [ ] Ready: owner, reviewer, estimate and sprint capacity agreed; [DoR](../../governance/definition-of-ready.md) reviewed by the team. Date/author:
-- [ ] Done: acceptance criteria met, changes reviewed, and PR, tests and demonstration linked according to the [DoD](../../governance/definition-of-done.md).
+- [ ] Ready: estimate recorded, blocking decisions resolved and [DoR](../../governance/definition-of-ready.md) reviewed by the team.
+- [ ] Done: acceptance criteria met, changes reviewed, PR and tests.

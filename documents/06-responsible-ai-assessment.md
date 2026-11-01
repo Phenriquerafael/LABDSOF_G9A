@@ -30,6 +30,8 @@ Provider, model, final vocabulary, prompt and budget: DEC-05/08. US-03 does not 
 | [US-05](backlog/tasks/US-05-review-duplicate-suggestions.md) | Conditional, human-confirmed reversible duplicate links; does not force embeddings |
 | [US-15](backlog/tasks/US-15-evaluate-ai-against-baseline.md) | Dataset/protocol implementation and AI/baseline/combined evaluation report; optional pair metrics if US-05 selected |
 
+For S2, US-14 and US-03 provide provider-free continuity and the initial working AI path (13 SP combined). US-15's 8-SP estimate covers data/protocol preparation and the S3 report; its full comparison is not required to finish US-03/14. US-05 is conditional (8 SP). Estimates are planning values, not measured effort or evaluation results; freeze relevant protocol/targets before each evaluation and retain initial S2 test evidence.
+
 Contractor ranking uses rules. Duplicate detection is Should: compare filters/context against embeddings before choosing the more complex solution. A solver would only be investigated if a concrete need for constrained optimisation arose.
 
 ## 3. Proposed dataset and protocol

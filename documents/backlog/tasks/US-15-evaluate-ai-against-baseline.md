@@ -4,6 +4,7 @@
 
 - Epic: [EP-02 — Assisted triage and reviewed links](../epics/EP-02-assisted-triage.md).
 - Priority: Must.
+- Estimate: 8 story points — synthetic dataset, evaluation tooling, comparative runs, metrics and reviewed report.
 - Sprint: prepare the data in S2 and complete the evaluation in S3.
 - Dependencies: [US-03](US-03-classify-with-ai.md) and [US-14](US-14-continue-triage-without-ai.md) for the final comparison. Data preparation can start earlier.
 
@@ -38,7 +39,7 @@ Avoid using the final test cases to tune the system, changing targets after seei
 
 ## Ready / Done
 
-Before starting, agree the example inputs and expected answers, baseline, model/prompt versions, targets, budget and access.
+For data preparation, agree the labels, example inputs/expected answers, annotation and split method, baseline and evaluation plan. Before the final run, also confirm model/prompt versions, targets, budget, access and the US-03/14 increment. Preparation does not require a working provider or completed US-03/14.
 
-- [ ] Ready: owner, reviewer, estimate and sprint capacity agreed; [DoR](../../governance/definition-of-ready.md) reviewed by the team. Date/author:
-- [ ] Done: acceptance criteria met, report reviewed, and PR, results and demonstration linked according to the [DoD](../../governance/definition-of-done.md).
+- [ ] Ready: estimate recorded, blocking decisions resolved and [DoR](../../governance/definition-of-ready.md) reviewed by the team.
+- [ ] Done: acceptance criteria met, report reviewed, PR and results.
