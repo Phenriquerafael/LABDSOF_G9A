@@ -2,10 +2,10 @@
 <title>Observability · Metrics paths</title>
 <defs><marker id="open" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto"><path d="M1 1 L11 6 L1 11" fill="none" stroke="#000000" stroke-width="1.4"/></marker></defs>
 <rect width="100%" height="100%" fill="#FFFFFF"/>
-<path d="M660 90 l14 -14 h800 l-14 14 z" fill="#83C6EF" stroke="#000000" stroke-width="1.4"/>
+<path d="M40 90 l14 -14 h1420 l-14 14 z" fill="#83C6EF" stroke="#000000" stroke-width="1.4"/>
 <path d="M1460 90 l14 -14 v420 l-14 14 z" fill="#83C6EF" stroke="#000000" stroke-width="1.4"/>
-<rect x="660" y="90" width="800" height="420" fill="#83C6EF" stroke="#000000" stroke-width="1.4"/>
-<text x="1060.0" y="108" font-size="11.5" fill="#000000" text-anchor="middle" dominant-baseline="central">«device»</text><text x="1060.0" y="123" font-size="13.5" font-weight="bold" fill="#000000" text-anchor="middle" dominant-baseline="central">Application host</text>
+<rect x="40" y="90" width="1420" height="420" fill="#83C6EF" stroke="#000000" stroke-width="1.4"/>
+<text x="750.0" y="108" font-size="11.5" fill="#000000" text-anchor="middle" dominant-baseline="central">«device»</text><text x="750.0" y="123" font-size="13.5" font-weight="bold" fill="#000000" text-anchor="middle" dominant-baseline="central">Application host</text><text x="750.0" y="138" font-size="11" fill="#1F2A33" text-anchor="middle" dominant-baseline="central">Docker Compose · Prometheus and Grafana run here, next to the services</text>
 <path d="M660 540 l14 -14 h800 l-14 14 z" fill="#83C6EF" stroke="#000000" stroke-width="1.4"/>
 <path d="M1460 540 l14 -14 v150 l-14 14 z" fill="#83C6EF" stroke="#000000" stroke-width="1.4"/>
 <rect x="660" y="540" width="800" height="150" fill="#83C6EF" stroke="#000000" stroke-width="1.4"/>

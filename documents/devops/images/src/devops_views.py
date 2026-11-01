@@ -156,7 +156,8 @@ def obs1():
     d.comp("prom", 340, 200, 240, 70, "prometheus", "container", ["scrapes every 30 s", "keeps 15 days"])
     d.path([(260, 235), (340, 235)], "query", at=(300, 222), anchor="middle", bg=BLUE)
 
-    d.node("app", 660, 90, 800, 420, "Application host", "device")
+    d.node("app", 40, 90, 1420, 420, "Application host", "device",
+           ["Docker Compose · Prometheus and Grafana run here, next to the services"])
     d.comp("svc", 690, 150, 230, 60, "issue, dispatch, notification", "container", ["/metrics on each service"])
     d.comp("rmq", 690, 250, 230, 60, "rabbitmq", "container", ["plugin metrics, port 15692"])
     d.comp("nodeexp", 690, 350, 230, 60, "node_exporter, cAdvisor", "container", ["proposal; host and containers"],
