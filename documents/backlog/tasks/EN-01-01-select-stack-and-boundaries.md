@@ -1,6 +1,6 @@
 # [EN-01-01] Select the stack and accept architecture decisions
 
-- Publication: Draft — not published; GitHub issue URL: pending.
+- Publication: Published as [#15](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/15) (checked 2026-10-27; GitHub milestone `Sprint A`); GitHub owns live status.
 - Workflow: Backlog; proposed milestone: S1 — Discover, Validate and Design; dates/estimate: to be agreed.
 - Type: task; suggested labels: `type:task`, `area:backend`, `phase:3`, `priority:must`.
 - Parent: [EN-01](EN-01-technical-design.md); epic: [EP-04](../epics/EP-04-engineering-and-quality.md).

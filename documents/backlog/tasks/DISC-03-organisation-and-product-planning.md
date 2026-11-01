@@ -1,6 +1,6 @@
 # [DISC-03] Agree organisation, product scope and priorities
 
-- Publication: Draft — not published; GitHub issue URL: pending.
+- Publication: Published as [#24](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/24) on 2026-10-10 (checked 2026-10-29); GitHub owns live status.
 - Workflow: Backlog; type: parent task; suggested labels: `type:task`, `area:product`, `priority:must`.
 - Epic: [EP-00](../epics/EP-00-discovery-and-planning.md).
 - Allocation: see the [backlog README](../README.md).
