@@ -2,6 +2,7 @@
 
 ## Planning
 
+- Published issue: [#5](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/5); GitHub owns live status. This document refines the existing story.
 - Epic: [EP-01 — Reporting and tracking](../epics/EP-01-reporting-and-tracking.md).
 - Priority: Must.
 - Estimate: 5 story points — report form/API, persistence, building permissions, safe retries and tests.
@@ -38,7 +39,7 @@ References: RF-01, P1/P5, J1 and NFR-01/02/03/04/05/07/09 in the [requirements](
 
 ## Ready / Done
 
-Before starting, agree the report fields/limits, building/area rules, API responses, storage ownership, idempotency scope/lifetime and conflict behaviour, identity/access rules and test environment. Confirm DEC-04/07 through EN-01 and the [technical design](../../08-technical-design.md).
+Before starting, agree the report fields/limits, building/area rules, API responses, storage ownership, idempotency scope/lifetime and conflict behaviour, identity/access rules and test environment. Confirm DEC-04/07 through EN-01 and the [technical design](../../07-technical-design.md).
 
 - [ ] Ready: estimate recorded, blocking decisions resolved and [DoR](../../governance/definition-of-ready.md) reviewed by the team.
 - [ ] Done: acceptance criteria met, changes reviewed, PR and tests.

@@ -43,7 +43,7 @@ Sandro Dias maintains drafting traceability. EN-01's allocated owner coordinates
 - Applies to: US-10 and US-04; US-02 supplies state-change events.
 - Design work: [EN-01-01](tasks/EN-01-01-select-stack-and-boundaries.md), [EN-01-02](tasks/EN-01-02-define-domain-and-contracts.md), [EN-01-03](tasks/EN-01-03-consolidate-architecture-views.md); DEC-04/06/07.
 - Resolve: selected notification channel, event schemas/versions/identities/correlation, recipient rules, optional versus required updates, preference changes, state/event handoff, bounded retry/final failure policy and event/recipient deduplication across restarts.
-- Cross-epic contract: agree EP-03 US-07 event examples and permitted data with the [intervention epic](epics/EP-03-intervention-and-closure.md). Fixtures can support early development; final story completion includes the actual producer integration. No dependency on the whole EP-03 epic or on delivery succeeding before the source transaction commits.
+- Cross-epic contract: agree EP-03 US-07/08/09 response, booking and completion event examples and permitted data with the [intervention epic](epics/EP-03-intervention-and-closure.md). Fixtures can support early development; final story completion includes the actual producer integration. No dependency on the whole EP-03 epic or on delivery succeeding before the source transaction commits.
 - Closure evidence: reviewed event examples, subscriber/recipient matrix and failure/replay/restart scenarios. Link agreed contracts and their producers/consumers from US-10.
 - Closure record: open; add actual event/channel/reviewer/date references when resolved.
 

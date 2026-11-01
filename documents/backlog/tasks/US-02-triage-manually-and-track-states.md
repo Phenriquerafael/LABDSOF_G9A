@@ -2,6 +2,7 @@
 
 ## Planning
 
+- Published issue: [#4](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/4); GitHub owns live status. This document refines the existing story.
 - Epic: [EP-01 — Reporting and tracking](../epics/EP-01-reporting-and-tracking.md).
 - Priority: Must.
 - Estimate: 8 story points — manual triage, state/history views, permissions, concurrent edits and tests.
@@ -39,7 +40,7 @@ References: RF-02, P1/P3, J1–J2 and NFR-01/02/03/06/07/09 in the [requirements
 
 ## Ready / Done
 
-Before starting, agree allowed labels/transitions, required reasons, audit fields, public history, version conflicts, permissions, late AI handling and intervention status events. Confirm DEC-04/07/10, component/data ownership and the test environment with EN-01 using the [technical design](../../08-technical-design.md).
+Before starting, agree allowed labels/transitions, required reasons, audit fields, public history, version conflicts, permissions, late AI handling and intervention status events. Confirm DEC-04/07/10, component/data ownership and the test environment with EN-01 using the [technical design](../../07-technical-design.md).
 
 - [ ] Ready: estimate recorded, blocking decisions resolved and [DoR](../../governance/definition-of-ready.md) reviewed by the team.
 - [ ] Done: acceptance criteria met, changes reviewed, PR and tests.

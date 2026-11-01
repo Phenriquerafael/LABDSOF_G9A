@@ -2,6 +2,7 @@
 
 ## Planning
 
+- Published issue: [#3](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/3); GitHub owns live status. This document refines the existing story.
 - Epic: [EP-01 — Reporting and tracking](../epics/EP-01-reporting-and-tracking.md).
 - Priority: Must.
 - Estimate: 5 story points — shared summary, impact confirmation, preferences, privacy and concurrent-action tests.
@@ -40,7 +41,7 @@ References: RF-04, P2/P5, J1–J2, assignment 5.5 and NFR-01/02/04/07/09 in the 
 
 ## Ready / Done
 
-Before starting, agree summary fields/limits, field visibility, membership checks, contribution/subscription storage, API responses, events/preferences and test cases with EN-01. Confirm DEC-04/07 and data ownership using the [technical design](../../08-technical-design.md) and [access matrix](../../09-security-privacy.md#2-proposed-access-matrix).
+Before starting, agree summary fields/limits, field visibility, membership checks, contribution/subscription storage, API responses, events/preferences and test cases with EN-01. Confirm DEC-04/07 and data ownership using the [technical design](../../07-technical-design.md) and [access matrix](../../09-security-privacy.md#2-proposed-access-matrix).
 
 - [ ] Ready: estimate recorded, blocking decisions resolved and [DoR](../../governance/definition-of-ready.md) reviewed by the team.
 - [ ] Done: acceptance criteria met, changes reviewed, PR and tests.

@@ -33,7 +33,7 @@ Reporting, viewing and manual triage remain usable when AI is unavailable. Notif
 
 ## Child stories
 
-These are existing [product backlog stories](../../05-product-backlog.md#4-stories-and-criteria), expanded into individual drafts by PLAN-01 without creating additional copies of implementation work. The product backlog retains their scope/priority overview; the files below contain the detailed scenarios. No remote story issue URLs are recorded here.
+These are existing [product backlog stories](../../05-product-backlog.md#4-stories-and-criteria), expanded into individual drafts by PLAN-01 without creating additional copies of implementation work. The product backlog retains their scope/priority overview; the files below contain the detailed scenarios. Existing story issues are [US-01 / #5](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/5), [US-02 / #4](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/4), [US-04 / #3](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/3) and [US-10 / #2](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/2), verified on 2026-11-01. GitHub owns live status; these drafts do not create duplicates.
 
 - [ ] [US-01 — Record and view a report](../tasks/US-01-record-and-view-report.md) · Must · S2 · RF-01.
 - [ ] [US-02 — Triage manually and track states](../tasks/US-02-triage-manually-and-track-states.md) · Must · S2 · RF-02.

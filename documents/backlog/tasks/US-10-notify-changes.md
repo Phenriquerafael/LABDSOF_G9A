@@ -2,6 +2,7 @@
 
 ## Planning
 
+- Published issue: [#2](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/2); GitHub owns live status. This document refines the existing story.
 - Epic: [EP-01 — Reporting and tracking](../epics/EP-01-reporting-and-tracking.md).
 - Priority: Must.
 - Estimate: 8 story points — event processing, recipient permissions, retries/deduplication and producer integration tests.
