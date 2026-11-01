@@ -1,6 +1,6 @@
 # Observability and Resilience Plan
 
-Scope: a university project. One EC2 instance running Docker Compose with an nginx reverse proxy (or gateway) and one or two services. The goal is to meet the course requirements (sections 6.6 to 6.8), see problems quickly, and have a clear demo, not enterprise-grade monitoring.
+Scope: a university project. An application host running Docker Compose with the Traefik gateway and the services, plus a separate database host running MySQL and Garage (ADR-004, [physical views](../07b-physical-views.md)). The hosting provider of each machine is not chosen (P-07, EN01-U3). The goal is to meet the course requirements (sections 6.6 to 6.8), see problems quickly, and have a clear demo, not enterprise-grade monitoring.
 
 Stack: **Prometheus + Grafana** (no CloudWatch).
 
@@ -8,10 +8,10 @@ Stack: **Prometheus + Grafana** (no CloudWatch).
 
 | Decision | Status | Where |
 |---|---|---|
-| One AWS EC2 server running Docker Compose | Proposed for the MVP | section 2 |
-| Observability stack on the same server | Proposed for the MVP; off-box is future work | sections 2, 16 |
+| Application host running Docker Compose; separate database host for MySQL and Garage; provider not chosen | Proposed (ADR-004); provider open (P-07) | section 2 |
+| Observability stack on the application host; Prometheus scrapes the database host over a private link | Proposed; the link and the database exporter are open (P-08) | sections 2, 4.4, 16 |
 | Prometheus and Grafana for metrics and dashboards | Proposed | sections 4.4, 6 |
-| Gateway: nginx | Recommended, not yet agreed | section 2.1 |
+| Gateway: Traefik (ADR-004); nginx was the earlier recommendation | Traefik adopted in ADR-004 | section 2.1 |
 | Error reporting: Sentry or log-based | Open | section 4.5 |
 | Log stack (Loki and Alloy) | Optional | section 3 |
 | Messaging with RabbitMQ | Under consideration | section 4.6 |
@@ -40,9 +40,13 @@ Stack: **Prometheus + Grafana** (no CloudWatch).
 
 ## 2. Architecture
 
-Everything runs in one Docker Compose network on the EC2 instance.
+The application containers run in one Docker Compose network on the application host. MySQL and Garage run on a separate database host. Prometheus reaches the database host only over a private link, which ADR-004 does not describe (P-08).
 
-**Why the observability stack is on the same instance:** one host adds no monitoring cost, and Prometheus reaches every container by its Compose service name. The trade-off is that metrics and logs are lost if the host is lost, and the monitoring containers compete for memory (section 11). Moving the stack to a second host or a hosted Grafana is future work (section 16). The uptime check already runs outside the instance, so a full host failure is still reported.
+**Why the observability stack is on the application host:** Prometheus reaches every application container by its Compose service name, and one Prometheus with one Grafana keeps dashboards and alerts in one place. The trade-off is that metrics and logs are lost if the application host is lost, and the monitoring containers compete for memory (section 11). Moving the stack to a second host or a hosted Grafana is future work (section 16). The uptime check runs outside both hosts, so a full host failure is still reported.
+
+**Database metrics (open, P-08):** MySQL and Garage are not scrape targets in ADR-004, so without a change they have no `up` series and the "service gone" alert does not cover them. Two options are open: `mysqld_exporter` on the database host, scraped by Prometheus over the private link, or a second Prometheus on the database host. The first keeps one Prometheus and one set of alerts; the second keeps the metrics if the application host is lost. The team decides. Whether Garage exposes a Prometheus endpoint must be checked in its documentation before either option is built.
+
+The SVG figures in this section still show the single-EC2 layout. They are to be redrawn to follow the physical views.
 
 The architecture is shown as separate figures, one per concern, instead of a single full view. The SVG files are the only source for these diagrams; edit them directly.
 
@@ -79,9 +83,11 @@ The architecture is shown as separate figures, one per concern, instead of a sin
 | Auth service (third microservice) | Login, token issuing and role checks; mocked login is acceptable for the MVP (section 9) | its own `/metrics`, `/healthz`, `/readyz`, `/status` |
 | Loki + Grafana Alloy (optional) | Searchable logs, queried by `request_id` | 3100 |
 | RabbitMQ (under consideration) | Queues between services; metrics via its Prometheus plugin (section 4.6) | 15692 (metrics), 15672 (management UI, not public) |
+| mysqld_exporter (proposed, not in ADR-004) | MySQL metrics on the database host, scraped over the private link (P-08) | exporter port not chosen |
+| Garage metrics (unverified) | Storage metrics on the database host, if Garage exposes them (P-08) | not chosen |
 | Sentry (hosted, free plan) | Error reporting with stack traces | external |
 
-Skipped on purpose: Alertmanager (Grafana sends the alerts), tracing backends, and database and nginx exporters. They are listed as future work.
+Skipped on purpose: Alertmanager (Grafana sends the alerts), tracing backends, and nginx exporter. They are listed as future work. Database exporters are no longer skipped, because MySQL runs on the database host (P-08).
 
 ### 2.1 Gateway: nginx or an API gateway
 
@@ -103,7 +109,7 @@ Recommendation (not yet agreed by the team): keep nginx for the MVP, since it is
 |---|---|---|
 | **1. Must have** | Prometheus, Grafana, node_exporter, cAdvisor; JSON logs with `request_id`; `/healthz`, `/readyz`, `/status`; external uptime check | You can see host and container state, and you get a message if the site is down |
 | **2. Requirements complete** | `/metrics` in services (rate, errors, latency, dependency calls, degraded gauge); the operational dashboard; SLIs; alerts; Sentry; one degraded-mode scenario | Everything in section 1 can be demonstrated |
-| **3. Future work** | Loki for logs, tracing, database and nginx exporters, off-box Prometheus copy | Mentioned in the report as next steps |
+| **3. Future work** | Loki for logs, tracing, nginx exporter, off-box Prometheus copy | Mentioned in the report as next steps |
 
 ---
 
@@ -334,7 +340,7 @@ Fill in one of these per scenario:
 ### 8.4 Demo script
 
 1. Show the normal state: dashboard green, a request works, note its `request_id`.
-2. Break the dependency: `docker compose stop <mock-or-dependency>` (or point the provider URL at a closed port, or `docker compose stop postgres` for a database scenario).
+2. Break the dependency: `docker compose stop <mock-or-dependency>` (or point the provider URL at a closed port, or `docker compose stop mysql` on the database host for a database scenario).
 3. Use the product: show the banner and that unaffected features still work.
 4. Show the dashboard: `degraded_mode = 1`, dependency success dropping, the warning alert arriving.
 5. Follow the request: find the `request_id` in the logs and the Sentry event.
@@ -385,15 +391,15 @@ The Prometheus, Compose and log-rotation sketches are in [OBSERVABILITY-configs.
 
 ## 11. Resources and cost
 
-- **Everything runs on the existing EC2 instance, so there is no extra monitoring cost.** Sentry and the uptime check use free plans.
-- **Memory is the limit.** Prometheus, Grafana and cAdvisor together typically use a few hundred MB, which is tight on a 1 GB instance that also runs nginx, the services and a database. Loki would add more. Check real usage with `docker stats` and consider a 2 GB instance.
-- **Disk:** Prometheus retention is capped at 15 days and 2 GB in the config above. Alert on disk usage.
-- **Set an AWS budget alert,** and stop instances you are not using.
+- **The monitoring containers run on the application host,** so they add no separate machine. Sentry and the uptime check use free plans. The cost of the two hosts is not set (P-07, EN01-U3).
+- **Memory is unmeasured.** Prometheus, Grafana and cAdvisor compete with the services on the application host, and the full stack's memory is not measured (EN01-U3, spike item 8). Loki would add more. Check real usage with `docker stats` on the application host before choosing a machine size.
+- **Disk:** Prometheus retention is capped at 15 days and 2 GB in the config above. Alert on disk usage on both hosts.
+- **Database host disk:** the nightly dumps and Garage data live there, so alert on its disk usage too (see [DR](DR.md)).
 
 ## 12. Security
 
-- **Bind Prometheus and Grafana to `127.0.0.1`** as in the Compose file, and reach them through nginx with TLS and authentication, or through an SSH tunnel.
-- **Never open the exporter ports** (9100, 8080, 9115, 9090) in the EC2 security group.
+- **Bind Prometheus and Grafana to `127.0.0.1`** as in the Compose file, and reach them through Traefik with TLS and authentication, or through an SSH tunnel.
+- **Never open the exporter ports** (9100, 8080, 9115, 9090, the MySQL exporter's port) on either host's firewall. Only the private link between the hosts may reach the database host's exporter and Garage metrics.
 - **Set a real Grafana admin password** from a secret, not the default.
 - **No secrets or personal data** in logs, metrics, labels, dashboards or error reports. Configure Sentry to scrub request bodies and headers.
 - The Discord or Telegram webhook URL and the Sentry DSN are secrets. Keep them out of the repo.
@@ -441,7 +447,7 @@ docker-compose.observability.yml
 - **Show an incident end to end** with the demo script in section 8.4, and include the screenshots in the report.
 - **Show a load test:** a short run with a tool like `hey` or `k6` makes the request-rate and latency graphs move.
 - **Justify the SLO numbers** with the product's needs, not just "99% sounds good".
-- **Future work to mention:** logs in Loki, distributed tracing with OpenTelemetry, database and nginx exporters, an off-box Prometheus copy, and SLO burn-rate alerts.
+- **Future work to mention:** logs in Loki, distributed tracing with OpenTelemetry, nginx exporter, an off-box Prometheus copy, and SLO burn-rate alerts.
 
 ## 16. Limits
 
