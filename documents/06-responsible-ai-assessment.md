@@ -1,12 +1,12 @@
 # Responsible AI Opportunity Assessment
 
-**Status:** initial proposal · Sprint 1, deliverable 6 · **No dataset or evaluation results produced**
+**Status:** initial proposal · Sprint 1, deliverable 6 · workflow wording aligned with the EN-01-01 proposal on 2026-10-27 ([ADR-008](adr/ADR-008-ai-triage-service.md)) · **No dataset or evaluation results produced**
 
 ## 1. Need and workflow
 
 **Hypothesis:** classifying free-text descriptions by category and urgency reduces triage effort (P3/P7). Assess this hypothesis using discovery evidence and controlled tasks; selecting a development model does not prove the benefit. A chatbot is not proposed.
 
-Persisted report → event → worker → result validation → visible suggestion → administrator confirms/corrects. Independent rules flag critical signals; an AI result never removes that alert or overwrites a more recent human decision.
+Persisted report → `TriageRequested` message → AI triage service ([ADR-008](adr/ADR-008-ai-triage-service.md), proposed) → `TriageSuggested` → result validation in the Issue service → visible suggestion → administrator confirms/corrects. `TriageRequested` is the only message that carries private report text, and that text reaches the provider; synthetic data only until the provider terms are confirmed (DEC-05, EN01-U5). Independent rules flag critical signals; an AI result never removes that alert or overwrites a more recent human decision.
 
 Minimum input: text and necessary non-identifying context. Proposed output: category, suggested urgency, short rationale and need for review. Values outside the vocabulary, missing fields or malformed responses trigger fallback. Model-reported confidence is not a calibrated probability.
 
