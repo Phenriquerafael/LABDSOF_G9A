@@ -101,14 +101,14 @@ For AI-01, Ricardo supports review of interface assumptions and Martim supports 
 | Item | Estimate | Preparation owner | Independent reviewer | Implementation allocation |
 |---|---|---|---|---|
 | [PLAN-01](tasks/PLAN-01-prepare-reporting-and-tracking-stories.md) | Separate preparation task | Sandro | Pedro | Documentation only; no implementation assignment |
-| [US-01](tasks/US-01-record-and-view-report.md) | 5 SP | Select during story refinement | Select when opening the PR | Owner before starting; sprint/capacity during planning |
-| [US-02](tasks/US-02-triage-manually-and-track-states.md) | 8 SP | Select during story refinement | Select when opening the PR | Owner before starting; sprint/capacity during planning |
-| [US-04](tasks/US-04-publish-shared-issue-and-confirm-impact.md) | 5 SP | Select during story refinement | Select when opening the PR | Owner before starting; sprint/capacity during planning |
-| [US-10](tasks/US-10-notify-changes.md) | 8 SP | Select during story refinement | Select when opening the PR | Owner before starting; sprint/capacity during planning |
+| [US-01](tasks/US-01-record-and-view-report.md) | 5 SP | Select during story refinement | Agree before Ready | Owner before Ready; sprint/capacity during planning |
+| [US-02](tasks/US-02-triage-manually-and-track-states.md) | 8 SP | Select during story refinement | Agree before Ready | Owner before Ready; sprint/capacity during planning |
+| [US-04](tasks/US-04-publish-shared-issue-and-confirm-impact.md) | 5 SP | Select during story refinement | Agree before Ready | Owner before Ready; sprint/capacity during planning |
+| [US-10](tasks/US-10-notify-changes.md) | 8 SP | Select during story refinement | Agree before Ready | Owner before Ready; sprint/capacity during planning |
 
 Initial estimates recorded on 2026-10-30: **26 SP** for US-01/02/04/10. These are planning estimates, not a recorded team estimation session or a capacity commitment. They include each story's UI/API work, persistence, authorisation, tests and review, assuming shared EN-02/03 foundations. Estimate those foundations separately and count shared work once; points are not hours.
 
-These stories preserve their IDs, estimates and Must priorities. Their working stack, fields, contracts and synthetic examples are specified in the stories and [contract annex](../07a-contract-examples.md#4-development-baseline). The [EP-01 reference index](ep01-technical-refinement.md) points to those choices; it is not an extra readiness gate. Application implementation and checks remain future work.
+These stories preserve their IDs, estimates and Must priorities. Working proposals are in the stories, design and [contract examples](../07a-contract-examples.md#1-principal-journey). The [EP-01 refinement register](ep01-technical-refinement.md) tracks R01–R06 and the reviews still needed before Ready. Drafting does not establish accepted contracts or completed checks; application implementation and synthetic test-data creation remain future work.
 
 S2 is the proposed initial delivery horizon, with S3 refinement/evaluation. Confirm the configured milestone during planning without assuming that narrative sprint names and remote milestone names are interchangeable. A drafting assignment to Sandro does not automatically assign all implementation to him. Keep the authored preparation record separate from independent review, actual PR/merge and implementation evidence.
 
@@ -141,7 +141,7 @@ Initial estimates: **29 SP for the required S2 intervention cycle** and **16 SP 
 
 These estimates include each story's implementation/evaluation, permissions, tests and review. Count shared EN-02/03 foundations once. US-05 assumes rule-based matching; US-13 adds one provider to US-08's adapter. Review estimates when contracts, architecture or provider/data assumptions change; points are relative effort, not days.
 
-For all implementation stories, use the recorded estimates, development details and representative contract examples. Create synthetic test data during S2 implementation. Live AI/calendar checks need team credentials; fake adapters permit initial development. Review the DoR before Ready. Assign implementation owners before starting, choose reviewers when opening PRs and check sprint capacity during planning.
+For all implementation stories, use the recorded estimates, development details and representative contract examples. Create synthetic test data during S2 implementation. Live AI/calendar checks need team credentials; fake adapters permit initial development. Review the DoR before Ready. Agree implementation owners and independent reviewers before Ready, record the DoR date/author and check sprint capacity during planning.
 
 ## Sprint 1 deliverable coverage
 
@@ -162,7 +162,7 @@ DISC-03-05 covers the Sprint 1 investor review (§7.1.3), feedback and contribut
 
 ## Planning and dependencies
 
-- Start with working-practice/capacity confirmation, research preparation, competitor source verification and architecture alternatives. Record estimates before Ready; assign owners before starting and reviewers when opening the PR.
+- Start with working-practice/capacity confirmation, research preparation, competitor source verification and architecture alternatives. Record estimates before Ready; agree owners and reviewers and record the DoR date/author before Ready.
 - Participant collection depends on the safeguards in DISC-01-01, not the entire later security-design review.
 - Synthesis and comparison feed the vision; the agreed vision and architecture feed contracts, security and AI assessment.
 - Backlog refinement and stakeholder discussion can begin with proposals and continue as findings arrive. Completion dependencies describe evidence needed to finish, not a ban on early collaboration.
@@ -172,7 +172,7 @@ DISC-03-05 covers the Sprint 1 investor review (§7.1.3), feedback and contribut
 
 ## Publishing to GitHub
 
-1. Review scope, acceptance criteria, estimate, blocking decisions and readiness with the team using the [DoR](../governance/definition-of-ready.md). Agree milestone/capacity during planning, assign the owner before starting and choose the reviewer when opening the PR.
+1. Review scope, acceptance criteria, estimate, blocking decisions and readiness with the team using the [DoR](../governance/definition-of-ready.md). Agree milestone/capacity during planning, agree the owner/reviewer and record the DoR date/author before Ready.
 2. Verify repository, GitHub usernames and available labels/milestones. Suggested labels are proposals; these files do not configure GitHub.
 3. When issue publication is authorised, reconcile existing issues by stable ID, then create missing epic issues first, parent tasks second and delivery tasks third (AI-01 directly under EP-02). Later implementation stories go directly under their epic, with subtasks beneath each story. Use the first heading as the issue title and the remaining content as its body.
 4. Replace relative Markdown links with repository file URLs, preferably commit permalinks for evidence. Relative file links resolve in this folder but should not be pasted unchanged into issue bodies.

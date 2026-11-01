@@ -75,7 +75,7 @@ Implement US-06 → US-07 → US-08 → US-09 after the necessary US-01/02 repor
 
 The four core stories cover EP-03's part of S2; no additional intervention story is needed for the current scope. Keep the failure/reconciliation cases in US-08, human approval and validation, and closure without cost in the S2 increment. Advanced ranking and a real provider are optional, while the simulator must exercise realistic external failures.
 
-Working eligibility, proposal/state rules, service ownership, API/events, calendar mapping, idempotency, versions and retry limits are specified in the stories and [development contract](07a-contract-examples.md#4-development-baseline). EN-02/03 supply the shared environment; Google Calendar live access is needed only for the selected real-integration checks.
+Working eligibility, state rules, ownership and retry limits are proposed in the stories, [journey examples](07a-contract-examples.md#1-principal-journey) and [calendar contract outline](07-technical-design.md#45-calendarsimulator-contract-outline). Remaining contract refinements must be reviewed before the affected stories become Ready. EN-02/03 supply the shared environment; US-13 still needs provider-specific mappings and test access for its optional live integration.
 ### EP-02 contribution to Sprint 2
 
 The [main journey J2](04-product-vision.md#j2--triage-and-coordinate-main-journey) needs a first working AI capability and non-AI continuity in S2, as required by [assignment 7.2](../LABDSOF-26-27-Assignment.md#72-sprint-2-build-and-operate-the-vertical-slice).
@@ -91,7 +91,7 @@ The required classification/fallback implementation totals **13 SP**. Dataset pr
 
 The existing stories cover EP-02's part of S2; no additional AI story is needed for the currently defined journey. US-01/02 provide reporting, manual decisions and authorised status; US-06–09 provide contractor coordination, booking and closure; US-10 provides updates. Shared deployment, authentication/authorisation, persistence, contracts, jobs, tests, CI/CD and observability remain EN-02/03 work and must not be counted twice.
 
-AI development uses Gemini `gemini-3.5-flash-lite`, versioned prompt/schema/rules, synthetic inputs and a 0 EUR budget as defined in the [AI contract](07a-contract-examples.md#43-ai-rules-and-evaluation). Verify Free-tier access before enabling real calls; use a fake provider meanwhile. Initial checks belong to US-03/14; US-15's full comparison follows in S3.
+AI development proposes Gemini and a 0 EUR budget in the [AI assessment](06-responsible-ai-assessment.md#1-need-and-workflow). The model identifier and live access remain unverified; prompt/schema names are placeholders for specifications still to be completed and reviewed under AI-01/US-03/US-14 before Ready. Fake-provider preparation does not close these refinements. Initial implementation checks belong to US-03/14; US-15’s full comparison follows in S3.
 
 ### Sprint 2 journey coverage
 

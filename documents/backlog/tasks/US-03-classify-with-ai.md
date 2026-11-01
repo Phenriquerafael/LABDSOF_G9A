@@ -22,7 +22,7 @@ This story does not cover changing the selected provider, duplicate detection, a
 
 Development details:
 
-- Use Gemini Developer API, model `gemini-3.5-flash-lite`, prompt `triage-v1` and schema `triage-output-v1` from the [AI contract](../../07a-contract-examples.md#43-ai-rules-and-evaluation). Return category, urgency, rationale (1–240 characters) and `needsReview`; other/missing fields are invalid.
+- The [AI assessment](../../06-responsible-ai-assessment.md#1-need-and-workflow) proposes Gemini with unverified model identifier `gemini-3.5-flash-lite` and working names `triage-v1` / `triage-output-v1`. Proposed output fields are category, urgency, rationale (1–240 characters) and `needsReview`; other/missing fields are invalid. The prompt text, JSON schema and reviewed expected examples remain to be specified under AI-01 before Ready.
 - Use `TriageRequested` / `TriageSuggested` over RabbitMQ. Limit each delivery to two provider attempts of 10 seconds; quota errors and invalid output go directly to US-14. Budget: 0 EUR, verified Free-tier project only, with no automatic paid switch.
 
 ## Acceptance criteria
@@ -47,7 +47,7 @@ References: RF-03, P3/P7, J2 and NFR-01/02/03/04/06/10. Assignment: 5.6 and 6.3.
 
 ## Ready / Done
 
-The model, prompt, schema, limits and examples are specified above. Development can start with the fake provider; enabling and demonstrating the live path requires a team API key with Free-tier access verified outside Git.
+Agree the prompt, schema, allowed values and reviewed input/output examples before Ready. Fake-provider preparation can proceed separately; enabling and demonstrating the live path requires verified model availability and team Free-tier access outside Git.
 
 - [ ] Ready: estimate recorded, blocking decisions resolved and [DoR](../../governance/definition-of-ready.md) reviewed by the team.
 - [ ] Done: acceptance criteria met, changes reviewed, PR and tests.

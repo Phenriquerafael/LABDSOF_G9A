@@ -39,7 +39,7 @@ Avoid using the final test cases to tune the system, changing targets after seei
 
 ## Ready / Done
 
-Data preparation can start now with the labels, examples and split method above. Final execution requires the US-03/14 increment and verified Free-tier access; record the exact dataset/model/prompt versions used. Neither a completed evaluation nor provider access is required to begin preparing data.
+Review the label vocabulary, annotation instructions, representative expected cases and split protocol before Ready for data preparation. No seed dataset or reviewed labels are claimed. Final execution requires the US-03/14 increment and verified provider access; record the exact dataset/model/prompt versions used. A completed evaluation is not required to begin preparing data.
 
 - [ ] Ready: estimate recorded, blocking decisions resolved and [DoR](../../governance/definition-of-ready.md) reviewed by the team.
 - [ ] Done: acceptance criteria met, report reviewed, PR and results.

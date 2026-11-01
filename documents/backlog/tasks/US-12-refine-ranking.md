@@ -20,7 +20,7 @@ This story does not cover automatic assignment, AI ranking, collecting real pers
 
 Development details:
 
-- Use synthetic EUR-per-visit price, distance in km and indicative availability updated within seven days. Rank only when at least two eligible contractors have complete comparable data. The [scoring formula](../../07a-contract-examples.md#44-notifications-and-optional-features) uses price 50%, distance 30%, availability 20%; ties use name then ID.
+- Use synthetic EUR-per-visit price, distance in km and indicative availability updated within seven days. Rank only when at least two eligible contractors have complete comparable data. Proposed weights are price 50%, distance 30%, availability 20%; ties use name then ID. Define normalisation, ranges, missing/stale-data handling and expected scores for comparison examples before Ready; weights alone are not a scoring formula.
 - Show incomplete/stale candidates as unranked but selectable; use US-06 ordering when comparison is unsupported. Create comparison cases during implementation, including ties, conflicting criteria and unknown price; unknown values remain unranked. Availability is an indication, never acceptance or a booking.
 
 ## Acceptance criteria
@@ -44,7 +44,7 @@ References: RF-06, P6, J2 and NFR-01/02. Assignment: 6.2–6.3; [optional-featur
 
 ## Ready / Done
 
-The formula, data fields, fallback and comparison cases are defined. Before selecting this optional extension, confirm there is evidence that the extra criteria help users; the synthetic example is not that evidence.
+The scoring formula and reviewed comparison cases remain open under this story. Before Ready, define them and confirm evidence that the extra criteria help users before selecting this optional extension. Synthetic examples alone do not establish that benefit.
 
 - [ ] Ready: estimate recorded, blocking decisions resolved and [DoR](../../governance/definition-of-ready.md) reviewed by the team.
 - [ ] Done: acceptance criteria met, changes reviewed, PR, tests and comparison results.

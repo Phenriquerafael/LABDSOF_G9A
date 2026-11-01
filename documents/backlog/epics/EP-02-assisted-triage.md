@@ -35,7 +35,7 @@ US-14 (5 SP) and US-03 (8 SP) provide the required S2 AI/fallback increment. Imp
 
 US-15 (8 SP total) prepares data/protocol in S2 and completes the formal comparison in S3; EN-04 reuses the report. US-05 (8 SP) remains conditional and must not displace the main journey. Estimates include story-specific verification and assume shared EN-02/03 foundations.
 
-Each story lists its decisions before Ready. Estimate first; assign the implementation owner before starting and the reviewer when opening the PR. Do not treat optional selection, dataset preparation or an initial estimate as completed implementation or team approval.
+Each story lists its decisions before Ready. Estimate first; agree the implementation owner and reviewer and record the DoR date/author before Ready. Do not treat optional selection, dataset preparation or an initial estimate as completed implementation or team approval.
 
 ## Completion criterion
 

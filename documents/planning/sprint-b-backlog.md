@@ -42,7 +42,7 @@ DISC-02 (competitors) may replace a candidate if it offers greater value for dec
 - [ ] Team agreement and capacity known.
 - [ ] Each candidate's criteria and dependencies reviewed.
 - [ ] Estimates recorded and blocking decisions resolved.
-- [ ] [DoR](../governance/definition-of-ready.md) reviewed per item; owner before starting and reviewer when opening the PR.
+- [ ] [DoR](../governance/definition-of-ready.md) reviewed per item; owner/reviewer agreed and DoR date/author recorded before Ready.
 - [ ] Selection fits capacity and supports the objective.
 
 Items without DoR remain in the product backlog. A spike may be selected to resolve uncertainty if it has a question, effort limit and verifiable output.

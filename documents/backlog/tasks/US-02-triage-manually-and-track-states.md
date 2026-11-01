@@ -45,7 +45,7 @@ References: RF-02, P1/P3, J1–J2 and NFR-01/02/03/06/07/09 in the [requirements
 
 ## Ready / Done
 
-Use the state table, [access rules](../../07a-contract-examples.md#41-shared-fields-and-access) and synthetic accounts created during implementation. Dispatch event examples can be used before US-07/08/09 are implemented; final integration checks use their actual producers.
+Use the state table, [access matrix](../../09-security-privacy.md#2-proposed-access-matrix) and synthetic accounts created during implementation. Dispatch event examples can be used before US-07/08/09 are implemented; final integration checks use their actual producers.
 
 - [ ] Ready: estimate recorded, blocking decisions resolved and [DoR](../../governance/definition-of-ready.md) reviewed by the team.
 - [ ] Done: acceptance criteria met, changes reviewed, PR and tests.

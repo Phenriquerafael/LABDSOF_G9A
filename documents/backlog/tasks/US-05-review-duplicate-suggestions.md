@@ -42,7 +42,7 @@ References: RF-05, P2, J2 and NFR-01/02/04/10.
 
 ## Ready / Done
 
-The matching method, examples and access/version rules are defined. This remains optional: select it against need and capacity before sprint commitment. If selected, use US-15's pair evaluation targets (precision and recall at least 80%).
+Review the proposed matching method, window/thresholds and expected positive/negative examples before Ready. This remains optional: select it against need and capacity before sprint commitment. If selected, use US-15’s pair evaluation targets (precision and recall at least 80%).
 
 - [ ] Ready: estimate recorded, blocking decisions resolved and [DoR](../../governance/definition-of-ready.md) reviewed by the team.
 - [ ] Done: acceptance criteria met, changes reviewed, PR and tests.

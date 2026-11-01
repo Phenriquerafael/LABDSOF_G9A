@@ -41,7 +41,7 @@ References: RF-10, P5, J1–J3 and NFR-01/02/04/06/09 in the [requirements](../.
 
 ## Ready / Done
 
-The channel, ownership, recipient rules and [message contract](../../07a-contract-examples.md#42-service-contracts-and-messaging) are defined. Use synthetic events until each producer is available, then verify the connected journey. No email/SMS account is needed.
+The story and [event contracts](../../07-technical-design.md#44-event-contracts) propose the channel, ownership and messages. Resolve recipient/subscription and channel-preference rules under [R05](../ep01-technical-refinement.md) before Ready. Use synthetic events until each producer is available, then verify the connected journey. No email/SMS account is needed for the in-app checks.
 
 - [ ] Ready: estimate recorded, blocking decisions resolved and [DoR](../../governance/definition-of-ready.md) reviewed by the team.
 - [ ] Done: acceptance criteria met, changes reviewed, PR and tests.

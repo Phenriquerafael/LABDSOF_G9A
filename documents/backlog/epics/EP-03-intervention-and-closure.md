@@ -52,7 +52,7 @@ US-06 (5 SP), US-07 (8 SP), US-08 (8 SP) and US-09 (8 SP) form the required S2 i
 
 US-11 (3 SP), US-12 (5 SP) and US-13 (8 SP) add **16 SP of conditional extensions**, planned for S3 if selected. Missing costs, advanced ranking or a real calendar must not block the core cycle. The full 45-SP total is not a Sprint 2 commitment.
 
-Each estimate includes story-specific verification and assumes shared EN-02/03 foundations. Resolve the decisions in each story and review the DoR before Ready; assign owners before starting and reviewers when opening PRs. Revisit estimates if contracts, architecture or provider assumptions change.
+Each estimate includes story-specific verification and assumes shared EN-02/03 foundations. Resolve the decisions in each story and review the DoR before Ready; agree owners/reviewers and record the DoR date/author before Ready. Revisit estimates if contracts, architecture or provider assumptions change.
 
 ## Completion criteria
 

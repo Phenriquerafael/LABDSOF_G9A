@@ -22,7 +22,7 @@ This story does not cover AI, duplicate matching, photographs, shared publicatio
 Development details:
 
 - Issue owns `POST /reports` and report/history queries. Require `buildingId`, `areaId` and trimmed text of 10–4,000 characters. A saved report returns `201`, report/issue IDs and `received`; no AI call is required.
-- During implementation, create synthetic resident and administrator accounts in two buildings for own-report, administrator and denied-access tests. Shared version, error and 24-hour idempotency rules are in the [contract examples](../../07a-contract-examples.md#41-shared-fields-and-access).
+- During implementation, create synthetic resident and administrator accounts in two buildings for own-report, administrator and denied-access tests. Shared version, error and 24-hour idempotency rules are in the [API conventions](../../07-technical-design.md#41-conventions).
 
 ## Acceptance criteria
 

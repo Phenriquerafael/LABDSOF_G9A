@@ -1,6 +1,6 @@
 # Definition of Ready (DoR)
 
-**Status:** proposal v0.5 · ratification pending (DEC-09)
+**Status:** proposal v0.6 · ratification pending (DEC-09)
 
 An item is Ready when the team has enough information to start developing it. Keep its ID, title, epic and relevant requirement/source identified.
 
@@ -9,7 +9,9 @@ An item is Ready when the team has enough information to start developing it. Ke
 - [ ] The story explains who needs the feature, what they want and why.
 - [ ] Scope and acceptance criteria are clear, including success, errors and denied access where applicable.
 - [ ] Relevant dependencies are identified and no unresolved decision prevents work from starting.
-- [ ] An estimate in story points and a short reason are recorded.
+- [ ] A team-reviewed estimate in story points and a short reason are recorded.
+- [ ] An owner and an independent reviewer are agreed.
+- [ ] The DoR check records its date and author.
 - [ ] The team knows how to verify the result, has the data/access needed to start, and understands the relevant permissions, failure and quality risks.
 - [ ] The team understands the item and agrees it has enough information to start.
 
@@ -33,8 +35,8 @@ Estimate stories before Ready using story points (1, 2, 3, 5, 8, 13). Include th
 
 Review initial estimates when scope or technical assumptions change. Count shared foundations once.
 
-Priority, sprint and capacity are agreed during planning, before committing the item to a sprint. Owner and reviewer assignment are not prerequisites for Ready.
+Priority, sprint and capacity are agreed during planning, before committing the item to a sprint. Owner and reviewer assignment are prerequisites for Ready.
 
-Assign the owner during planning or before work starts. Choose an independent reviewer when opening the PR. Independent review is required before Done according to the [DoD](definition-of-done.md).
+Agree the owner and independent reviewer before Ready; request that review when opening the PR. Independent review is required before Done according to the [DoD](definition-of-done.md).
 
 Items with questions that prevent development remain in Refinement; a bounded investigation can be planned separately.

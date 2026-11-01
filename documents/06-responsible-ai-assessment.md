@@ -10,12 +10,13 @@ Persisted report → `TriageRequested` message → AI triage service ([ADR-008](
 
 Minimum input: text and necessary non-identifying context. Proposed output: category, suggested urgency, short rationale and need for review. Values outside the vocabulary, missing fields or malformed responses trigger fallback. Model-reported confidence is not a calibrated probability.
 
-Development choice: Gemini Developer API, `gemini-3.5-flash-lite`, prompt `triage-v1`, schema `triage-output-v1` and rules `rules-v1`, with a 0 EUR budget and no paid upgrade. Labels, prompt, limits and examples are defined in the [development contract](07a-contract-examples.md#43-ai-rules-and-evaluation). Use a fake provider until Free-tier access is verified; this does not claim an accepted ADR or a working live integration.
+Working proposal: Gemini Developer API with the unverified model identifier `gemini-3.5-flash-lite`, prompt `triage-v1`, output schema `triage-output-v1` and classification rules `rules-v1`. The names do not define their contents: AI-01/US-03/US-14 must specify and review the prompt text, JSON schema, rules and expected examples before Ready. The budget cap is 0 EUR with no paid upgrade. Use a fake provider until model availability and Free-tier access are verified; no accepted ADR or working live integration is claimed.
 
 ## 2. Baseline and fallback
 
-- **Baseline:** simple versioned rules over report text; ambiguous cases go to review. Issue runs the rules independently of Flask/model availability.
-- **Fallback:** apply available rules and allow manual triage when AI fails, times out or returns invalid output.
+- **Classification baseline:** Flask owns versioned category/urgency rules (`rules-v1`); ambiguous cases go to review. This baseline cannot run while Flask is unavailable.
+- **Independent critical checks:** Issue owns `criticalSignals`, `criticalRulesVersion` (`critical-alerts-v1`) and `criticalCheckStatus`. These checks remain available without Flask or the provider. A failed check leaves the durable report visible with a pending/manual check; an AI result cannot clear critical flags. Evaluate these checks separately from the classification baseline.
+- **Fallback:** Flask applies its classification rules when the provider fails, times out or returns invalid output. If Flask itself is unavailable, Issue retains reporting, independent critical checks and manual triage; it does not claim a baseline classification was produced.
 - **Combined system:** rules + AI + review. Measure separately from each component.
 - §5.6.2 requires a baseline **or** fallback; the proposal uses both to compare value and ensure continuity.
 - If AI brings insufficient benefit, review the task/model/scope using evidence. The project still requires a meaningful AI workflow.
@@ -36,7 +37,7 @@ Contractor ranking uses rules. Duplicate detection is Should: compare filters/co
 
 ## 3. Proposed dataset and protocol
 
-Prepare at least 120 synthetic cases: 60 development and 60 held-out, with ten held-out per category and normal/adverse/critical cases. The 16 [seed cases](fixtures/development.json) are development inputs, not reviewed final labels or held-out evaluation evidence. The remaining cases are **work for US-15**, not results claimed here. This is a small balanced teaching evaluation; its size does not establish real-world representativeness. If US-05 proceeds, prepare a separate set of positive/negative pairs with documented sizes and balance.
+Prepare at least 120 synthetic cases: 60 development and 60 held-out, with ten held-out per category and normal/adverse/critical cases. All dataset creation and label review remain **US-15 work**; no seed dataset or reviewed labels exist in this repository. The illustrative cases below and journey JSON examples are contract/design examples, not a labelled evaluation dataset. This is a small balanced teaching evaluation; its size does not establish real-world representativeness. If US-05 proceeds, prepare a separate set of positive/negative pairs with documented sizes and balance.
 
 1. Define labels, annotation instructions and ambiguity criteria.
 2. Create synthetic data without real identities; identify author/tool and assumptions.

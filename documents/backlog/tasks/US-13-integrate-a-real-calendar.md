@@ -40,7 +40,7 @@ References: RF-08, P6, J2–J3 and NFR-01/02/04/06/09/11. Assignment: 6.5–6.8.
 
 ## Ready / Done
 
-The provider and adapter contract are defined. Before live integration testing, supply an enabled Calendar API, service-account credentials and the shared test calendar ID outside Git. Adapter development can use the fake meanwhile; selection remains subject to S3 capacity.
+The provider-neutral [CalendarPort proposal](../../adr/ADR-006-calendar-simulator.md) exists; review Google-specific request/outcome mappings, authentication and failure examples before Ready. Before live integration testing, supply an enabled Calendar API, service-account credentials and shared test calendar ID outside Git. Fake-adapter preparation can proceed separately; selection remains subject to S3 capacity.
 
 - [ ] Ready: estimate recorded, blocking decisions resolved and [DoR](../../governance/definition-of-ready.md) reviewed by the team.
 - [ ] Done: acceptance criteria met, changes reviewed, PR and contract/provider checks.

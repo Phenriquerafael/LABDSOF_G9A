@@ -1,16 +1,68 @@
-# EP-01 technical refinement
+# EP-01 technical refinement register
 
-The working choices for [PLAN-01](tasks/PLAN-01-prepare-reporting-and-tracking-stories.md) are now in the stories and existing design documents. This file is a reference index, not an additional approval checklist.
+**Scope:** follow-ups identified by [PLAN-01](tasks/PLAN-01-prepare-reporting-and-tracking-stories.md) for [US-01](tasks/US-01-record-and-view-report.md), [US-02](tasks/US-02-triage-manually-and-track-states.md), [US-04](tasks/US-04-publish-shared-issue-and-confirm-impact.md) and [US-10](tasks/US-10-notify-changes.md).
 
-| Topic | Development basis |
-|---|---|
-| Stack and boundaries | React, Spring Boot Issue/Dispatch/Notification, Flask AI, MySQL, RabbitMQ and Keycloak; [technical design §1](../07-technical-design.md#1-context-and-boundaries) |
-| Fields, persistence and API | [Contract examples §1](../07a-contract-examples.md#1-principal-journey) and [field limits](../07a-contract-examples.md#41-shared-fields-and-access); service-owned data and transactional outbox |
-| Identity and access | Keycloak plus server-owned memberships/assignments; [access projection](../07-technical-design.md#43-how-dispatch-obtains-trustworthy-authorisation-context) and negative scenarios |
-| States, history and concurrency | [State table](../07-technical-design.md#3-states-and-business-rules), ETag/version checks and late-result protection |
-| Notifications | Separate Notification service, in-app channel, [messages](../07a-contract-examples.md#42-service-contracts-and-messaging) and [recipient rules](../07a-contract-examples.md#44-notifications-and-optional-features) |
-| Verification inputs | Contract examples, planned synthetic data/fake adapters and [test-tool choices](../07a-contract-examples.md#45-calendar-adapters-and-test-access) |
+Live implementation follow-ups: [US-01 #5](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/5), [US-02 #4](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/4), [US-04 #3](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/3) and [US-10 #2](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/2). Security follow-up belongs to [EN-01-04 #12](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/12). GitHub states checked 2026-11-01: these issues are open; the linked EN-01 design tasks are historical context, not claims that their closed issues remain open.
 
-EN-02/03 implement the shared environment, identity configuration, executable schemas and CI. Story implementation supplies its own tests and integration evidence. These are delivery tasks, not requirements to invent completed checks before development.
+**Status:** open technical refinement; the EN-01 stack and contracts are working proposals, not accepted by these drafts. These entries track existing EN-01 design work, not additional implementation tasks or estimates. PLAN-01 may deliver reviewed drafts while these entries remain open; a story becomes Ready only after its applicable entries and other DoR conditions are satisfied.
 
-Formal ADR review, sprint capacity and independent PR review retain their normal workflow. The selected proposal is a working development base, not evidence of accepted ADRs, deployed services or passed application tests.
+Sandro Dias maintains drafting traceability. EN-01's allocated owner coordinates the relevant design work, with product/security input as appropriate; implementation owners and independent reviewers must be agreed before Ready. No role proposal below claims a meeting or accepted decision.
+
+## R01 — Stack and component boundaries
+
+- Applies to: all four stories.
+- Working basis (2026-11-01): [technical design boundaries](../07-technical-design.md#1-context-and-boundaries) and ADRs describe the proposed stack; acceptance remains open.
+- Design work: [EN-01-01](tasks/EN-01-01-select-stack-and-boundaries.md), [EN-01-03](tasks/EN-01-03-consolidate-architecture-views.md); DEC-04/06.
+- Resolve: client/backend/persistence/transport stack, Issue/Dispatch ownership, notification worker placement, independently deployable boundaries or an accepted alternative, and relevant service-to-service communication.
+- Closure evidence: accepted ADRs and updated component/deployment view, linked from the affected stories. Do not treat the conceptual Issue/Dispatch proposal as accepted architecture.
+- Closure record: open; add actual decision/reviewer/date references when resolved.
+
+## R02 — Reports, persistence and API contracts
+
+- Applies to: US-01, US-02, US-04.
+- Working basis (2026-11-01): [API conventions](../07-technical-design.md#41-conventions), [journey/error examples](../07a-contract-examples.md#1-principal-journey) and story field limits provide a draft basis; review the complete shared-summary/subscription contracts.
+- Design work: [EN-01-02](tasks/EN-01-02-define-domain-and-contracts.md); DEC-04/07.
+- Resolve: request/query schemas, field limits, building/area relationship, report/issue identity, summary/impact/subscription data, errors, idempotency identity scope/lifetime and mismatched-content behaviour, persistence atomicity and restart behaviour.
+- Closure evidence: reviewed representative requests/responses/error examples and data-ownership/lifecycle model. Map user-visible receipt to durable storage; record the handoff to asynchronous consumers without losing saved reports.
+- Closure record: open; add actual contract/reviewer/date references when resolved.
+
+## R03 — Identity, authorisation and safe projections
+
+- Applies to: all four stories.
+- Working basis (2026-11-01): [access matrix](../09-security-privacy.md#2-proposed-access-matrix) and [authorisation context](../07-technical-design.md#43-how-dispatch-obtains-trustworthy-authorisation-context) provide draft rules; review safe projections and negative scenarios.
+- Design work: [EN-01-02](tasks/EN-01-02-define-domain-and-contracts.md), [EN-01-04](tasks/EN-01-04-review-security-and-privacy.md); DEC-07.
+- Resolve: real or permitted mocked identity, trustworthy membership context, resource/field checks for own reports versus shared summaries, administrator scope, contributor privacy and recipient/read-time checks after access changes.
+- Closure evidence: reviewed access/projection matrix and negative scenarios for unauthenticated, same-building non-author, other-building, administrator and contractor callers. Mock identity must not allow callers to choose arbitrary permissions.
+- Closure record: open; add actual security/contract/reviewer/date references when resolved.
+
+## R04 — States, history and concurrent changes
+
+- Applies to: US-02 and US-10; report creation in US-01 supplies the initial received state.
+- Working basis (2026-11-01): [state tables](../07-technical-design.md#3-states-and-business-rules) provide the draft transition/version rules; review the story-specific visibility and conflict examples.
+- Design work: [EN-01-02](tasks/EN-01-02-define-domain-and-contracts.md); DEC-07/10.
+- Resolve: allowed category/urgency values and manual transitions, audit fields/public projection, version/conflict contract, intervention status projection and late AI-result handling. Preserve distinct request approval, contractor acceptance and booking confirmation.
+- Closure evidence: reviewed transition/visibility examples, valid/invalid action table and stale-version scenario. Link EP-02's human-decision protection and EP-03 source-event contracts without cross-writing owned data.
+- Closure record: open; add actual model/contract/reviewer/date references when resolved.
+
+## R05 — Events, notifications and optional preferences
+
+- Applies to: US-10 and US-04; US-02 supplies state-change events.
+- Working basis (2026-11-01): [event contracts](../07-technical-design.md#44-event-contracts) and [Notification ADR](../adr/ADR-007-notification-service.md) provide the draft basis; reconcile story subscriptions, channel preferences and recipient rules before Ready.
+- Design work: [EN-01-01](tasks/EN-01-01-select-stack-and-boundaries.md), [EN-01-02](tasks/EN-01-02-define-domain-and-contracts.md), [EN-01-03](tasks/EN-01-03-consolidate-architecture-views.md); DEC-04/06/07.
+- Resolve: selected notification channel, event schemas/versions/identities/correlation, recipient rules, optional versus required updates, preference changes, state/event handoff, bounded retry/final failure policy and event/recipient deduplication across restarts.
+- Cross-epic contract: agree EP-03 US-07/08/09 response, booking and completion event examples and permitted data with the [intervention epic](epics/EP-03-intervention-and-closure.md). Fixtures can support early development; final story completion includes the actual producer integration. No dependency on the whole EP-03 epic or on delivery succeeding before the source transaction commits.
+- Closure evidence: reviewed event examples, subscriber/recipient matrix and failure/replay/restart scenarios. Link agreed contracts and their producers/consumers from US-10.
+- Closure record: open; add actual event/channel/reviewer/date references when resolved.
+
+## R06 — Test environment, delivery and measurable evidence
+
+- Applies to: all four stories.
+- Working basis (2026-11-01): [story verification plans](README.md#ep-01-story-drafts-and-planning-allocation) supply the draft approach; agree reproducible inputs/environment and thresholds. Synthetic datasets and executed results do not yet exist.
+- Design work: [EN-01-03](tasks/EN-01-03-consolidate-architecture-views.md), [EN-01-04](tasks/EN-01-04-review-security-and-privacy.md); EN-02/03/04 in the [product backlog](../05-product-backlog.md#3-discovery-and-engineering); DEC-08.
+- Resolve: synthetic users/buildings/issues, API/contract/E2E environment, restart/AI-disabled/notification-failure scenarios, container/CI setup, sanitised observability evidence and agreed performance/accessibility scenarios. Framework/tool choices follow R01.
+- Closure evidence: linked verification plan and reproducible environment instructions, with numerical thresholds reviewed before measuring. Actual execution evidence belongs to story implementation, not this drafting task; final usability/performance evaluation remains EN-04.
+- Closure record: open; add actual plan/environment/reviewer/date references when resolved.
+
+## Closure procedure
+
+For each applicable entry, record the accepted decision/contract, affected stories, reviewer/date and any remaining limitation; update the source design/ADR before marking a story Ready. Use the [decision register](../planning/decisions-and-feedback.md) for decision rationale. A reference to a still-open decision does not close an entry. Apply the [DoR](../governance/definition-of-ready.md) and avoid counting this register as six extra delivery tasks.

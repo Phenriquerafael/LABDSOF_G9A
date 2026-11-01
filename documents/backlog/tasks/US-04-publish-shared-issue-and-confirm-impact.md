@@ -46,7 +46,7 @@ References: RF-04, P2/P5, J1–J2, assignment 5.5 and NFR-01/02/04/07/09 in the 
 
 ## Ready / Done
 
-Use the summary, permissions and repeat/concurrent-action scenarios in the [shared contract](../../07a-contract-examples.md#41-shared-fields-and-access). Create the synthetic data during implementation. US-10 consumes the resulting events; its delivery is not a prerequisite for this story's core flow.
+Review the story’s summary and repeat/concurrent-action scenarios against the [access matrix](../../09-security-privacy.md#2-proposed-access-matrix) and close applicable [R02/R03/R05 refinements](../ep01-technical-refinement.md) before Ready. Create synthetic data during implementation. US-10 consumes the resulting events; its delivery is not a prerequisite for this story’s core flow.
 
 - [ ] Ready: estimate recorded, blocking decisions resolved and [DoR](../../governance/definition-of-ready.md) reviewed by the team.
 - [ ] Done: acceptance criteria met, changes reviewed, PR and tests.
