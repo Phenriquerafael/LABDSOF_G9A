@@ -1,7 +1,7 @@
 # ADR-011 — Client: installable PWA, photos, online-only operation and status banner
 
 **Status:** Proposed
-**Date:** 2026-10-27
+**Date:** 2026-11-01
 **Participants:** Ricardo (P2, Tech Lead) — proposer; Pedro (P1, frontend/UX) to confirm; team review pending
 **Related decision:** DEC-04, DEC-06
 **Supersedes / superseded by:** —
@@ -11,7 +11,7 @@
 - §6.1 lets the team choose a web application or a Progressive Web App among other client options (E01). Residents report faults from their phones, often with photos; administrators work mostly on a desktop; contractors answer requests from either. NFR-07 asks for keyboard journeys, visible focus and status not conveyed by colour alone ([requirements](../requirements.md)).
 - The client is React 19 + Vite 8 + Tailwind 4 + shadcn/ui, built to static files served by nginx ([ADR-002](ADR-002-technology-stack.md)); its internal structure is in [ADR-009](ADR-009-service-internal-architecture.md) and its session in [ADR-005](ADR-005-authentication-authorisation.md).
 - Report photos are a post-MVP design candidate (no backlog story; pending a DEC entry, see the [decision register](../planning/decisions-and-feedback.md#stack-revision--en-01-01-2026-10-27)), stored through the Issue service ([ADR-010](ADR-010-object-storage.md)).
-- Degraded modes ([technical design §6](../07-technical-design.md#6-external-integration-and-degraded-mode)) must be communicated to users (§6.8, E01); the health and status mechanism is [ADR-012](ADR-012-health-and-status-page.md), this ADR owns the client side.
+- Degraded modes ([technical design §6](../07-technical-design.md#6-external-integration-and-degraded-mode)) must be communicated to users (§6.8, E01); the health and status mechanism is [ADR-012](ADR-012-health-and-status-page.md), this ADR owns the client side. Since 2026-11-01 the status page and the banner it fed are deferred past the MVP; degraded states reach users in context (see [Status banner](#status-banner)).
 
 ## Alternatives
 
@@ -82,7 +82,9 @@ Design for the report-photos candidate; it applies only if the team accepts that
 
 ### Status banner
 
-Reads the public `/status/api` ([ADR-012](ADR-012-health-and-status-page.md)) on start, about every 60 s while open (proposal), and after an API call fails.
+**Deferred past the MVP (2026-11-01).** The banner read the public `/status/api`, which was fed by Gatus; Gatus and the public status page are deferred ([ADR-012](ADR-012-health-and-status-page.md)), so the banner is deferred with them. The design below is kept for when they return. In the MVP the client shows degraded states in context, where the user meets them: booking pending or calendar unavailable, “triage pending — classify manually”, a delayed-email notice, the photo-upload error and the explicit error of a failed request ([technical design §6](../07-technical-design.md#6-external-integration-and-degraded-mode)); these messages follow the same accessibility rules (`role="status"`, icon and text, never colour alone).
+
+Deferred design: reads the public `/status/api` ([ADR-012](ADR-012-health-and-status-page.md)) on start, about every 60 s while open (proposal), and after an API call fails.
 
 | Rule | Decision |
 |---|---|
@@ -99,7 +101,7 @@ Reads the public `/status/api` ([ADR-012](ADR-012-health-and-status-page.md)) on
 - One codebase and one build; install quality varies by browser, and the docs say so.
 - Offline reporting is not offered: a resident without connectivity cannot report. Accepted by the Tech Lead for effort reasons; revisit only with evidence of need.
 - Photo re-encoding adds client code and phone-dependent behaviour (HEIC, memory on large images), tested on real devices.
-- The banner needs a role on the client; signed-out visitors (and Sign-in outage, when no role can be loaded) see Sign-in and Report a fault only — open item for Pedro.
+- If the banner returns, it needs a role on the client; signed-out visitors (and Sign-in outage, when no role can be loaded) see Sign-in and Report a fault only — open item for Pedro.
 - Web Push later costs one adapter, a subscription table and key management.
 - Update prompts depend on users reloading; an old client may call a changed API, so API compatibility follows the contract rules in [ADR-002](ADR-002-technology-stack.md).
 
@@ -110,11 +112,13 @@ Planned, nothing exists yet:
 - **Spike item 13:** photo pipeline on a real iPhone and a real Android device — HEIC→JPEG conversion, resulting size, `blob.type`, camera/gallery behaviour.
 - Lighthouse and browser installability check of the manifest once client code exists; install flow on Chrome, Edge, iOS Safari and macOS Safari by hand.
 - Offline check: the shell opens, API responses are absent from Cache Storage, submit is disabled with a visible reason.
-- Banner accessibility: screen-reader announcement without focus move, keyboard dismissal, contrast and icon+text in both states, 360 px layout, 24×24 px targets.
-- Banner logic tests with fake `StatusApi` providers ([ADR-009](ADR-009-service-internal-architecture.md)): two-failure threshold, role filtering, dismissal reset, non-dismissible cases.
+- In-context degraded-state messages: screen-reader announcement without focus move, icon and text. Deferred with the banner: banner accessibility — screen-reader announcement without focus move, keyboard dismissal, contrast and icon+text in both states, 360 px layout, 24×24 px targets.
+- Deferred with the banner: banner logic tests with fake `StatusApi` providers ([ADR-009](ADR-009-service-internal-architecture.md)): two-failure threshold, role filtering, dismissal reset, non-dismissible cases.
 
 Review after the spike item and when Pedro confirms components (EN01-U4).
 
 ## Record
 
 2026-10-27 — proposed by Ricardo (Tech Lead) after a structured design interview; drafting and source checks AI-assisted (new ADR). Reason: reporting with photos from phones while the app works on every screen size, installability without a second codebase, and visible degraded modes; offline reporting rejected by the Tech Lead. Evidence: [evidence register](README.md#evidence-register-en-01-01) E01, E54, E64–E72, E82, E83; issue [#15](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/15). Affected documents: [technical design §1, §6](../07-technical-design.md#6-external-integration-and-degraded-mode), [requirements](../requirements.md) (NFR-07), ADR-002, ADR-009, [register §5](../planning/decisions-and-feedback.md#5-en-01-01-unresolved-details). Final decision, date and participants: pending team review.
+
+2026-11-01 — revised by Ricardo (Tech Lead) after Martim's review of [PR #45](https://github.com/Phenriquerafael/LABDSOF_G9A/pull/45) (2026-10-31) and the Copilot review of 2026-10-31; drafting AI-assisted. Reason: Gatus is dropped for the MVP, so the public status page and the role-filtered banner it fed are deferred; the banner design is kept for later and degraded states are shown in context. Evidence: E83; [review decisions](../planning/decisions-and-feedback.md#review-decisions--en-01-01-2026-11-01). Affected documents: [ADR-012](ADR-012-health-and-status-page.md), [technical design §1, §6](../07-technical-design.md#6-external-integration-and-degraded-mode). Still Proposed; final decision pending team review.

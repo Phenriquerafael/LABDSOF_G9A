@@ -1,7 +1,7 @@
 # ADR-008 — AI triage service in Flask
 
 **Status:** Proposed
-**Date:** 2026-10-27
+**Date:** 2026-11-01
 **Participants:** Ricardo (P2, Tech Lead) — proposer; Sandro (P4, AI) to confirm; team review pending
 **Related decision:** DEC-05 (provider and evaluation stay open there), DEC-04, DEC-07
 **Supersedes / superseded by:** — (new ADR; replaces the triage worker of the 2026-10-15 proposal, see Context and Record)
@@ -32,6 +32,8 @@ Why not use the Flask development server or one process for both: the Flask docu
 
 **Runtime.** Python 3.14, Flask 3.1.3, Gunicorn 26.x, pika 1.4.x, prometheus-client (E20–E25; versions pinned in the lock file). One image, two entry points: `gunicorn` serves the liveness and readiness endpoints (names per [DEVOPS-02 (#42)](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/42); [ADR-012](ADR-012-health-and-status-page.md)), `/metrics` and the internal `POST /classify`; `python -m triage.consumer` consumes `ai-triage.requests`. Health, `/classify` and `/metrics` are internal and never routed by Traefik. `POST /classify` exists for the AI-01 evaluation harness: it runs the same triage facade on a text and returns the result without touching the queue.
 
+**Deployment.** The AI is one service, `ai-triage`, at the same level as Issue, Dispatch and Notification. It is one image running two processes, the Flask web process and the pika consumer process; whether they run as one container or as two Compose services from the same image is spike item 7. `ai-triage` sits on the `internal` network (RabbitMQ) and on the `egress` network, which is the only way out to the internet and the provider ([ADR-004](ADR-004-deployment-contract.md)). An egress proxy with an allow-list is not adopted for the MVP; it stays open for EN-01-04.
+
 **Messages** (contract in [ADR-003](ADR-003-asynchronous-messaging-rabbitmq.md) and `contracts/proto/`):
 
 | Direction | Event | Payload |
@@ -46,18 +48,18 @@ Why not use the Flask development server or one process for both: the Flask docu
 1. Run the rules baseline first so a critical signal is never lost; call the provider with a 10 s timeout per attempt, at most 2 attempts (design §4.6, to calibrate in the spike).
 2. Validate the provider output against the schema and the allowed vocabulary. Missing fields, out-of-vocabulary values or malformed output count as a failed attempt.
 3. After the attempts, publish the rules result with `origin = fallback`; with AI disabled, `origin = rules`. A successful answer has `origin = ai`. An AI result never removes a rules alert.
-4. Publish `TriageSuggested` with the versions of model, prompt and rules, then acknowledge `TriageRequested`. The service keeps no state: a redelivered request is classified again and produces an equivalent message for the same `issueVersion`, and Issue applies it idempotently by `issueVersion`.
+4. Publish `TriageSuggested` with the versions of model, prompt and rules, persistent and `mandatory`; wait for a positive publisher confirm with no returned message (E84), then acknowledge `TriageRequested`. If the publish fails, is returned or is not confirmed, `TriageRequested` is not acknowledged (nack with requeue), so it is redelivered. The service keeps no state: a redelivered request is classified again and produces an equivalent message for the same `issueVersion`, and Issue applies it idempotently by `issueVersion`.
 5. If nothing arrives within 2 min, Issue shows “triage pending — classify manually”; manual triage is always possible ([design §4.6](../07-technical-design.md#46-retry-timeout-and-lease-values-proposal)).
 
 **Metrics** (`/metrics`): fallback rate, provider latency, provider errors by type, requests consumed and published, consumer redeliveries, DLQ depth (from the broker). No request text in metrics or logs.
 
-**Privacy.** `TriageRequested` is the only message that carries private report text. It is point-to-point, never fanned out; the DLQ `x-message-ttl` is 7 days; payloads are never logged. The text leaves the system for the provider, so DEC-07 and [security §4](../09-security-privacy.md#4-data-lifecycle-and-minimisation) apply: development and demonstration use synthetic data only. For Gemini (E63), unpaid data may be used to improve products unless the EEA/Switzerland/UK paid-service terms apply, and users must be 18+; both points need Sandro's and the team's confirmation before any non-synthetic text is sent.
+**Privacy.** `TriageRequested` is the only message that carries private report text. It is point-to-point, never fanned out; messages that reach the DLQ expire after 7 days (`x-message-ttl` on the DLQ only), while retention in `ai-triage.requests` (if the consumer stays stopped) and in Issue's outbox is not specified yet (EN01-U6); payloads are never logged. The text leaves the system for the provider, so DEC-07 and [security §4](../09-security-privacy.md#4-data-lifecycle-and-minimisation) apply: development and demonstration use synthetic data only. For Gemini (E63), unpaid data may be used to improve products unless the EEA/Switzerland/UK paid-service terms apply, and users must be 18+; both points need Sandro's and the team's confirmation before any non-synthetic text is sent.
 
 ## Consequences
 
 - AI failure never blocks reporting: the report is stored, the event is published through the outbox, and triage is either a suggestion or manual.
 - A second runtime (Python) adds an image, a lock file and a CI job; the team's Java premise does not cover it (EN01-U1).
-- The Python messaging module is a small counterpart of the Java starter ([ADR-003](ADR-003-asynchronous-messaging-rabbitmq.md)); it must follow the same CloudEvents mapping and queue declarations.
+- The Python messaging module is a small counterpart of the Java starter ([ADR-003](ADR-003-asynchronous-messaging-rabbitmq.md)); it must follow the same CloudEvents mapping, `mandatory` publishing with confirms and returns, and the queues declared by the deployment.
 - Replacing the provider changes one adapter and its configuration, not the contract.
 - Open (EN01-U5): provider, model, tier and budget; the free-tier limits are not recorded in the register.
 
@@ -70,6 +72,7 @@ Tests to write, none exists yet (spike item 7 covers a pika consumer in the Flas
 - Malformed or out-of-vocabulary provider output → fallback.
 - AI disabled by configuration → `origin = rules`, reporting unaffected.
 - Duplicate `TriageRequested` → equivalent result; Issue applies once by `issueVersion`.
+- `TriageSuggested` returned, not confirmed, or the consumer killed before the confirm → `TriageRequested` not acknowledged and redelivered; no request lost.
 - Late result after a human triage decision → ignored by Issue ([design §3.3](../07-technical-design.md#33-invalid-and-concurrent-transitions)).
 - Poison message (unsupported `schemaversion`) → DLQ without retry; no payload in logs.
 - Injection text from the [adversarial set](../06-responsible-ai-assessment.md#3-proposed-dataset-and-protocol) → no action outside the output schema.
@@ -81,3 +84,5 @@ Review when AI-01 chooses a provider, after the evaluation, and if the 2-attempt
 2026-10-27 — proposed by Ricardo (Tech Lead) after a structured design interview; drafting and source checks AI-assisted (new ADR; the 2026-10-15 proposal had a Bun triage worker claiming jobs over HTTP, with a job table and `SKIP LOCKED` claiming). Reason: RabbitMQ replaces the job table and claim endpoints; the AI part becomes its own Flask service with a facade and provider adapters. Evidence: [evidence register](README.md#evidence-register-en-01-01) E01, E03, E20–E25, E62, E63. Affected documents: [technical design §1, §4.4, §4.6, §5](../07-technical-design.md#5-asynchronous-workflow-and-consistency), [responsible AI assessment](../06-responsible-ai-assessment.md), DEC-05. Final decision, date and participants: pending team review. Issue [#15](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/15).
 
 2026-10-27 — fixed health path removed; liveness and readiness endpoint names per DEVOPS-02 (#42), checks in [ADR-012](ADR-012-health-and-status-page.md).
+
+2026-11-01 — revised by Ricardo (Tech Lead) after Martim's review of PR #45 (2026-10-31) and the Copilot review of 2026-10-31; drafting AI-assisted. Reason: the stateless consumer acknowledged the request without waiting for its reply, so `TriageSuggested` is now published persistent and `mandatory` and the request is acknowledged only after a positive confirm with no return; the AI is one service `ai-triage` (web and consumer processes from one image, container split in spike item 7) on `internal` and the new `egress` network, with an egress allow-list proxy left open for EN-01-04; the 7-day TTL is stated as DLQ-only. Evidence: [evidence register](README.md#evidence-register-en-01-01) E84. Affected documents: [technical design §5](../07-technical-design.md#5-asynchronous-workflow-and-consistency), [ADR-003](ADR-003-asynchronous-messaging-rabbitmq.md), [ADR-004](ADR-004-deployment-contract.md), [security](../09-security-privacy.md). Final decision, date and participants: pending team review.

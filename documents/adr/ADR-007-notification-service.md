@@ -1,7 +1,7 @@
 # ADR-007 — Notification service: facade and channel adapters
 
 **Status:** Proposed
-**Date:** 2026-10-27
+**Date:** 2026-11-01
 **Participants:** Ricardo (P2, Tech Lead) — proposer; team review pending
 **Related decision:** DEC-06, DEC-07
 **Supersedes / superseded by:** — (the 2026-10-15 proposal placed in-app notifications in a module of the Issue service, [ADR-001](ADR-001-backend-boundaries.md))
@@ -70,18 +70,18 @@ Issue and Dispatch publish `NotificationRequested` to the `bmc.events` exchange 
 - Dispatch decides recipients for contractor-addressed events (from its own data) and for administrator-addressed events from its projection of building administrators.
 - Notification never reads memberships and never interprets domain events.
 
-**Invitation exception.** An e-invite goes to someone with no account, so `NotificationRequested` carries `recipientAddress` and the invite link instead of `recipientUserIds`. This is the only message type with an address and a secret link. The DLQ message TTL of 7 days applies, the delivery log stores neither address nor link, and payloads are never logged. Whether Notification keeps a rendered body is an EN-01-04 point.
+**Invitation exception.** An e-invite goes to someone with no account, so `NotificationRequested` carries `recipientAddress` and the invite link instead of `recipientUserIds`. This is the only message type with an address and a secret link. Before acknowledging it, Notification commits a delivery row that holds the recipient address and the invite link, in its own database and readable only by the Notification service user; the row is deleted once the email is sent or when the invitation expires. Only then is the message acknowledged, so a crash before the SMTP send cannot lose the address and link, which cannot be rebuilt. The DLQ message TTL of 7 days applies in the DLQ only (live-queue retention: EN01-U6), the delivery log keeps neither address nor link after the send, and payloads are never logged. Whether Notification keeps a rendered body is an EN-01-04 point.
 
 ### Addresses, templates and preferences
 
-- Address lookup happens at send time: Notification asks Keycloak for the user's email by `sub` through its service account (`view-users`, client-credentials grant; E17). Addresses are not stored in messages (except invitations) and not persisted by Notification.
+- Address lookup happens at send time: Notification asks Keycloak for the user's email by `sub` through its service account (`view-users`, client-credentials grant; E17). Addresses are not stored in messages (except invitations) and not persisted by Notification, except an invitation's address in its delivery row until the send.
 - Templates are rendered server-side from `templateKey` and `params`; the client never supplies message text.
 - Preferences are per user, per event type and per channel. Opt-out applies to **email only**, per event type: the in-app notification is always created, because it is the status record a resident can always look up. This is how the workflows' “the resident can turn notifications off” is read. Which email notifications cannot be switched off (for example invitations, which have no account, and security-relevant ones) is an open item (EN01-U8).
 
 ### Idempotency, delivery log and retries
 
 - Unique (`notificationId`, `recipientUserId`, `channel`) in the delivery log. A redelivered `NotificationRequested` therefore creates no second inbox row and no second email. For an invitation the key is `notificationId` and the channel.
-- The listener writes the delivery rows in one transaction and acknowledges after commit. The in-app adapter completes its row in that transaction; the email adapter sends after the commit, so a slow SMTP server never holds the message.
+- The listener writes the delivery rows in one transaction and acknowledges after commit (for an invitation, the row holds the address and link until the send; see the invitation exception). The in-app adapter completes its row in that transaction; the email adapter sends after the commit, so a slow SMTP server never holds the message.
 - Delivery states: `pending`, `sent`, `failed`, `skipped_by_preference`.
 - An SMTP failure is retried with backoff and then marked `failed`; the number of attempts and delays are proposals to calibrate in the spike (EN01-U7), not measured values. `failed` deliveries are counted in a metric and visible to operators ([ADR-004](ADR-004-deployment-contract.md) dashboard: notification failures).
 - If the process dies between an accepted SMTP send and the state update, the retry can send the email twice. Delivery by email is at-least-once; the in-app inbox is exactly one row per key.
@@ -133,6 +133,7 @@ Tests with the implementation, using real RabbitMQ and MySQL containers where po
 - Preference off for email: the delivery is recorded `skipped_by_preference`, no email is sent, the in-app row is still created.
 - Keycloak address lookup unavailable: the email delivery stays `pending` and is retried; the in-app row exists.
 - An invitation message appears in no log and the DLQ copy expires after 7 days.
+- Notification killed after acknowledging an invitation and before the SMTP send: on restart the email is sent from the delivery row, and the address and link are deleted after the send or at the invitation's expiry.
 - `GET /api/notifications` returns only the caller's own rows.
 
 Review after the spike (EN01-U2: Keycloak service account) and in the EN-01-01 views, where Afonso details templates and preferences (EN01-U8); EN-01-04 reviews the invitation exception.
@@ -142,3 +143,5 @@ Review after the spike (EN01-U2: Keycloak service account) and in the EN-01-01 v
 2026-10-27 — proposed by Ricardo (Tech Lead) after a structured design interview for EN-01-01; drafting and source checks AI-assisted. Reason: the workflows need email and opt-out beyond the DEC-06 baseline, and notification delivery is a natural isolated failure for the §6.8 scenario. Evidence: [evidence register](README.md#evidence-register-en-01-01) E01, E03, E16, E17, E29, E52, E53; issue [#15](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/15). Affected documents: [technical design](../07-technical-design.md), [workflows](../workflows/bmc-workflows.md), [security](../09-security-privacy.md), DEC-06, DEC-07. Final decision, date and participants: pending team review.
 
 2026-10-27 — Web Push recorded as the next channel adapter, not in the MVP (E71; [ADR-011](ADR-011-installable-pwa-client.md)).
+
+2026-11-01 — revised by Ricardo (Tech Lead) after Martim's review of PR #45 (2026-10-31) and the Copilot review of 2026-10-31; drafting AI-assisted. Reason: acknowledging an invitation before the SMTP send left a crash window in which the address and invite link were lost; Notification now commits a delivery row holding them before acknowledging, deleted after the send or at expiry; the 7-day TTL is stated as DLQ-only. Evidence: Copilot review of PR [#45](https://github.com/Phenriquerafael/LABDSOF_G9A/pull/45); no new source. Affected documents: [security](../09-security-privacy.md) T-15 and §4, [ADR-003](ADR-003-asynchronous-messaging-rabbitmq.md). Final decision, date and participants: pending team review.

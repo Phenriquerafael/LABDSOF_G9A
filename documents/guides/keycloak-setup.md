@@ -1,12 +1,12 @@
 # Keycloak setup guide (design level)
 
-**Status:** planned configuration, not executed — no Keycloak instance has been set up (EN-01-01, 2026-10-27)
+**Status:** planned configuration, not executed — no Keycloak instance has been set up (EN-01-01, 2026-10-27; revised 2026-11-01 after the PR #45 reviews)
 
 **Audience:** the team members who will set up identity in the spike (Ricardo, Afonso, Martim for infrastructure). Decision and reasons: [ADR-005](../adr/ADR-005-authentication-authorisation.md). Evidence IDs (E27, E31 …) refer to the [evidence register](../adr/README.md#evidence-register-en-01-01). Anything marked **to confirm in the spike** is not in the register and must be checked against the Keycloak, oauth2-proxy or Traefik documentation before use. Placeholders such as `<KEYCLOAK_ADMIN_PASSWORD>` stand for values that come from the environment; no real secret, hostname or password belongs in this file or in Git.
 
 ## 1. Purpose and scope
 
-The guide describes what to configure so that spike items 1 (Keycloak 26.8 on MySQL 8.4 with realm import) and 3 (Traefik ForwardAuth → oauth2-proxy returns `401` to API calls and passes the bearer token) can be run. It does not cover production hardening, token lifetimes, logout or cookie-secret rotation (EN01-U6, EN-01-04), and it does not describe how the services validate tokens beyond the points that affect Keycloak.
+The guide describes what to configure so that spike items 1 (Keycloak 26.8 on MySQL 8.4 with realm import) and 3 (Traefik ForwardAuth → oauth2-proxy returns `401` to API calls and passes the bearer token) can be run. It does not cover production hardening, token lifetimes, logout or cookie-secret rotation (EN01-U6, EN-01-04), and it does not describe how the services validate tokens beyond the points that affect Keycloak. Keycloak stays the identity provider; a managed identity provider was considered and not adopted for the MVP ([ADR-005](../adr/ADR-005-authentication-authorisation.md)). Social login could be added later with Keycloak's identity brokering; it is not in the MVP.
 
 ## 2. Components and how they connect
 
@@ -26,7 +26,7 @@ flowchart LR
 ```
 
 - Only Traefik is exposed. The browser sees one origin; `/auth/*` is Keycloak, `/oauth2/*` is oauth2-proxy.
-- On `/api/*` Traefik asks oauth2-proxy (ForwardAuth). With a valid session oauth2-proxy answers with `Authorization: Bearer <access token>` and Traefik copies it to the service (E32). Without one it answers `401`.
+- On `/api/*` Traefik asks oauth2-proxy (ForwardAuth). With a valid session oauth2-proxy answers with `Authorization: Bearer <access token>`, built from the `access_token` claim through `injectResponseHeaders` (E86, section 9), and Traefik copies it to the service (E32). Without one it answers `401`.
 - The services are resource servers: they fetch Keycloak's signing keys and validate issuer, audience and expiry themselves (E16). Traefik Proxy cannot validate JWTs (E35).
 - The Notification service logs in to Keycloak as a service account to look up email addresses by `sub`.
 
@@ -56,12 +56,12 @@ The MySQL instance is shared with `issue`, `dispatch` and `notification`; the tw
 | Realm import | Mount `infra/keycloak/bmc-realm.json` into `/opt/keycloak/data/import/` and start with `--import-realm` (E29) | Planned |
 | Admin bootstrap | Initial admin user and password from `<KEYCLOAK_ADMIN_USER>` and `<KEYCLOAK_ADMIN_PASSWORD>`; change or remove after setup | Variable names **to confirm in the spike** |
 | Health | A health endpoint for the Compose health check | **To confirm in the spike** |
-| Networks | Keycloak on the `internal` network; reachable by Traefik only through `/auth/*`; the admin console is not published beyond what the spike needs | [ADR-004](../adr/ADR-004-deployment-contract.md) |
+| Networks | Keycloak on the `edge` network, so Traefik can route `/auth/*`, and on the `internal` network for its MySQL database; reachable from outside only through `/auth/*`; the admin console is not published beyond what the spike needs | [ADR-004](../adr/ADR-004-deployment-contract.md) |
 
 ## 5. Realm `bmc` as code
 
 - One realm named `bmc`, defined in `infra/keycloak/bmc-realm.json`, committed to Git.
-- `--import-realm` skips a realm that already exists (E29): editing the file does not change a running database. In dev, change the file, drop the `keycloak` database or its volume and restart; in demo and release, make deliberate changes through a documented procedure (open, EN01-U9).
+- `--import-realm` skips a realm that already exists (E29): editing the file does not change a running database. In dev, change the file, drop and recreate only the `keycloak` database, then restart. Never delete the shared MySQL volume: it holds the `issue`, `dispatch` and `notification` databases as well; in demo and release, make deliberate changes through a documented procedure (open, EN01-U9).
 - The file contains **no secrets**. Client secrets, the admin password, SMTP settings and the database password come from the environment. Whether the import supports environment placeholders for client secrets is **to confirm in the spike**; the fallback is to set the secret after import with a script (never committed).
 - Demo users are synthetic and exist only in the dev/demo profile. Because a second file for the same realm would be skipped, they cannot be a second import file of the realm `bmc`; options for the spike: a demo variant of the realm file mounted instead of the base file, or a script that creates the users after start. Decision open.
 - Realm settings that matter: self-registration on, email verification on, a password reset available, login by email, SMTP to Mailpit (section 7). Exact switch names **to confirm in the spike**.
@@ -87,7 +87,7 @@ Tokens carry `sub` (and the realm roles above); they never carry building roles.
 ## 7. Registration, email verification and SMTP
 
 - Self-registration and email verification are enabled in realm `bmc`. An unverified account cannot be used for the flows below (whether Keycloak blocks login or the services check the claim is **to confirm in the spike**).
-- SMTP in dev and demo goes to Mailpit (E52): host `mailpit`, port `<MAILPIT_SMTP_PORT>`, from address `<NO_REPLY_ADDRESS>`; the Mailpit web UI is where the team reads verification mail. A real SMTP account later needs credentials in the environment only; a Gmail App Password has the limits in E53.
+- SMTP goes to Mailpit (E52): host `mailpit`, port `<MAILPIT_SMTP_PORT>`, from address `<NO_REPLY_ADDRESS>`. Mailpit is in the `core` Compose profile, because verification email is needed from the first journey ([ADR-004](../adr/ADR-004-deployment-contract.md)); the `demo` profile adds only the synthetic realm users. Mailpit is internal only and never routed; the Mailpit web UI is where the team reads verification mail, and in a demonstration the presenter shows its inbox through an SSH tunnel (demo only). A real SMTP account later needs credentials in the environment only; a Gmail App Password has the limits in E53.
 - These Keycloak emails are separate from the platform's notifications ([ADR-007](../adr/ADR-007-notification-service.md)), which go through the Notification service.
 
 ## 8. Onboarding flows step by step
@@ -136,12 +136,12 @@ Proposed after review (2026-10-27): the verified email must match the invitation
 | Reverse proxy | `--reverse-proxy=true` | E32 |
 | Session | Encrypted cookie session (default); Redis is the documented alternative if cookies grow too large | E31; size with Keycloak tokens **to confirm in the spike** |
 | Cookie flags | `HttpOnly`, `Secure`, `SameSite=Strict`; cookie secret `<OAUTH2_PROXY_COOKIE_SECRET>` generated per environment, never committed | Planned; accepted secret length and flag names **to confirm in the spike** |
-| Upstream header | `Authorization: Bearer <access token>` forwarded by Traefik through `authResponseHeaders` (`X-Auth-Request-Access-Token` is also available) | E32 |
+| Upstream header | `Authorization: Bearer <access token>`, built with the alpha configuration `injectResponseHeaders`: header `Authorization`, claim source `access_token`, prefix `Bearer `; forwarded by Traefik through `authResponseHeaders`. `injectResponseHeaders` needs oauth2-proxy's alpha configuration file, which replaces the legacy header flags; any other header (such as an access-token header) is another `injectResponseHeaders` entry. Do not use `--set-authorization-header` or `--pass-authorization-header`: both put the ID token in `Authorization` | E32, E86; audience of the forwarded token **to confirm in spike item 3** |
 | API routes | No-auto-redirect behaviour so unauthenticated API calls get `401`, not a redirect to the login page | E32 |
 | Redirect URL | `https://<PUBLIC_HOST>/oauth2/callback`, same as the `bmc-edge` redirect URI | Planned |
 | Token refresh | Whether oauth2-proxy refreshes the access token before expiry and with which lifetimes | Open (EN01-U6) |
 
-Traefik side: a ForwardAuth middleware pointing at oauth2-proxy's auth endpoint on the `internal` network, used by the `/api/*` routers; no middleware on `/` and `/auth/*`; `/oauth2/*` routed to oauth2-proxy; RateLimit on `/auth/*` and `/oauth2/*` (E35). The CSRF request header is enforced by the services or an edge middleware (EN-01-04).
+Traefik side: a ForwardAuth middleware pointing at oauth2-proxy's auth endpoint on the `edge` network (the only network Traefik and oauth2-proxy share), used by the `/api/*` routers; no middleware on `/` and `/auth/*`; `/oauth2/*` routed to oauth2-proxy; RateLimit on `/auth/*` and `/oauth2/*` (E35). The CSRF request header is enforced by the services or an edge middleware (EN-01-04).
 
 ## 10. Troubleshooting and pitfalls
 
@@ -153,6 +153,7 @@ Traefik side: a ForwardAuth middleware pointing at oauth2-proxy's auth endpoint 
 | Login redirects point to an internal hostname or `http://` | Hostname or proxy settings missing | Set the public hostname and proxy headers (names to confirm) |
 | Services reject valid tokens with an issuer error | `iss` is the public URL, but the service was configured with the internal one | Configure the public issuer and an internal key URL; check `issuer-uri` and `jwk-set-uri` (E16) |
 | oauth2-proxy rejects the token or the services reject the audience | Audience mapper missing on `bmc-edge` | Add it and decode the access token in the spike (E31) |
+| Services receive an ID token instead of the access token | `--set-authorization-header` or `--pass-authorization-header` in use | Build `Authorization` from the `access_token` claim with `injectResponseHeaders` (E86) |
 | API call returns a `302` to the login page | Wrong route: the no-redirect behaviour is not applied | Fix the Traefik router; expect `401` (E32) |
 | Login loops or "CSRF cookie" errors after returning from Keycloak | `SameSite=Strict` or `Secure` conflicts with the redirect, or HTTP on a local host | Spike item; Keycloak is on the same origin, so the callback should be same-site (to confirm) |
 | Cookie too large, session lost | Tokens exceed the cookie limit | Check cookie size; use Redis (E31) |
@@ -164,7 +165,7 @@ Traefik side: a ForwardAuth middleware pointing at oauth2-proxy's auth endpoint 
 ## 11. What the spike must confirm
 
 1. Keycloak 26.8 starts on MySQL 8.4 with the two MySQL settings and imports `bmc-realm.json` (spike item 1); the option names marked "to confirm" above.
-2. Traefik ForwardAuth → oauth2-proxy returns `401` to an API call without a session and forwards the bearer token with a session (spike item 3); the SPA can then navigate to `/oauth2/start` and return.
+2. Traefik ForwardAuth → oauth2-proxy returns `401` to an API call without a session and forwards the access token (not the ID token) in `Authorization` with a session, with the audience the services require (spike item 3); the SPA can then navigate to `/oauth2/start` and return.
 3. The access token's issuer, audience and roles as the services need them; a service validates it locally.
 4. Cookie size and `SameSite=Strict` through the login redirects; if they fail, record option B in [ADR-005](../adr/ADR-005-authentication-authorisation.md) as adopted.
 5. How secrets enter the realm without being in Git, and how demo users are created.

@@ -1,7 +1,7 @@
 # ADR-002 — Technology stack
 
 **Status:** Proposed
-**Date:** 2026-10-27
+**Date:** 2026-11-01
 **Participants:** Ricardo (P2, Tech Lead) — proposer; all team members to confirm the Java premise (EN01-U1); Pedro (P1) to confirm the client components (EN01-U4); Martim (P5) to confirm test tooling (EN01-U9); team review pending
 **Related decision:** DEC-04
 **Supersedes / superseded by:** revises in place the 2026-10-15 version (Elysia on Bun, Prisma, MySQL 9.7); see [Record](#record)
@@ -60,7 +60,7 @@ No application code exists yet. Five students deliver over three sprints; implem
 
 | Option | Benefits | Costs/risks | Evidence |
 |---|---|---|---|
-| **A. React 19 + Vite 8 + Tailwind 4 + shadcn/ui, TanStack Router and Query, generated OpenAPI client, installable PWA** (chosen) | Static build served by nginx; shadcn/ui components are Radix-based, which addresses the keyboard/ARIA gap of plain Tailwind (proposed; Pedro to confirm); typed client from OpenAPI; MIT packages | Several libraries to pin; online only — PWA behaviour, photo re-encoding and the status banner are in [ADR-011](ADR-011-installable-pwa-client.md) | E54, E72 |
+| **A. React 19 + Vite 8 + Tailwind 4 + shadcn/ui, TanStack Router and Query, generated OpenAPI client, installable PWA** (chosen) | Static build served by nginx; shadcn/ui components are Radix-based, which addresses the keyboard/ARIA gap of plain Tailwind (proposed; Pedro to confirm); typed client from OpenAPI; MIT packages | Several libraries to pin; online only — PWA behaviour, photo re-encoding and the status banner (deferred past the MVP) are in [ADR-011](ADR-011-installable-pwa-client.md) | E54, E72 |
 | B. Next.js | Full-stack framework | Server runtime and SSR not needed for an authenticated tool | — |
 | C. Native mobile app | App-store presence | Second UI codebase; administrator workflows are desktop-first | E01 §6.1 |
 
@@ -76,7 +76,7 @@ No application code exists yet. Five students deliver over three sprints; implem
 | Tests | JUnit 5 with integration tests against real MySQL 8.4 and RabbitMQ containers; pytest; Vitest; no SQLite | Container tooling (for example Testcontainers) to be confirmed by Martim at setup; not in the register |
 | Monorepo | `services/issue`, `services/dispatch`, `services/notification`, `services/ai-triage`, `apps/client`, `tools/calendar-sim`, `platform/bmc-messaging-spring-boot-starter`, `contracts/proto`, `contracts/asyncapi`, `infra/` | No shared domain library; the starter holds infrastructure only |
 
-Platform container versions (Traefik, Keycloak, RabbitMQ, Garage and others) are in [ADR-004](ADR-004-deployment-contract.md). Client behaviour — installable PWA, online only, prompted updates, photo re-encoding before upload, status banner — is in [ADR-011](ADR-011-installable-pwa-client.md); this ADR keeps only the stack choice and pins.
+Platform container versions (Traefik, Keycloak, RabbitMQ, Garage and others) are in [ADR-004](ADR-004-deployment-contract.md). Client behaviour — installable PWA, online only, prompted updates, photo re-encoding before upload, the status banner (deferred past the MVP) — is in [ADR-011](ADR-011-installable-pwa-client.md); this ADR keeps only the stack choice and pins.
 
 ## Consequences
 
@@ -95,3 +95,4 @@ A two-day spike (Ricardo and Afonso; Martim for infrastructure) before the first
 - 2026-10-15 — first proposed: Elysia on Bun, Prisma 7.10, MySQL 9.7, React + Vite PWA, outbox without a broker (E03).
 - 2026-10-27 — revised by Ricardo (Tech Lead) after a structured design interview; drafting and source checks AI-assisted. Reason: Java team premise (to confirm), Spring's AMQP/security/JPA integration, Keycloak not supporting MySQL 9.x. Evidence: [evidence register](README.md#evidence-register-en-01-01) E01, E03–E12, E16, E20–E25, E27, E41–E44, E54, E62, E72; issue [#15](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/15). Affected documents: [technical design](../07-technical-design.md) §1, §7, [ADR index](README.md), DEC-04. Final decision, date and participants: pending team review.
 - 2026-10-27 — client details (PWA, online-only operation, photo re-encoding, status banner) moved to [ADR-011](ADR-011-installable-pwa-client.md); vite-plugin-pwa 2.0 and Workbox pins added (E72).
+- 2026-11-01 — revised by Ricardo (Tech Lead) after Martim's review of [PR #45](https://github.com/Phenriquerafael/LABDSOF_G9A/pull/45) (2026-10-31) and the Copilot review of 2026-10-31; drafting AI-assisted. Reason: the status banner is deferred with the status page ([ADR-012](ADR-012-health-and-status-page.md)); stack choice and pins unchanged. Evidence: [review decisions](../planning/decisions-and-feedback.md#review-decisions--en-01-01-2026-11-01). Affected documents: [ADR-011](ADR-011-installable-pwa-client.md). Still Proposed; final decision pending team review.

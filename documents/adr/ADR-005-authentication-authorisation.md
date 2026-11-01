@@ -1,7 +1,7 @@
 # ADR-005 — Keycloak identity, Backend-for-Frontend session and membership-based authorisation
 
 **Status:** Proposed
-**Date:** 2026-10-27
+**Date:** 2026-11-01
 **Participants:** Ricardo (P2, Tech Lead) — proposer; team review pending; EN-01-04 security review required
 **Related decision:** DEC-04; DEC-07 (visibility and data lifecycle)
 **Supersedes / superseded by:** — (revised in place; the 2026-10-15 version proposed an own login and is in the Git history)
@@ -26,10 +26,11 @@
 | E. Own login in the Issue service (argon2id, JWT in httpOnly cookies; the 2026-10-15 proposal) | No identity container; full control of claims | The team writes and maintains security-sensitive code; no sign-up, verification email or recovery; the workflows need all three | E03 |
 | F. Mocked authentication (seeded users, no passwords) | Least effort; allowed by the §6.6 footnote | Weaker demonstration of §6.6; authorisation must still be real | E01 |
 | G. Zitadel | Modern OIDC server | AGPL-3.0 licence; a second identity technology to learn without an advantage recorded here | E61 |
+| H. Managed identity provider | Removes two containers | Not adopted for the MVP (Tech Lead, 2026-11-01) | — |
 
 ## Proposed or accepted decision
 
-**A**, proposed, not accepted. B is the recorded fallback.
+**A**, proposed, not accepted. B is the recorded fallback. Keycloak's identity brokering can add social login later if needed; it is not in the MVP.
 
 ### What Keycloak owns and what the services own
 
@@ -45,8 +46,8 @@ Tokens carry `sub`, issuer, audience and expiry; building roles never travel in 
 ### Browser session (BFF at the edge)
 
 - The browser holds only an encrypted session cookie issued by oauth2-proxy (`keycloak-oidc` provider, confidential client `bmc-edge`, encrypted cookie session storage by default, Redis optional; E31). Cookie flags: `HttpOnly`, `Secure`, `SameSite=Strict`; the cookie secret comes from the environment.
-- Traefik runs a ForwardAuth middleware against oauth2-proxy for `/api/*`. On success oauth2-proxy passes `Authorization: Bearer <access token>` upstream (E32); the service receives a normal bearer request. Traefik Proxy has no JWT middleware (that one is Traefik Hub only, E35), so Traefik does not validate the token itself.
-- Single origin: Traefik routes `/` to the client's nginx, `/api/issue/*`, `/api/dispatch/*` and `/api/notifications/*` to the services, `/auth/*` to Keycloak and `/oauth2/*` to oauth2-proxy. Internal endpoints are never routed. There is no CORS.
+- Traefik runs a ForwardAuth middleware against oauth2-proxy for `/api/*`. On success oauth2-proxy answers with `Authorization: Bearer <access token>`, and Traefik passes it upstream through `authResponseHeaders` (E32); the service receives a normal bearer request. The header is built with oauth2-proxy's alpha configuration `injectResponseHeaders`, from the claim `access_token` with the prefix `Bearer ` (E86); `--set-authorization-header` is not used, because it builds the header from the ID token (E86). The audience of the forwarded token is verified in spike item 3. Traefik Proxy has no JWT middleware (that one is Traefik Hub only, E35), so Traefik does not validate the token itself.
+- Single origin: Traefik routes `/` to the client's nginx, `/api/issue/*`, `/api/dispatch/*` and `/api/notifications/*` to the services, `/auth/*` to Keycloak and `/oauth2/*` to oauth2-proxy. Internal endpoints are never routed. There is no CORS. Keycloak joins the `edge` network, so Traefik can route `/auth/*`, and the `internal` network for its MySQL database ([ADR-004](ADR-004-deployment-contract.md)).
 - API routes use the no-auto-redirect behaviour, so an unauthenticated call returns `401` (E32). The SPA's session provider loads the session from `GET /api/issue/me`; on `401` it navigates to `/oauth2/start?rd=<path>`, which starts the authorisation-code flow with Keycloak and returns to the requested path.
 - Logout, token lifetimes, refresh behaviour and cookie-secret rotation are open details (EN01-U6, EN-01-04).
 
@@ -62,7 +63,7 @@ Every Spring service is an OAuth2 resource server (E16): it validates the JWT si
 
 - Notification → Keycloak Admin API with the client-credentials grant (E17): service account `notification-service` with the `view-users` role, only to look up an email address by `sub` at send time.
 - Issue → Keycloak: no service account is planned; one is created only if the invitation flow proves to need it, with minimal rights.
-- RabbitMQ: a separate user per service on the shared vhost, with least-privilege permissions on exchanges and queues ([ADR-003](ADR-003-asynchronous-messaging-rabbitmq.md)). No shared superuser credential anywhere; secrets come from the host or CI environment, never from Git.
+- RabbitMQ: a separate user per service on the shared vhost, with least-privilege permissions on exchanges and queues ([ADR-003](ADR-003-asynchronous-messaging-rabbitmq.md)). Topic permissions on `bmc.events` restrict each user's publish routing keys to its own prefix (`^issue\.`, `^dispatch\.`, `^ai-triage\.` …; E85); service users have no read permission on `bmc.events` and no write or configure permission on any queue, so they cannot bind or unbind (a queue binding needs write on the queue and read on the exchange, E85); each consumer reads only its own queue, and the deployment declares the bindings; consumers check that the envelope's producer matches the routing-key prefix. No shared superuser credential anywhere; secrets come from the host or CI environment, never from Git.
 - The old Issue↔Dispatch service JWTs and internal endpoints no longer exist: services talk only through RabbitMQ.
 
 ### Onboarding flows
@@ -81,7 +82,7 @@ These flows are DISC-03-06 scope additions that still need DEC entries and stori
 
 ### Realm as code
 
-`infra/keycloak/bmc-realm.json` is imported with `--import-realm` (E29), which skips a realm that already exists. The file holds no secrets: client secrets, the admin password and SMTP settings come from the environment. Synthetic demo users exist only in the dev/demo profile. Keycloak sends verification email through SMTP to Mailpit in dev and demo (E52).
+`infra/keycloak/bmc-realm.json` is imported with `--import-realm` (E29), which skips a realm that already exists. The file holds no secrets: client secrets, the admin password and SMTP settings come from the environment. Synthetic demo users exist only in the dev/demo profile. Keycloak sends verification email through SMTP to Mailpit (E52), which runs in the `core` Compose profile because verification email is needed from the first journey ([ADR-004](ADR-004-deployment-contract.md)).
 
 ## Consequences
 
@@ -95,12 +96,13 @@ These flows are DISC-03-06 scope additions that still need DEC entries and stori
 
 ## Verification and review
 
-- EN-01-04 reviews cookie flags, the CSRF header, token and session lifetimes, cookie-secret rotation, RabbitMQ per-service permissions, the revocation delay of the Dispatch projection (EN01-U6).
+- EN-01-04 reviews cookie flags, the CSRF header, token and session lifetimes, cookie-secret rotation, RabbitMQ per-service and topic permissions, the revocation delay of the Dispatch projection (EN01-U6).
 - Tests, written with the implementation: the full access matrix in each service; expired, forged and unsigned tokens; wrong issuer; wrong audience; missing custom CSRF header on a state-changing request; `401` (not a redirect) on an API call without a session; `404` for resources outside the caller's scope; invitation token reuse, expiry, wrong unit and address mismatch; contractor registration not usable before validation.
-- Spike items (EN01-U2 in the [decision register](../planning/decisions-and-feedback.md)): **1** Keycloak 26.8 on MySQL 8.4 with realm import; **3** Traefik ForwardAuth → oauth2-proxy returns `401` to API calls and passes the bearer token. Also confirmed there: cookie size with the Keycloak tokens, `SameSite=Strict` through the login redirects, audience configuration. If item 3 fails, option B is adopted and this ADR and the setup guide are revised.
+- Spike items (EN01-U2 in the [decision register](../planning/decisions-and-feedback.md)): **1** Keycloak 26.8 on MySQL 8.4 with realm import; **3** Traefik ForwardAuth → oauth2-proxy returns `401` to API calls and passes the bearer token; the forwarded `Authorization` header carries the access token, not the ID token, with the audience the services require (E86); `injectResponseHeaders` exists only in oauth2-proxy's alpha configuration file, which replaces the legacy header flags, so the spike tests that configuration route itself. Also confirmed there: cookie size with the Keycloak tokens, `SameSite=Strict` through the login redirects, audience configuration. If item 3 fails, option B is adopted and this ADR and the setup guide are revised.
 - Revisit before any real-user pilot.
 
 ## Record
 
 - 2026-10-15 — first proposed by Ricardo (Tech Lead) after a structured design interview for EN-01-01: own login in the Issue service, argon2id password hashing, short-lived JWTs in httpOnly cookies, opaque rotating refresh tokens, service JWTs between Issue and Dispatch, membership-based authorisation; mocked authentication, Keycloak and Zitadel were the rejected alternatives.
 - 2026-10-27 — revised by Ricardo (Tech Lead) after a structured design interview; drafting and source checks AI-assisted. Reason: the workflows need sign-up, email verification and invitation email, which the own-login proposal excluded; the stack moved to Java services (a Tech Lead proposal, not lecturer feedback), where a maintained identity provider and the Spring resource-server support are preferred to hand-written security code; the Keycloak memory cost is accepted pending measurement. Evidence: [evidence register](README.md#evidence-register-en-01-01) E01, E03, E16, E17, E26–E33, E35, E44, E52, E61; issue [#15](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/15). Affected documents: [security](../09-security-privacy.md), [technical design](../07-technical-design.md), [Keycloak setup guide](../guides/keycloak-setup.md), [workflows](../workflows/bmc-workflows.md), DEC-04. Final decision, date and participants: pending team review.
+- 2026-11-01 — revised by Ricardo (Tech Lead) after Martim's review of PR #45 (2026-10-31) and the Copilot review of 2026-10-31; drafting AI-assisted. Reason: `--set-authorization-header` forwards the ID token, so the `Authorization` header is built from the `access_token` claim with `injectResponseHeaders` (E32's recorded fact corrected); per-service broker permissions now include topic permissions per producer prefix; Keycloak stays and a managed identity provider is not adopted for the MVP (social login through identity brokering later, if needed); Keycloak is on `edge` and `internal`; Mailpit is in the `core` profile so verification email works from the first journey. Evidence: [evidence register](README.md#evidence-register-en-01-01) E32, E85, E86. Affected documents: [Keycloak setup guide](../guides/keycloak-setup.md), [security](../09-security-privacy.md), [ADR-003](ADR-003-asynchronous-messaging-rabbitmq.md), [ADR-004](ADR-004-deployment-contract.md). Final decision, date and participants: pending team review.

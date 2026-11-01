@@ -191,6 +191,8 @@ As an administrator, I want to synchronise with the calendar used in operations.
 
 **Source:** RF-08. **Dependencies:** US-08, DEC-06, provider access. **Horizon:** if capacity allows.
 
+*Note (2026-11-01, EN-01-01):* [ADR-006](adr/ADR-006-calendar-simulator.md) now proposes a Google Calendar adapter behind `CalendarPort` for the live system, with the simulator kept for tests and failure demos (pending team review). The priority above is unchanged; revisiting it is for the backlog owners.
+
 ## 5. Won't in this baseline / alternatives
 
 Photos and visual analysis, cost charts/summaries, payments, marketplace, native apps, automatic approval and subscriptions. Report photos without visual analysis are a design candidate recorded in the [decision register](planning/decisions-and-feedback.md#stack-revision--en-01-01-2026-10-27), pending a DEC entry and the team review; no story exists, and this baseline still excludes them. IoT, monitoring and prediction are **excluded from the MVP** (DEC-01, BA/PO proposal of 2026-10-19 in [vision §4.2](04-product-vision.md#42-iot-decision-dec-01), team agreement pending); reopening requires a scope review.
