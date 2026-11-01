@@ -46,6 +46,7 @@ def dr1():
            icon="artifact")
 
     d.path([(1000, 235), (1215, 235)], "mysqldump\nnightly", at=(1108, 200), anchor="middle", bg=BLUE)
+    d.dep([(480, 300), (540, 300)], "JDBC", at=(510, 288), anchor="middle", bg=BLUE)
     d.dep([(1290, 510), (1290, 560)], "optional", at=(1298, 530), bg=BLUE)
     d.note(40, 650, 1000, ["Backed up: the four service databases (outbox and Keycloak realm data included) and "
                            "the report photos in bmc-attachments.",
