@@ -22,7 +22,7 @@ SPRING = "Spring Boot 4.1.2 · Java 25"
 def p1():
     d = Diagram("p1-deployment-overview", "P1 · Deployment overview",
                 "UML deployment diagram of the proposed BMC stack · ADR-004 · proposed, nothing is deployed",
-                1900, 1360)
+                2300, 1360)
     d.node("device", 40, 90, 420, 210, "User device", "device", ["phone or computer"])
     d.node("browser", 70, 165, 360, 120, "Browser or installed PWA", "executionEnvironment", align="left")
     d.comp("web", 95, 215, 310, 62, "BMC web app", "component", ["React + Vite build"])
@@ -30,9 +30,9 @@ def p1():
     d.comp("ghcr", 1510, 160, 320, 80, "GitHub Container Registry", "external service",
            ["one multi-arch image per app"])
 
-    d.node("host", 40, 350, 1820, 830, "Demonstration host", "device",
-           ["one Docker host · Docker Engine + Compose · fifteen services · linux/amd64 or linux/arm64 · "
-            "host choice open (EN01-U3)"])
+    d.node("host", 40, 350, 1820, 830, "Application host", "device",
+           ["one Docker host · Docker Engine + Compose · twelve services here, MySQL and Garage on the database host · "
+            "linux/amd64 or linux/arm64 · host choice open (EN01-U3)"])
     d.node("n1", 70, 430, 1080, 200, "edge network only", "network", align="left")
     d.comp("traefik", 180, 490, 240, 85, "traefik", "container", ["Traefik 3.7", "only published ports: 80, 443"])
     d.comp("client", 520, 490, 240, 85, "client", "container", ["nginx", "serves the React build"])
@@ -54,17 +54,23 @@ def p1():
 
     d.node("n3", 70, 900, 1500, 250, "internal network only", "network", align="left")
     for key, x, name, details in (
-            ("sim", 95, "calendar-sim", ["Spring Boot · Java 25", "tests, offline, failure demos"]),
+            ("rabbitmq", 95, "rabbitmq", ["RabbitMQ 4.x", "quorum queues, DLQs"]),
             ("mailpit", 345, "mailpit", ["Mailpit 1.32", "SMTP capture · demo inbox"]),
             ("grafana", 595, "grafana", ["Grafana 13", "operator dashboard"]),
             ("prom", 845, "prometheus", ["Prometheus 3.x", "metrics and alerts"]),
             ("ai", 1095, "ai-triage", ["Python 3.14 · web + consumer", "also on egress"])):
         d.comp(key, x, 955, 220, 85, name, "container", details)
-    for key, x, name, details, icon in (
-            ("rabbitmq", 95, "rabbitmq", ["RabbitMQ 4.x", "quorum queues, DLQs"], "component"),
-            ("mysql", 345, "mysql", ["MySQL 8.4 LTS", "one database per service"], "database"),
-            ("garage", 595, "garage", ["Garage 2.5 · single node", "attachments, backups"], "component")):
-        d.comp(key, x, 1050, 220, 85, name, "container", details, icon=icon)
+
+    d.path([(1860, 540), (1960, 540)], "MySQL [TCP]", at=(1910, 526), anchor="middle", bg=BLUE)
+    d.node("dbhost", 1960, 430, 300, 420, "Database host", "device",
+           ["second machine · placement not in ADR-004"])
+    d.comp("mysql", 1990, 500, 240, 85, "mysql", "container",
+           ["MySQL 8.4 LTS", "one database per service"], icon="database")
+    d.comp("garage", 1990, 620, 240, 85, "garage", "container",
+           ["Garage 2.5 · single node", "bmc-attachments · bmc-backups"])
+    d.comp("mysqld-exporter", 1990, 720, 240, 62, "mysqld_exporter", "container", ["MySQL metrics; not in ADR-004"])
+    d.path([(850, 1040), (850, 1120), (2100, 1120), (2100, 782)], "scrape over private link (P-08)",
+           at=(1650, 1120), anchor="middle", dashed=True, bg=BLUE)
 
     d.node("egress", 1610, 780, 220, 95, "egress", "network", ["the only way out"])
     d.path([(1315, 782), (1610, 782)], "HTTPS", at=(1460, 770), anchor="middle", bg=BLUE)
@@ -72,12 +78,9 @@ def p1():
 
     d.node("gcal", 1380, 1230, 220, 90, "Google Calendar API", "external system", ["live calendar", "(ADR-006)"])
     d.node("aiprov", 1630, 1230, 220, 90, "AI provider API", "external system", ["candidate: Gemini Flash", "(DEC-05)"])
-    d.node("r2", 700, 1230, 220, 90, "Cloudflare R2", "external system", ["optional off-host copy,", "not in the release"],
-           dashed=True)
     d.path([(1650, 875), (1650, 1200), (1490, 1200), (1490, 1230)], "Google Calendar API",
            at=(1500, 1188), anchor="start")
     d.path([(1790, 875), (1790, 1230)], "classifies report text", at=(1782, 1198), anchor="end")
-    d.path([(790, 1135), (790, 1230)], "S3 · optional copy", at=(798, 1198), dashed=True)
     d.path([(1670, 240), (1670, 350)], "image pull · HTTPS", at=(1678, 318))
 
     d.note(1200, 450, 330, ["ADR-004: keycloak joins edge for /auth/*", "and internal for its MySQL database."],
@@ -86,7 +89,7 @@ def p1():
                             "traefik and oauth2-proxy, on edge only."], attach=d.p("prom", "s"))
     d.note(1180, 1052, 380, ["Connections from the services to the broker,",
                              "databases, storage, mail and the calendar",
-                             "simulator are drawn in P3 and P4."])
+                             "are drawn in P3 and P4."])
     d.note(1600, 655, 250, ["No allow-list proxy on egress", "for the MVP (open, EN-01-04)."],
            attach=d.p("egress", "n"))
     d.legend(40, 1225)
@@ -100,7 +103,7 @@ def p2():
     d.node("device", 250, 80, 520, 180, "User device", "device", ["browser or installed PWA"])
     d.comp("web", 420, 150, 300, 70, "BMC web app", "component", ["one origin, no CORS"])
 
-    d.node("host", 40, 320, 1820, 670, "Demonstration host", "device", ["Docker host"])
+    d.node("host", 40, 320, 1820, 670, "Application host", "device", ["Docker host"])
     d.boundary("tb1", 70, 385, 1330, 260, "Trust boundary 1 · internet → traefik")
     d.holder("traefik", 95, 425, 1280, 185, "traefik", "container",
              ["Traefik 3.7 · the only published ports, 80 and 443"])
@@ -154,7 +157,7 @@ def p3():
     d = Diagram("p3-messaging", "P3 · Messaging through RabbitMQ",
                 "UML deployment diagram of the broker · topology from ADR-003 · arrows follow the message · proposed",
                 1900, 920)
-    d.node("host", 40, 80, 1820, 810, "Demonstration host", "device", ["Docker host · internal network"])
+    d.node("host", 40, 80, 1820, 810, "Application host", "device", ["Docker host · internal network"])
     cols = [330, 680, 1030, 1380]
     services = [("issue", "issue", [SPRING, "outbox publisher;", "idempotent consumer"]),
                 ("dispatch", "dispatch", [SPRING, "outbox publisher;", "idempotent consumer"]),
@@ -208,69 +211,41 @@ def p3():
 def p4():
     d = Diagram("p4-data-and-platform", "P4 · Data stores and platform connections",
                 "UML deployment diagram of stores and platform calls · ADR-001, ADR-004, ADR-006, ADR-010 · arrows "
-                "from user to used · proposed", 1900, 950)
-    d.node("gcal", 140, 80, 260, 85, "Google Calendar API", "external system", ["live calendar, over egress"])
-    d.node("host", 40, 200, 1820, 720, "Demonstration host", "device", ["Docker host · internal network"])
+                "from user to used · proposed", 1900, 780)
 
-    d.comp("sim", 140, 270, 220, 90, "calendar-sim", "container", ["tests, offline and", "failure demos"])
-    d.comp("mailpit", 380, 270, 220, 90, "mailpit", "container", ["Mailpit 1.32 · core profile", "inbox via SSH tunnel"])
-    d.comp("keycloak", 680, 270, 220, 90, "keycloak", "container", ["Keycloak 26.8", "accounts, account email"])
-    d.lollipop(250, 382, "HTTP API", (250, 360))
-    d.lollipop(490, 382, "SMTP", (490, 360), at="w")
-    d.lollipop(800, 382, "Admin API", (800, 360), at="w")
-
-    d.comp("dispatch", 140, 460, 220, 100, "dispatch", "container", ["CalendarPort: Google", "or simulator (config)"])
-    d.comp("notification", 380, 460, 220, 100, "notification", "container", ["Spring Boot", "inbox, delivery log"])
-    d.comp("issue", 960, 460, 320, 100, "issue", "container", ["Spring Boot",
-                                                               "reports, issues, memberships, attachments"])
-    d.comp("backup", 1370, 460, 220, 100, "nightly backup", "cron job", ["on the host, not a container",
-                                                                         "mysqldump of each database"])
-
-    d.holder("mysql", 120, 640, 980, 200, "mysql", "container",
+    d.node("dbhost", 40, 100, 1820, 310, "Database host", "device",
+           ["second machine · placement not in ADR-004"])
+    d.holder("mysql", 120, 160, 980, 200, "mysql", "container",
              ["MySQL 8.4 LTS · one instance, one database per service · scales vertically"])
     for x, owner in ((150, "dispatch"), (390, "notification"), (630, "keycloak"), (870, "issue")):
-        d.comp("db-" + owner, x, 660, 200, 100, owner, "database", ["owner: " + owner], icon="database")
-    d.holder("garage", 1130, 640, 480, 200, "garage", "container", ["Garage 2.5 · S3 subset · single node"])
-    d.lollipop(1240, 617, "S3 API", (1240, 640), at="w")
-    d.comp("ba", 1150, 660, 210, 100, "bmc-attachments", "bucket", ["report photos;", "candidate, post-MVP"],
+        d.comp("db-" + owner, x, 180, 200, 100, owner, "database", ["owner: " + owner], icon="database")
+    d.holder("garage", 1130, 160, 480, 200, "garage", "container", ["Garage 2.5 · S3 subset · single node"])
+    d.lollipop(1240, 137, "S3 API", (1240, 160), at="w")
+    d.comp("ba", 1150, 180, 210, 100, "bmc-attachments", "bucket", ["report photos;", "candidate, post-MVP"],
            icon="artifact")
-    d.comp("bb", 1380, 660, 210, 100, "bmc-backups", "bucket", ["nightly dumps"], icon="artifact")
 
-    d.dep([(140, 510), (110, 510), (110, 122), (140, 122)], "HTTPS", at=(102, 300), anchor="end")
-    d.dep([(250, 460), (250, 391)], "tests, failure\ndemos", at=(258, 412), bg=BLUE)
-    d.dep([(490, 460), (490, 391)], "sends email", at=(498, 425), bg=BLUE)
-    d.dep([(700, 360), (700, 382), (499, 382)])
-    d.dep([(600, 510), (800, 510), (800, 391)], "Admin API · view-users", at=(700, 498), anchor="middle", bg=BLUE)
-    d.dep([(860, 360), (860, 625), (730, 625), (730, 660)], "JDBC", at=(868, 580), bg=BLUE)
-    d.dep([(250, 560), (250, 660)], "JDBC", at=(258, 608), bg=BLUE)
-    d.dep([(490, 560), (490, 660)], "JDBC", at=(498, 608), bg=BLUE)
-    d.dep([(990, 560), (990, 660)], "JDBC", at=(998, 608), bg=BLUE)
-    d.dep([(1240, 560), (1240, 608)], "stores photos", at=(1248, 582), bg=BLUE)
-    d.dep([(1480, 560), (1480, 617), (1249, 617)], "writes dumps", at=(1488, 586), bg=BLUE)
-    d.dep([(1590, 510), (1700, 510), (1700, 885), (610, 885), (610, 840)],
-          "mysqldump · read-only backup user", at=(1150, 885), anchor="middle", bg=BLUE)
+    d.comp("backup", 1625, 180, 220, 100, "nightly backup", "cron job", ["on the database host,", "mysqldump of each DB"])
+    d.dep([(1735, 280), (1735, 385), (610, 385), (610, 360)],
+          "mysqldump · read-only backup user", at=(1150, 385), anchor="middle", bg=BLUE)
 
-    d.note(1000, 262, 560, ["Every Spring service also needs Keycloak's signing keys; that",
-                            "connection is not drawn and its route is open (P-05). Calls to a",
-                            "platform component or to the calendar are not service-to-service",
-                            "calls (ADR-001)."], attach=d.p("keycloak", "e", 0.4))
-    d.note(430, 92, 560, ["Google Calendar does not guarantee that event-ID collisions are",
-                          "detected at creation (E87), so Dispatch still queries by ID",
-                          "before any re-send (reconcile before retry)."], attach=(400, 122))
+    d.node("backuphost", 1600, 460, 260, 240, "Backup host", "device", ["where backups are stored"])
+    d.holder("bgarage", 1620, 520, 220, 160, "garage", "container", ["Garage 2.5 · single node"])
+    d.comp("bb", 1640, 542, 180, 62, "bmc-backups", "bucket", ["nightly dumps"], icon="artifact")
+    d.dep([(1800, 280), (1800, 542)], "writes dumps", at=(1808, 340), anchor="start", bg=BLUE)
     return d
 
 
 def p5():
     d = Diagram("p5-health-and-metrics", "P5 · Health, metrics and logs",
                 "UML deployment diagram of health and metrics paths for the MVP · ADR-004, ADR-012 · proposed",
-                1720, 930)
+                1720, 1110)
     d.actor("operator", 1010, 60, "Operator", ["reads the dashboard"])
     d.note(1120, 70, 560, ["Deferred past the MVP: the public /status page, the /status/api",
                            "route and the status banner, which relied on Gatus (ADR-012).",
                            "Users still see degraded states in context: booking pending,",
                            "\"triage pending — classify manually\", delayed email."])
 
-    d.node("host", 40, 220, 1640, 550, "Demonstration host", "device", ["Docker host"])
+    d.node("host", 40, 220, 1640, 550, "Application host", "device", ["Docker host"])
     d.comp("traefik", 255, 345, 230, 90, "traefik", "container", ["Traefik 3.7", "health check before routing"])
     d.comp("prom", 575, 345, 230, 90, "prometheus", "container", ["Prometheus 3.x", "scrapes /metrics, alerts on up"])
     d.comp("grafana", 895, 345, 230, 90, "grafana", "container", ["Grafana 13", "operator dashboard (§6.7)"])
@@ -292,17 +267,25 @@ def p5():
     d.boundary("plat", 660, 510, 990, 210, "Platform checks · Compose health checks")
     for i, (name, check) in enumerate((("oauth2-proxy", "/ready · /metrics (P-01)"),
                                        ("rabbitmq", "diagnostics ping · metrics plugin"),
-                                       ("keycloak", "/health/ready, port 9000"), ("mysql", "mysqladmin ping"),
-                                       ("garage", "admin GET /health"), ("mailpit", "readyz"),
-                                       ("calendar-sim", "no health check stated (P-04)"))):
+                                       ("keycloak", "/health/ready, port 9000"), ("mailpit", "readyz"))):
         d.comp("t-" + name, 675 + 240 * (i % 4), 525 + 75 * (i // 4), 230, 62, name, "container", [check])
 
     d.dep([(370, 435), (370, 510)], "readiness of issue,\ndispatch, notification", at=(378, 458), bg=BLUE)
-    d.dep([(640, 435), (640, 490), (600, 490), (600, 510)], "/metrics", at=(648, 458), bg=BLUE)
+    d.dep([(615, 435), (615, 490), (600, 490), (600, 510)], "/metrics", at=(606, 462), anchor="end", bg=BLUE)
     d.dep([(740, 435), (740, 510)], "/metrics of rabbitmq,\noauth2-proxy", at=(748, 458), bg=BLUE)
 
-    d.note(70, 790, 760, ["Every container should have a Compose health check; startup order uses condition: service_healthy.",
-                          "Open for client, calendar-sim and the ai-triage consumer process (P-04). Logs are structured with",
+    d.path([(648, 435), (648, 785), (1020, 785), (1020, 870)], "", dashed=True)
+    d.path([(648, 785), (400, 785), (400, 870)], "scrape over private link (P-08)", at=(656, 650), anchor="start",
+           dashed=True, bg=BLUE)
+    d.node("dbhost", 40, 800, 1640, 230, "Database host", "device", ["second machine · placement not in ADR-004"])
+    d.comp("t-mysql", 530, 870, 260, 62, "mysql", "container", ["mysqladmin ping"], icon="database")
+    d.comp("t-garage", 890, 870, 260, 62, "garage", "container", ["admin GET /health"])
+    d.comp("mysqld-exporter", 300, 870, 200, 62, "mysqld_exporter", "container", ["MySQL metrics; not in ADR-004"])
+    d.dep([(500, 901), (530, 901)])
+
+    d.note(1200, 905, 460, ["Open (P-08): the scrape path, mysqld_exporter and", "Garage metrics are not in ADR-004; verify Garage."])
+    d.note(70, 1050, 760, ["Every container should have a Compose health check; startup order uses condition: service_healthy.",
+                          "Open for client and the ai-triage consumer process (P-04). Logs are structured with",
                           "correlationId and traceparent; where they are collected is left to DEVOPS-02 (EN01-U12)."])
     return d
 
@@ -331,7 +314,7 @@ def p6():
             d.dep([(x - 20, 277), (x, 277)])
     d.comp("ghcr", 1590, 160, 250, 100, "GHCR", "registry", ["one image per app;", "built once, promoted by tag"])
 
-    d.node("host", 1100, 540, 760, 220, "Demonstration host", "device", ["Docker host"])
+    d.node("host", 1100, 540, 760, 220, "Application host", "device", ["Docker host"])
     d.comp("env", 1130, 610, 300, 110, "Host or CI environment", "artifact", [".env with secrets,", "never in Git"],
            icon="artifact")
     d.comp("stack", 1560, 610, 270, 110, "Docker Compose", "executionEnvironment",
@@ -355,7 +338,7 @@ def p7():
     d = Diagram("p7-compose-profiles", "P7 · Compose profiles and rollout",
                 "UML deployment diagram of the Compose profile sets in the proposed order · ADR-004 · to decide at the "
                 "team review (EN01-U1)", 1900, 640)
-    d.node("host", 40, 80, 1820, 530, "Demonstration host", "device", ["one compose.yaml with profiles"])
+    d.node("host", 40, 80, 1820, 530, "Application host", "device", ["one compose.yaml with profiles"])
 
     d.node("core", 70, 150, 540, 430, "First: profile core", "profile set", ["nine containers"])
     core = [("traefik", "Traefik 3.7"), ("oauth2-proxy", "oauth2-proxy 7.15"), ("keycloak", "Keycloak 26.8"),

@@ -174,6 +174,7 @@ These do not change any ADR. They are inputs for the team review (EN01-U1) and t
 | P-05 | Tokens carry Keycloak's public issuer URL, but the services validate them from the internal network | How services fetch the signing keys (through Traefik or directly from `keycloak` on an internal URL) has to work with the issuer check | Ricardo (ADR-005 spike item) |
 | P-06 | Volumes for `mysql`, `rabbitmq`, `garage`, `prometheus` and `grafana` are implied by their persistent state but not listed in ADR-004 | Backups, restore and a host move depend on which volumes exist | Martim (DEVOPS-02) |
 | P-07 | The DEVOPS-02 proposal (PR [#48](https://github.com/Phenriquerafael/LABDSOF_G9A/pull/48), open) assumes nginx or an API gateway, PostgreSQL and an EC2 container or Amazon RDS, while ADR-004 proposes Traefik, MySQL 8.4 and any Docker host | The two proposals cannot both describe the same deployment | Martim and Ricardo, at the team review |
+| P-08 | MySQL and Garage are on the database host, which the views draw apart from the application host, but no ADR scrape target or exporter covers them, so they have no `up` series and the "service gone" alert does not see them | Either Prometheus reaches the database host over a private link (a path not in ADR-004), or those services get an exporter; the health checks on that host are a separate question | Martim (DEVOPS-02) with Ricardo |
 
 ## 11. Limits of these views
 
