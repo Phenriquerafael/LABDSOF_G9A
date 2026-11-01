@@ -31,6 +31,6 @@ Synchronous communication for requests/queries requiring an immediate response; 
 
 ## Open questions
 
-Stack, broker, service-to-service authentication, deployment, cancellation/reconciliation and final notification ownership. Review with the [technical design](../08-technical-design.md), EN-01 and DEC-04.
+Stack, broker, service-to-service authentication, deployment, cancellation/reconciliation and final notification ownership. Review with the [technical design](../07-technical-design.md), EN-01 and DEC-04.
 
 **Final decision / date / evidence:** pending.

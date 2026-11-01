@@ -1,0 +1,766 @@
+{
+  "date": "2026-10-24T01:25:24.346Z",
+  "data": {
+    "repository": {
+      "projectsV2": {
+        "nodes": [
+          {
+            "id": "PVT_kwHOBbQ8Lc4Bmfbp",
+            "number": 9,
+            "title": "LABDSOF_GX _Project",
+            "items": {
+              "nodes": [
+                {
+                  "content": {
+                    "number": 13,
+                    "title": "[EN-01-03] Consolidate architecture and deployment views"
+                  },
+                  "sprint": "Sprint A",
+                  "fieldValues": {
+                    "nodes": [
+                      {
+                        "name": "In progress",
+                        "field": {
+                          "name": "Status"
+                        }
+                      },
+                      {
+                        "name": "Sprint A",
+                        "field": {
+                          "name": "Sprint"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "content": {
+                    "number": 19,
+                    "title": "[DISC-03-04] Prioritise backlog and prepare the release plan"
+                  },
+                  "sprint": "Sprint A",
+                  "fieldValues": {
+                    "nodes": [
+                      {
+                        "name": "In progress",
+                        "field": {
+                          "name": "Status"
+                        }
+                      },
+                      {
+                        "name": "Sprint A",
+                        "field": {
+                          "name": "Sprint"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "content": {
+                    "number": 18,
+                    "title": "[DISC-03-05] Prepare Sprint 1 review and record stakeholder feedback"
+                  },
+                  "sprint": "Sprint A",
+                  "fieldValues": {
+                    "nodes": [
+                      {
+                        "name": "In progress",
+                        "field": {
+                          "name": "Status"
+                        }
+                      },
+                      {
+                        "name": "Sprint A",
+                        "field": {
+                          "name": "Sprint"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "content": {
+                    "number": 32,
+                    "title": "[DISC-03-01] Agree working practices, dates and capacity"
+                  },
+                  "sprint": "Sprint A",
+                  "fieldValues": {
+                    "nodes": [
+                      {
+                        "name": "Done",
+                        "field": {
+                          "name": "Status"
+                        }
+                      },
+                      {
+                        "name": "Sprint A",
+                        "field": {
+                          "name": "Sprint"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "content": {
+                    "number": 15,
+                    "title": "[EN-01-01] Select the stack and accept architecture decisions"
+                  },
+                  "sprint": "Sprint A",
+                  "fieldValues": {
+                    "nodes": [
+                      {
+                        "name": "In review",
+                        "field": {
+                          "name": "Status"
+                        }
+                      },
+                      {
+                        "name": "Sprint A",
+                        "field": {
+                          "name": "Sprint"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "content": {
+                    "number": 20,
+                    "title": "[DISC-03-02] Configure and verify project tracking"
+                  },
+                  "sprint": "Sprint A",
+                  "fieldValues": {
+                    "nodes": [
+                      {
+                        "name": "In review",
+                        "field": {
+                          "name": "Status"
+                        }
+                      },
+                      {
+                        "name": "Sprint A",
+                        "field": {
+                          "name": "Sprint"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "content": {
+                    "number": 21,
+                    "title": "[DISC-01-03] Synthesise research and update the problem report"
+                  },
+                  "sprint": "Sprint A",
+                  "fieldValues": {
+                    "nodes": [
+                      {
+                        "name": "In review",
+                        "field": {
+                          "name": "Status"
+                        }
+                      },
+                      {
+                        "name": "Sprint A",
+                        "field": {
+                          "name": "Sprint"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "content": {
+                    "number": 34,
+                    "title": "[DISC-02-01] Verify competitor and alternative sources"
+                  },
+                  "sprint": "Sprint A",
+                  "fieldValues": {
+                    "nodes": [
+                      {
+                        "name": "Done",
+                        "field": {
+                          "name": "Status"
+                        }
+                      },
+                      {
+                        "name": "Sprint A",
+                        "field": {
+                          "name": "Sprint"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "content": {
+                    "number": 23,
+                    "title": "[DISC-01-01] Prepare research and participant data handling"
+                  },
+                  "sprint": "Sprint A",
+                  "fieldValues": {
+                    "nodes": [
+                      {
+                        "name": "Done",
+                        "field": {
+                          "name": "Status"
+                        }
+                      },
+                      {
+                        "name": "Sprint A",
+                        "field": {
+                          "name": "Sprint"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "content": {
+                    "number": 29,
+                    "title": "[EP-00] Justifiable discovery and planning"
+                  },
+                  "sprint": "Sprint A",
+                  "fieldValues": {
+                    "nodes": [
+                      {
+                        "name": "Ready",
+                        "field": {
+                          "name": "Status"
+                        }
+                      },
+                      {
+                        "name": "Sprint A",
+                        "field": {
+                          "name": "Sprint"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "content": {
+                    "number": 28,
+                    "title": "[EP-02] Assisted triage and reviewed links"
+                  },
+                  "sprint": "Sprint A",
+                  "fieldValues": {
+                    "nodes": [
+                      {
+                        "name": "Ready",
+                        "field": {
+                          "name": "Status"
+                        }
+                      },
+                      {
+                        "name": "Sprint A",
+                        "field": {
+                          "name": "Sprint"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "content": {
+                    "number": 27,
+                    "title": "[EP-04] Deliverable, secure, observable and evaluable system"
+                  },
+                  "sprint": "Sprint A",
+                  "fieldValues": {
+                    "nodes": [
+                      {
+                        "name": "Ready",
+                        "field": {
+                          "name": "Status"
+                        }
+                      },
+                      {
+                        "name": "Sprint A",
+                        "field": {
+                          "name": "Sprint"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "content": {
+                    "number": 26,
+                    "title": "[DISC-01] Gather user evidence and document the problem"
+                  },
+                  "sprint": "Sprint A",
+                  "fieldValues": {
+                    "nodes": [
+                      {
+                        "name": "Ready",
+                        "field": {
+                          "name": "Status"
+                        }
+                      },
+                      {
+                        "name": "Sprint A",
+                        "field": {
+                          "name": "Sprint"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "content": {
+                    "number": 24,
+                    "title": "[DISC-03] Agree organisation, product scope and priorities"
+                  },
+                  "sprint": "Sprint A",
+                  "fieldValues": {
+                    "nodes": [
+                      {
+                        "name": "Ready",
+                        "field": {
+                          "name": "Status"
+                        }
+                      },
+                      {
+                        "name": "Sprint A",
+                        "field": {
+                          "name": "Sprint"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "content": {
+                    "number": 17,
+                    "title": "[AI-01] Assess the AI opportunity and define evaluation"
+                  },
+                  "sprint": "Sprint A",
+                  "fieldValues": {
+                    "nodes": [
+                      {
+                        "name": "Ready",
+                        "field": {
+                          "name": "Status"
+                        }
+                      },
+                      {
+                        "name": "Sprint A",
+                        "field": {
+                          "name": "Sprint"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "content": {
+                    "number": 16,
+                    "title": "[EN-01] Consolidate technical design, ADRs and security"
+                  },
+                  "sprint": "Sprint A",
+                  "fieldValues": {
+                    "nodes": [
+                      {
+                        "name": "Ready",
+                        "field": {
+                          "name": "Status"
+                        }
+                      },
+                      {
+                        "name": "Sprint A",
+                        "field": {
+                          "name": "Sprint"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "content": {
+                    "number": 12,
+                    "title": "[EN-01-04] Review the initial security and privacy assessment"
+                  },
+                  "sprint": "Sprint A",
+                  "fieldValues": {
+                    "nodes": [
+                      {
+                        "name": "Ready",
+                        "field": {
+                          "name": "Status"
+                        }
+                      },
+                      {
+                        "name": "Sprint A",
+                        "field": {
+                          "name": "Sprint"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "content": {
+                    "number": 33,
+                    "title": "[DISC-02-02] Compare alternatives and assess differentiation"
+                  },
+                  "sprint": "Sprint A",
+                  "fieldValues": {
+                    "nodes": [
+                      {
+                        "name": "Done",
+                        "field": {
+                          "name": "Status"
+                        }
+                      },
+                      {
+                        "name": "Sprint A",
+                        "field": {
+                          "name": "Sprint"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "content": {
+                    "number": 31,
+                    "title": "[DISC-03-03] Refine vision, journeys and success criteria"
+                  },
+                  "sprint": "Sprint A",
+                  "fieldValues": {
+                    "nodes": [
+                      {
+                        "name": "Done",
+                        "field": {
+                          "name": "Status"
+                        }
+                      },
+                      {
+                        "name": "Sprint A",
+                        "field": {
+                          "name": "Sprint"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "content": {
+                    "number": 25,
+                    "title": "[DISC-02] Complete the market and competitor comparison"
+                  },
+                  "sprint": "Sprint A",
+                  "fieldValues": {
+                    "nodes": [
+                      {
+                        "name": "Done",
+                        "field": {
+                          "name": "Status"
+                        }
+                      },
+                      {
+                        "name": "Sprint A",
+                        "field": {
+                          "name": "Sprint"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "content": {
+                    "number": 22,
+                    "title": "[DISC-01-02] Conduct research and record source evidence"
+                  },
+                  "sprint": "Sprint A",
+                  "fieldValues": {
+                    "nodes": [
+                      {
+                        "name": "Done",
+                        "field": {
+                          "name": "Status"
+                        }
+                      },
+                      {
+                        "name": "Sprint A",
+                        "field": {
+                          "name": "Sprint"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "content": {
+                    "number": 14,
+                    "title": "[EN-01-02] Consolidate the domain model and contract outlines"
+                  },
+                  "sprint": "Sprint A",
+                  "fieldValues": {
+                    "nodes": [
+                      {
+                        "name": "In progress",
+                        "field": {
+                          "name": "Status"
+                        }
+                      },
+                      {
+                        "name": "Sprint A",
+                        "field": {
+                          "name": "Sprint"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "content": {
+                    "number": 11,
+                    "title": "[AGENT-01] Add cross-provider agent skills and repository instructions"
+                  },
+                  "sprint": null,
+                  "fieldValues": {
+                    "nodes": [
+                      {
+                        "name": "In progress",
+                        "field": {
+                          "name": "Status"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "content": {
+                    "number": 30,
+                    "title": "[AGENT-02] Agent skills follow-ups: MIT notice, mirror drift check, AGENTS.md trim"
+                  },
+                  "sprint": null,
+                  "fieldValues": {
+                    "nodes": [
+                      {
+                        "name": "Done",
+                        "field": {
+                          "name": "Status"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "content": {
+                    "number": 10,
+                    "title": "[EP-01] Residents report and track issues with appropriate visibility"
+                  },
+                  "sprint": "Sprint B",
+                  "fieldValues": {
+                    "nodes": [
+                      {
+                        "name": "Backlog",
+                        "field": {
+                          "name": "Status"
+                        }
+                      },
+                      {
+                        "name": "Sprint B",
+                        "field": {
+                          "name": "Sprint"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "content": {
+                    "number": 9,
+                    "title": "[EP-03] Intervention from request to closure"
+                  },
+                  "sprint": "Sprint B",
+                  "fieldValues": {
+                    "nodes": [
+                      {
+                        "name": "Backlog",
+                        "field": {
+                          "name": "Status"
+                        }
+                      },
+                      {
+                        "name": "Sprint B",
+                        "field": {
+                          "name": "Sprint"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "content": {
+                    "number": 8,
+                    "title": "[PLAN-01] Prepare Sprint 2/3 user stories for reporting and tracking"
+                  },
+                  "sprint": null,
+                  "fieldValues": {
+                    "nodes": [
+                      {
+                        "name": "Backlog",
+                        "field": {
+                          "name": "Status"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "content": {
+                    "number": 7,
+                    "title": "[PLAN-02] Prepare AI user stories and a separate fallback story"
+                  },
+                  "sprint": null,
+                  "fieldValues": {
+                    "nodes": [
+                      {
+                        "name": "Backlog",
+                        "field": {
+                          "name": "Status"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "content": {
+                    "number": 6,
+                    "title": "[PLAN-03] Prepare Sprint 2/3 user stories for intervention and closure"
+                  },
+                  "sprint": null,
+                  "fieldValues": {
+                    "nodes": [
+                      {
+                        "name": "Backlog",
+                        "field": {
+                          "name": "Status"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "content": {
+                    "number": 5,
+                    "title": "[US-01] Record and view a report"
+                  },
+                  "sprint": "Sprint B",
+                  "fieldValues": {
+                    "nodes": [
+                      {
+                        "name": "Backlog",
+                        "field": {
+                          "name": "Status"
+                        }
+                      },
+                      {
+                        "name": "Sprint B",
+                        "field": {
+                          "name": "Sprint"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "content": {
+                    "number": 4,
+                    "title": "[US-02] Triage manually and track states"
+                  },
+                  "sprint": "Sprint B",
+                  "fieldValues": {
+                    "nodes": [
+                      {
+                        "name": "Backlog",
+                        "field": {
+                          "name": "Status"
+                        }
+                      },
+                      {
+                        "name": "Sprint B",
+                        "field": {
+                          "name": "Sprint"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "content": {
+                    "number": 3,
+                    "title": "[US-04] Publish a shared issue and confirm impact"
+                  },
+                  "sprint": "Sprint B",
+                  "fieldValues": {
+                    "nodes": [
+                      {
+                        "name": "Backlog",
+                        "field": {
+                          "name": "Status"
+                        }
+                      },
+                      {
+                        "name": "Sprint B",
+                        "field": {
+                          "name": "Sprint"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "content": {
+                    "number": 2,
+                    "title": "[US-10] Notify changes"
+                  },
+                  "sprint": "Sprint B",
+                  "fieldValues": {
+                    "nodes": [
+                      {
+                        "name": "Backlog",
+                        "field": {
+                          "name": "Status"
+                        }
+                      },
+                      {
+                        "name": "Sprint B",
+                        "field": {
+                          "name": "Sprint"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "content": {
+                    "number": 1,
+                    "title": "[DEVOPS-01]"
+                  },
+                  "sprint": null,
+                  "fieldValues": {
+                    "nodes": [
+                      {
+                        "name": "In progress",
+                        "field": {
+                          "name": "Status"
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  }
+}

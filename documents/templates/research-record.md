@@ -1,34 +1,62 @@
-# Research record — [ID]
+# Anonymous research answer record — [ID]
 
-**Status:** planned / performed / analysed
-**Date and researcher:** to be filled in
-**Method:** interview / observation / prototype / public source
-**Question / P1–P7 / related DEC:** to be filled in
+**Status:** blank template / collected / simulated / reviewed / analysed
+**Segment:** professional administrator / volunteer administrator / resident / contractor
+**Actual interviewer / note-taker:** fill only for a real session; not applicable to simulations
+**Collection period:** month only; omit if it could identify someone
+**Method:** real interview / simulated written interview / survey / observation / prototype / public source
+**Questions / hypotheses:** Q1–Q9 / P1–P7
 
-## Participant or source
+## Simulated records
 
-Code and segment; do not include names/contacts in Git. For a public source, exact URL, date and source type. Codes linked to identity are pseudonyms.
+If this is a simulation, prominently label the title, profile and every answer as fictional. Record document creation date and actual author/tool/version where known; otherwise state that provenance is unknown. Mark real participant count as zero and interviewer, session duration/date and consent as not applicable. Do not credit planned interviewers with a session that did not happen.
 
-## Participation and data
+Identify the guide and question numbers, contrasting scenario, fictional effort/counts and remaining gaps. Constructed values are neither participant estimates nor measurements. Link the [simulation inventory](../research/answers/README.md) and keep scenario interpretations separate from empirical findings. The handling/participation fields below apply to real collection, not fictitious consent.
 
-Purpose explained, permission for notes/recording, access, restricted location and deletion date. Store identifiable evidence separately, not in this public file.
+## Handling
 
-## Observed evidence
+No names, contacts, exact addresses, companies, identity links/maps, signatures, consent attachments, exact session timestamps, audio/video or automatic transcription. Generalise identifying combinations or omit the answer.
 
-Facts and authorised quotations without identifying details. For tests: task, time, errors and assistance. Do not invent responses.
+Save only reviewed anonymous answers under `documents/research/answers/`, applying the [security policy](../09-security-privacy.md#41-research-data-handling-disc-01-01). A document ID must have no identity lookup; omit any answer that cannot be made anonymous.
+
+Anonymous answers remain with the academic project without a fixed deletion deadline. Explain repository readership and possible public access before participation; Git history, forks and copies prevent a promise of complete erasure. Corrections/removal are possible during the session before final confirmation; no identity lookup is retained afterwards.
+
+## Participation
+
+- Academic purpose and voluntary participation explained:
+- Git storage, repository readership/potential public access and history/copy limits explained:
+- Participation and anonymous Git storage authorised (yes/no; stop and discard answers if no):
+- Direct anonymous quotations separately authorised (yes/no; otherwise paraphrase):
+- Answers read back for corrections/removal before final confirmation:
+
+Use the [consent and session procedure](research-collection.md#3-consent-and-session-procedure). For public-source review, mark participation fields not applicable and provide exact source URL, access date and source type; this is not an interview.
+
+## Answers and evidence
+
+| Question / hypothesis | Anonymous answer or observation | Estimate, counterexample or uncertainty |
+|---|---|---|
+| | | |
+
+Separate active work from waiting. Missing answers are gaps, not negative findings. Include only permitted quotations that pass the anonymity check. For task-based tests, record task/time/errors/assistance without identity details.
 
 ## Interpretation
 
-What does the team infer? Alternatives and contradictions?
+Team interpretation, alternative explanations and contradictions:
 
 ## Finding and consequence
 
-Finding ID, assumption confirmed/refuted/adjusted, proposed decision, affected requirements/backlog.
+Finding ID, assumption confirmed/refuted/adjusted and affected decision/backlog:
 
 ## Limitations
 
-Sample, context, bias and what cannot be concluded.
+Sample, context, questions omitted and what cannot be concluded:
 
-## Follow-up
+## Review evidence
 
-Owner, action, deadline and location of the publishable synthesis.
+- Interviewer/note-taker anonymity check before first commit:
+- Martim's anonymity/content review before merge (date and PR/reference):
+- P1–P7 coverage and professional/volunteer distinction checked:
+- Direct and indirect identifiers, timestamps and survey metadata excluded:
+- Synthesis reference:
+
+This blank template is not evidence of collection, permission or review.

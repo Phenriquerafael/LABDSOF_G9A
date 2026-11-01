@@ -1,8 +1,8 @@
 # Epic, planning task and user story drafts
 
-**Status:** draft package prepared on 2026-10-10; epic coverage completed on 2026-10-15. No GitHub issue URLs are recorded here; remote publication/status has not been verified in this review. EP-00 ownership and reviews are distributed across the whole team independently of functional roles. Proposed allocations are not sprint commitments; estimates and readiness still require planning. Local items remain Backlog until readiness and any remote status are recorded.
+**Status:** local issue specifications and allocation index, originally drafted in October 2026. All 24 drafts in this folder are published as GitHub issues (mapping below, checked 2026-10-29 via the GitHub API); each draft's publication field records its issue. GitHub owns live status, assignees and estimates. Functional roles do not override the task allocation below.
 
-This folder contains **5 epic drafts, 4 parent-task drafts, 15 original Sprint 1 delivery-task drafts, 1 PLAN-01 preparation-task record and 4 EP-01 user-story drafts**. The [product backlog](../06-product-backlog.md) remains the scope and priority overview. Existing product documents hold the deliverables; these files specify the work and its completion evidence. PLAN-01 adds detailed future-story drafts, not application implementation.
+This folder contains **5 epic drafts, 4 parent-task drafts and 15 delivery-task drafts**: all product epics and the detailed Sprint 1 research, planning and design tasks. The [product backlog](../05-product-backlog.md) remains the scope and priority overview. Existing product documents hold the deliverables; these files specify the work and its completion evidence.
 
 The walking skeleton (EN-02) is excluded from Sprint 1 under DEC-11. EP-01 now has separate US-01/02/04/10 drafts for S2 delivery and S3 refinement/evaluation; their technical details are completed after stack/architecture decisions. EP-02/EP-03 implementation stories remain in the product backlog without individual files in this package. EP-02/EP-04 also span later sprints; their Sprint 1 tasks do not complete the entire epic. Drafting or publishing a future story does not commit implementation to Sprint 1.
 
@@ -19,8 +19,41 @@ For implementation, use epic → user story → implementation subtask when need
 | [EP-00](epics/EP-00-discovery-and-planning.md) | [DISC-03](tasks/DISC-03-organisation-and-product-planning.md) | Agree organisation, product scope and priorities |
 | [EP-01](epics/EP-01-reporting-and-tracking.md) | [PLAN-01](tasks/PLAN-01-prepare-reporting-and-tracking-stories.md); [US-01](tasks/US-01-record-and-view-report.md), [US-02](tasks/US-02-triage-manually-and-track-states.md), [US-04](tasks/US-04-publish-shared-issue-and-confirm-impact.md), [US-10](tasks/US-10-notify-changes.md) | Story preparation; S2 reporting/triage/shared impact/notifications, S3 refinement |
 | [EP-02](epics/EP-02-assisted-triage.md) | [AI-01](tasks/AI-01-assess-ai-opportunity.md) | Assess the AI opportunity and define evaluation |
-| [EP-03](epics/EP-03-intervention-and-closure.md) | [US-06–09/11–13](../06-product-backlog.md#4-stories-and-criteria), story drafts pending | Contractor selection through closure; S2 core, conditional extensions |
+| [EP-03](epics/EP-03-intervention-and-closure.md) | [US-06–09/11–13](../05-product-backlog.md#4-stories-and-criteria), story drafts pending | Contractor selection through closure; S2 core, conditional extensions |
 | [EP-04](epics/EP-04-engineering-and-quality.md) | [EN-01](tasks/EN-01-technical-design.md) | Consolidate technical design, ADRs and security |
+
+### Published issue mapping
+
+Checked on 2026-10-29 with `gh issue list --repo Phenriquerafael/LABDSOF_G9A --state all --limit 200`, matching the `[ID]` prefix of each issue title; creation dates come from the issue API. This records that the issues exist; it does not show that the board, labels, milestones or sub-issue links are configured. GitHub owns live state.
+
+| Draft ID | GitHub issue |
+|---|---|
+| EP-00 | [#29](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/29) |
+| EP-01 | [#10](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/10) |
+| EP-02 | [#28](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/28) |
+| EP-03 | [#9](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/9) |
+| EP-04 | [#27](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/27) |
+| DISC-01 | [#26](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/26) |
+| DISC-02 | [#25](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/25) |
+| DISC-03 | [#24](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/24) |
+| EN-01 | [#16](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/16) |
+| AI-01 | [#17](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/17) |
+| DISC-01-01 | [#23](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/23) |
+| DISC-01-02 | [#22](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/22) |
+| DISC-01-03 | [#21](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/21) |
+| DISC-02-01 | [#34](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/34) |
+| DISC-02-02 | [#33](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/33) |
+| DISC-03-01 | [#32](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/32) |
+| DISC-03-02 | [#20](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/20) |
+| DISC-03-03 | [#31](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/31) |
+| DISC-03-04 | [#19](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/19) |
+| DISC-03-05 | [#18](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/18) |
+| EN-01-01 | [#15](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/15) |
+| EN-01-02 | [#14](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/14) |
+| EN-01-03 | [#13](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/13) |
+| EN-01-04 | [#12](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/12) |
+
+Other remote issues without a draft here (US-01/02/04/10, PLAN-01/02/03, DEVOPS-01/02, AGENT-01/02, DISC-03-06) are outside this 24-draft package.
 
 | Delivery task | Proposed owner | Proposed reviewer | Predecessors for completion |
 |---|---|---|---|
@@ -80,12 +113,12 @@ S2 is the proposed initial delivery horizon, with S3 refinement/evaluation. Conf
 |---|---|---|---|
 | 1 | Problem and opportunity | DISC-01-02/03 | [Problem report](../01-problem-and-opportunity-report.md) |
 | 2 | Market and competitor analysis | DISC-02-01/02 | [Competitor analysis](../02-market-and-competitor-analysis.md) |
-| 3 | User research | DISC-01-01/02/03 | [Research plan and findings](../03-user-research.md) |
+| 3 | User research | DISC-01-01/02/03 | [Method, findings and limitations](../03-user-research.md); [collection procedure](../templates/research-collection.md) |
 | 4 | Product vision | DISC-03-03 | [Vision](../04-product-vision.md) |
-| 5 | Product backlog | DISC-03-01/02/04 | [Backlog](../06-product-backlog.md), [roadmap](../05-product-roadmap.md) and [Sprint 1 plan](../planning/sprint-1-plan.md) |
-| 6 | Responsible AI opportunity assessment | AI-01 | [AI assessment](../07-responsible-ai-assessment.md) |
-| 7 | Technical design | EN-01-01/02/03 | [Design](../08-technical-design.md) |
-| 8 | Architecture decision records | EN-01-01; reviewed across design tasks | [ADRs](../adr/README.md) |
+| 5 | Product backlog | DISC-03-01/02/04 | [Backlog](../05-product-backlog.md) and [Sprint 1 plan](../planning/sprint-1-plan.md) |
+| 6 | Responsible AI opportunity assessment | AI-01 | [AI assessment](../06-responsible-ai-assessment.md) |
+| 7 | Technical design | EN-01-01/02/03 | [Design](../07-technical-design.md) |
+| 8 | Architecture decision records | EN-01-01; reviewed across design tasks | [ADRs](../08-architecture-decision-records.md) |
 | 9 | Security and privacy assessment | EN-01-04; research safeguards in DISC-01-01 | [Security/privacy](../09-security-privacy.md) |
 | 10 | Walking skeleton | Not selected for Sprint 1 (DEC-11) | [Retained plan](../10-walking-skeleton.md) |
 
@@ -111,7 +144,7 @@ DISC-03-05 covers the Sprint 1 investor review (§7.1.3), feedback and contribut
 6. Change the local publication field to Published and record its actual issue URL; update the product backlog/index links. Local workflow fields are the initial draft snapshot.
 7. After publication, GitHub Issues/Projects own live status, assignees, estimates and discussion. Keep local files as published draft records; do not maintain a competing live board here. Update product documents and the overview at reviews.
 
-This package prepares drafts only; no remote publication or configuration has been performed.
+Do not infer publication from file presence. Consult each item's publication link and GitHub for current state; drafts and published specifications coexist in this folder.
 
 ## Evidence and completion
 

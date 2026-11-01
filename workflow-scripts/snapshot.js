@@ -1,9 +1,9 @@
-﻿// CommonJS keeps this runnable on Node 20 without a root package.json.
+// CommonJS keeps this runnable on Node 20 without a root package.json.
 const fs = require("node:fs");
 const path = require("node:path");
 
 const owner = "Phenriquerafael";
-const repository = "LABDSOF_GX";
+const repository = "LABDSOF_G9A";
 const projectNumber = 9;
 const sprintFieldName = "Sprint"; // GitHub Projects field name (single-select, iteration or text).
 const dataDirectory = path.join(__dirname, "data");

@@ -1,6 +1,6 @@
 # [EN-01-04] Review the initial security and privacy assessment
 
-- Publication: Draft — not published; GitHub issue URL: pending.
+- Publication: Published as [#12](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/12) on 2026-10-10 (checked 2026-10-29); GitHub owns live status.
 - Workflow: Backlog; proposed milestone: S1 — Discover, Validate and Design; dates/estimate: to be agreed.
 - Type: task; suggested labels: `type:task`, `area:security`, `phase:3`, `priority:must`.
 - Parent: [EN-01](EN-01-technical-design.md); epic: [EP-04](../epics/EP-04-engineering-and-quality.md).
@@ -29,7 +29,7 @@ Excluded: Legal compliance certification, implemented control tests and a produc
 
 - [Security/privacy assessment](../../09-security-privacy.md) — update the relevant sections and link the change/review evidence.
 - [Requirements/NFRs](../../requirements.md) — update the relevant sections and link the change/review evidence.
-- [Technical design](../../08-technical-design.md) — update the relevant sections and link the change/review evidence.
+- [Technical design](../../07-technical-design.md) — update the relevant sections and link the change/review evidence.
 - [Decision register](../../planning/decisions-and-feedback.md) — update the relevant sections and link the change/review evidence.
 
 ## Verification

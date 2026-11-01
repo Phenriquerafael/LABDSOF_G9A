@@ -1,12 +1,12 @@
 # [DISC-01] Gather user evidence and document the problem
 
-- Publication: Draft — not published; GitHub issue URL: pending.
-- Workflow: Backlog; type: parent task; suggested labels: `type:task`, `area:product`, `priority:must`.
+- Publication: [#26](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/26); live status belongs to GitHub.
+- Type: parent task; local child checkboxes are evidence-review checkpoints, not a duplicate live board.
 - Epic: [EP-00](../epics/EP-00-discovery-and-planning.md).
 - Allocation: see the [backlog README](../README.md).
 - Horizon: S1; dates/estimate: to be agreed. Do not add parent estimates to child totals.
 - Source: [Assignment](../../../LABDSOF-26-27-Assignment.md) §5.1, §5.3; §7.1.2 items 1 and 3.
-- Scope/priority baseline: [Product backlog](../../06-product-backlog.md).
+- Scope/priority baseline: [Product backlog](../../05-product-backlog.md).
 
 ## Objective
 
@@ -34,7 +34,7 @@ Child drafts state execution dependencies and verification methods. This parent 
 ## Completion record
 
 - Result/findings and limitations: to be recorded after execution or verification of existing work.
-- Evidence/PR/review links: to be recorded; document presence alone is not completion evidence.
+- Integration evidence: preparation in PR #35 and collection in PR #37; synthesis PR #38 was closed unmerged (2026-10-22 snapshot). See child records for links and review limitations. Parent acceptance is not inferred from child integration.
 - Decision/requirement changes: to be recorded, or explain why no change was needed.
 - [ ] DoR reviewed with date, estimate, owner and reviewer confirmed.
 - [ ] Acceptance criteria and applicable [DoD](../../governance/definition-of-done.md) verified with evidence.

@@ -12,7 +12,7 @@ Demonstrate a persisted text report and authorised status query while closing de
 
 ## Candidates in dependency order
 
-Full IDs and criteria are in the [product backlog](../06-product-backlog.md).
+Full IDs and criteria are in the [product backlog](../05-product-backlog.md).
 
 | Order | Item | Candidate outcome | Missing dependencies/DoR | Estimate | Owner | Selected |
 |---|---|---|---|---|---|---|

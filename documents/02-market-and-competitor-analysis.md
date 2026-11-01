@@ -8,7 +8,7 @@ Public sources were opened on **2026-10-13** (S01–S16) and **2026-10-15** (S17
 
 - **SC** = supplier claim (vendor page, help article or app-store listing written by the vendor). **AD** = advertising or promotional editorial. **UR** = public user reviews. **PD** = platform documentation (e.g. how an app store produces its labels). None of these proves quality, security or compliance.
 - **UC** = unconfirmed: the sources opened do not describe the capability. This is insufficient evidence, **not absence** of the capability.
-- Short quotes from S01–S16 have not yet been re-checked word for word against the live pages. S17–S28 were opened directly on 2026-10-15 and spot-checked by an independent reviewer the same day ([PR #24](https://github.com/Phenriquerafael/LABDSOF_GX/pull/24)); S09, S14, S19, S21 and S27 were corrected after that review. Any cell not covered by that sample still needs the DISC-02-01 verification before it is treated as reviewed.
+- Short quotes from S01–S16 have not yet been re-checked word for word against the live pages. S17–S28 were opened directly on 2026-10-15 and spot-checked by an independent reviewer the same day ([PR #24](https://github.com/Phenriquerafael/LABDSOF_G9A/pull/24)); S09, S14, S19, S21 and S27 were corrected after that review. Any cell not covered by that sample still needs the DISC-02-01 verification before it is treated as reviewed.
 - App-store listings show day and month of the last update but not the year; versions are recorded instead.
 - Prices are recorded with their source date. Prices older than the access date are **historical** and must not guide budgeting.
 - Differentiation can only be supported after comparing alternatives relevant to users (DISC-02-02) and cross-checking with [user research](03-user-research.md).
@@ -60,7 +60,7 @@ IDs refer to the [register](#5-source-and-findings-register). Everything below i
 
 ## 3. Comparison matrix
 
-Each cell is “**Claimed** (source ID)” or **UC**. “Claimed” means the vendor or an advertising text states it; nothing was tested. “Not described” in a cited source is still UC, not absence. The BMC column describes **plans**, not implemented capabilities; scope and priorities are in [04 Vision](04-product-vision.md) and [06 Backlog](06-product-backlog.md). Interpretation of this matrix belongs to DISC-02-02.
+Each cell is “**Claimed** (source ID)” or **UC**. “Claimed” means the vendor or an advertising text states it; nothing was tested. “Not described” in a cited source is still UC, not absence. The BMC column describes **plans**, not implemented capabilities; scope and priorities are in [04 Vision](04-product-vision.md) and [05 Backlog](05-product-backlog.md). Interpretation of this matrix belongs to DISC-02-02.
 
 | Criterion | SolidSoft GC | Gecond | Unitify | Fixflo (Block) | Infraspeak | Freshdesk | Zaask | Proposed BMC |
 |---|---|---|---|---|---|---|---|---|
@@ -167,4 +167,4 @@ If competitors cover the essentials, revisit positioning using evidence; do not 
 2. DISC-02-02: interpret the matrix, complete strengths/weaknesses and UX per §5.2, and state differentiation as supported conclusions or remaining hypotheses.
 3. Decide whether to request demos of SolidSoft GC, Gecond or Unitify; document observed tasks and access limits.
 4. Cross-check with [user research](03-user-research.md) which tools participants actually use (Q6).
-5. Revise vision and priorities; record decisions under [DEC-02](planning/decisions-and-feedback.md) and work under DISC-02 in the [backlog](06-product-backlog.md).
+5. Revise vision and priorities; record decisions under [DEC-02](planning/decisions-and-feedback.md) and work under DISC-02 in the [backlog](05-product-backlog.md).

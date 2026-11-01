@@ -1,6 +1,6 @@
 # [AI-01] Assess the AI opportunity and define evaluation
 
-- Publication: Draft — not published; GitHub issue URL: pending.
+- Publication: Published as [#17](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/17) on 2026-10-10 (checked 2026-10-29); GitHub owns live status.
 - Workflow: Backlog; proposed milestone: S1 — Discover, Validate and Design; dates/estimate: to be agreed.
 - Type: task; suggested labels: `type:task`, `area:ai`, `phase:3`, `priority:must`.
 - Parent: [EP-02](../epics/EP-02-assisted-triage.md) (direct task); epic: [EP-02](../epics/EP-02-assisted-triage.md).
@@ -28,10 +28,10 @@ Excluded: Training/inference code, a full dataset, executed AI evaluation, and c
 
 ## Deliverables and evidence
 
-- [Responsible AI assessment](../../07-responsible-ai-assessment.md) — update the relevant sections and link the change/review evidence.
+- [Responsible AI assessment](../../06-responsible-ai-assessment.md) — update the relevant sections and link the change/review evidence.
 - [Product vision](../../04-product-vision.md) — update the relevant sections and link the change/review evidence.
 - [Requirements/NFRs](../../requirements.md) — update the relevant sections and link the change/review evidence.
-- [Product backlog (US-03/EN-04)](../../06-product-backlog.md) — update the relevant sections and link the change/review evidence.
+- [Product backlog (US-03/EN-04)](../../05-product-backlog.md) — update the relevant sections and link the change/review evidence.
 
 ## Verification
 

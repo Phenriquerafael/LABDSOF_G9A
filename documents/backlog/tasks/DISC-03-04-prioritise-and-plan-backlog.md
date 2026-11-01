@@ -1,6 +1,6 @@
 # [DISC-03-04] Prioritise backlog and prepare the release plan
 
-- Publication: Draft — not published; GitHub issue URL: pending.
+- Publication: Published as [#19](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/19) on 2026-10-10 (checked 2026-10-29); GitHub owns live status.
 - Workflow: Backlog; proposed milestone: S1 — Discover, Validate and Design; dates/estimate: to be agreed.
 - Type: task; suggested labels: `type:task`, `area:product`, `phase:3`, `priority:must`.
 - Parent: [DISC-03](DISC-03-organisation-and-product-planning.md); epic: [EP-00](../epics/EP-00-discovery-and-planning.md).
@@ -27,9 +27,8 @@ Excluded: Automatically making every draft Ready or assigning all proposed tasks
 
 ## Deliverables and evidence
 
-- [Product backlog](../../06-product-backlog.md) — update the relevant sections and link the change/review evidence.
+- [Product backlog](../../05-product-backlog.md) — update the relevant sections and link the change/review evidence.
 - [Requirements](../../requirements.md) — update the relevant sections and link the change/review evidence.
-- [Roadmap](../../05-product-roadmap.md) — update the relevant sections and link the change/review evidence.
 - [Sprint 1 plan](../../planning/sprint-1-plan.md) — update the relevant sections and link the change/review evidence.
 - [Sprint B proposal](../../planning/sprint-b-backlog.md) — update the relevant sections and link the change/review evidence.
 

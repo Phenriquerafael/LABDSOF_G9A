@@ -1,6 +1,6 @@
 # [EP-04] Deliverable, secure, observable and evaluable system
 
-- Publication: Draft — not published; GitHub issue URL: pending.
+- Publication: Published as [#27](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/27) on 2026-10-10 (checked 2026-10-29); GitHub owns live status.
 - Workflow: Backlog; type: epic; suggested labels: `type:epic`, `area:backend`.
 - Proposed coordinator: Ricardo; proposed reviewer: Martim; confirm during planning.
 - Horizon: S1 design contribution; implementation/evaluation in S2/S3.
@@ -21,7 +21,7 @@ Excluded: A Sprint 1 walking skeleton commitment, production compliance claims a
 
 - [ ] [EN-01 — Consolidate technical design, ADRs and security](../tasks/EN-01-technical-design.md)
 
-[EN-02, EN-03 and EN-04](../../06-product-backlog.md) remain later work; EN-02 is excluded from Sprint 1 by DEC-11.
+[EN-02, EN-03 and EN-04](../../05-product-backlog.md) remain later work; EN-02 is excluded from Sprint 1 by DEC-11.
 
 ## Completion criterion
 

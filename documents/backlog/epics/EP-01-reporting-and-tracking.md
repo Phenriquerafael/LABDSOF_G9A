@@ -1,6 +1,6 @@
 # [EP-01] Residents report and track issues with appropriate visibility
 
-- Publication: Draft — not published by this change; GitHub issue URL: pending. Prepared on 2026-10-15.
+- Publication: Published as [#10](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/10) on 2026-10-15 (checked 2026-10-29); GitHub owns live status. Prepared on 2026-10-15.
 - Workflow: Backlog; type: epic; suggested labels: `type:epic`, `area:product`.
 - Allocation: see the [backlog README](../README.md); confirm coordinator and reviewer during planning.
 - Horizon: S1 discovery/design inputs; implementation in S2, refinement and evaluation in S3. No Sprint 1 implementation commitment.
@@ -33,7 +33,7 @@ Reporting, viewing and manual triage remain usable when AI is unavailable. Notif
 
 ## Child stories
 
-These are existing [product backlog stories](../../06-product-backlog.md#4-stories-and-criteria), expanded into individual drafts by PLAN-01 without creating additional copies of implementation work. The product backlog retains their scope/priority overview; the files below contain the detailed scenarios. No remote story issue URLs are recorded here.
+These are existing [product backlog stories](../../05-product-backlog.md#4-stories-and-criteria), expanded into individual drafts by PLAN-01 without creating additional copies of implementation work. The product backlog retains their scope/priority overview; the files below contain the detailed scenarios. No remote story issue URLs are recorded here.
 
 - [ ] [US-01 — Record and view a report](../tasks/US-01-record-and-view-report.md) · Must · S2 · RF-01.
 - [ ] [US-02 — Triage manually and track states](../tasks/US-02-triage-manually-and-track-states.md) · Must · S2 · RF-02.
@@ -62,7 +62,7 @@ Once published, attach each story as a sub-issue of this epic and link its actua
 - Build US-01 before US-02/04. US-10 depends on US-02/04 and EP-03's US-07/08/09 response, booking and completion events; this does not block starting the reporting slice while intervention work is unfinished.
 - Resolve DEC-06 (notification channel), DEC-07 (visibility/data) and DEC-10 (state rules) to the level needed by each story. Use the [decision register](../../planning/decisions-and-feedback.md).
 - Apply [NFR-01/02/04/05/06/07/09](../../requirements.md) and the [access matrix](../../09-security-privacy.md#2-proposed-access-matrix); reporting must not require AI availability.
-- Review risks of private-data leakage through lists/history/notifications, duplicate delivery and misleading status projections. Keep Issue-owned state and Dispatch-originated updates consistent with the [technical design](../../08-technical-design.md).
+- Review risks of private-data leakage through lists/history/notifications, duplicate delivery and misleading status projections. Keep Issue-owned state and Dispatch-originated updates consistent with the [technical design](../../07-technical-design.md).
 
 ## Publication and review record
 

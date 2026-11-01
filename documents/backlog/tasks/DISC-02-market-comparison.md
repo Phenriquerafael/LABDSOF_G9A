@@ -1,12 +1,12 @@
 # [DISC-02] Complete the market and competitor comparison
 
-- Publication: Draft — not published; GitHub issue URL: pending.
+- Publication: Published as [#25](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/25) on 2026-10-10 (checked 2026-10-29); GitHub owns live status.
 - Workflow: Backlog; type: parent task; suggested labels: `type:task`, `area:product`, `priority:must`.
 - Epic: [EP-00](../epics/EP-00-discovery-and-planning.md).
 - Allocation: see the [backlog README](../README.md).
 - Horizon: S1; dates/estimate: to be agreed. Do not add parent estimates to child totals.
 - Source: [Assignment](../../../LABDSOF-26-27-Assignment.md) §5.2; §7.1.2 item 2.
-- Scope/priority baseline: [Product backlog](../../06-product-backlog.md).
+- Scope/priority baseline: [Product backlog](../../05-product-backlog.md).
 
 ## Objective
 

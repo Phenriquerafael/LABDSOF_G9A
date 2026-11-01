@@ -1,12 +1,12 @@
 # [EN-01] Consolidate technical design, ADRs and security
 
-- Publication: Draft — not published; GitHub issue URL: pending.
+- Publication: Published as [#16](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/16) on 2026-10-10 (checked 2026-10-29); GitHub owns live status.
 - Workflow: Backlog; type: parent task; suggested labels: `type:task`, `area:backend`, `priority:must`.
 - Epic: [EP-04](../epics/EP-04-engineering-and-quality.md).
 - Allocation: see the [backlog README](../README.md).
 - Horizon: S1; dates/estimate: to be agreed. Do not add parent estimates to child totals.
 - Source: [Assignment](../../../LABDSOF-26-27-Assignment.md) §6; §7.1.2 items 7–9.
-- Scope/priority baseline: [Product backlog](../../06-product-backlog.md).
+- Scope/priority baseline: [Product backlog](../../05-product-backlog.md).
 
 ## Objective
 
@@ -28,7 +28,7 @@ Provide a coherent, justified technical direction for the next implementation cy
 
 ## Evidence and dependencies
 
-- [Technical design](../../08-technical-design.md)
+- [Technical design](../../07-technical-design.md)
 - [ADRs](../../adr/README.md)
 - [Security/privacy assessment](../../09-security-privacy.md)
 

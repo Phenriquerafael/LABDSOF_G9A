@@ -1,6 +1,6 @@
 # [EP-00] Justifiable discovery and planning
 
-- Publication: Draft — not published; GitHub issue URL: pending.
+- Publication: Published as [#29](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/29) on 2026-10-10 (checked 2026-10-29); GitHub owns live status.
 - Workflow: Backlog; type: epic; suggested labels: `type:epic`, `area:product`.
 - Proposed coordinator: Afonso; proposed reviewer: Pedro; confirm during planning.
 - Horizon: S1 with feedback follow-up through S3.
@@ -19,7 +19,7 @@ Excluded: Implementation stories and claims of validated benefit without evidenc
 
 ## Child items drafted for Sprint 1
 
-Delivery and review work is shared across all five members, independently of their functional roles. Each member owns two delivery tasks and reviews two others; see the [allocation and workload notes](../README.md#ep-00-work-allocation). The epic and parent coordinators track dependencies and evidence; they do not become the authors or sole approvers of all child work.
+Delivery and review work is shared across all five members, independently of their functional roles. Each member owns two delivery tasks and reviews two others; see the [allocation and workload notes](../README.md). The epic and parent coordinators track dependencies and evidence; they do not become the authors or sole approvers of all child work.
 
 - [ ] [DISC-01 — Gather user evidence and document the problem](../tasks/DISC-01-user-research.md)
 - [ ] [DISC-02 — Complete the market and competitor comparison](../tasks/DISC-02-market-comparison.md)

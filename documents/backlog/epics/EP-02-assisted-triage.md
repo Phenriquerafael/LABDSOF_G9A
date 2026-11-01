@@ -1,6 +1,6 @@
 # [EP-02] Assisted triage and reviewed links
 
-- Publication: Draft — not published; GitHub issue URL: pending.
+- Publication: Published as [#28](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/28) on 2026-10-10 (checked 2026-10-29); GitHub owns live status.
 - Workflow: Backlog; type: epic; suggested labels: `type:epic`, `area:ai`.
 - Proposed coordinator: Sandro; proposed reviewer: Afonso; confirm during planning.
 - Horizon: S1 design contribution; implementation/evaluation in S2/S3.
@@ -21,7 +21,7 @@ Excluded: Autonomous approvals, unreviewed report merges and a general-purpose c
 
 - [ ] [AI-01 — Assess the AI opportunity and define evaluation](../tasks/AI-01-assess-ai-opportunity.md)
 
-[US-03 and US-05](../../06-product-backlog.md) remain future implementation items. Their issue drafts are outside this Sprint 1 package.
+[US-03 and US-05](../../05-product-backlog.md) remain future implementation items. Their issue drafts are outside this Sprint 1 package.
 
 ## Completion criterion
 
