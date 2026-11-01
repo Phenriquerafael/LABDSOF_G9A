@@ -1,18 +1,31 @@
 # Product Backlog
 
-**Status:** proposal v0.3 · **Sprint:** 1 · **Priority:** not yet validated with the customer/lecturers · US-10 annotated on 2026-10-27 (EN-01-01, pending agreement)
+**Status:** MoSCoW evaluation and release planning · updated 2026-11-01 · DISC-03-04
 
 Corresponds to deliverable 5 in §7.1.2. This document defines the product backlog items. No remote issues, estimates, assignments or implementations are assumed.
 
-## 1. Conventions and prioritisation
+## 1. MoSCoW evaluation
 
-MoSCoW refers to the **academic release**: Must = essential for the cycle/obligations; Should = valuable but can be simplified; Could = optional; Won't = outside this release. This is a proposal for the prioritisation session, not its outcome.
+Priorities apply to the academic release. **Evidence-supported** means the rationale traces to the assignment, requirements or documented principal journey. **Team decision** identifies a product-scope choice rather than an assessment obligation; it does not assert that a meeting or vote occurred. Research simulations are scenario evidence, not validated demand.
 
-Local proposals do not establish live workflow status or readiness. See the [published issue mapping](backlog/README.md#published-issue-mapping) for existing issues; GitHub owns live status. No implementation story is declared Ready by this drafting work. Sandro Dias owns PLAN-01 preparation, as instructed by the user; implementation owners, independent reviewers, estimates and capacity are agreed during planning. Team role assignments are confirmed in the [agreement](governance/team-working-agreement.md), but do not automatically assign individual implementation items. The [issue drafts](backlog/README.md) contain task/story criteria, allocation and evidence references. Capacity and DoR discussion: [Sprint B](planning/sprint-b-backlog.md).
+Must = essential to the core journey or assessment; Should = valuable with a workable alternative; Could = optional enhancement; Won't = outside this release. Delivery timing is recorded in the [release plan](planning/release-plan.md).
 
-**Scope update recorded on 2026-10-10 (DEC-11):** the evaluator clarified that the walking skeleton is optional in Sprint 1. The team will not develop it this sprint. EN-02 is retained as a foundation for later implementation planning; its technical outcomes support the Sprint 2 delivery requirements.
+| Stories / work | Priority | Basis | Rationale |
+|---|---|---|---|
+| US-01/02 — reporting and manual triage | Must | Evidence-supported | RF-01/02 and J1/J2: the journey needs durable reports, authorised review and human decisions. |
+| US-03/14 — AI classification and fallback | Must | Evidence-supported | RF-03, NFR-03 and assignment §§5.6/7.2: initial meaningful AI with correction and non-AI continuity. |
+| US-04 — shared summary and impact confirmation | Must | Evidence-supported | RF-04 and assignment §5.5: the selected ethical-participation mechanism, including privacy and opt-out. |
+| US-06–09 — intervention through closure | Must | Evidence-supported | RF-06–09 and J2/J3: selection, approval, contractor response, booking and validated closure complete the business cycle. US-08 also covers assignment §6.5 integration. |
+| US-10 — notifications | Must | Team decision | Retain proactive updates in the MVP (RF-10/P5). Status queries remain available if delivery fails; notifications are not the sole way to satisfy asynchronous processing. |
+| US-15 — AI evaluation | Must | Evidence-supported | NFR-10 and assignment §§5.6.1/7.3: reproducible quality, latency, cost and baseline comparison. |
+| EN-02/03/04 — foundations, quality and evaluation | Must | Evidence-supported | Assignment §§6–8 requires executable delivery, access controls, testing, operations and evaluation beyond functional stories. |
+| US-05 — duplicate suggestions | Should | Team decision | Useful coordination support; manual review is a workaround and duplicate frequency/value is not established. |
+| US-11 — basic cost | Should | Team decision | Adds historical information; missing cost must not block completion or closure. |
+| US-12 — advanced ranking | Should | Team decision | Extra criteria may improve selection; US-06's simple eligibility/order remains sufficient. |
+| US-13 — real calendar | Could | Team decision | A realistic simulator satisfies assignment §6.5; a real provider is an optional extension. |
+| Payments, marketplace, photographs, native apps, IoT/prediction and other section 5 exclusions | Won't this release | Team decision | Keep the release focused on maintenance coordination and its evaluation. |
 
-Initial order: DISC/EN discovery and foundations → US-01/02 → US-03/04 → US-06/07/08/09/10 → Should/Could according to evidence. EN-03 accompanies implementation and EN-04 evaluation.
+Evidence: [assignment](../LABDSOF-26-27-Assignment.md), [vision and journeys](04-product-vision.md), [requirements](requirements.md), [research findings](03-user-research.md) and [scope/decision record](planning/decisions-and-feedback.md). This evaluation retains the existing story priorities and acceptance scope.
 
 ## 2. Epics
 
@@ -340,12 +353,6 @@ As a product owner, I want reproducible comparison evidence so that AI usefulnes
 
 Photos and visual analysis, cost charts/summaries, payments, marketplace, native apps, automatic approval and subscriptions. Report photos without visual analysis are a design candidate recorded in the [decision register](planning/decisions-and-feedback.md#stack-revision--en-01-01-2026-10-27), pending a DEC entry and the team review; no story exists, and this baseline still excludes them. IoT, monitoring and prediction are **excluded from the MVP** (DEC-01, BA/PO proposal of 2026-10-19 in [vision §4.2](04-product-vision.md#42-iot-decision-dec-01), team agreement pending); reopening requires a scope review.
 
-## 6. Stakeholder validation and release
+## 6. Release plan
 
-- MoSCoW session: **not held/recorded**; date and participants to be filled in.
-- Bring per-item value, estimated cost/risk and trade-offs; record changes and reasons in [feedback](planning/decisions-and-feedback.md).
-- Release objectives and dates remain to be confirmed; see the [Sprint 1 plan](planning/sprint-1-plan.md).
-- [Sprint B](planning/sprint-b-backlog.md): selection only after DoR/capacity checks.
-- Templates and fields: [issue management](governance/issue-management.md).
-
-Reference: [MoSCoW — ProductPlan](https://www.productplan.com/glossary/moscow-prioritization), accessed on 2026-10-07. The classification above is a proposed set of priorities for BMC.
+See the [release plan](planning/release-plan.md) for MVP, MVI and backlog scope, estimates and delivery order. GitHub remains the source of live issue status and assignments.
