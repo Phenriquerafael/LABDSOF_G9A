@@ -11,7 +11,7 @@ Stack: **Prometheus + Grafana** (no CloudWatch).
 | Application host running Docker Compose; separate database host for MySQL and Garage; provider not chosen | Proposed (ADR-004); provider open (P-07) | section 2 |
 | Observability stack on the application host; Prometheus scrapes the database host over a private link | Proposed; the link and the database exporter are open (P-08) | sections 2, 4.4, 16 |
 | Prometheus and Grafana for metrics and dashboards | Proposed | sections 4.4, 6 |
-| Gateway: Traefik (ADR-004); nginx was the earlier recommendation | Traefik adopted in ADR-004 | section 2.1 |
+| Gateway: Traefik 3.7 (ADR-004, team decision) | Adopted | section 2.1 |
 | Error reporting: Sentry or log-based | Open | section 4.5 |
 | Log stack (Loki and Alloy) | Optional | section 3 |
 | Messaging with RabbitMQ | Under consideration | section 4.6 |
@@ -25,10 +25,10 @@ Stack: **Prometheus + Grafana** (no CloudWatch).
 
 | Requirement | How this plan covers it | Section |
 |---|---|---|
-| **6.7** Structured application logs | JSON logs with a fixed set of fields, nginx access log in JSON | 4.1 |
+| **6.7** Structured application logs | JSON logs with a fixed set of fields, Traefik access log in JSON (to check in its docs) | 4.1 |
 | **6.7** Health checks | `/healthz` (alive), `/readyz` (can serve), `/status` (dependency detail) | 4.3 |
 | **6.7** Relevant metrics | Request rate, errors, latency, dependency calls, degraded-mode gauge | 4.4 |
-| **6.7** Correlation or trace identifiers | `X-Request-ID` created by nginx, logged and forwarded by every service | 4.2 |
+| **6.7** Correlation or trace identifiers | `X-Request-ID` created at the gateway (Traefik), logged and forwarded by every service | 4.2 |
 | **6.7** Error reporting | Sentry (free plan) or log-based fallback | 4.5 |
 | **6.7** Small operational dashboard | One "Operations overview" dashboard | 6 |
 | **6.7** Service-level indicators | Availability, latency and dependency success, with example SLO targets | 5 |
@@ -60,9 +60,9 @@ The architecture is shown as separate figures, one per concern, instead of a sin
 
 *Figure 2. Prometheus pulls from every target inside the instance boundary. Only you reach Grafana from outside.*
 
-**Requests and logs.** nginx creates the `X-Request-ID`, and each service forwards it. Logs go to stdout as JSON. Loki is optional; without it, logs are read with `docker logs`.
+**Requests and logs.** Traefik creates the `X-Request-ID`, and each service forwards it. Logs go to stdout as JSON. Loki is optional; without it, logs are read with `docker logs`.
 
-![Requests and logs: nginx creates X-Request-ID, Service A forwards it to Service B, JSON logs go to optional Loki](images/observability-2-requests-logs.svg)
+![Requests and logs: Traefik creates X-Request-ID, Service A forwards it to Service B, JSON logs go to optional Loki](images/observability-2-requests-logs.svg)
 
 *Figure 3. The gateway routes each request to one service by path. The same `X-Request-ID` goes out in the response, so a user can quote it. Every service, the auth service and RabbitMQ write JSON logs; Loki collects them if it is enabled.*
 
@@ -87,77 +87,21 @@ The architecture is shown as separate figures, one per concern, instead of a sin
 | Garage metrics (unverified) | Storage metrics on the database host, if Garage exposes them (P-08) | not chosen |
 | Sentry (hosted, free plan) | Error reporting with stack traces | external |
 
-Skipped on purpose: Alertmanager (Grafana sends the alerts), tracing backends, and nginx exporter. They are listed as future work. Database exporters are no longer skipped, because MySQL runs on the database host (P-08).
+Skipped on purpose: Alertmanager (Grafana sends the alerts) and tracing backends. They are listed as future work. Database exporters are no longer skipped, because MySQL runs on the database host (P-08).
 
-### 2.1 Gateway: nginx or an API gateway
+### 2.1 Gateway: Traefik
 
-The gateway is the only public entry point. It routes each request to one service by path, creates the `X-Request-ID`, and is where TLS and rate limits would go.
+The gateway is the only public entry point. The team has chosen **Traefik 3.7** (ADR-004), so this section no longer compares options. It routes each request to one service by path, and TLS and rate limits are configured on it.
 
-| Option | Fit for this project | Trade-offs |
-|---|---|---|
-| **nginx** (current choice) | One container; routing is a plain config file in the repo; the JSON log format and `X-Request-ID` in section 4.2 already use it | Routing and any auth are written by hand; no admin UI |
-| **Traefik** (self-hosted) | Reads routes from Docker labels, so adding a service needs less config | One more component to learn; request-ID behaviour must be checked in its docs before relying on it |
-| **Managed API gateway** (for example AWS API Gateway) | Runs outside the instance, so it adds an external dependency and per-request cost to a demo that should run on one host | Pricing and free-tier terms must be checked on the vendor page before any decision |
-
-Recommendation (not yet agreed by the team): keep nginx for the MVP, since it is the smallest fit and this document already depends on it. Revisit only if routing or authentication outgrows the config file.
-
----
-
-## 3. Phases
-
-| Phase | What | Done when |
-|---|---|---|
-| **1. Must have** | Prometheus, Grafana, node_exporter, cAdvisor; JSON logs with `request_id`; `/healthz`, `/readyz`, `/status`; external uptime check | You can see host and container state, and you get a message if the site is down |
-| **2. Requirements complete** | `/metrics` in services (rate, errors, latency, dependency calls, degraded gauge); the operational dashboard; SLIs; alerts; Sentry; one degraded-mode scenario | Everything in section 1 can be demonstrated |
-| **3. Future work** | Loki for logs, tracing, nginx exporter, off-box Prometheus copy | Mentioned in the report as next steps |
-
----
-
-## 4. The application contract
-
-### 4.1 Structured logs
-
-Every service writes **one JSON object per line to stdout**. Required fields:
-
-| Field | Example | Why |
-|---|---|---|
-| `time` | `2026-10-25T09:12:03.412Z` | Ordering |
-| `level` | `info`, `warn`, `error` | Filtering |
-| `service` | `orders-api` | Which service |
-| `version` | `1.4.0` | Which release |
-| `request_id` | `9f2c...` | Correlation across services |
-| `route` | `/orders/:id` | What was called (use the template, not the raw URL) |
-| `status` | `200` | Outcome |
-| `duration_ms` | `34` | Latency |
-| `degraded` | `true` | Whether a fallback was used |
-| `error` | message and stack trace (only on errors) | Debugging |
-
-Rules: never log passwords, tokens or personal data, and don't put raw query strings in logs.
-
-Example line:
-
-```json
-{"time":"2026-10-25T09:12:03.412Z","level":"warn","service":"orders-api","version":"1.4.0","request_id":"9f2c7e1a4b8d4c2f9a1e0d3c5b6a7f80","route":"/recommendations","status":200,"duration_ms":2011,"degraded":true,"msg":"ai provider timeout, served cached result"}
-```
+Still to check in the Traefik documentation before relying on it: how the `X-Request-ID` is created and returned, and what the access log can contain (section 4.2). An API gateway managed outside the host (for example AWS API Gateway) was considered earlier and is not part of the plan.
 
 ### 4.2 Correlation IDs
 
-nginx creates a unique ID for every request, passes it to the services, and returns it to the client so a user can quote it when reporting a problem.
+Traefik creates a unique ID for every request, passes it to the services, and returns it to the client so a user can quote it when reporting a problem.
 
-```nginx
-# in the http block
-log_format json_combined escape=json
-  '{"time":"$time_iso8601","request_id":"$request_id","remote_addr":"$remote_addr",'
-  '"method":"$request_method","uri":"$uri","status":$status,"bytes":$body_bytes_sent,'
-  '"request_time":$request_time,"upstream_time":"$upstream_response_time"}';
-access_log /dev/stdout json_combined;
+Traefik configuration for the request ID and the JSON access log is **not written here**. The Traefik 3.7 documentation must be checked first (request-ID and access-log options); a sketch will be added once it is verified.
 
-# in the server / location block
-proxy_set_header X-Request-ID $request_id;
-add_header X-Request-ID $request_id always;
-```
-
-`$uri` is used instead of `$request_uri` so query strings (which can contain tokens) stay out of the logs.
+The access log must leave out query strings, which can contain tokens. The check is part of the Traefik configuration review.
 
 Each service must:
 1. Read `X-Request-ID` from the incoming request (generate one if it is missing).
@@ -165,7 +109,7 @@ Each service must:
 3. **Forward it** in the headers of calls to other services and to external providers.
 4. Include it in error responses (for example in the JSON error body).
 
-This is enough to follow one request across nginx and both services. OpenTelemetry (`traceparent` header) is the upgrade path if you later want real traces.
+This is enough to follow one request across Traefik and both services. OpenTelemetry (`traceparent` header) is the upgrade path if you later want real traces.
 
 ### 4.3 Health checks
 
@@ -183,7 +127,7 @@ Example `/status` response:
  "degraded_features":["recommendations"]}
 ```
 
-**Important:** do not restart a container or remove it from nginx just because an *external* dependency is down. If the health check fails whenever the AI provider or the database is unreachable, the degraded mode never gets a chance to work, and a partial outage becomes a full one (or a restart loop). Liveness must not depend on external services.
+**Important:** do not restart a container or remove it from Traefik just because an *external* dependency is down. If the health check fails whenever the AI provider or the database is unreachable, the degraded mode never gets a chance to work, and a partial outage becomes a full one (or a restart loop). Liveness must not depend on external services.
 
 ### 4.4 Metrics
 
@@ -425,7 +369,7 @@ docker-compose.observability.yml
 ## 14. Checklist
 
 - [ ] Services write JSON logs with the required fields, including `request_id`
-- [ ] nginx creates and returns `X-Request-ID`; services log and forward it
+- [ ] Traefik creates and returns `X-Request-ID`; services log and forward it
 - [ ] `/healthz`, `/readyz` and `/status` implemented; liveness does not depend on external services
 - [ ] `/metrics` exposes request, dependency, `degraded_mode` and `app_info` metrics
 - [ ] Error reporting works (Sentry or log-based), with `request_id` attached
@@ -447,7 +391,7 @@ docker-compose.observability.yml
 - **Show an incident end to end** with the demo script in section 8.4, and include the screenshots in the report.
 - **Show a load test:** a short run with a tool like `hey` or `k6` makes the request-rate and latency graphs move.
 - **Justify the SLO numbers** with the product's needs, not just "99% sounds good".
-- **Future work to mention:** logs in Loki, distributed tracing with OpenTelemetry, nginx exporter, an off-box Prometheus copy, and SLO burn-rate alerts.
+- **Future work to mention:** logs in Loki, distributed tracing with OpenTelemetry, an off-box Prometheus copy, and SLO burn-rate alerts.
 
 ## 16. Limits
 

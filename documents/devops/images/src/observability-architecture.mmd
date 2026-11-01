@@ -1,10 +1,10 @@
 flowchart TB
-    USER["Users"] --> NGINX
-    UPTIME["External uptime check<br/>(free monitor)"] -. "pings public URL" .-> NGINX
+    USER["Users"] --> TRAEFIK
+    UPTIME["External uptime check<br/>(free monitor)"] -. "pings public URL" .-> TRAEFIK
 
     subgraph EC2["EC2 instance: Docker Compose"]
-        NGINX["nginx / gateway<br/>creates X-Request-ID"] --> SVCA["Service A<br/>/metrics, /healthz, /readyz, /status"]
-        NGINX --> SVCB["Service B<br/>/metrics, /healthz, /readyz, /status"]
+        TRAEFIK["Traefik gateway<br/>creates X-Request-ID"] --> SVCA["Service A<br/>/metrics, /healthz, /readyz, /status"]
+        TRAEFIK --> SVCB["Service B<br/>/metrics, /healthz, /readyz, /status"]
         PROM["Prometheus"]
         NODE["node_exporter<br/>host metrics"]
         CADV["cAdvisor<br/>container metrics"]
@@ -16,7 +16,7 @@ flowchart TB
         PROM -->|scrape| SVCA
         PROM -->|scrape| SVCB
         PROM -->|scrape| BB
-        BB -.->|probe| NGINX
+        BB -.->|probe| TRAEFIK
         GRAF -->|query| PROM
         SVCA -. "JSON logs" .-> ALLOY
         SVCB -. "JSON logs" .-> ALLOY
@@ -27,4 +27,4 @@ flowchart TB
     SVCB -. "errors" .-> SENTRY
     GRAF -->|alerts| NOTIFY["Discord / Telegram"]
     UPTIME -->|down alert| NOTIFY
-    YOU["You"] -->|"SSH tunnel or nginx + auth"| GRAF
+    YOU["You"] -->|"SSH tunnel or Traefik + auth"| GRAF

@@ -146,8 +146,7 @@ def obs0():
     d.dep([(270, 230), (330, 230)], "query", at=(300, 220), anchor="middle", bg=BLUE)
     d.path([(600, 560), (600, 600)], "private link (P-08)", at=(608, 580), anchor="start", bg=BLUE, dashed=True)
     d.note(40, 780, 1100, ["The operator reads Grafana over an SSH tunnel or Traefik sign-in (section 12).",
-                           "Items marked P-08 are not in ADR-004. Metrics paths: observability-1-metrics.svg.",
-                           "OBSERVABILITY.md text still says nginx where this figure shows Traefik."])
+                           "Items marked P-08 are not in ADR-004. Metrics paths: observability-1-metrics.svg."])
     return d
 
 
@@ -202,7 +201,7 @@ def obs2():
     d.dep([(840, 360), (1340, 345)], "optional", at=(1090, 340), anchor="middle", bg=BLUE, )
     d.note(40, 520, 1200, ["The ID is created at the gateway, returned to the client, and forwarded by every service.",
                            "OpenTelemetry (traceparent) is the upgrade path (OBSERVABILITY.md section 4.2).",
-                           "Text still says nginx for the gateway; ADR-004 and this figure say Traefik."])
+                           "Traefik per ADR-004; the request-ID and access-log settings are checked in its docs first."])
     return d
 
 
