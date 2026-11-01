@@ -11,8 +11,10 @@ Canonical copies live in `.agents/skills/` (open standard), mirrored byte-for-by
 - `labdsof-workflow` — full team workflow and repository map.
 - `grilling` — relentless design-tree interview in rounds, to stress-test a plan or decision; triggers on "grill me" phrasing.
 - `grill-me` — user-invoked entry point that starts a `grilling` session.
+- `council` — on "council", get read-only review or feedback from three strong models from different providers, then iterate until they are satisfied.
+- `sol-loop` — on "sol loop", review the current change with GPT Sol in a bounded loop before or after a PR.
 
-`grilling` and `grill-me` are vendored from `mattpocock/skills` (MIT); keep their `LICENSE` files and pinned `source`.
+`grilling` and `grill-me` are vendored from `mattpocock/skills`, `council` and `sol-loop` from `t3dotgg/tstack` (all MIT); keep their `LICENSE` files and pinned `source`.
 
 ## Non-negotiables
 
