@@ -1,11 +1,11 @@
 ---
 name: labdsof-workflow
-description: Use when working in the LABDSOF_G9A repository (Building Maintenance Coordinator, ISEP LABDSOF 26/27): making commits, branches, pull requests, code reviews, GitHub issues, epics, tasks, sub-issues, labels, milestones, DoR/DoD checks, or consulting the team's backlog, governance and workflow conventions.
+description: "Use when working in the LABDSOF_G9A repository (Building Maintenance Coordinator, ISEP LABDSOF 26/27): making commits, branches, pull requests, code reviews, GitHub issues, epics, tasks, sub-issues, labels, milestones, DoR/DoD checks, or consulting the team's backlog, governance and workflow conventions."
 ---
 
 # LABDSOF_G9A — team workflow
 
-Mirrored for every agent harness: canonical `.agents/skills/labdsof-workflow/SKILL.md` (open standard, read by Codex and T3 Code sessions), copies in `.claude/skills/` (Claude Code) and `.opencode/skills/` (opencode). Edit the canonical copy, copy it over both mirrors, then run `scripts/check-skill-mirrors.sh` (fails on any drift). The repository root `AGENTS.md` is loaded every session and holds only the always-on rules plus a pointer here; this skill is the single source for the details.
+Mirrored for every agent harness: canonical `.agents/skills/labdsof-workflow/SKILL.md` (open standard, read by Codex and opencode), copies in `.claude/skills/` (Claude Code) and `.opencode/skills/` (opencode). T3 Code runs these harnesses, so it uses the same files. Edit the canonical copy, copy it over both mirrors, then run `scripts/check-skill-mirrors.sh` (fails on any drift). The repository root `AGENTS.md` is loaded every session and holds only the always-on rules plus a pointer here; this skill is the single source for the details.
 
 ## Project snapshot
 
@@ -52,7 +52,7 @@ Mirrored for every agent harness: canonical `.agents/skills/labdsof-workflow/SKI
 - Status flow: Backlog → Refinement → Ready → In progress → In review → Done. `Blocked` is a flag with reason/dependency/next action. DoR gates Ready; DoD gates Done. Do not select items that fail the DoR as commitments.
 - Drafts live in `documents/backlog/{epics,tasks}/` with a publication field. Publishing steps (README §"Publishing to GitHub"): confirm scope/owner/reviewer/estimate with the team → create epic issues first, then parent tasks, then delivery tasks → convert relative links to repo/commit permalinks → add two-way parent/child links → record the issue URL and mark Published. After publication, GitHub Issues/Projects own live status.
 - Never assume which drafts are already published: query GitHub (`gh issue list --repo Phenriquerafael/LABDSOF_G9A --state all --limit 200`) and match the `[ID]` in titles before creating an issue, to avoid duplicates. Board: personal project 9, `https://github.com/users/Phenriquerafael/projects/9`.
-- Labels on GitHub: `Epic`, `Task`, `Sub-Task`, `product`, `backend`, `ai`, `devops`, `security`, `frontend`, `documentation`, `bug`. Milestones: `Sprint A` (due 2026-11-01), `Sprint B` (2026-12-06), `Sprint C` (2027-01-03); windows: A = 10–31 Oct 2026, B = 1 Nov–5 Dec 2026, C = 6 Dec–3 Jan 2027. The `type:*`/`area:*`/`priority:*` scheme in `issue-management.md` is proposed, not fully applied remotely — check actual labels before creating issues.
+- Labels on GitHub: `Epic`, `Story`, `Task`, `Sub-Task`, `product`, `backend`, `ai`, `devops`, `security`, `frontend`, `documentation`, `bug`, `blocked`, `needs:decision`. Milestones: `Sprint A` (due 2026-11-01), `Sprint B` (2026-12-06), `Sprint C` (2027-01-03); windows: A = 10–31 Oct 2026, B = 1 Nov–5 Dec 2026, C = 6 Dec–3 Jan 2027. The `type:*`/`area:*`/`priority:*` scheme in `issue-management.md` is proposed, not fully applied remotely — check actual labels before creating issues.
 - Issue reality rules: docs status ≠ execution; leave acceptance boxes unchecked until evidence is reviewed; attach existing commits/PRs as evidence instead of fabricating prior planning.
 
 ## DoR / DoD essentials
@@ -77,8 +77,9 @@ If `gh issue view`, `gh pr view` or `gh pr edit` fails with `GraphQL: Projects (
 
 ## Automation and pitfalls
 
-- Commits named `update metrics` are automation (`.github/workflows/metrics.yml`, daily 00:00 UTC) appending `workflow-scripts/data/`. Do not hand-edit `history.json`; when changing the collector or charts, run `node --test workflow-scripts/tests/metrics.test.cjs`.
-- `grilling` and `grill-me` are vendored verbatim from `mattpocock/skills` (MIT): keep the `LICENSE` file in each skill folder, and when updating from upstream, re-pin `metadata.source` to the new commit SHA and re-check that the body still matches upstream.
+- Commits named `update metrics` are automation (`.github/workflows/metrics.yml`, daily 00:00 UTC) appending `workflow-scripts/data/`. Do not hand-edit `history.json`. `.github/workflows/check-sprints.yml` validates the live issues and chart history daily at 15:00 Lisbon time. When changing the collector, validator or charts, run `node --test workflow-scripts/tests/*.cjs`.
+- `grilling` and `grill-me` are vendored from `mattpocock/skills`, and `council` and `sol-loop` from `t3dotgg/tstack` (all MIT). Keep the `LICENSE` file in each skill folder. When updating from upstream, re-pin `metadata.source` to the new commit SHA and re-check the body against upstream. Only `grill-me` differs from upstream: its one line is reworded so it works in every harness.
+- Skill frontmatter must parse as strict YAML (Codex and opencode are stricter than Claude Code): quote any value that contains `: `, and keep `name` equal to the folder name.
 - `P1–P5` = team members; `P1–P7` = research hypotheses — different namespaces. `Sprint A/B/C` (milestones) vs `Sprint 1/2/3` (narrative) vs `Sprint B` (planning concept, DEC-03 open): do not assume B = Sprint 2.
 - Never invent sources, results or evidence. Cite exact URLs with access dates (S01–Sxx) and separate supplier claims / observed behaviour / unknown capabilities. Record unavailable sources as limitations, not current facts.
 - DEC register: record decisions with evidence, author, date and affected documents. At least one product/technical decision must actually be revised from lecturer feedback (§5.7) — a scheduled meeting or minutes without a change is not enough.
