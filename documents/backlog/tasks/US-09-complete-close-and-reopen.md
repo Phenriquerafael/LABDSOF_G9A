@@ -25,14 +25,14 @@ Cost recording belongs to [US-11](US-11-record-a-basic-cost.md). This story does
 - [ ] Let only the building administrator validate and close an issue awaiting validation, or return the work for execution with a reason. Rework keeps the earlier completion report in history.
 - [ ] Let the administrator close an open issue manually with a justification. If an intervention or booking is still active or uncertain, start its cancellation through the agreed contract and show any pending cancellation.
 - [ ] Let the administrator reopen a resolved issue with a reason and preserved history. Follow the current design: return it to triage, retain earlier closed interventions and require a new intervention for further work. Reject reopening a cancelled issue.
-- [ ] Reject completion from an invalid state, missing required explanations and closure before the completion report reaches the issue. Return a clear error and leave existing records unchanged.
+- [ ] Reject completion from an invalid state, missing required explanations and validated closure before the completion report reaches the issue. Return a clear error and leave existing records unchanged. Justified manual closure remains available without a completion report.
 - [ ] Enforce permissions in the backend. Contractors cannot close/reopen issues or submit work for another contractor; residents and users from another building cannot perform administrator actions. Residents see only authorised public status/history.
 - [ ] Repeated completion, closure, reopening and events must have no duplicate effects. Check versions on concurrent updates; late events from an earlier intervention must not reopen a closed issue or overwrite the current intervention.
 - [ ] Keep actors, reasons, timestamps, versions and event history after restart. Provide authorised state changes to US-02 and events to US-10; notification failures do not undo closure. Unknown cost never blocks completion, validation, closure or reopening.
 
 ## Verification and risks
 
-Demonstrate booking, completion, validation, closure and reopening, plus rework and manual closure while booking is pending. Test stale updates, repeated events, invalid transitions and contractor/other-building access.
+Demonstrate booking, completion, validation, closure, reopening and rework. Verify that validated closure is rejected before the completion report reaches the issue. An authorised administrator must still be able to close an open issue manually with a justification and no completion report, including while booking is pending; any pending cancellation remains visible. Test stale updates, repeated events, invalid transitions and contractor/other-building access.
 
 The main risks are treating a completion report as closure, losing the audit trail and changing a resolved issue through a late event. Check Issue/Dispatch recovery without direct writes to the other service's data.
 
