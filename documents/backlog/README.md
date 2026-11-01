@@ -1,16 +1,16 @@
-# Epic and Sprint 1 task issue drafts
+# Epic, planning task and user story specifications
 
-**Status:** local issue specifications and allocation index, originally drafted in October 2026. All 24 drafts in this folder are published as GitHub issues (mapping below, checked 2026-10-29 via the GitHub API); each draft's publication field records its issue. GitHub owns live status, assignees and estimates. Functional roles do not override the task allocation below.
+**Status:** local issue specifications and allocation index, originally drafted in October 2026. The original 24 drafts have published issue mappings checked on 2026-10-29. PLAN-01 and the four reporting/tracking stories also map to existing issues, checked on 2026-11-01; this package now contains 29 draft/record files. GitHub owns live status, assignees and estimates. Functional roles do not override the task allocation below.
 
-This folder contains **5 epic drafts, 4 parent-task drafts and 15 delivery-task drafts**: all product epics and the detailed Sprint 1 research, planning and design tasks. The [product backlog](../05-product-backlog.md) remains the scope and priority overview. Existing product documents hold the deliverables; these files specify the work and its completion evidence.
+This folder contains **5 epic specifications, 4 parent-task specifications, 15 original Sprint 1 delivery-task specifications and 11 story drafts (4 EP-02 and 7 EP-03)**. Published and draft records retain their individual publication state; these counts do not imply completion. The [product backlog](../05-product-backlog.md) remains the scope and priority overview. Existing product documents hold the deliverables; these files specify the work and its completion evidence.
 
-The walking skeleton (EN-02) is excluded from Sprint 1 under DEC-11. EP-01/EP-03 now have epic drafts for later implementation; their US stories are defined in the product backlog but do not yet have separate issue draft files here. EP-02/EP-04 also span later sprints; their Sprint 1 tasks do not complete the entire epic. Drafting or publishing a future epic does not commit implementation to Sprint 1.
+The walking skeleton (EN-02) is excluded from Sprint 1 under DEC-11. EP-01's US stories are defined in the product backlog without separate issue draft files here. EP-02 has individual US-03/05/14/15 drafts prepared under PLAN-02. EP-03 has US-06–09/11–13 drafts prepared under PLAN-03: four core stories and three conditional extensions. EP-02/EP-04 span later sprints; neither AI-01 nor PLAN-02 completes implementation or final evaluation. Drafting or publishing a future epic does not commit implementation to Sprint 1.
 
 ## Hierarchy and issue index
 
 Use epic → parent task → delivery task for broad discovery/engineering items. AI-01 is a direct task under EP-02. Stable IDs are local identifiers, not GitHub issue numbers.
 
-For implementation, use epic → user story → implementation subtask when needed. Keep dependency links separate from parent/child relationships. This package currently has 24 issue drafts, excluding this README; reconcile with existing remote issues by stable ID before publishing to avoid duplicates.
+For implementation, use epic → user story → implementation subtask when needed. Keep dependency links separate from parent/child relationships. This package currently has 35 issue specification/draft files in `epics/` and `tasks/`, excluding this README; reconcile with existing remote issues by stable ID before publishing to avoid duplicates.
 
 | Epic draft | Parent/direct item | Purpose |
 |---|---|---|
@@ -18,8 +18,8 @@ For implementation, use epic → user story → implementation subtask when need
 | [EP-00](epics/EP-00-discovery-and-planning.md) | [DISC-02](tasks/DISC-02-market-comparison.md) | Complete the market and competitor comparison |
 | [EP-00](epics/EP-00-discovery-and-planning.md) | [DISC-03](tasks/DISC-03-organisation-and-product-planning.md) | Agree organisation, product scope and priorities |
 | [EP-01](epics/EP-01-reporting-and-tracking.md) | [US-01/02/04/10](../05-product-backlog.md#4-stories-and-criteria), story drafts pending | Reporting, manual triage, shared impact and notifications; S2 implementation |
-| [EP-02](epics/EP-02-assisted-triage.md) | [AI-01](tasks/AI-01-assess-ai-opportunity.md) | Assess the AI opportunity and define evaluation |
-| [EP-03](epics/EP-03-intervention-and-closure.md) | [US-06–09/11–13](../05-product-backlog.md#4-stories-and-criteria), story drafts pending | Contractor selection through closure; S2 core, conditional extensions |
+| [EP-02](epics/EP-02-assisted-triage.md) | [AI-01](tasks/AI-01-assess-ai-opportunity.md), [PLAN-02](#ep-02-story-drafts-and-planning-allocation); [US-03](tasks/US-03-classify-with-ai.md), [US-05](tasks/US-05-review-duplicate-suggestions.md), [US-14](tasks/US-14-continue-triage-without-ai.md), [US-15](tasks/US-15-evaluate-ai-against-baseline.md) | AI design/preparation; classification, provider-free fallback, optional links and comparative evaluation |
+| [EP-03](epics/EP-03-intervention-and-closure.md) | PLAN-03; [US-06](tasks/US-06-select-a-contractor.md), [US-07](tasks/US-07-approve-request-and-obtain-response.md), [US-08](tasks/US-08-confirm-booking-and-handle-failures.md), [US-09](tasks/US-09-complete-close-and-reopen.md), [US-11](tasks/US-11-record-a-basic-cost.md), [US-12](tasks/US-12-refine-ranking.md), [US-13](tasks/US-13-integrate-a-real-calendar.md) | Intervention preparation; S2 core, conditional S3 extensions |
 | [EP-04](epics/EP-04-engineering-and-quality.md) | [EN-01](tasks/EN-01-technical-design.md) | Consolidate technical design, ADRs and security |
 
 ### Published issue mapping
@@ -52,8 +52,13 @@ Checked on 2026-10-29 with `gh issue list --repo Phenriquerafael/LABDSOF_G9A --s
 | EN-01-02 | [#14](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/14) |
 | EN-01-03 | [#13](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/13), closed 2026-10-30: merged into EN-01-01 (#15) |
 | EN-01-04 | [#12](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/12) |
+| PLAN-01 | [#8](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/8) |
+| US-01 | [#5](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/5) |
+| US-02 | [#4](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/4) |
+| US-04 | [#3](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/3) |
+| US-10 | [#2](https://github.com/Phenriquerafael/LABDSOF_G9A/issues/2) |
 
-Other remote issues without a draft here (US-01/02/04/10, PLAN-01/02/03, DEVOPS-01/02, AGENT-01/02, DISC-03-06) are outside this 24-draft package.
+PLAN-01 and US-01/02/04/10 map to existing issues (verified by stable ID on 2026-11-01); these drafts do not create new work items. Other remote issues without a draft here (PLAN-02/03, DEVOPS-01/02, AGENT-01/02, DISC-03-06) are outside this 29-record package.
 
 | Delivery task | Proposed owner | Proposed reviewer | Predecessors for completion |
 |---|---|---|---|
@@ -90,6 +95,54 @@ This README is the single local source for task ownership and review allocation.
 | [EN-01](tasks/EN-01-technical-design.md) | Ricardo | Martim |
 
 For AI-01, Ricardo supports review of interface assumptions and Martim supports review of data handling as needed; Afonso remains the proposed primary reviewer.
+
+## EP-02 story drafts and planning allocation
+
+| Item | Drafting owner | Independent review / implementation planning |
+|---|---|---|
+| [PLAN-02](#ep-02-story-drafts-and-planning-allocation) | Sandro Dias (user-assigned) | Another team member reviews preparation; estimate/review evidence recorded in planning/PR |
+| [US-03](tasks/US-03-classify-with-ai.md) | Sandro Dias under PLAN-02 | Implementation owner/reviewer/estimate/capacity before Ready; S2 initial delivery |
+| [US-14](tasks/US-14-continue-triage-without-ai.md) | Sandro Dias under PLAN-02 | Provider-free rules/manual continuity; S2, hardened in S3 |
+| [US-05](tasks/US-05-review-duplicate-suggestions.md) | Sandro Dias under PLAN-02 | Should; select/defer explicitly after evidence and capacity review |
+| [US-15](tasks/US-15-evaluate-ai-against-baseline.md) | Sandro Dias under PLAN-02 | Dataset/protocol preparation in S2; formal results in S3; EN-04 consumes the report |
+
+## EP-03 story drafts and planning allocation
+
+| Item | Estimate | Drafting owner | Independent review / implementation planning |
+|---|---|---|---|
+| PLAN-03 | Separate preparation task | Sandro Dias (user-assigned) | Another team member reviews preparation; record estimate and PR/review evidence during planning |
+| [US-06](tasks/US-06-select-a-contractor.md) | 5 SP | Sandro Dias under PLAN-03 | Must; catalogue filtering and administrator selection in S2 |
+| [US-07](tasks/US-07-approve-request-and-obtain-response.md) | 8 SP | Sandro Dias under PLAN-03 | Must; versioned approval and contractor response in S2 |
+| [US-08](tasks/US-08-confirm-booking-and-handle-failures.md) | 8 SP | Sandro Dias under PLAN-03 | Must; simulator, confirmation and failure handling in S2 |
+| [US-09](tasks/US-09-complete-close-and-reopen.md) | 8 SP | Sandro Dias under PLAN-03 | Must; completion and closure in S2, refined in S3 |
+| [US-11](tasks/US-11-record-a-basic-cost.md) | 3 SP | Sandro Dias under PLAN-03 | Should; S3 cost recording only if selected and capacity permits |
+| [US-12](tasks/US-12-refine-ranking.md) | 5 SP | Sandro Dias under PLAN-03 | Should; S3 ranking refinement with justified data |
+| [US-13](tasks/US-13-integrate-a-real-calendar.md) | 8 SP | Sandro Dias under PLAN-03 | Could; S3 real provider only with access and capacity |
+
+## EP-01 story drafts and planning allocation
+
+| Item | Estimate | Preparation owner | Independent reviewer | Implementation allocation |
+|---|---|---|---|---|
+| [PLAN-01](tasks/PLAN-01-prepare-reporting-and-tracking-stories.md) | Separate preparation task | Sandro | Pedro | Documentation only; no implementation assignment |
+| [US-01](tasks/US-01-record-and-view-report.md) | 5 SP | Select during story refinement | Agree before Ready | Owner before Ready; sprint/capacity during planning |
+| [US-02](tasks/US-02-triage-manually-and-track-states.md) | 8 SP | Select during story refinement | Agree before Ready | Owner before Ready; sprint/capacity during planning |
+| [US-04](tasks/US-04-publish-shared-issue-and-confirm-impact.md) | 5 SP | Select during story refinement | Agree before Ready | Owner before Ready; sprint/capacity during planning |
+| [US-10](tasks/US-10-notify-changes.md) | 8 SP | Select during story refinement | Agree before Ready | Owner before Ready; sprint/capacity during planning |
+
+Initial estimates recorded on 2026-10-30: **26 SP** for US-01/02/04/10. These are planning estimates, not a recorded team estimation session or a capacity commitment. They include each story's UI/API work, persistence, authorisation, tests and review, assuming shared EN-02/03 foundations. Estimate those foundations separately and count shared work once; points are not hours.
+
+These stories preserve their existing local IDs and Must priorities; none is Ready or implemented. Use the [EP-01 technical-refinement register](ep01-technical-refinement.md) for open EN-01 decisions and closure evidence. It covers stack/boundaries, data/API contracts, identity/access, state/audit/concurrency, event/notification semantics and the verification environment. Close applicable entries before implementation readiness; do not invent a selected stack to complete a draft.
+
+S2 is the proposed initial delivery horizon, with S3 refinement/evaluation. Confirm the configured milestone during planning without assuming that narrative sprint names and remote milestone names are interchangeable. A drafting assignment to Sandro does not automatically assign all implementation to him. Keep the authored preparation record separate from independent review, actual PR/merge and implementation evidence.
+## EP-02 story drafts and planning allocation
+
+| Item | Estimate | Drafting owner | Independent review / implementation planning |
+|---|---|---|---|
+| [PLAN-02](#ep-02-story-drafts-and-planning-allocation) | Separate preparation task | Sandro Dias (user-assigned) | Another team member reviews preparation; estimate/review evidence recorded in planning/PR |
+| [US-03](tasks/US-03-classify-with-ai.md) | 8 SP | Sandro Dias under PLAN-02 | Estimate and blocking decisions reviewed before Ready; S2 initial delivery |
+| [US-14](tasks/US-14-continue-triage-without-ai.md) | 5 SP | Sandro Dias under PLAN-02 | Provider-free rules/manual continuity; S2, hardened in S3 |
+| [US-05](tasks/US-05-review-duplicate-suggestions.md) | 8 SP | Sandro Dias under PLAN-02 | Should; select/defer explicitly after evidence and capacity review |
+| [US-15](tasks/US-15-evaluate-ai-against-baseline.md) | 8 SP | Sandro Dias under PLAN-02 | Dataset/protocol preparation in S2; formal results in S3; EN-04 consumes the report |
 
 ## Sprint 1 deliverable coverage
 

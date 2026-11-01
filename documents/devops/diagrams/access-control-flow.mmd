@@ -1,0 +1,4 @@
+flowchart TD
+  C["Collaborators<br/>Write access"] -->|"PR + checks + 1 approval<br/>any collaborator merges"| MAIN["main<br/>auto deploys to DEV"]
+  MAIN -->|"Tag v*: only named<br/>tech leads / DevOps"| TAG["Tag vX.Y.Z"]
+  TAG -->|"Environment production:<br/>named DevOps approve"| PROD["Production"]
