@@ -2,10 +2,10 @@
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Defs_issue" targetNamespace="https://github.com/Phenriquerafael/LABDSOF_G9A/bpmn" exporter="LABDSOF_G9A EN-01-02 generator" exporterVersion="1">
   <bpmn:collaboration id="Collab_issue">
     <bpmn:participant id="P_bmc" name="BMC — issue lifecycle (owner: Issue Service)" processRef="Process_issue" />
-    <bpmn:participant id="P_worker" name="Triage worker" />
+    <bpmn:participant id="P_worker" name="AI triage service" />
     <bpmn:participant id="P_disp" name="Dispatch Service (Figures 3 and 4)" />
     <bpmn:messageFlow id="M_i_suggest_P_worker" sourceRef="i_suggest" targetRef="P_worker" />
-    <bpmn:messageFlow id="M_P_worker_i_suggest" name="claim job / result" sourceRef="P_worker" targetRef="i_suggest" />
+    <bpmn:messageFlow id="M_P_worker_i_suggest" name="triage request / suggestion" sourceRef="P_worker" targetRef="i_suggest" />
     <bpmn:messageFlow id="M_a_coord_P_disp" name="commands" sourceRef="a_coord" targetRef="P_disp" />
     <bpmn:messageFlow id="M_P_disp_i_approved" sourceRef="P_disp" targetRef="i_approved" />
     <bpmn:messageFlow id="M_P_disp_i_declined" sourceRef="P_disp" targetRef="i_declined" />
@@ -54,7 +54,7 @@
       <bpmn:incoming>F_r_start_r_submit</bpmn:incoming>
       <bpmn:outgoing>F_r_submit_i_persist</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:serviceTask id="i_persist" name="Persist report, issue and triage job [received]">
+    <bpmn:serviceTask id="i_persist" name="Persist report, issue and outbox row [received]">
       <bpmn:incoming>F_r_submit_i_persist</bpmn:incoming>
       <bpmn:outgoing>F_i_persist_i_suggest</bpmn:outgoing>
     </bpmn:serviceTask>

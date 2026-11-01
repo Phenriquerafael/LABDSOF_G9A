@@ -42,7 +42,7 @@ Apply this checklist when the implementation is scheduled; these unchecked items
 
 | Field | Status |
 |---|---|
-| Stack / accepted ADR | Undecided |
+| Stack / accepted ADR | Proposed in [ADR-001–012](adr/README.md) (revised 2026-10-27), not accepted |
 | Commit / PR | Unavailable |
 | Pipeline / run | Unavailable |
 | Installation/build/test/deploy commands | To be written after stack selection; do not invent commands |
