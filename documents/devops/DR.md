@@ -23,8 +23,6 @@ The database is **not** in Amazon RDS. ADR-004 runs MySQL as a container on a Do
 
 Out of scope: multi-region recovery, log and metric history, and production compliance claims.
 
-> **Figures A–C** (`images/dr-*.svg`) predate this revision and still show the EC2 and PostgreSQL layout. They must be redrawn before this document is relied on. The text below is the reference until then.
-
 ---
 
 ## 2. Database location (decided by ADR-004; host not chosen)
@@ -54,6 +52,8 @@ Out of scope: multi-region recovery, log and metric history, and production comp
 
 **Not backed up:** secrets (restored by hand), container images (pulled by version), logs and metrics, and dashboards (provisioned from Git).
 
+![Figure A: what is backed up. The Database host holds MySQL and the bmc-attachments bucket in Garage; the nightly job copies both to the bmc-backups bucket on the proposed Backup host; the application host reaches the database host, and the secrets store is connected to the hosts](images/dr-1-what-is-backed-up.svg)
+
 ---
 
 ## 4. Backup flow
@@ -69,6 +69,8 @@ Scope of this section: ADR-004 decision D2 (review decisions register). The step
 | RabbitMQ definitions | With the nightly job, if RabbitMQ is used | Open | `bmc-backups` |
 
 **Recovery targets (proposal):** RPO of 24 hours, the interval of the nightly dump; the team can ask for more frequent dumps, but that is a change to ADR-004. RTO of 4 hours. Both must be checked against the real data size and restore time (NFR-09).
+
+![Figure B: nightly backup flow. The cron job on the Database host dumps each service database and copies the attachments; the dumps and photo copies go to the Garage bucket bmc-backups; the restore check runs in a scratch container; failures and missing runs raise alerts](images/dr-2-backup-flow.svg)
 
 ### 4.1 How the nightly backup runs (proposal, not tested)
 
@@ -87,7 +89,12 @@ Commands are examples with placeholders. They must be checked against the MySQL 
 
 **Encryption before the copy:** not in ADR-004. The idea of encrypting each dump with a public key, so a compromised host cannot read old copies, is still a proposal for the team.
 
-**Alerting:** a missing or failed nightly backup must raise an alert, because the RPO is then no longer true. How the job reports to Prometheus or the Discord webhook is open; see [observability alerts](OBSERVABILITY.md#7-alerts).
+**Alerting (proposal):** a failed or missing nightly backup must raise an alert, because the RPO is then no longer true. Two parts, neither needing Prometheus or the private link:
+
+- **Failure:** the job checks the exit status of each step. On any error it posts a message to the chat channel webhook and stops.
+- **Missing run:** after each successful backup, the job makes one outbound HTTPS request to an external heartbeat service. The service expects that request every day and alerts through the chat channel when it does not arrive. This also covers the job never starting and the Database host being down.
+
+The heartbeat service is not chosen. Both parts need outbound HTTPS from the Database host, which ADR-004 does not provide yet. See [observability alerts](OBSERVABILITY.md#7-alerts).
 
 ---
 
@@ -104,6 +111,8 @@ A failed or missing backup raises an alert, because the RPO is then no longer tr
 ## 6. Restore runbook
 
 Based on the ADR-004 runbook (backup and restore kept simple for the academic release, exercised once).
+
+![Figure C: restore path. Writes are frozen, the newest dump that passes its checksum is loaded into a MySQL container, the services start in dependency order, and the integrity checks and smoke journey run before writes reopen](images/dr-3-restore-flow.svg)
 
 1. Freeze writes: put the gateway in maintenance mode.
 2. Pick the newest dump that passes its checksum.
@@ -132,7 +141,7 @@ If the Database host is lost, the Garage bucket on the Backup host (if adopted) 
 | Application host lost | The external uptime check reports it | Rebuild from the image tag and Compose file; the database host is unaffected |
 | Token signing key lost | Users are signed out and old tokens stop working | Keycloak's signing keys come from its database dump; if unavailable, issue a new key and ask users to sign in again |
 | Broker data lost | Check the outbox tables | Restore definitions; republish from the outbox; consumers ignore duplicates |
-| Backup fails silently | Alert fires | Fix the job, run a manual dump, record the gap |
+| Backup fails or does not run | Chat message on failure; heartbeat alert when the daily request is missing | Fix the job, run a manual dump, record the gap |
 | Backup credential leaked | Revoke it; review access records | Rotate keys, re-check newer copies, assess the personal-data impact |
 | Region or provider outage | Out of scope for the MVP | Documented as a limitation |
 

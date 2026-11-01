@@ -23,8 +23,6 @@ flowchart TB
         GRAF -. "query logs" .-> ALLOY
     end
 
-    SVCA -. "errors" .-> SENTRY["Sentry<br/>(hosted, free plan)"]
-    SVCB -. "errors" .-> SENTRY
     GRAF -->|alerts| NOTIFY["Discord / Telegram"]
     UPTIME -->|down alert| NOTIFY
     YOU["You"] -->|"SSH tunnel or Traefik + auth"| GRAF

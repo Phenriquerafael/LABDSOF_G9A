@@ -119,123 +119,146 @@ def dr3():
 
 
 def obs0():
-    d = Diagram("observability-0-containers", "Observability · Containers and hosts",
+    d = Diagram("observability-1-metrics", "Observability · Containers, metrics and data paths by layer",
                 "Proposal from OBSERVABILITY.md · Traefik per ADR-004 · the database host and P-08 are open",
-                1500, 840)
-    d.comp("uptime", 1200, 100, 260, 70, "External uptime check", "external system", ["runs outside both hosts"])
-    d.comp("discord", 1200, 220, 260, 70, "Discord webhook", "external system", ["alerts"])
-    d.comp("sentry", 1200, 340, 260, 70, "Sentry (hosted)", "external system", ["error reports, scrubbed"])
+                1400, 1230)
+    d.actor("user", 200, 70, "End user", ["uses the services"])
+    d.actor("dev", 22, 590, "DEV", [])
 
-    d.node("app", 40, 130, 1040, 430, "Application host", "device", ["Docker Compose · Traefik, services, observability"])
-    d.comp("grafana", 70, 200, 200, 60, "grafana", "container", ["dashboards and alerts"])
-    d.comp("prom", 330, 200, 220, 60, "prometheus", "container", ["scrapes every 30 s"])
-    d.comp("traefik", 70, 300, 200, 60, "traefik", "container", ["gateway, TLS"])
-    d.comp("issue", 330, 300, 190, 60, "issue", "container", ["Spring Boot"])
-    d.comp("dispatch", 540, 300, 190, 60, "dispatch", "container", ["Spring Boot"])
-    d.comp("notif", 750, 300, 190, 60, "notification", "container", ["Spring Boot"])
-    d.comp("kc", 330, 400, 190, 60, "keycloak", "container", ["sign-in"])
-    d.comp("ai", 540, 400, 190, 60, "ai-triage", "container", ["classifies"])
-    d.comp("rmq", 750, 400, 190, 60, "rabbitmq", "container", ["under consideration"], dashed=True)
-
-    d.node("db", 40, 600, 1040, 150, "Database host", "device",
-           ["MySQL and Garage; private link to the application host (P-08)"])
-    d.comp("mysql", 330, 690, 190, 60, "mysql", "container", ["MySQL 8.4"], icon="database")
-    d.comp("garage", 540, 690, 190, 60, "garage", "container", ["Garage 2.5"])
-    d.comp("mysqld", 750, 690, 190, 60, "mysqld_exporter", "container", ["proposal, P-08"], dashed=True)
-
-    d.dep([(270, 230), (330, 230)], "query", at=(300, 220), anchor="middle", bg=BLUE)
-    d.path([(600, 560), (600, 600)], "private link (P-08)", at=(608, 580), anchor="start", bg=BLUE, dashed=True)
-    d.note(40, 780, 1100, ["The operator reads Grafana over an SSH tunnel or Traefik sign-in (section 12).",
-                           "Items marked P-08 are not in ADR-004. Metrics paths: observability-1-metrics.svg."])
-    return d
-
-
-def obs1():
-    d = Diagram("observability-1-metrics", "Observability · Metrics paths",
-                "Prometheus pulls from each target · OBSERVABILITY.md section 4.4 · P-08 and proposals are marked",
-                1500, 720)
-    d.comp("grafana", 60, 200, 200, 70, "grafana", "container", ["dashboards and alerts"])
-    d.comp("prom", 340, 200, 240, 70, "prometheus", "container", ["scrapes every 30 s", "keeps 15 days"])
-    d.path([(260, 235), (340, 235)], "query", at=(300, 222), anchor="middle", bg=BLUE)
-
-    d.node("app", 40, 90, 1420, 420, "Application host", "device",
-           ["Docker Compose · Prometheus and Grafana run here, next to the services"])
-    d.comp("svc", 690, 150, 230, 60, "issue, dispatch, notification", "container", ["/metrics on each service"])
-    d.comp("rmq", 690, 250, 230, 60, "rabbitmq", "container", ["plugin metrics, port 15692"])
-    d.comp("nodeexp", 690, 350, 230, 60, "node_exporter, cAdvisor", "container", ["proposal; host and containers"],
+    d.node("app", 40, 190, 1300, 700, "Application host", "device",
+           ["Docker Compose · one Prometheus and one Grafana"])
+    d.boundary("edge", 60, 230, 1260, 100, "Edge")
+    d.comp("traefik", 180, 250, 160, 50, "traefik", "container", ["TLS, routes · /metrics"])
+    d.boundary("svc", 60, 370, 1260, 160, "Services")
+    for i, (key, name, detail, dashed) in enumerate((
+            ("issue", "issue", "Spring Boot · /metrics", False),
+            ("disp", "dispatch", "Spring Boot · /metrics", False),
+            ("notif", "notification", "Spring Boot · /metrics", False),
+            ("kc", "keycloak", "sign-in · /metrics", False),
+            ("ai", "ai-triage", "classifies · /metrics", False),
+            ("rmq", "rabbitmq", "internal · :15692 metrics", True))):
+        d.comp(key, 80 + 200 * i, 400, 160, 70, name, "container", [detail], dashed=dashed)
+    d.boundary("obs", 60, 580, 1260, 140, "Observability")
+    d.comp("grafana", 180, 610, 160, 70, "grafana", "container", ["dashboards, alerts"])
+    d.comp("prom", 430, 610, 200, 70, "prometheus", "container", ["scrapes every 30 s"])
+    d.comp("bbx", 700, 610, 200, 70, "blackbox_exporter", "container", ["probes public URL via Traefik"],
            dashed=True)
-    d.comp("tr", 960, 150, 230, 60, "traefik", "container", ["metrics; health check"])
-    d.comp("bb", 960, 250, 230, 60, "blackbox_exporter", "container", ["probes public URL (proposal)"], dashed=True)
+    d.comp("nodeexp", 940, 610, 240, 70, "node_exporter", "container", ["host metrics (proposal)"],
+           dashed=True)
 
-    d.node("db", 660, 540, 800, 150, "Database host", "device", ["P-08: not in ADR-004"])
-    d.comp("mysqld", 690, 615, 230, 50, "mysqld_exporter", "container", ["proposal, P-08"], dashed=True)
-    d.comp("garage", 960, 615, 230, 50, "garage", "container", ["metrics endpoint unverified"], dashed=True)
+    d.node("db", 40, 930, 1300, 170, "Database host", "device",
+           ["MySQL and Garage"], align="left")
+    d.comp("mysql", 180, 990, 200, 70, "mysql", "container", ["MySQL 8.4"], icon="database")
+    d.comp("garage", 460, 990, 200, 70, "garage", "container", ["Garage 2.5"])
+    d.comp("mysqld", 740, 990, 220, 70, "mysqld_exporter", "container", ["proposal, P-08"], dashed=True)
 
-    d.dep([(580, 235), (690, 180)])
-    d.dep([(580, 235), (690, 280)])
-    d.dep([(580, 235), (690, 380)])
-    d.dep([(580, 235), (620, 235), (620, 640), (690, 640)], "private link (P-08)", at=(628, 470), anchor="start",
-          bg=BLUE)
-    d.note(60, 330, 500, ["Scrape interval 30 seconds, 15-day retention (OBSERVABILITY-configs.md).",
-                          "Prometheus stays on the application host: one Prometheus, one Grafana.",
-                          "The 'service gone' alert uses the up series of each target."])
+    d.dep([(200, 120), (200, 250)], "HTTPS 443", at=(208, 215), anchor="start", bg=BLUE)
+    d.dep([(200, 300), (200, 400)], "routes to services", at=(208, 350), anchor="start", bg=BLUE)
+    d.dep([(36, 650), (180, 650)], "SSH tunnel", at=(66, 638), anchor="start", bg=BLUE)
+    d.dep([(380, 645), (430, 645)], "query", at=(405, 635), anchor="middle", bg=BLUE)
+    d.dep([(530, 610), (530, 530)], "scrapes services", at=(538, 570), anchor="start", bg=BLUE)
+    d.dep([(630, 700), (1060, 700), (1060, 680)], "scrapes host", at=(845, 692), anchor="middle", bg=BLUE)
+    d.dep([(630, 640), (700, 640)], "scrapes", at=(665, 630), anchor="middle", bg=BLUE)
+    d.dep([(850, 610), (850, 275), (340, 275)], "probes via Traefik", at=(600, 266), anchor="middle", bg=BLUE)
+    d.dep([(600, 680), (600, 978), (850, 978), (850, 990)], "private link (P-08)", at=(610, 820),
+          anchor="start", bg=BLUE)
+    d.dep([(1260, 530), (1260, 855), (280, 855), (280, 990)], "JDBC: services to MySQL", at=(830, 847),
+          anchor="middle", bg=BLUE)
+    d.dep([(1290, 530), (1290, 880), (560, 880), (560, 990)], "S3 API: photos to Garage", at=(830, 872),
+          anchor="middle", bg=BLUE)
+    d.note(40, 1140, 1100, ["End users reach only the services, through Traefik. DEV reaches Grafana through an SSH tunnel (section 12).",
+                            "Prometheus scrapes every 30 s: services, RabbitMQ, Traefik, host (proposal), blackbox, and the database exporter over P-08.",
+                            "Items marked P-08 and the proposals are not in ADR-004."])
     return d
 
 
 def obs2():
-    d = Diagram("observability-2-requests-logs", "Observability · Requests and logs",
-                "Correlation ID created at the gateway and forwarded · OBSERVABILITY.md sections 4.1 and 4.2",
-                1500, 600)
-    d.actor("client", 120, 60, "Browser", ["sends a request"])
-    d.node("app", 300, 100, 1000, 400, "Application host", "device", ["Docker Compose"])
-    d.comp("traefik", 320, 170, 200, 70, "traefik", "container", ["creates X-Request-ID"])
-    d.comp("issue", 640, 170, 200, 70, "issue", "container", ["logs JSON, forwards ID"])
-    d.comp("disp", 900, 170, 200, 70, "dispatch", "container", ["logs JSON, forwards ID"])
-    d.comp("out", 640, 330, 200, 60, "container stdout", "artifact", ["JSON lines, one per event"], icon="artifact")
-    d.comp("loki", 1340, 300, 140, 90, "Loki (optional)", "container", ["by request_id"], dashed=True)
+    d = Diagram("observability-2-requests-logs", "Observability · Requests, events and logs by layer",
+                "Correlation ID: created at Traefik, carried in events (ADR-003) · OBSERVABILITY.md sections 4.1 and 4.2",
+                1400, 900)
+    d.actor("user", 200, 75, "End user", ["sends a request"])
 
-    d.dep([(120, 90), (120, 205), (320, 205)], "HTTPS 443", at=(150, 195), anchor="start", bg=BLUE)
-    d.dep([(520, 205), (640, 205)], "X-Request-ID", at=(580, 190), anchor="middle", bg=BLUE)
-    d.dep([(840, 205), (900, 205)])
-    d.dep([(740, 240), (740, 330)], "logs", at=(748, 290), anchor="start", bg=BLUE)
-    d.dep([(840, 360), (1340, 345)], "optional", at=(1090, 340), anchor="middle", bg=BLUE, )
-    d.note(40, 520, 1200, ["The ID is created at the gateway, returned to the client, and forwarded by every service.",
-                           "OpenTelemetry (traceparent) is the upgrade path (OBSERVABILITY.md section 4.2).",
-                           "Traefik per ADR-004; the request-ID and access-log settings are checked in its docs first."])
+    d.node("app", 40, 170, 1300, 600, "Application host", "device", ["Docker Compose"])
+    d.boundary("edge", 60, 215, 1260, 90, "Edge")
+    d.comp("traefik", 180, 240, 200, 50, "traefik", "container", ["creates X-Request-ID"])
+    d.boundary("svc", 60, 310, 1260, 150, "Services")
+    d.comp("issue", 120, 340, 200, 70, "issue", "container", ["logs JSON, publishes events"])
+    d.comp("disp", 360, 340, 200, 70, "dispatch", "container", ["logs JSON, consumes events"])
+    d.comp("notif", 600, 340, 200, 70, "notification", "container", ["logs JSON, consumes events"])
+    d.comp("ai", 840, 340, 200, 70, "ai-triage", "container", ["logs JSON, consumes events"])
+    d.comp("kc", 1080, 340, 200, 70, "keycloak", "container", ["sign-in, no events"])
+    d.boundary("msg", 60, 490, 1260, 80, "Messaging")
+    d.comp("rmq", 420, 505, 300, 50, "rabbitmq", "container", ["carries correlationid"])
+    d.boundary("logs", 60, 600, 1260, 140, "Logs")
+    d.comp("out", 860, 630, 240, 70, "container stdout", "artifact", ["Docker log stream, JSON lines"],
+           icon="artifact")
+    d.comp("loki", 520, 630, 220, 70, "Loki (optional)", "container", ["searchable by request_id"], dashed=True)
+
+    d.dep([(200, 125), (200, 240)], "HTTPS 443", at=(208, 215), anchor="start", bg=BLUE)
+    d.dep([(280, 290), (280, 340)], "REST, X-Request-ID", at=(288, 322), anchor="start", bg=BLUE)
+    d.dep([(220, 410), (220, 530), (420, 530)], "event", at=(228, 470), anchor="start", bg=BLUE)
+    d.dep([(480, 505), (480, 410)], "event", at=(488, 458), anchor="start", bg=BLUE)
+    d.dep([(680, 505), (680, 410)], "event", at=(688, 458), anchor="start", bg=BLUE)
+    d.dep([(720, 530), (940, 530), (940, 410)], "events", at=(830, 520), anchor="middle", bg=BLUE)
+    d.dep([(1060, 490), (1060, 630)], "logs from every service", at=(1068, 560), anchor="start", bg=BLUE)
+    d.dep([(860, 665), (780, 665)], "optional", at=(820, 655), anchor="middle", bg=BLUE)
+
+    d.note(40, 800, 1260, ["Services do not call each other over HTTP (ADR-001); they exchange events through RabbitMQ, which carry",
+                           "correlationid and traceparent (ADR-003). Outbound calls to Google Calendar and the AI provider also carry the ID in HTTP headers (not drawn).",
+                           "Loki is optional; without it, logs are read with docker logs."])
     return d
 
 
 def obs3():
-    d = Diagram("observability-3-alerts-errors", "Observability · Alerts and errors",
-                "Alerts leave the hosts through the Discord webhook · OBSERVABILITY.md sections 4.5 and 7",
-                1500, 640)
-    d.node("app", 40, 100, 820, 300, "Application host", "device")
-    d.comp("prom", 80, 160, 200, 70, "prometheus", "container", ["up series per target"])
-    d.comp("grafana", 330, 160, 200, 70, "grafana", "container", ["alert rules"])
-    d.comp("issue", 80, 300, 200, 70, "issue", "container", ["errors to Sentry"])
-    d.comp("disp", 330, 300, 200, 70, "dispatch", "container", ["errors to Sentry"])
+    d = Diagram("observability-3-alerts-errors", "Observability · Alerts and errors by layer",
+                "Alerts leave the hosts through a chat channel webhook · errors are logged, not sent to a third party",
+                1400, 1040)
 
-    d.node("db", 40, 440, 820, 130, "Database host", "device", ["P-08: no up series yet"])
-    d.comp("mysqld", 80, 505, 200, 50, "mysqld_exporter", "container", ["proposal"], dashed=True)
-    d.comp("garage", 330, 505, 200, 50, "garage", "container", ["unverified"], dashed=True)
+    d.node("app", 40, 90, 1040, 520, "Application host", "device", ["Docker Compose"])
+    d.boundary("svc", 60, 150, 1000, 160, "Services")
+    d.comp("issue", 90, 185, 240, 80, "issue", "container", ["errors as JSON logs", "errors_total counter"])
+    d.comp("disp", 400, 185, 240, 80, "dispatch", "container", ["errors as JSON logs", "errors_total counter"])
+    d.comp("notif", 710, 185, 240, 80, "notification", "container", ["errors as JSON logs", "errors_total counter"])
+    d.boundary("obs", 60, 350, 1000, 240, "Observability")
+    d.comp("prom", 90, 390, 260, 80, "prometheus", "container", ["up series per target", "errors_total, disk"])
+    d.comp("grafana", 420, 390, 260, 80, "grafana", "container", ["alert rules (Page and Warn)"])
 
-    d.comp("discord", 1100, 160, 300, 70, "Discord webhook", "external system", ["alert messages"])
-    d.comp("uptime", 1100, 300, 300, 70, "External uptime check", "external system", ["down: outside both hosts"])
-    d.comp("sentry", 1100, 440, 300, 70, "Sentry (hosted)", "external system", ["stack traces, scrubbed"])
+    d.node("db", 40, 650, 1040, 170, "Database host", "device", ["no up series yet (P-08)"], align="left")
+    d.comp("mysqld", 90, 710, 240, 80, "mysqld_exporter", "container", ["proposal, P-08"], dashed=True)
+    d.comp("garage", 400, 710, 240, 80, "garage", "container", ["metrics unverified"], dashed=True)
+    d.comp("cron", 710, 710, 240, 80, "nightly backup", "cron job", ["failure posts to chat channel"])
 
-    d.dep([(530, 195), (1100, 195)], "alert rule fires", at=(800, 185), anchor="middle", bg=BLUE)
-    d.dep([(1250, 300), (1250, 230)], "down", at=(1258, 270), anchor="start", bg=BLUE)
-    d.dep([(530, 335), (900, 335), (900, 475), (1100, 475)], "errors, scrubbed", at=(930, 465), anchor="start",
-          bg=BLUE)
-    d.note(40, 580, 1000, ["Alerts: a target's up series is missing; disk above threshold; nightly backup missing or failed "
-                           "(DR.md section 4.1).",
-                           "Not covered yet: MySQL and Garage have no up series (P-08)."])
+    d.comp("webhook", 1160, 380, 210, 80, "Alert channel webhook", "external system", ["chat channel"])
+    d.comp("uptime", 1160, 200, 210, 80, "External uptime check", "external system", ["runs outside both hosts"])
+    d.comp("heartbeat", 1160, 690, 210, 80, "Heartbeat service", "external system", ["expects one request a day"])
+
+    d.dep([(300, 310), (300, 390)], "scrapes services", at=(308, 352), anchor="start", bg=BLUE)
+    d.dep([(680, 430), (1160, 430)], "alert rules fire", at=(920, 418), anchor="middle", bg=BLUE)
+    d.dep([(1265, 280), (1265, 380)], "down", at=(1273, 330), anchor="start", bg=BLUE)
+    d.dep([(210, 470), (210, 710)], "P-08: scrape not defined", at=(218, 600), anchor="start", bg=BLUE)
+    d.dep([(950, 750), (1160, 730)], "daily request (HTTPS)", at=(1000, 690), anchor="start", bg=BLUE)
+    d.note(40, 850, 660, ["Page (wake someone up)",
+                          "Target down: up == 0 for 2 minutes",
+                          "Site unreachable: blackbox probe fails for 2 minutes",
+                          "High error rate: 5xx above 5% for 5 minutes",
+                          "Auth unavailable: /readyz failing for 2 minutes",
+                          "Backup run missing: no heartbeat request (proposal)",
+                          "Backup job failed: chat message from the job (proposal)",
+                          "No consumers: a queue with none, RabbitMQ only"])
+    d.note(720, 850, 640, ["Warn (review in working hours)",
+                           "Degraded mode active for 1 minute",
+                           "Dependency failing: success under 90% for 5 minutes",
+                           "Latency SLO breach: p95 above target for 10 minutes",
+                           "Disk filling: predicted to fill within 24 hours",
+                           "Memory low: under 10% available for 10 minutes",
+                           "Container restarting: more than 2 in 15 minutes",
+                           "Broker queue growing; dead letters not empty (RabbitMQ only)"])
     return d
 
 
 def main():
     out = HERE.parent
-    for make in (dr1, dr2, dr3, obs0, obs1, obs2, obs3):
+    for make in (dr1, dr2, dr3, obs0, obs2, obs3):
         d = make()
         (out / f"{d.name}.svg").write_text(d.svg(), encoding="utf-8")
         print("wrote", out / f"{d.name}.svg")

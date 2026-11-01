@@ -12,7 +12,7 @@ Stack: **Prometheus + Grafana** (no CloudWatch).
 | Observability stack on the application host; Prometheus scrapes the database host over a private link | Proposed; the link and the database exporter are open (P-08) | sections 2, 4.4, 16 |
 | Prometheus and Grafana for metrics and dashboards | Proposed | sections 4.4, 6 |
 | Gateway: Traefik 3.7 (ADR-004, team decision) | Adopted | section 2.1 |
-| Error reporting: Sentry or log-based | Open | section 4.5 |
+| Error reporting: log-based (Sentry removed from the plan) | Proposed | section 4.5 |
 | Log stack (Loki and Alloy) | Optional | section 3 |
 | Messaging with RabbitMQ | Under consideration | section 4.6 |
 | Authentication | Mocked login allowed for the MVP; roles kept real | section 9 |
@@ -29,7 +29,7 @@ Stack: **Prometheus + Grafana** (no CloudWatch).
 | **6.7** Health checks | `/healthz` (alive), `/readyz` (can serve), `/status` (dependency detail) | 4.3 |
 | **6.7** Relevant metrics | Request rate, errors, latency, dependency calls, degraded-mode gauge | 4.4 |
 | **6.7** Correlation or trace identifiers | `X-Request-ID` created at the gateway (Traefik), logged and forwarded by every service | 4.2 |
-| **6.7** Error reporting | Sentry (free plan) or log-based fallback | 4.5 |
+| **6.7** Error reporting | Structured error logs and an error-rate metric with an alert | 4.5 |
 | **6.7** Small operational dashboard | One "Operations overview" dashboard | 6 |
 | **6.7** Service-level indicators | Availability, latency and dependency success, with example SLO targets | 5 |
 | **6.8** At least one degraded-mode scenario | Template, example and demo script | 8 |
@@ -46,31 +46,25 @@ The application containers run in one Docker Compose network on the application 
 
 **Database metrics (open, P-08):** MySQL and Garage are not scrape targets in ADR-004, so without a change they have no `up` series and the "service gone" alert does not cover them. Two options are open: `mysqld_exporter` on the database host, scraped by Prometheus over the private link, or a second Prometheus on the database host. The first keeps one Prometheus and one set of alerts; the second keeps the metrics if the application host is lost. The team decides. Whether Garage exposes a Prometheus endpoint must be checked in its documentation before either option is built.
 
-The SVG figures in this section still show the single-EC2 layout. They are to be redrawn to follow the physical views.
-
 The architecture is shown as separate figures, one per concern, instead of a single full view. The SVG files are the only source for these diagrams; edit them directly.
 
-**Metrics and health.** Prometheus **pulls** metrics from each target every 30 seconds. Grafana queries Prometheus for the dashboard.
+**Containers, metrics and data paths.** Prometheus **pulls** metrics from each target every 30 seconds, and Grafana queries Prometheus for the dashboard. Everything that follows is in one figure, grouped by layer.
 
-![Application layout: gateway, services and the optional messaging layer on one AWS EC2 server](images/observability-0-containers.svg)
+![Containers, metrics and data paths by layer: end users reach the services through Traefik; DEV reaches Grafana through an SSH tunnel; Prometheus scrapes the services, RabbitMQ, Traefik, blackbox, the host and the database exporter; the services reach MySQL and Garage on the database host](images/observability-1-metrics.svg)
 
-*Figure 1. Application layers from top to bottom: gateway, services (`Dispatch`, `auth`, `Issue`), messaging (under consideration). The gateway sends each request to one service by path. The observability containers (Prometheus, Grafana, exporters) run on the same server and are shown in Figure 2.*
-
-![Metrics and health: Prometheus scrapes services, node_exporter/cAdvisor and blackbox; Grafana queries Prometheus](images/observability-1-metrics.svg)
-
-*Figure 2. Prometheus pulls from every target inside the instance boundary. Only you reach Grafana from outside.*
+*Figure 1. Layers from top to bottom: edge (Traefik), services, observability (Prometheus, Grafana, blackbox exporter and node_exporter, both proposals), and the database host (MySQL, Garage, `mysqld_exporter` proposal). Items marked proposal or P-08 are not in ADR-004.*
 
 **Requests and logs.** Traefik creates the `X-Request-ID`, and each service forwards it. Logs go to stdout as JSON. Loki is optional; without it, logs are read with `docker logs`.
 
 ![Requests and logs: Traefik creates X-Request-ID, Service A forwards it to Service B, JSON logs go to optional Loki](images/observability-2-requests-logs.svg)
 
-*Figure 3. The gateway routes each request to one service by path. The same `X-Request-ID` goes out in the response, so a user can quote it. Every service, the auth service and RabbitMQ write JSON logs; Loki collects them if it is enabled.*
+*Figure 2. The gateway routes each request to one service by path. The same `X-Request-ID` goes out in the response, so a user can quote it. Every service, the auth service and RabbitMQ write JSON logs; Loki collects them if it is enabled.*
 
-**Alerts and errors.** Grafana alert rules and the external uptime check both send to one chat webhook. The uptime check runs outside the instance, because Prometheus on the same machine cannot report that the whole machine is down. Exceptions go to Sentry, which is hosted, not on the instance.
+**Alerts and errors.** Grafana alert rules and the external uptime check both send to one chat webhook. The uptime check runs outside the instance, because Prometheus on the same machine cannot report that the whole machine is down. Exceptions are written to the logs as JSON on the instance.
 
-![Alerts and errors: Grafana and the uptime check notify Discord/Telegram; services send exceptions to Sentry](images/observability-3-alerts-errors.svg)
+![Alerts and errors: Grafana and the external uptime check send alerts to a chat channel webhook; services log errors as JSON](images/observability-3-alerts-errors.svg)
 
-*Figure 4. Alerts leave the instance through the chat webhook. The uptime check runs outside, so it still reports when the whole instance is down. Sentry is hosted.*
+*Figure 3. Alerts leave the instance through the chat webhook. The uptime check runs outside, so it still reports when the whole instance is down.*
 
 | Component | Job | Port (internal) |
 |---|---|---|
@@ -85,7 +79,6 @@ The architecture is shown as separate figures, one per concern, instead of a sin
 | RabbitMQ (under consideration) | Queues between services; metrics via its Prometheus plugin (section 4.6) | 15692 (metrics), 15672 (management UI, not public) |
 | mysqld_exporter (proposed, not in ADR-004) | MySQL metrics on the database host, scraped over the private link (P-08) | exporter port not chosen |
 | Garage metrics (unverified) | Storage metrics on the database host, if Garage exposes them (P-08) | not chosen |
-| Sentry (hosted, free plan) | Error reporting with stack traces | external |
 
 Skipped on purpose: Alertmanager (Grafana sends the alerts) and tracing backends. They are listed as future work. Database exporters are no longer skipped, because MySQL runs on the database host (P-08).
 
@@ -148,12 +141,10 @@ Use the Prometheus client library for your language (for example `prom-client` f
 
 | Option | Notes |
 |---|---|
-| **Sentry, Developer (free) plan** | One SDK per service. Tag events with `request_id` and `version`. Per [a June 2026 comparison](https://merginit.com/blog/14062026-free-error-monitoring-apm-comparison): 5,000 errors per month, one seat, email-only alerts. That article is third-party, so check the vendor's pricing page. **One seat** means only one team member logs in, which may matter for a group project. |
 | **Log-based** (no extra tool) | Log errors as JSON with `level=error` and the stack trace, count them in an `errors_total` metric, and alert on the error rate. With Loki added, a Grafana panel can list recent errors and search by `request_id`. |
-| Better Stack free plan | The same article lists 100,000 exceptions per month on its free plan. Unverified. |
 | GlitchTip self-hosted | No event cap, but it needs its own Postgres and web and worker containers. Too much to run on the same small instance. |
 
-Recommended: Sentry for the stack traces, plus the error-rate metric and alert, so error reporting does not depend on one tool.
+Recommended: log-based errors (JSON with the stack trace and `request_id`) plus the error-rate metric and alert. Sentry was removed from the plan, so no error data leaves the hosts; this removes a third-party data flow that would otherwise need its own privacy review.
 
 ### 4.6 Messaging (RabbitMQ, under consideration)
 
@@ -212,7 +203,7 @@ One dashboard called **Operations overview**, with these rows:
 | **SLIs** | Availability, p95 latency, dependency success per dependency, with the SLO target as a line |
 | **Traffic** | Request rate, 5xx rate, requests by route |
 | **Saturation** | CPU, memory available, disk used and predicted fill, container restarts |
-| **Errors** | Error rate; with Loki, a table of recent errors; the Sentry link |
+| **Errors** | Error rate; with Loki, a table of recent errors |
 
 Store the dashboard as JSON in the repo and provision it into Grafana. For the host row, the community dashboard **Node Exporter Full** is a candidate source for panels. Its Grafana ID (1860) is unverified and must be checked on grafana.com before use.
 
@@ -220,7 +211,7 @@ Store the dashboard as JSON in the repo and provision it into Grafana. For the h
 
 ## 7. Alerts
 
-Alerts are defined in Grafana and sent to a **Discord or Telegram webhook**. These need no mail server, unlike Grafana's email contact point, which needs SMTP configured.
+Alerts are defined in Grafana and sent to a **chat channel webhook** (the team's chat tool; the choice is open). These need no mail server, unlike Grafana's email contact point, which needs SMTP configured.
 
 | Alert | Condition | Severity |
 |---|---|---|
@@ -237,6 +228,9 @@ Alerts are defined in Grafana and sent to a **Discord or Telegram webhook**. The
 | Broker queue growing | Queue depth rising for an agreed period (only if RabbitMQ is used) | Warn |
 | No consumers | A queue that should have consumers has none (only if RabbitMQ is used) | Page |
 | Dead letters | Dead-letter queue not empty (only if RabbitMQ is used) | Warn |
+| Backup run missing (proposal) | No daily heartbeat request from the nightly backup job ([DR](DR.md)) | Page |
+| Backup job failed (proposal) | The job posts a message to the chat channel when a step fails ([DR](DR.md)) | Page |
+| Database host not scraped (P-08) | No `up` series for `mysqld_exporter` or Garage, until P-08 is settled | Warn |
 
 Keep the list short. An alert that fires constantly gets ignored.
 
@@ -287,7 +281,7 @@ Fill in one of these per scenario:
 2. Break the dependency: `docker compose stop <mock-or-dependency>` (or point the provider URL at a closed port, or `docker compose stop mysql` on the database host for a database scenario).
 3. Use the product: show the banner and that unaffected features still work.
 4. Show the dashboard: `degraded_mode = 1`, dependency success dropping, the warning alert arriving.
-5. Follow the request: find the `request_id` in the logs and the Sentry event.
+5. Follow the request: find the `request_id` in the logs.
 6. Restore it: `docker compose start <dependency>`. Show automatic recovery and the banner disappearing.
 
 ### 8.5 Other scenarios to define
@@ -335,7 +329,7 @@ The Prometheus, Compose and log-rotation sketches are in [OBSERVABILITY-configs.
 
 ## 11. Resources and cost
 
-- **The monitoring containers run on the application host,** so they add no separate machine. Sentry and the uptime check use free plans. The cost of the two hosts is not set (P-07, EN01-U3).
+- **The monitoring containers run on the application host,** so they add no separate machine. The uptime check uses a free plan. The cost of the two hosts is not set (P-07, EN01-U3).
 - **Memory is unmeasured.** Prometheus, Grafana and cAdvisor compete with the services on the application host, and the full stack's memory is not measured (EN01-U3, spike item 8). Loki would add more. Check real usage with `docker stats` on the application host before choosing a machine size.
 - **Disk:** Prometheus retention is capped at 15 days and 2 GB in the config above. Alert on disk usage on both hosts.
 - **Database host disk:** the nightly dumps and Garage data live there, so alert on its disk usage too (see [DR](DR.md)).
@@ -345,8 +339,8 @@ The Prometheus, Compose and log-rotation sketches are in [OBSERVABILITY-configs.
 - **Bind Prometheus and Grafana to `127.0.0.1`** as in the Compose file, and reach them through Traefik with TLS and authentication, or through an SSH tunnel.
 - **Never open the exporter ports** (9100, 8080, 9115, 9090, the MySQL exporter's port) on either host's firewall. Only the private link between the hosts may reach the database host's exporter and Garage metrics.
 - **Set a real Grafana admin password** from a secret, not the default.
-- **No secrets or personal data** in logs, metrics, labels, dashboards or error reports. Configure Sentry to scrub request bodies and headers.
-- The Discord or Telegram webhook URL and the Sentry DSN are secrets. Keep them out of the repo.
+- **No secrets or personal data** in logs, metrics, labels, dashboards or error reports. Keep request bodies and headers out of the logs.
+- The chat channel webhook URL is a secret. Keep it out of the repo.
 
 ## 13. In the repo and in CI
 
@@ -372,10 +366,10 @@ docker-compose.observability.yml
 - [ ] Traefik creates and returns `X-Request-ID`; services log and forward it
 - [ ] `/healthz`, `/readyz` and `/status` implemented; liveness does not depend on external services
 - [ ] `/metrics` exposes request, dependency, `degraded_mode` and `app_info` metrics
-- [ ] Error reporting works (Sentry or log-based), with `request_id` attached
+- [ ] Error reporting works (log-based), with `request_id` attached
 - [ ] SLIs and SLO targets chosen and justified
 - [ ] "Operations overview" dashboard provisioned from the repo
-- [ ] Alerts configured and sent to Discord or Telegram (test each by breaking something)
+- [ ] Alerts configured and sent to the chat channel webhook (test each by breaking something)
 - [ ] At least one degraded-mode scenario implemented, with a user-visible message
 - [ ] Degraded-mode demo rehearsed
 - [ ] Audit events logged separately from normal logs
@@ -398,4 +392,3 @@ docker-compose.observability.yml
 - **Prometheus on the same host cannot report that the host is down.** The external uptime check covers this.
 - **Short retention** (15 days) and one disk: if the disk is lost, the history is lost.
 - **Without Loki,** logs are read with `docker logs` and `jq`, which is fine for a demo but doesn't scale.
-- **Sentry's free plan has limits** (quota and seats), so confirm them on the vendor's page before relying on it.
