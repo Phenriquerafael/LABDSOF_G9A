@@ -1,4 +1,4 @@
-# Epic, planning task and user story drafts
+# Epic, planning task and user story specifications
 
 **Status:** local issue specifications and allocation index, originally drafted in October 2026. The original 24 drafts have published issue mappings checked on 2026-10-29. PLAN-01 and the four reporting/tracking stories also map to existing issues, checked on 2026-11-01; this package now contains 29 draft/record files. GitHub owns live status, assignees and estimates. Functional roles do not override the task allocation below.
 
@@ -17,8 +17,8 @@ For implementation, use epic → user story → implementation subtask when need
 | [EP-00](epics/EP-00-discovery-and-planning.md) | [DISC-01](tasks/DISC-01-user-research.md) | Gather user evidence and document the problem |
 | [EP-00](epics/EP-00-discovery-and-planning.md) | [DISC-02](tasks/DISC-02-market-comparison.md) | Complete the market and competitor comparison |
 | [EP-00](epics/EP-00-discovery-and-planning.md) | [DISC-03](tasks/DISC-03-organisation-and-product-planning.md) | Agree organisation, product scope and priorities |
-| [EP-01](epics/EP-01-reporting-and-tracking.md) | [PLAN-01](tasks/PLAN-01-prepare-reporting-and-tracking-stories.md); [US-01](tasks/US-01-record-and-view-report.md), [US-02](tasks/US-02-triage-manually-and-track-states.md), [US-04](tasks/US-04-publish-shared-issue-and-confirm-impact.md), [US-10](tasks/US-10-notify-changes.md) | Story preparation; S2 reporting/triage/shared impact/notifications, S3 refinement |
-| [EP-02](epics/EP-02-assisted-triage.md) | [AI-01](tasks/AI-01-assess-ai-opportunity.md) | Assess the AI opportunity and define evaluation |
+| [EP-01](epics/EP-01-reporting-and-tracking.md) | [US-01/02/04/10](../05-product-backlog.md#4-stories-and-criteria), story drafts pending | Reporting, manual triage, shared impact and notifications; S2 implementation |
+| [EP-02](epics/EP-02-assisted-triage.md) | [AI-01](tasks/AI-01-assess-ai-opportunity.md), [PLAN-02](#ep-02-story-drafts-and-planning-allocation); [US-03](tasks/US-03-classify-with-ai.md), [US-05](tasks/US-05-review-duplicate-suggestions.md), [US-14](tasks/US-14-continue-triage-without-ai.md), [US-15](tasks/US-15-evaluate-ai-against-baseline.md) | AI design/preparation; classification, provider-free fallback, optional links and comparative evaluation |
 | [EP-03](epics/EP-03-intervention-and-closure.md) | [US-06–09/11–13](../05-product-backlog.md#4-stories-and-criteria), story drafts pending | Contractor selection through closure; S2 core, conditional extensions |
 | [EP-04](epics/EP-04-engineering-and-quality.md) | [EN-01](tasks/EN-01-technical-design.md) | Consolidate technical design, ADRs and security |
 
@@ -111,6 +111,15 @@ Initial estimates recorded on 2026-10-30: **26 SP** for US-01/02/04/10. These ar
 These stories preserve their existing local IDs and Must priorities; none is Ready or implemented. Use the [EP-01 technical-refinement register](ep01-technical-refinement.md) for open EN-01 decisions and closure evidence. It covers stack/boundaries, data/API contracts, identity/access, state/audit/concurrency, event/notification semantics and the verification environment. Close applicable entries before implementation readiness; do not invent a selected stack to complete a draft.
 
 S2 is the proposed initial delivery horizon, with S3 refinement/evaluation. Confirm the configured milestone during planning without assuming that narrative sprint names and remote milestone names are interchangeable. A drafting assignment to Sandro does not automatically assign all implementation to him. Keep the authored preparation record separate from independent review, actual PR/merge and implementation evidence.
+## EP-02 story drafts and planning allocation
+
+| Item | Estimate | Drafting owner | Independent review / implementation planning |
+|---|---|---|---|
+| [PLAN-02](#ep-02-story-drafts-and-planning-allocation) | Separate preparation task | Sandro Dias (user-assigned) | Another team member reviews preparation; estimate/review evidence recorded in planning/PR |
+| [US-03](tasks/US-03-classify-with-ai.md) | 8 SP | Sandro Dias under PLAN-02 | Estimate and blocking decisions reviewed before Ready; S2 initial delivery |
+| [US-14](tasks/US-14-continue-triage-without-ai.md) | 5 SP | Sandro Dias under PLAN-02 | Provider-free rules/manual continuity; S2, hardened in S3 |
+| [US-05](tasks/US-05-review-duplicate-suggestions.md) | 8 SP | Sandro Dias under PLAN-02 | Should; select/defer explicitly after evidence and capacity review |
+| [US-15](tasks/US-15-evaluate-ai-against-baseline.md) | 8 SP | Sandro Dias under PLAN-02 | Dataset/protocol preparation in S2; formal results in S3; EN-04 consumes the report |
 
 ## Sprint 1 deliverable coverage
 

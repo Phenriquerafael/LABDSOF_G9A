@@ -1,0 +1,15 @@
+flowchart TD
+  subgraph PR["Pull request to main"]
+    direction TB
+    p1[Build] --> p2[Lint + unit tests] --> p3[SAST + SCA + secrets] --> p4[Image build + container scan<br/>not pushed]
+  end
+  subgraph MN["Push to main"]
+    direction TB
+    m1[Build] --> m2[Tests + SAST + SCA] --> m3[Push sha-sha] --> m4[Scan + SBOM + sign] --> m5[Auto deploy to DEV] --> m6[DAST against DEV]
+  end
+  subgraph TG["Tag vX.Y.Z on main"]
+    direction TB
+    t1[Check tag is on main] --> t2[Check DAST passed] --> t3[Verify signature] --> t4[Retag sha-sha as X.Y.Z] --> t5[Approval] --> t6[Deploy to PROD]
+  end
+  PR -- "PR merged" --> MN
+  MN -- "git tag + push" --> TG

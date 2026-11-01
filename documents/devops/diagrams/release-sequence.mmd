@@ -1,0 +1,16 @@
+sequenceDiagram
+  actor M as Maintainer
+  participant R as GitHub repo
+  participant A as GitHub Actions
+  participant G as GHCR
+  participant P as Production
+  M->>R: git tag v1.4.0 (on main) + push
+  R->>A: Trigger on tag v*
+  A->>R: Check commit is reachable from main
+  A->>G: Find image sha-commit
+  A->>A: Check DAST passed for this commit
+  A->>G: Verify cosign signature + provenance
+  A->>G: Retag sha-commit as 1.4.0, 1.4, 1
+  A->>P: Deploy ghcr.io/org/app:1.4.0 (manual approval)
+  P->>G: Pull image
+  A->>R: Create GitHub Release with notes + SBOM
