@@ -4,17 +4,17 @@
 
 ## 1. Need and workflow
 
-**Hypothesis:** classifying free-text descriptions by category and urgency reduces triage effort (P3/P7). Validate with administrators before choosing a model. A chatbot is not proposed.
+**Hypothesis:** classifying free-text descriptions by category and urgency reduces triage effort (P3/P7). Assess this hypothesis using discovery evidence and controlled tasks; selecting a development model does not prove the benefit. A chatbot is not proposed.
 
 Persisted report → `TriageRequested` message → AI triage service ([ADR-008](adr/ADR-008-ai-triage-service.md), proposed) → `TriageSuggested` → result validation in the Issue service → visible suggestion → administrator confirms/corrects. `TriageRequested` is the only message that carries private report text, and that text reaches the provider; synthetic data only until the provider terms are confirmed (DEC-05, EN01-U5). Independent rules flag critical signals; an AI result never removes that alert or overwrites a more recent human decision.
 
 Minimum input: text and necessary non-identifying context. Proposed output: category, suggested urgency, short rationale and need for review. Values outside the vocabulary, missing fields or malformed responses trigger fallback. Model-reported confidence is not a calibrated probability.
 
-Provider, model, final vocabulary, prompt and budget: DEC-05/08. US-03 does not meet the DoR while these blocking decisions remain open.
+Development choice: Gemini Developer API, `gemini-3.5-flash-lite`, prompt `triage-v1`, schema `triage-output-v1` and rules `rules-v1`, with a 0 EUR budget and no paid upgrade. Labels, prompt, limits and examples are defined in the [development contract](07a-contract-examples.md#43-ai-rules-and-evaluation). Use a fake provider until Free-tier access is verified; this does not claim an accepted ADR or a working live integration.
 
 ## 2. Baseline and fallback
 
-- **Baseline:** simple rules over text + user-selected category; ambiguous cases go to review. Version the rules.
+- **Baseline:** simple versioned rules over report text; ambiguous cases go to review. Issue runs the rules independently of Flask/model availability.
 - **Fallback:** apply available rules and allow manual triage when AI fails, times out or returns invalid output.
 - **Combined system:** rules + AI + review. Measure separately from each component.
 - §5.6.2 requires a baseline **or** fallback; the proposal uses both to compare value and ensure continuity.
@@ -36,7 +36,7 @@ Contractor ranking uses rules. Duplicate detection is Should: compare filters/co
 
 ## 3. Proposed dataset and protocol
 
-Initial proposal: at least 60 classification cases covering normal classes and a separate adversarial set; final count to be agreed. These are **cases to create**, not collected data. If US-05 proceeds, prepare a separate set of positive/negative pairs with documented sizes and balance.
+Prepare at least 120 synthetic cases: 60 development and 60 held-out, with ten held-out per category and normal/adverse/critical cases. The 16 [seed cases](fixtures/development.json) are development inputs, not reviewed final labels or held-out evaluation evidence. The remaining cases are **work for US-15**, not results claimed here. This is a small balanced teaching evaluation; its size does not establish real-world representativeness. If US-05 proceeds, prepare a separate set of positive/negative pairs with documented sizes and balance.
 
 1. Define labels, annotation instructions and ambiguity criteria.
 2. Create synthetic data without real identities; identify author/tool and assumptions.
@@ -59,16 +59,16 @@ Initial proposal: at least 60 classification cases covering normal classes and a
 
 | Dimension | Measure | Proposed acceptance |
 |---|---|---|
-| Classification | Overall accuracy, per-class precision/recall/F1 and confusion matrix | Accuracy ≥ 85% as an initial target; insufficient on its own |
+| Classification | Overall accuracy, per-class precision/recall/F1 and confusion matrix | Accuracy ≥85%, macro-F1 ≥0.80, valid model schema ≥95%; initial engineering targets, insufficient on their own |
 | Critical cases | Recall, false negatives and false positives; separate critical set | No false negatives in the reviewed critical set before the demo; 100% on that set does not guarantee production detection |
 | Value | Active time/corrections against baseline | Apply the effort definition and target in the [vision](04-product-vision.md#5-metrics-and-success), after DEC-08 |
 | Duplicates (if applicable) | Precision and recall on pairs | ≥ 80% each as an initial target; review the cost of incorrect linking |
 | Latency | p50/p95, timeouts and queue | Apply NFR-03 timeout and continuity in the [requirements](requirements.md#non-functional-requirements--constraints) |
-| Cost | Tokens/calls, retries, cost per issue and run | Budget and cap to be defined before US-03 is Ready; do not rely on assumed free access |
+| Cost | Tokens/calls, retries, cost per issue and run | 0 EUR; verify Free-tier access, cap retries and fall back on quota errors; no automatic paid upgrade |
 | Resilience | AI disabled, error and invalid output | Reporting/viewing/manual triage continue |
 | Security | Injection and unauthorised access attempts | No consequential action authorised by the model in tests; backend enforces controls |
 
-Targets must be agreed before formal testing. Do not change thresholds after observing results without documenting the reason and repeating the appropriate evaluation.
+Use these initial thresholds to expose basic classification/format failures while giving equal weight to the six categories. Review them before formal testing, not after observing the held-out results. Do not change thresholds after observing results without documenting the reason and repeating the appropriate evaluation.
 
 ## 5. Controls and communication
 
@@ -78,7 +78,8 @@ Targets must be agreed before formal testing. Do not change thresholds after obs
 - Authorisation, expenses and bookings are controlled in code.
 - UI indicates “AI suggestion”, “rules/fallback” or “confirmed by administrator”.
 - Apply the [data, logs and providers](09-security-privacy.md#4-data-lifecycle-and-minimisation) policy; confirm the budget before use.
-- One provider initially, behind a provider adapter and the triage facade ([ADR-008](adr/ADR-008-ai-triage-service.md)); further adapters only if a need is demonstrated.
+- One provider initially; multiple adapters only if a need is demonstrated.
+- Use only synthetic text in the free Gemini project. Provider terms, quota and free access must be checked on the actual team account before enabling it; [pricing](https://ai.google.dev/gemini-api/docs/pricing) and [rate limits](https://ai.google.dev/gemini-api/docs/rate-limits) checked 2026-11-01. Free-tier content may be used to improve Google's products.
 
 ## 6. Results and limitations
 

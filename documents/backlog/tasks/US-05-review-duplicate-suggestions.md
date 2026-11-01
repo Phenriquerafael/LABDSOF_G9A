@@ -20,6 +20,7 @@ The initial estimate assumes simple rules. Optional embeddings need an agreed ap
 
 This story does not cover automatic merging, closing or reprioritising reports, matching across buildings or sending interventions.
 
+- Issue owns `GET /issues/{id}/duplicate-candidates` and `POST /issues/{id}/associations`. Confirm/undo includes the other issue ID, action, both issue versions and a reason; store one unordered pair. Test identical same-area reports within one building and the same text in another building; the latter must never be a candidate. No embeddings are included.
 ## Acceptance criteria
 
 - [ ] Show candidates only from the administrator's buildings and the agreed area/time range. Explain why each report was suggested.
@@ -41,7 +42,7 @@ References: RF-05, P2, J2 and NFR-01/02/04/10.
 
 ## Ready / Done
 
-Before starting, confirm that the feature is selected. Agree the matching method, input/output examples, filters, permissions, version checks and evaluation targets.
+The matching method, examples and access/version rules are defined. This remains optional: select it against need and capacity before sprint commitment. If selected, use US-15's pair evaluation targets (precision and recall at least 80%).
 
 - [ ] Ready: estimate recorded, blocking decisions resolved and [DoR](../../governance/definition-of-ready.md) reviewed by the team.
 - [ ] Done: acceptance criteria met, changes reviewed, PR and tests.

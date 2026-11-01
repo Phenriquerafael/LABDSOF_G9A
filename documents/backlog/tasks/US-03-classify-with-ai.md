@@ -18,7 +18,12 @@ Process saved reports asynchronously, validate the AI response and show the sugg
 
 Rules and fallback belong to US-14. The final evaluation belongs to [US-15](US-15-evaluate-ai-against-baseline.md).
 
-This story does not cover provider/model selection, duplicate detection, automatic diagnosis, contractor selection, expense approval or booking.
+This story does not cover changing the selected provider, duplicate detection, automatic diagnosis, contractor selection, expense approval or booking.
+
+Development details:
+
+- Use Gemini Developer API, model `gemini-3.5-flash-lite`, prompt `triage-v1` and schema `triage-output-v1` from the [AI contract](../../07a-contract-examples.md#43-ai-rules-and-evaluation). Return category, urgency, rationale (1–240 characters) and `needsReview`; other/missing fields are invalid.
+- Use `TriageRequested` / `TriageSuggested` over RabbitMQ. Limit each delivery to two provider attempts of 10 seconds; quota errors and invalid output go directly to US-14. Budget: 0 EUR, verified Free-tier project only, with no automatic paid switch.
 
 ## Acceptance criteria
 
@@ -42,7 +47,7 @@ References: RF-03, P3/P7, J2 and NFR-01/02/03/04/06/10. Assignment: 5.6 and 6.3.
 
 ## Ready / Done
 
-Before starting, agree the example inputs/expected outputs, provider/model, prompt version, allowed labels, response format, timeout, retry limits, budget and access.
+The model, prompt, schema, limits and examples are specified above. Development can start with the fake provider; enabling and demonstrating the live path requires a team API key with Free-tier access verified outside Git.
 
 - [ ] Ready: estimate recorded, blocking decisions resolved and [DoR](../../governance/definition-of-ready.md) reviewed by the team.
 - [ ] Done: acceptance criteria met, changes reviewed, PR and tests.

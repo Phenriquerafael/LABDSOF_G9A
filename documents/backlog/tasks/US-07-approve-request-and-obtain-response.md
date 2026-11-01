@@ -18,6 +18,11 @@ Approve a specific proposal version and let the assigned contractor accept, reje
 
 Booking belongs to [US-08](US-08-confirm-booking-and-handle-failures.md). Notification delivery belongs to US-10 in EP-01. This story does not cover payments, automatic approval or confirmation of a calendar booking.
 
+Development details:
+
+- Use Dispatch's [approval/response examples](../../07a-contract-examples.md#13-administrator-creates-and-approves-an-intervention-dispatch) with proposal version, `If-Match` and idempotency key. Approval moves `awaiting_approval` to `sent`; acceptance of the approved version moves to `scheduling_pending`.
+- Counterproposals create a new version. Administrator approval of contractor-authored terms records both parties' agreement. Rejection is terminal for that intervention; choose another contractor through a new draft. No automatic response deadline or contractor withdrawal is included. Silence never means acceptance.
+
 ## Acceptance criteria
 
 - [ ] Let only the building administrator approve the current proposal version. Save its contractor, work description, proposed window and terms, with the approver and timestamp.
@@ -39,7 +44,7 @@ References: RF-07, P6, PS-08, J2–J3 and NFR-01/02/04/06/09. Assignment: 6.3–
 
 ## Ready / Done
 
-Before starting, confirm DEC-10's version, counterproposal and cancellation rules. Agree request/response fields, service ownership, permissions, event contracts and retry limits with EN-01 using the [technical design](../../07-technical-design.md) and [contract examples](../../07a-contract-examples.md). Decide whether a response deadline is included; silence must never count as acceptance.
+Use the fields, states and cancellation rules in the [technical design](../../07-technical-design.md#32-intervention-states-owner-dispatch). RabbitMQ event retries follow the shared contract; notification delivery is independent of saving approval or a response.
 
 - [ ] Ready: estimate recorded, blocking decisions resolved and [DoR](../../governance/definition-of-ready.md) reviewed by the team.
 - [ ] Done: acceptance criteria met, changes reviewed, PR and tests.

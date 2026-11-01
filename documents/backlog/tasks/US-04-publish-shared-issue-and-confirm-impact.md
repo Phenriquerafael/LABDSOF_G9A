@@ -19,6 +19,11 @@ Let the administrator publish a reviewed summary for the building. Let residents
 
 This story does not cover sharing raw reports, AI summaries, duplicate merging, automatic urgency changes, contributor lists, leaderboards or notification delivery.
 
+Development details:
+
+- Use `POST /issues/{id}/publication` with a plain-text summary of 10–500 characters and `If-Match`. Only the administrator publishes; raw report text remains private.
+- `PUT/DELETE /issues/{id}/impact` changes only the caller's contribution; expose the count, not contributor identities. `PUT/DELETE /issues/{id}/subscription` controls the caller's separate subscription, off by default. Issue owns both.
+
 ## Acceptance criteria
 
 - [ ] Let the building administrator review and publish a shared summary. Only then can residents of that building view the summary and authorised status; raw report text remains private.
@@ -41,7 +46,7 @@ References: RF-04, P2/P5, J1–J2, assignment 5.5 and NFR-01/02/04/07/09 in the 
 
 ## Ready / Done
 
-Before starting, agree summary fields/limits, field visibility, membership checks, contribution/subscription storage, API responses, events/preferences and test cases with EN-01. Confirm DEC-04/07 and data ownership using the [technical design](../../07-technical-design.md) and [access matrix](../../09-security-privacy.md#2-proposed-access-matrix).
+Use the summary, permissions and repeat/concurrent-action scenarios in the [shared contract](../../07a-contract-examples.md#41-shared-fields-and-access). Create the synthetic data during implementation. US-10 consumes the resulting events; its delivery is not a prerequisite for this story's core flow.
 
 - [ ] Ready: estimate recorded, blocking decisions resolved and [DoR](../../governance/definition-of-ready.md) reviewed by the team.
 - [ ] Done: acceptance criteria met, changes reviewed, PR and tests.

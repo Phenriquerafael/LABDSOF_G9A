@@ -18,6 +18,11 @@ Integrate a realistic calendar simulator through an adapter. Handle booking crea
 
 A real provider belongs to [US-13](US-13-integrate-a-real-calendar.md). This story does not cover provider/account setup or a separate rescheduling feature.
 
+Development details:
+
+- Implement `CalendarPort` in Dispatch with create, query and cancel operations and the separate controllable simulator. Use the [calendar contract](../../07-technical-design.md#45-calendarsimulator-contract-outline): stable booking ID, UTC window, 5-second timeout and at most five attempts, waiting 5/10/20/40 seconds.
+- Reconcile on timeout, restart and before the booked window. Reuse the same key only where the adapter guarantees idempotency. Manual confirmation requires the window, source (`phone`, `email`, `in_person`) and reason; suspend automatic creation and keep uncertain cancellation visible.
+
 ## Acceptance criteria
 
 - [ ] Request a booking only after administrator approval and contractor acceptance of the same proposal version. Save the requested window and a stable booking/request identifier before calling the simulator.
@@ -40,7 +45,7 @@ References: RF-08, P6, PS-07, J2–J3 and NFR-01/02/04/06/09/11. Assignment: 6.5
 
 ## Ready / Done
 
-Before starting, agree the adapter and simulator contract, authentication, data ownership, states, time-zone handling, timeout/retry limits, idempotency, reconciliation triggers and test scenarios. Confirm DEC-06/10 and EN-01's [calendar contract](../../07-technical-design.md#45-calendarsimulator-contract-outline), including cancellation and manual-action races.
+The simulator contract, states and failure cases are specified. No Google account is required for this story. Use an isolated fake for unit tests and the controllable simulator for integration/recovery checks.
 
 - [ ] Ready: estimate recorded, blocking decisions resolved and [DoR](../../governance/definition-of-ready.md) reviewed by the team.
 - [ ] Done: acceptance criteria met, changes reviewed, PR and failure/recovery tests.

@@ -10,7 +10,7 @@
 
 §6.3 asks for at least one meaningful asynchronous workflow; classifying a report and enriching it with AI is one of the examples (E01). NFR-03 requires that reporting works with AI disabled, with a 10 s timeout per attempt, a visible fallback or pending state and manual correction ([requirements](../requirements.md#non-functional-requirements--constraints)). The [responsible AI assessment](../06-responsible-ai-assessment.md) defines the baseline (versioned rules), the fallback and the controls.
 
-AI-01 and DEC-05 own the provider, model, vocabulary, prompt, dataset and evaluation. This ADR decides only the **shape of the service**: how it runs, how it communicates, how a provider is plugged in, and what happens on failure. Nothing here claims a provider was chosen or any result measured.
+AI-01 and DEC-05 own the provider, model, vocabulary, prompt, dataset and evaluation. This ADR decides only the **shape of the service**: how it runs, how it communicates, how a provider is plugged in, and what happens on failure. No accepted provider decision or measured result is claimed. The story refinements use Gemini gemini-3.5-flash-lite, triage-v1, triage-output-v1 and a zero-EUR Free-tier budget as the working configuration; formal DEC-05/AI-01 review remains open.
 
 The 2026-10-15 proposal had a Bun triage worker that claimed jobs from Issue over internal HTTP endpoints; that design is replaced here. The AI service is stateless and owns no database. It communicates only through RabbitMQ ([ADR-003](ADR-003-asynchronous-messaging-rabbitmq.md)); there is no synchronous call between Issue and the AI service.
 
@@ -39,15 +39,17 @@ Why not use the Flask development server or one process for both: the Flask docu
 | Direction | Event | Payload |
 |---|---|---|
 | In | `TriageRequested` (routing key `issue.TriageRequested`, bound only to `ai-triage.requests`) | `issueId`, `issueVersion`, `buildingId`, `areaKind`, report text needed for classification |
-| Out | `TriageSuggested` | `issueId`, `issueVersion`, category, urgency, rationale, `origin` (`ai`, `rules` or `fallback`), `modelVersion`, `promptVersion`, `rulesVersion` |
+| Out | `TriageSuggested` | `issueId`, `issueVersion`, category, urgency, rationale, needsReview, origin (ai/rules/fallback), modelVersion, promptVersion, rulesVersion, schemaVersion; failureCode for fallback (annex §4.2) |
 
 **Structure** (instance of [ADR-009](ADR-009-service-internal-architecture.md)). A triage facade, `TriageService.classify(request)`, depends on two ports: `AiProvider` and `RulesBaseline`. Provider adapters (adapter pattern) implement `AiProvider`; Gemini Flash on the free tier is the **candidate** adapter (E63), and the actual provider and model remain DEC-05/AI-01 (Sandro). A disabled-AI configuration uses rules only. The composition root is `create_app()` and a matching consumer factory: plain Python wiring, no DI library.
 
+**Ownership.** Issue owns persisted criticalSignals, criticalRulesVersion=critical-alerts-v1 and criticalCheckStatus. Flask owns the category/urgency RulesBaseline, rulesVersion=rules-v1, used for provider-disabled/fallback results and baseline evaluation. Stopping Flask leaves reporting, manual triage and Issue's independent safeguards available; it does not pretend the classification baseline ran. A failed local critical detector leaves a durable report with a visible pending/manual check. Evaluate both rule systems separately. Provider failure is returned as TriageSuggested origin=fallback, not a new TriageFailed wire contract. Model/prompt versions are null when no provider was called.
+
 **Behaviour.**
 
-1. Run the rules baseline first so a critical signal is never lost; call the provider with a 10 s timeout per attempt, at most 2 attempts (design §4.6, to calibrate in the spike).
+1. Issue independently records critical-alerts-v1 signals when storing the report; this does not wait for the provider, broker or Flask. The Flask facade runs its separate rules-v1 classification baseline first; call the provider with a 10 s timeout per attempt, at most 2 attempts (design §4.6, to calibrate in the spike).
 2. Validate the provider output against the schema and the allowed vocabulary. Missing fields, out-of-vocabulary values or malformed output count as a failed attempt.
-3. After the attempts, publish the rules result with `origin = fallback`; with AI disabled, `origin = rules`. A successful answer has `origin = ai`. An AI result never removes a rules alert.
+3. On invalid output or quota exhaustion, fall back immediately; after the permitted transient-failure attempts, publish the rules result with `origin = fallback`; with AI disabled, `origin = rules`. A successful answer has `origin = ai`. An AI result never removes Issue's critical alert. The event carries a suggestion, not authority to change the persisted safeguard.
 4. Publish `TriageSuggested` with the versions of model, prompt and rules, persistent and `mandatory`; wait for a positive publisher confirm with no returned message (E84), then acknowledge `TriageRequested`. If the publish fails, is returned or is not confirmed, `TriageRequested` is not acknowledged (nack with requeue), so it is redelivered. The service keeps no state: a redelivered request is classified again and produces an equivalent message for the same `issueVersion`, and Issue applies it idempotently by `issueVersion`.
 5. If nothing arrives within 2 min, Issue shows “triage pending — classify manually”; manual triage is always possible ([design §4.6](../07-technical-design.md#46-retry-timeout-and-lease-values-proposal)).
 
@@ -61,7 +63,7 @@ Why not use the Flask development server or one process for both: the Flask docu
 - A second runtime (Python) adds an image, a lock file and a CI job; the team's Java premise does not cover it (EN01-U1).
 - The Python messaging module is a small counterpart of the Java starter ([ADR-003](ADR-003-asynchronous-messaging-rabbitmq.md)); it must follow the same CloudEvents mapping, `mandatory` publishing with confirms and returns, and the queues declared by the deployment.
 - Replacing the provider changes one adapter and its configuration, not the contract.
-- Open (EN01-U5): provider, model, tier and budget; the free-tier limits are not recorded in the register.
+- Working provider/model/tier/budget and prompt/schema content are in [annex §4.3](../07a-contract-examples.md#43-ai-rules-and-evaluation). Actual Free-tier access/quotas and formal decision review remain EN01-U5/DEC-05; no live access is claimed.
 
 ## Verification and review
 
@@ -70,6 +72,8 @@ Tests to write, none exists yet (spike item 7 covers a pika consumer in the Flas
 - AI provider stopped or unreachable → `TriageSuggested` with `origin = fallback` and the rules result.
 - Provider timeout (stub that sleeps beyond 10 s) → second attempt, then fallback.
 - Malformed or out-of-vocabulary provider output → fallback.
+- Flask service stopped → Issue still records critical safeguards, report/query/manual triage work, and no-result processing becomes pending after two minutes.
+- Issue critical detector fails → durable report, visible pending/manual check; no false claim of a completed safeguard.
 - AI disabled by configuration → `origin = rules`, reporting unaffected.
 - Duplicate `TriageRequested` → equivalent result; Issue applies once by `issueVersion`.
 - `TriageSuggested` returned, not confirmed, or the consumer killed before the confirm → `TriageRequested` not acknowledged and redelivered; no request lost.
@@ -77,7 +81,7 @@ Tests to write, none exists yet (spike item 7 covers a pika consumer in the Flas
 - Poison message (unsupported `schemaversion`) → DLQ without retry; no payload in logs.
 - Injection text from the [adversarial set](../06-responsible-ai-assessment.md#3-proposed-dataset-and-protocol) → no action outside the output schema.
 
-Review when AI-01 chooses a provider, after the evaluation, and if the 2-attempt/10 s values prove wrong in the spike.
+Review the working provider configuration in DEC-05/AI-01, after the evaluation, and if the 2-attempt/10 s values prove wrong in the spike.
 
 ## Record
 

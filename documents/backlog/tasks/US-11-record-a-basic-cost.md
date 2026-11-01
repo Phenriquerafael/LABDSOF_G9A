@@ -18,6 +18,11 @@ Record an optional basic cost, allow the assigned contractor to propose it, and 
 
 This story does not cover payments, invoices, financial approval, totals, charts or AI summaries. Selection is conditional; the core cycle works without it.
 
+Development details:
+
+- Dispatch stores an optional decimal-string amount, currency `EUR` and source (1–120 characters). Accept 0–999999.99 with two decimal places; missing is not zero. Use `PUT /interventions/{id}/cost` and `If-Match`.
+- The assigned contractor may propose; an administrator confirms or corrects with a 1–500-character reason. Keep an audit history and restrict visibility to those roles. Test missing values, `0.00`, `123.45` and invalid amounts; cost never gates closure.
+
 ## Acceptance criteria
 
 - [ ] Allow the cost to remain unknown. Distinguish an empty value from a confirmed zero; missing cost must not block completion, validation, closure or reopening.
@@ -38,7 +43,7 @@ References: RF-11, P1, J2–J3 and NFR-01/02/09. Assignment: 6.6–6.8.
 
 ## Ready / Done
 
-Before starting, select this extension explicitly and agree supported currencies, amount precision/limits, source fields, visibility, correction rules and data/API ownership with EN-01 and DEC-07/10.
+The currency, precision, fields and access rules are defined. This remains an optional S3 extension, selected during planning; the core flow must work without a cost record.
 
 - [ ] Ready: estimate recorded, blocking decisions resolved and [DoR](../../governance/definition-of-ready.md) reviewed by the team.
 - [ ] Done: acceptance criteria met, changes reviewed, PR and tests.

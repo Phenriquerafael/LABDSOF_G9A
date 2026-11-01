@@ -39,7 +39,7 @@ Avoid using the final test cases to tune the system, changing targets after seei
 
 ## Ready / Done
 
-For data preparation, agree the labels, example inputs/expected answers, annotation and split method, baseline and evaluation plan. Before the final run, also confirm model/prompt versions, targets, budget, access and the US-03/14 increment. Preparation does not require a working provider or completed US-03/14.
+Data preparation can start now with the labels, examples and split method above. Final execution requires the US-03/14 increment and verified Free-tier access; record the exact dataset/model/prompt versions used. Neither a completed evaluation nor provider access is required to begin preparing data.
 
 - [ ] Ready: estimate recorded, blocking decisions resolved and [DoR](../../governance/definition-of-ready.md) reviewed by the team.
 - [ ] Done: acceptance criteria met, report reviewed, PR and results.
