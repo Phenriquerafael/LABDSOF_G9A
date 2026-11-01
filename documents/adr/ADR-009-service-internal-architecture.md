@@ -36,6 +36,10 @@ The rule is only worth having if it is checked. Conventions without a failing bu
 | `adapters.out` | JPA repositories, outbox writer, SMTP/in-app channels, calendar HTTP client, AI provider client, S3 client | `application`, `domain` |
 | composition root | Wiring of ports to adapters; configuration | Everything |
 
+[![Figure 1 — Generic level-3 logical view of a back-end: Routing and DB Driver in the Framework and Driver layer, Controller and DB Repository in the Interface Adapters layer, Services in Application Business Rules, the DDD Domain Model in Enterprise Business Rules, and DTOs between Controller and Services](../diagrams/logical-views/l3-backend-logical-view.png)](../diagrams/logical-views/l3-backend-logical-view.png)
+
+*Figure 1 — Generic level-3 logical view of any back-end service (not specific to one BMC service).* The four bands map onto the layers above: Framework and Driver Layer (Routing, DB Driver) and Interface Adapters Layer (Controller, DB Repository) are `adapters.in` / `adapters.out`; Application Business Rules (Services) is `application`; Enterprise Business Rules (Domain Model, DDD) is `domain`. DTOs carry data between Controller and Services. Lollipops are provided interfaces and sockets are required ones; dependencies point inwards, as the dependency rule below states.
+
 **Dependency rule.** Dependencies point inwards only: `adapters` → `application` → `domain`. `domain` has no framework imports (no Spring, JPA or Jackson annotations, no Flask, no pika). `adapters.in` and `adapters.out` do not depend on each other. Adapters map between transport/persistence models and domain objects; JPA entities are adapter classes, not the domain aggregates.
 
 **Composition root per runtime.**
