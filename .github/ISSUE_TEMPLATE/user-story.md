@@ -41,7 +41,7 @@ If AI is involved: inputs/outputs, baseline/fallback and evaluation protocol.
 
 ## Ready / Done
 
-- [ ] Estimate recorded, blocking decisions resolved and DoR reviewed by the team; date/author:
+- [ ] Estimate recorded, blocking decisions resolved and DoR reviewed by the team.
 - [ ] DoD verified with links to PR, tests and demonstration:
 
 See documents/governance/definition-of-ready.md and definition-of-done.md. An estimate and resolved blocking dependencies are required before Ready. Select the sprint and check capacity during planning.

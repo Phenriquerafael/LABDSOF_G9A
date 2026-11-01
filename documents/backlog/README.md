@@ -162,7 +162,7 @@ DISC-03-05 covers the Sprint 1 investor review (§7.1.3), feedback and contribut
 
 ## Planning and dependencies
 
-- Start with working-practice/capacity confirmation, research preparation, competitor source verification and architecture alternatives. Assign separate estimates and reviewers before selecting work.
+- Start with working-practice/capacity confirmation, research preparation, competitor source verification and architecture alternatives. Record estimates before Ready; assign owners before starting and reviewers when opening the PR.
 - Participant collection depends on the safeguards in DISC-01-01, not the entire later security-design review.
 - Synthesis and comparison feed the vision; the agreed vision and architecture feed contracts, security and AI assessment.
 - Backlog refinement and stakeholder discussion can begin with proposals and continue as findings arrive. Completion dependencies describe evidence needed to finish, not a ban on early collaboration.
