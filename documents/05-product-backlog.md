@@ -21,7 +21,7 @@ Initial order: DISC/EN discovery and foundations → US-01/02 → US-03/04 → U
 | [EP-00](backlog/epics/EP-00-discovery-and-planning.md) | Justifiable discovery and planning | DISC-01–03 | §5.1–5.5, §5.7 |
 | [EP-01](backlog/epics/EP-01-reporting-and-tracking.md) | Residents report and track issues with appropriate visibility | US-01/02/04/10 | J1, P1/P5 |
 | [EP-02](backlog/epics/EP-02-assisted-triage.md) | Assisted triage and reviewed links | AI-01 (S1 assessment), PLAN-02 (preparation), US-03/05/14/15 | §5.6; J2, P2/P3/P7 |
-| [EP-03](backlog/epics/EP-03-intervention-and-closure.md) | Intervention from request to closure | US-06–09/11–13 | J2–J3, P6 |
+| [EP-03](backlog/epics/EP-03-intervention-and-closure.md) | Intervention from request to closure | PLAN-03 (preparation), US-06–09/11–13 | J2–J3, P6 |
 | [EP-04](backlog/epics/EP-04-engineering-and-quality.md) | Deliverable, secure, observable and evaluable system | EN-01–04 | §6–§8 |
 
 ## 3. Discovery and engineering
@@ -36,11 +36,33 @@ Detailed issue bodies and child tasks for [DISC-01](backlog/tasks/DISC-01-user-r
 | [PLAN-01](backlog/tasks/PLAN-01-prepare-reporting-and-tracking-stories.md) / Must candidate | Prepare detailed US-01/02/04/10 drafts under EP-01; preserve IDs/priorities, link dependencies and identify technical refinements. Sandro Dias owns preparation; independent review/PR evidence completes the task, not the stories | Existing scope/requirements; unresolved technical details tracked against EN-01 in the [refinement register](backlog/ep01-technical-refinement.md) | S1 drafting for S2/S3; no implementation commitment |
 | [AI-01](backlog/tasks/AI-01-assess-ai-opportunity.md) / Must | Review the AI opportunity: user-need evidence/limitations, workflow, representative/adverse examples, evaluation criteria and dataset plan, baseline/fallback, human control and cost assumptions; DEC-05/08 updated. Design assessment only; no executed evaluation required | DISC-01 synthesis, reviewed vision; supports US-03 | S1 |
 | [PLAN-02](backlog/README.md#ep-02-story-drafts-and-planning-allocation) / Must candidate | Prepare US-03/05/14/15 drafts, separate classification/fallback/evaluation, and record technical refinements; owner Sandro Dias. Drafting does not implement or validate AI | Existing scope/AI-01; confirm applicable EN-01/DEC-05/08 decisions listed in the stories before Ready | S1 drafting for S2/S3 |
+| PLAN-03 / Must candidate | Prepare US-06–09/11–13 drafts and record decisions needed before development; owner Sandro Dias. Core delivery is separate from conditional extensions | Existing EP-03 scope; confirm applicable EN-01/DEC-06/07/10 decisions listed in the stories before Ready | S1 drafting for S2/S3 |
 | EN-01 / Must | Consolidate design: context, components, model, API/events, data ownership, deployment and threats; ADRs record alternatives and actual decisions | DEC-04/07, vision | S1 |
 | EN-02 / Must for later implementation foundations; optional in S1 | Walking skeleton: client→backend→persistence→query after restart; automated build, initial test and containers with reproducible instructions; linked evidence. Not selected for Sprint 1 (DEC-11) | EN-01 | S2 planning candidate; no Sprint 1 commitment |
 | EN-03 / Must | Delivery/quality: independent components or accepted exception; CI/CD, authorisation/contract/journey tests, logs/health/metrics/correlation, queue/AI/calendar failures and backup/restore; evidence for applicable NFRs | EN-01/02; accompanies stories | S2, strengthened in S3 |
 | EN-04 / Must | Final evaluation: consumes the AI-specific US-15 report once, alongside usability, accessibility, security, performance, dashboard, architecture evolution, limitations, roadmap and contributions; reproducible results and environment | Operational increment, DEC-08 | S3 |
 
+### EP-03 contribution to Sprint 2
+
+Complete the intervention steps of [main journey J2](04-product-vision.md#j2--triage-and-coordinate-main-journey) and the contractor's J3, supporting the [assignment's end-to-end Sprint 2 objective](../LABDSOF-26-27-Assignment.md#72-sprint-2-build-and-operate-the-vertical-slice).
+
+| Story | Initial estimate | Horizon |
+|---|---|---|
+| US-06 — Select an eligible contractor | 5 SP | Required in S2 |
+| US-07 — Approve terms and obtain a contractor response | 8 SP | Required in S2 |
+| US-08 — Confirm booking and handle failures | 8 SP | Required in S2, using a realistic simulator |
+| US-09 — Complete, validate, close and reopen | 8 SP | Required in S2 |
+| US-11 — Record an optional basic cost | 3 SP | S3 if selected; may start in S2 if there is capacity |
+| US-12 — Refine ranking | 5 SP | S3 if selected |
+| US-13 — Add a real calendar provider | 8 SP | S3 if selected and provider access is available |
+
+The required cycle totals **29 SP**; the optional extensions add **16 SP**. These are initial story estimates, not a sprint capacity commitment. The [index](backlog/README.md#ep-03-story-drafts-and-planning-allocation) records their assumptions. Count shared reporting, identity, jobs, persistence and delivery foundations once.
+
+Implement US-06 → US-07 → US-08 → US-09 after the necessary US-01/02 reporting/manual-triage slice. Integrate response, booking and completion events with US-02/10 without making notification delivery a condition for saving business decisions. US-03/14 add the S2 AI/fallback path; EN-02/03 provide deployment, contracts, authentication/authorisation, tests, CI/CD and observability.
+
+The four core stories cover EP-03's part of S2; no additional intervention story is needed for the current scope. Keep the failure/reconciliation cases in US-08, human approval and validation, and closure without cost in the S2 increment. Advanced ranking and a real provider are optional, while the simulator must exercise realistic external failures.
+
+Before Ready, confirm the applicable EN-01/DEC-06/07/10 decisions: catalogue eligibility, proposal/state rules, service/data ownership, API/event contracts, adapter/authentication, idempotency, versions, reconciliation, timeout/retry limits and the test environment. An estimate does not resolve those decisions.
 ### EP-02 contribution to Sprint 2
 
 The [main journey J2](04-product-vision.md#j2--triage-and-coordinate-main-journey) needs a first working AI capability and non-AI continuity in S2, as required by [assignment 7.2](../LABDSOF-26-27-Assignment.md#72-sprint-2-build-and-operate-the-vertical-slice).
@@ -154,6 +176,8 @@ As an administrator, I want to identify reports of the same fault to coordinate 
 
 ### US-06 — Select a contractor · Must · EP-03
 
+**Detailed draft:** [US-06](backlog/tasks/US-06-select-a-contractor.md). **Initial estimate:** 5 SP.
+
 As an administrator, I want to select an eligible contractor to prepare the intervention.
 
 - The synthetic catalogue provides specialisation and coverage; filters eliminate incompatible candidates.
@@ -165,17 +189,21 @@ As an administrator, I want to select an eligible contractor to prepare the inte
 
 ### US-07 — Approve a request and obtain a response · Must · EP-03
 
+**Detailed draft:** [US-07](backlog/tasks/US-07-approve-request-and-obtain-response.md). **Initial estimate:** 8 SP.
+
 As an administrator, I want to authorise a request and know the contractor's response to coordinate the intervention.
 
 - Only the building administrator can approve; record the proposal, terms and version.
 - Repeated approval does not send two requests.
 - Only the assigned contractor can accept, decline or counterpropose; a counterproposal requires new approval.
 - Request approval does not show the booking as confirmed.
-- Changed terms invalidate approval of the previous version.
+- Changed terms invalidate approval of the previous version. Under the current DEC-10 proposal, approving contractor-authored terms also records their acceptance; confirm this rule before development.
 
 **Source:** RF-07; NFR-01/04. **Dependencies:** US-06, DEC-10. **Horizon:** S2.
 
 ### US-08 — Confirm calendar booking and handle failures · Must · EP-03
+
+**Detailed draft:** [US-08](backlog/tasks/US-08-confirm-booking-and-handle-failures.md). **Initial estimate:** 8 SP.
 
 As an administrator, I want to know whether the booking was actually recorded to avoid communicating a false date.
 
@@ -183,17 +211,19 @@ As an administrator, I want to know whether the booking was actually recorded to
 - A valid response stores the external reference and confirms; timeout/invalid data leaves an explicit pending state.
 - A retry/duplicate event does not create a second booking; uncertain external outcomes are reconciled.
 - Manual confirmation requires an administrator, date and reason/source; do not present it as synchronised.
-- Retrying after manual action does not create a duplicate booking.
+- Retrying after manual action does not create a duplicate booking. Cancellation and late responses are reconciled, and a missing external booking is shown as a discrepancy.
 
 **Source:** RF-08; NFR-04/11. **Dependencies:** US-07, DEC-06/10. **Horizon:** S2.
 
 ### US-09 — Complete, close and reopen · Must · EP-03
 
+**Detailed draft:** [US-09](backlog/tasks/US-09-complete-close-and-reopen.md). **Initial estimate:** 8 SP.
+
 As an administrator, I want to verify completion to close the issue with a history.
 
 - The assigned contractor reports completion; the issue becomes “awaiting validation”.
 - The administrator closes it or returns it for execution with a reason; they can also close it manually with justification.
-- Reopening records a reason and preserves history; invalid transitions are rejected.
+- Reopening records a reason and preserves history; invalid transitions are rejected. Under the current DEC-10 proposal, a resolved issue returns to triage with a new intervention, while cancelled issues cannot be reopened.
 - Unknown cost does not prevent closure; no financial conclusion is invented.
 
 **Source:** RF-09; NFR-01/09. **Dependencies:** US-02/07/08, DEC-10. **Horizon:** S2, refined in S3.
@@ -213,6 +243,8 @@ As a participant, I want to receive authorised updates to track the issue.
 
 ### US-11 — Record a basic cost · Should · EP-03
 
+**Detailed draft:** [US-11](backlog/tasks/US-11-record-a-basic-cost.md). **Initial estimate:** 3 SP. Select or defer explicitly based on evidence and capacity.
+
 As an administrator, I want to record known costs to maintain intervention history.
 
 - Non-negative amount, currency and source; the field may be empty.
@@ -220,9 +252,11 @@ As an administrator, I want to record known costs to maintain intervention histo
 - Residents do not receive costs/private data by default.
 - Does not include payments, aggregations or AI summaries.
 
-**Source:** RF-11; NFR-01/02. **Dependencies:** US-09, DEC-07/10. **Horizon:** S2/S3 if capacity allows.
+**Source:** RF-11; NFR-01/02. **Dependencies:** US-09, DEC-07/10. **Horizon:** S3 if selected; may start in S2 if there is capacity.
 
 ### US-12 — Refine ranking · Should · EP-03
+
+**Detailed draft:** [US-12](backlog/tasks/US-12-refine-ranking.md). **Initial estimate:** 5 SP. Select or defer explicitly based on evidence and capacity.
 
 As an administrator, I want to compare additional criteria to select among eligible contractors.
 
@@ -234,13 +268,43 @@ As an administrator, I want to compare additional criteria to select among eligi
 
 ### US-13 — Integrate a real calendar · Could · EP-03
 
+**Detailed draft:** [US-13](backlog/tasks/US-13-integrate-a-real-calendar.md). **Initial estimate:** 8 SP. Select or defer explicitly based on evidence and capacity.
+
 As an administrator, I want to synchronise with the calendar used in operations.
 
 - The adapter respects the contract and scenarios already demonstrated by the simulator.
 - Credentials stay outside Git; permissions and revocation are documented.
 - Test availability and failure without compromising reproducible evaluation.
 
-**Source:** RF-08. **Dependencies:** US-08, DEC-06, provider access. **Horizon:** if capacity allows.
+**Source:** RF-08. **Dependencies:** US-08, DEC-06, provider access. **Horizon:** S3 if selected and capacity allows.
+
+### US-14 — Continue triage without AI · Must · EP-02
+
+**Detailed draft:** [US-14](backlog/tasks/US-14-continue-triage-without-ai.md).
+
+As an administrator, I want independent rules and manual review when AI cannot provide a usable suggestion so that issues remain actionable.
+
+- Implement versioned deterministic rules and independent critical-signal alerts without a provider/account or successful AI call.
+- For disabled AI, timeout, provider/schema errors or exhausted budget/attempts, show degraded/manual status and preserve reporting/query/US-02 manual triage.
+- If rules/worker processing itself fails, keep saved reports/manual action available; do not pretend new rules were computed.
+- Replays do not duplicate alerts/effects; recovery or late AI cannot overwrite newer human decisions or remove alerts.
+- Integrate with shared job/idempotency infrastructure rather than reimplementing the same mechanisms twice.
+
+**Source:** RF-02/03; NFR-01/02/03/04/06; §5.6.2/§6.8. **Dependencies:** US-01/02 and applicable EN-01/rules contracts; no dependency on US-03 or provider selection. **Horizon:** S2, hardened in S3.
+
+### US-15 — Evaluate AI-assisted triage against the non-AI baseline · Must · EP-02
+
+**Detailed draft:** [US-15](backlog/tasks/US-15-evaluate-ai-against-baseline.md).
+
+As a product owner, I want reproducible comparison evidence so that AI usefulness, operating cost and limitations can be assessed.
+
+- Implement a versioned synthetic dataset/protocol, annotation/disagreement review and development/held-out separation without leakage.
+- Freeze quality/value/latency/cost criteria before formal evaluation; compare baseline, AI and combined workflow on documented inputs with failures retained in denominators.
+- Report per-class metrics, critical false positives/negatives, cost/calls, latency, adverse cases, limitations and reproducible versions.
+- Controlled-task value evidence follows the reviewed vision protocol; simulated interview times are not an empirical baseline.
+- Include duplicate-pair evaluation only if US-05 is selected. EN-04 consumes this AI-specific report/run once; broader system evaluation stays there.
+
+**Source:** RF-03, conditional RF-05; NFR-03/10; §5.6.1/§7.3.2. **Dependencies:** AI-01/DEC-05/08 for protocol; US-03/14 for comparative completion, not initial dataset preparation. **Horizon:** S2 preparation/initial run; S3 formal results.
 
 ### US-14 — Continue triage without AI · Must · EP-02
 
