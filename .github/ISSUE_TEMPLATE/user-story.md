@@ -14,8 +14,8 @@ assignees: ""
 - Official milestone: S1 / S2 / S3 — select after configuration.
 - Suggested labels: type:story, area:…, priority:…
 - Estimate (story points) / short reason:
-- Owner: agree during planning before Ready.
-- Reviewer: agree before Ready; request review when opening the PR.
+- Owner: assign during planning or before starting.
+- Reviewer: choose when opening the PR.
 - Blocking decisions/dependencies:
 
 ## Story

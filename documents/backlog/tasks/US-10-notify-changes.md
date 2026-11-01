@@ -41,7 +41,7 @@ References: RF-10, P5, J1–J3 and NFR-01/02/04/06/09 in the [requirements](../.
 
 ## Ready / Done
 
-Before starting, agree the channel, worker/transport ownership, event schemas/versions, recipients, required/optional updates, read-time permissions, state/event handoff, retry limits, deduplication and test environment. Confirm DEC-04/06/07 and EN-01 contracts with US-02/04 and the US-07/08/09 owners.
+The channel, ownership, recipient rules and [message contract](../../07a-contract-examples.md#42-service-contracts-and-messaging) are defined. Use synthetic events until each producer is available, then verify the connected journey. No email/SMS account is needed.
 
 - [ ] Ready: estimate recorded, blocking decisions resolved and [DoR](../../governance/definition-of-ready.md) reviewed by the team.
 - [ ] Done: acceptance criteria met, changes reviewed, PR and tests.

@@ -18,6 +18,11 @@ Let the assigned contractor report completion, let the administrator validate it
 
 Cost recording belongs to [US-11](US-11-record-a-basic-cost.md). This story does not cover payments, invoices or automatic closure.
 
+Development details:
+
+- Dispatch completion uses work summary (10–2,000 characters) and `performedAt` in UTC. Publish `CompletionReported`; Issue then permits validated closure only from `awaiting_validation`. All writes check the current version.
+- Issue closure uses kind `validated` or `manual`, with a reason for manual closure. Manual closure needs no completion report, including while booking is pending; cancel/reconcile the active intervention. Reopening `resolved` returns to `in_triage` with history and a reason; `cancelled` returns `409`.
+
 ## Acceptance criteria
 
 - [ ] Let the assigned contractor report completed work for a booked or in-progress intervention, with a work summary and completion time. An administrator may record completion on their behalf with a reason. Missing optional cost must not prevent submission.
@@ -40,7 +45,7 @@ References: RF-09, P1, J2–J3 and NFR-01/02/04/06/09/11. Assignment: 6.6–6.8.
 
 ## Ready / Done
 
-Before starting, confirm DEC-10's completion, rework, manual closure and reopening rules. Agree required fields, service/data ownership, version checks, cancellation and state/event contracts with EN-01 and US-02/10 using the [technical design](../../07-technical-design.md).
+Use the [state/event rules](../../07-technical-design.md#3-states-and-business-rules) and create synthetic closure/event cases during implementation before connecting Dispatch; the final check includes cancellation and real producer integration.
 
 - [ ] Ready: estimate recorded, blocking decisions resolved and [DoR](../../governance/definition-of-ready.md) reviewed by the team.
 - [ ] Done: acceptance criteria met, changes reviewed, PR and tests.

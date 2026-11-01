@@ -19,6 +19,11 @@ List issues from managed buildings, record manual triage and permitted state cha
 
 This story does not cover AI generation, shared publication, intervention approval/booking/closure or notification delivery.
 
+Development details:
+
+- Issue owns triage. Categories are `plumbing`, `electrical`, `lift`, `cleaning`, `structural`, `other`; urgency is `low`, `normal`, `high`, `critical`. `POST /issues/{id}/triage` requires category, urgency, reason (1–500 characters) and `If-Match`.
+- Use the [state table](../../07-technical-design.md#31-issue-states-owner-issue): manual triage moves `received`, `in_triage` or `triaged` to `triaged`. Stale changes return `409`. Intervention states are projections, never an unrestricted state-edit field; newer human decisions win over AI results.
+
 ## Acceptance criteria
 
 - [ ] Show administrators only issues from buildings they manage. Display an undecided category or urgency as pending rather than inventing a decision.
@@ -40,7 +45,7 @@ References: RF-02, P1/P3, J1–J2 and NFR-01/02/03/06/07/09 in the [requirements
 
 ## Ready / Done
 
-Before starting, agree allowed labels/transitions, required reasons, audit fields, public history, version conflicts, permissions, late AI handling and intervention status events. Confirm DEC-04/07/10, component/data ownership and the test environment with EN-01 using the [technical design](../../07-technical-design.md).
+Use the state table, [access rules](../../07a-contract-examples.md#41-shared-fields-and-access) and synthetic accounts created during implementation. Dispatch event examples can be used before US-07/08/09 are implemented; final integration checks use their actual producers.
 
 - [ ] Ready: estimate recorded, blocking decisions resolved and [DoR](../../governance/definition-of-ready.md) reviewed by the team.
 - [ ] Done: acceptance criteria met, changes reviewed, PR and tests.

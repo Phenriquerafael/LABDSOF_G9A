@@ -6,7 +6,7 @@
 - Priority: Could; select only if useful provider access and sprint capacity are available.
 - Estimate: 8 story points — one provider adapter, credentials/permissions, contract mapping and integration/failure tests.
 - Sprint: S3, if selected.
-- Dependencies: [US-08](US-08-confirm-booking-and-handle-failures.md), DEC-06 provider/access decision and an authorised test calendar.
+- Dependencies: [US-08](US-08-confirm-booking-and-handle-failures.md), Google Calendar adapter contract and an authorised test calendar.
 
 ## Story
 
@@ -14,9 +14,10 @@ As an **administrator**, I want to **use an operational calendar through the exi
 
 ## Scope
 
-Add one real provider behind US-08's calendar contract and verify its behaviour against the simulator. Use a dedicated test account/calendar and document configuration and recovery.
+Add Google Calendar behind US-08's calendar contract and verify its behaviour against the simulator. Use a dedicated test account/calendar and document configuration and recovery.
 
 This story does not cover account provisioning, multiple providers, two-way editing or a new rescheduling workflow. The simulator remains the initial and reproducible integration.
+
 
 ## Acceptance criteria
 
@@ -39,7 +40,7 @@ References: RF-08, P6, J2–J3 and NFR-01/02/04/06/09/11. Assignment: 6.5–6.8.
 
 ## Ready / Done
 
-Before starting, select the extension explicitly and confirm DEC-06, provider permissions/access, contract mapping, data handling, rate limits, timeout/retry settings, reconciliation and test cleanup. Agree how to disable the adapter without losing track of existing bookings.
+The provider and adapter contract are defined. Before live integration testing, supply an enabled Calendar API, service-account credentials and the shared test calendar ID outside Git. Adapter development can use the fake meanwhile; selection remains subject to S3 capacity.
 
 - [ ] Ready: estimate recorded, blocking decisions resolved and [DoR](../../governance/definition-of-ready.md) reviewed by the team.
 - [ ] Done: acceptance criteria met, changes reviewed, PR and contract/provider checks.

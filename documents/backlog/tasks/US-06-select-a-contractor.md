@@ -18,6 +18,11 @@ Use a small synthetic contractor catalogue, filter by specialisation and coverag
 
 Sending the request belongs to [US-07](US-07-approve-request-and-obtain-response.md). Price/distance ranking belongs to [US-12](US-12-refine-ranking.md). This story does not cover a marketplace, automatic selection or confirmed availability.
 
+Development details:
+
+- Dispatch owns the synthetic catalogue and `POST /interventions`. Eligible contractors are active, cover the issue's building and match its confirmed category; unknown eligibility is excluded. Order by display name, then ID. Price, distance and availability do not affect this initial order.
+- Save `issueId`, `contractorId`, `scopeExtract` (10–2,000 characters), a future UTC window and terms (1–1,000). Return `awaiting_approval`, version 1. Do not send anything or create a second active intervention for the issue; create the synthetic catalogue during S2 and use the draft request in the contract examples.
+
 ## Acceptance criteria
 
 - [ ] Show the catalogue to an administrator of the issue's building. Each contractor has an identifier, specialisation and coverage, with synthetic data identified as such.
@@ -39,7 +44,7 @@ References: RF-06, P1/P6, J2 and NFR-01/02/09. Assignment: 6.2–6.3.
 
 ## Ready / Done
 
-Before starting, agree the catalogue fields and fixtures, eligibility rules, initial ordering, draft ownership and save/version contract with EN-01. Confirm the relevant DEC-07/10 rules in the [technical design](../../07-technical-design.md).
+Use the [draft request and access examples](../../07a-contract-examples.md#13-administrator-creates-and-approves-an-intervention-dispatch); create catalogue test data during implementation. The Issue projection contract supplies authorisation and dispatchability; it can be exercised with synthetic events before the full journey is connected.
 
 - [ ] Ready: estimate recorded, blocking decisions resolved and [DoR](../../governance/definition-of-ready.md) reviewed by the team.
 - [ ] Done: acceptance criteria met, changes reviewed, PR and tests.

@@ -18,6 +18,8 @@ Provide versioned rules, independent critical alerts and a clear fallback status
 
 This story does not cover model calls/training, a second manual-triage implementation, notifications or the final evaluation in [US-15](US-15-evaluate-ai-against-baseline.md). The rules do not guarantee that every emergency will be detected.
 
+Development details:
+- AI disabled, quota error, invalid output or exhausted attempts shows fallback; rules failure shows pending/manual. Model results cannot clear flags or replace a human decision. Use the shared job/event IDs and retry policy rather than a second manual-triage flow.
 ## Acceptance criteria
 
 - [ ] With AI disabled or no provider configured, users can submit and view reports, and administrators can triage them without a model call.
@@ -40,7 +42,7 @@ References: RF-02/03, P3/P7, J1–J2 and NFR-01/02/03/04/06. Assignment: 5.6.2 a
 
 ## Ready / Done
 
-Before starting, agree the rule inputs/expected outputs, versions, critical alerts, manual/fallback states, permissions and retry limits.
+Rules, examples and failure behaviour are defined. No provider access is needed. Create synthetic cases during implementation and use US-02's contract; manual triage remains available even when the rule processor is down.
 
 - [ ] Ready: estimate recorded, blocking decisions resolved and [DoR](../../governance/definition-of-ready.md) reviewed by the team.
 - [ ] Done: acceptance criteria met, changes reviewed, PR and tests.

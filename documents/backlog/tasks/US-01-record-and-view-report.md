@@ -19,6 +19,11 @@ Submit a text report, select an authorised building/area, receive an ID and view
 
 This story does not cover AI, duplicate matching, photographs, shared publication, notification delivery or intervention actions.
 
+Development details:
+
+- Issue owns `POST /reports` and report/history queries. Require `buildingId`, `areaId` and trimmed text of 10–4,000 characters. A saved report returns `201`, report/issue IDs and `received`; no AI call is required.
+- During implementation, create synthetic resident and administrator accounts in two buildings for own-report, administrator and denied-access tests. Shared version, error and 24-hour idempotency rules are in the [contract examples](../../07a-contract-examples.md#41-shared-fields-and-access).
+
 ## Acceptance criteria
 
 - [ ] Save a valid report from a resident of the selected building and return its ID and “received” status without waiting for AI.
@@ -39,7 +44,7 @@ References: RF-01, P1/P5, J1 and NFR-01/02/03/04/05/07/09 in the [requirements](
 
 ## Ready / Done
 
-Before starting, agree the report fields/limits, building/area rules, API responses, storage ownership, idempotency scope/lifetime and conflict behaviour, identity/access rules and test environment. Confirm DEC-04/07 through EN-01 and the [technical design](../../07-technical-design.md).
+Use the fields, access rules and contract examples above; create synthetic test data during S2. EN-02/03 provide the shared application/identity setup; this story implements its report flow and tests.
 
 - [ ] Ready: estimate recorded, blocking decisions resolved and [DoR](../../governance/definition-of-ready.md) reviewed by the team.
 - [ ] Done: acceptance criteria met, changes reviewed, PR and tests.

@@ -18,6 +18,11 @@ Extend US-06's simple ordering with justified criteria such as price, distance o
 
 This story does not cover automatic assignment, AI ranking, collecting real personal addresses, a marketplace or guaranteed contractor availability. It remains a conditional extension.
 
+Development details:
+
+- Use synthetic EUR-per-visit price, distance in km and indicative availability updated within seven days. Rank only when at least two eligible contractors have complete comparable data. The [scoring formula](../../07a-contract-examples.md#44-notifications-and-optional-features) uses price 50%, distance 30%, availability 20%; ties use name then ID.
+- Show incomplete/stale candidates as unranked but selectable; use US-06 ordering when comparison is unsupported. Create comparison cases during implementation, including ties, conflicting criteria and unknown price; unknown values remain unranked. Availability is an indication, never acceptance or a booking.
+
 ## Acceptance criteria
 
 - [ ] Select criteria based on evidence of usefulness and available data. Document each source, unit, update time and limitation; identify synthetic fixtures clearly.
@@ -39,7 +44,7 @@ References: RF-06, P6, J2 and NFR-01/02. Assignment: 6.2–6.3; [optional-featur
 
 ## Ready / Done
 
-Before starting, select the extension explicitly and agree data sources/freshness, criteria, weights, units, missing-data handling, fallback and comparison cases. Confirm catalogue ownership and the ranking contract with EN-01.
+The formula, data fields, fallback and comparison cases are defined. Before selecting this optional extension, confirm there is evidence that the extra criteria help users; the synthetic example is not that evidence.
 
-- [ ] Ready: estimate recorded, blocking decisions resolved and [DoR](../../governance/definition-of-ready.md) reviewed by the team. Date/author:
+- [ ] Ready: estimate recorded, blocking decisions resolved and [DoR](../../governance/definition-of-ready.md) reviewed by the team.
 - [ ] Done: acceptance criteria met, changes reviewed, PR, tests and comparison results.
