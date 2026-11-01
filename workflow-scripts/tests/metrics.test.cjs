@@ -8,7 +8,7 @@ const html = fs.readFileSync(path.join(directory, 'burndown.html'), 'utf8');
 const model = html.match(/<script id="burndown-model">([\s\S]*?)<\/script>/)[1];
 const context = vm.createContext({});
 vm.runInContext(model, context);
-const build = (history, sprint = 'A', done = 'Done') => context.buildBurndown(history, sprint, done);
+const build = (history, sprint = 'A', done = 'Done', issueSprint = sprint) => context.buildBurndown(history, sprint, done, issueSprint);
 const issue = (id, status = 'Ready', sprint = 'A') => ({ id, status, sprint });
 const snapshot = (day, issues) => ({ date: day.includes('T') ? day + 'T12:00:00Z' : day + 'T12:00:00Z', issues });
 const row = (rows, date) => rows.find(row => row.date === date);
@@ -18,6 +18,18 @@ test('presets use confirmed dates, including the year boundary', () => {
   assert.deepEqual(JSON.parse(JSON.stringify(context.periodFor('B'))), {start:'2026-11-01',end:'2026-12-05'});
   const rows=build([snapshot('2026-12-06',[issue(1,'Ready','C')]),snapshot('2027-01-03',[issue(1,'Done','C')])],'C');
   assert.equal(rows.length,29);assert.equal(rows.at(-1).remaining,0);assert.equal(rows.at(-1).ideal,0);
+});
+test('selected sprint includes the latest collected snapshot after its scheduled end', () => {
+  const rows = build([snapshot('2026-10-31', [issue(1, 'Ready', 'A'), issue(2, 'Ready', 'A')]), snapshot('2026-11-01', [issue(1, 'Done', 'A')])]);
+  assert.equal(rows.at(-1).date, '2026-11-01');
+  assert.equal(rows.at(-1).remaining, 0);
+});
+test('full calendar can filter by one sprint', () => {
+  const rows = build([snapshot('2026-10-10', [issue(1, 'Ready', 'A'), issue(2, 'Ready', 'B')]), snapshot('2026-11-01', [issue(1, 'Done', 'A'), issue(2, 'Ready', 'B')])], 'all', 'Done', 'A');
+  assert.equal(rows.length, 86);
+  const latest = rows.find(row => row.date === '2026-11-01');
+  assert.equal(latest.remaining, 0);
+  assert.equal(latest.scope, 1);
 });
 test('sprint filtering accepts A and Sprint A, while all includes unassigned issues', () => {
   const history=[snapshot('2026-10-10',[issue(1),issue(2,'Done',' sprint a '),issue(3,'Ready','B'),issue(4,'Ready',null)])];
@@ -101,7 +113,7 @@ test('page loads local JSON, filters automatically and keeps tables/CSV without 
   assert.equal(get('issue-rows').children.length,3);assert.equal(get('export').disabled,false);assert.match(get('message').textContent,/Chart.js could not load/);
   assert.ok(get('done-status').children.some(option=>option.value==='Custom done'));
   get('sprint').value='A';get('sprint').listeners.change();
-  assert.equal(get('issue-rows').children.length,1);assert.equal(get('rows').children.length,22);
+  assert.equal(get('issue-rows').children.length,1);assert.equal(get('rows').children.length,86);
   get('history-file').files=[{text:async()=>'{invalid'}];await get('history-file').listeners.change();
   assert.equal(get('message').className,'error');assert.equal(get('export').disabled,true);assert.equal(get('issue-rows').children.length,0);
 });

@@ -35,7 +35,15 @@
   <p>See all collected issues or choose a sprint. Filters update the chart and issue list automatically.</p>
   <form id="settings">
     <div class="filters wide">
-      <label for="sprint">Sprint
+      <label for="calendar">Calendar range
+        <select id="calendar" aria-describedby="period">
+          <option value="full">Full calendar · 10 Oct 2026–3 Jan 2027</option>
+          <option value="A">Sprint A · 10–31 Oct 2026</option>
+          <option value="B">Sprint B · 1 Nov–5 Dec 2026</option>
+          <option value="C">Sprint C · 6 Dec 2026–3 Jan 2027</option>
+        </select>
+      </label>
+      <label for="sprint">Issue sprint filter
         <select id="sprint" aria-describedby="period">
           <option value="all">All sprints / all issues</option>
           <option value="A">Sprint A · 10–31 Oct 2026</option>
@@ -108,7 +116,7 @@ function sprintKey(value) {
 }
 
 function periodFor(sprint) {
-  if (sprint === 'all') return { start: SPRINTS.A.start, end: SPRINTS.C.end };
+  if (sprint === 'all' || sprint === 'full') return { start: SPRINTS.A.start, end: SPRINTS.C.end };
   if (!SPRINTS[sprint]) throw new Error('Choose a listed sprint.');
   return SPRINTS[sprint];
 }
@@ -133,17 +141,21 @@ function selectIssues(snapshot, sprint) {
   return snapshot.issues.filter(item => sprint === 'all' || sprintKey(item.sprint) === sprint);
 }
 
-function buildBurndown(history, sprint, doneStatus) {
+function buildBurndown(history, sprint, doneStatus, issueSprint = sprint) {
   validateHistory(history);
   const { start, end } = periodFor(sprint);
-  const first = Date.parse(start + 'T00:00:00Z'), last = Date.parse(end + 'T00:00:00Z');
+  const first = Date.parse(start + 'T00:00:00Z');
+  const periodLast = Date.parse(end + 'T00:00:00Z');
   const completed = doneStatus.trim().toLowerCase();
   if (!completed || ['no_status', 'unknown'].includes(completed)) throw new Error('Choose a valid completed status.');
   const latest = new Map();
+  let latestHistoryDay = periodLast;
   for (const snapshot of history) {
     const time = Date.parse(snapshot.date), day = new Date(time).toISOString().slice(0, 10);
     if (!latest.has(day) || time >= latest.get(day).time) latest.set(day, { time, snapshot });
+    latestHistoryDay = Math.max(latestHistoryDay, Date.parse(day + 'T00:00:00Z'));
   }
+  const last = Math.max(periodLast, latestHistoryDay);
   const rows = [];
   for (let time = first; time <= last; time += 86400000) {
     const date = new Date(time).toISOString().slice(0, 10);
@@ -151,11 +163,11 @@ function buildBurndown(history, sprint, doneStatus) {
     rows.push(row);
     const entry = latest.get(date);
     if (!entry) continue;
-    if (sprint !== 'all' && entry.snapshot.issues.some(item => item.sprint === undefined)) {
+    if (issueSprint !== 'all' && entry.snapshot.issues.some(item => item.sprint === undefined)) {
       row.quality = 'Sprint was not recorded for every issue in this snapshot';
       continue;
     }
-    const items = selectIssues(entry.snapshot, sprint);
+    const items = selectIssues(entry.snapshot, issueSprint);
     const seen = new Set();
     if (entry.snapshot.issues.some(item => { const duplicate = seen.has(item.id); seen.add(item.id); return duplicate; })) {
       row.quality = 'Duplicate issue IDs in snapshot';
@@ -170,7 +182,7 @@ function buildBurndown(history, sprint, doneStatus) {
     row.remaining = row.scope - row.done;
     const unassigned = entry.snapshot.issues.filter(item => item.sprint == null || !item.sprint.trim()).length;
     row.quality = 'Latest snapshot: ' + new Date(entry.time).toISOString();
-    if (unassigned && sprint !== 'all') row.quality += `; ${unassigned} unassigned issues excluded`;
+    if (unassigned && issueSprint !== 'all') row.quality += `; ${unassigned} unassigned issues excluded`;
   }
   const baseline = rows.findIndex(row => row.scope > 0);
   if (baseline >= 0) {
@@ -210,8 +222,12 @@ function clearResult() {
   byId('export').disabled = true;
 }
 function updatePeriod() {
-  const sprint = byId('sprint').value, { start, end } = periodFor(sprint);
-  byId('period').textContent = `${sprint === 'all' ? 'All sprints' : 'Sprint ' + sprint}: ${start} to ${end} (inclusive, UTC).`;
+  const sprint = byId('sprint').value;
+  const selectedCalendar = byId('calendar').value;
+  const calendar = ['full', 'A', 'B', 'C'].includes(selectedCalendar) ? selectedCalendar : 'full';
+  const { start, end } = periodFor(calendar === 'full' ? 'all' : calendar);
+  const filter = sprint === 'all' ? 'all issue sprints' : `Sprint ${sprint} issues`;
+  byId('period').textContent = `${calendar === 'full' ? 'Full calendar' : 'Sprint ' + calendar} with ${filter}: ${start} to ${end} (inclusive, UTC).`;
 }
 function appendRow(target, values) {
   const tr = document.createElement('tr');
@@ -245,11 +261,13 @@ function render() {
   if (!history) return;
   try {
     const sprint = byId('sprint').value;
-    rows = buildBurndown(history, sprint, byId('done-status').value);
-    const { end } = periodFor(sprint);
-    // The latest snapshot on/before the period end also shows planned future sprint items.
-    const latest = history.filter(snapshot => new Date(snapshot.date).toISOString().slice(0, 10) <= end)
-      .sort((a, b) => Date.parse(b.date) - Date.parse(a.date))[0];
+    const selectedCalendar = byId('calendar').value;
+    const calendar = ['full', 'A', 'B', 'C'].includes(selectedCalendar) ? selectedCalendar : 'full';
+    const period = calendar === 'full' ? 'all' : calendar;
+    rows = buildBurndown(history, period, byId('done-status').value, sprint);
+    const { end } = periodFor(period);
+    // The latest collected snapshot keeps the issue list aligned with the extended chart.
+    const latest = history.slice().sort((a, b) => Date.parse(b.date) - Date.parse(a.date))[0];
     const issues = latest ? selectIssues(latest, sprint).sort((a, b) => a.id - b.id) : [];
     byId('issue-caption').textContent = latest ? 'Assignments as of ' + new Date(latest.date).toISOString() : 'No snapshot before the period end';
     for (const issue of issues) {
@@ -265,6 +283,7 @@ function render() {
     let message = `${measured} measured days; ${rows.length - measured} days without complete data.`;
     if (baseline) message += ` Reference scope: ${baseline.scope} issues first observed on ${baseline.date}.`;
     else message += ' No non-empty scope recorded for this selection in the selected period.';
+    if (period !== 'all' && rows.at(-1)?.date > end) message += ` Latest collected snapshot extends beyond the sprint end through ${rows.at(-1).date}.`;
     if (sprint !== 'all' && unknown) message += ' Older snapshots have no sprint data. Run the updated collector after assigning Sprint values on the board.';
     if (sprint !== 'all' && !issues.length && !unknown) message += ' Assign board Sprint values such as A or Sprint A, B or Sprint B, C or Sprint C.';
     if (baseline && rows.every(row => row.ideal === null)) message += ' No ideal line: no working days remain after the first observation.';
@@ -283,7 +302,7 @@ function render() {
       options: {
         responsive: true, maintainAspectRatio: false,
         interaction: { mode: 'index', intersect: false },
-        plugins: { title: { display: true, text: sprint === 'all' ? 'All issues · UTC' : `Sprint ${sprint} · UTC` } },
+        plugins: { title: { display: true, text: `${calendar === 'full' ? 'Full calendar' : `Sprint ${calendar}`} · ${sprint === 'all' ? 'all issues' : `Sprint ${sprint} issues`} · UTC` } },
         scales: { y: { beginAtZero: true, ticks: { precision: 0 }, title: { display: true, text: 'Issues' } }, x: { title: { display: true, text: 'Date (UTC)' } } }
       }
     });
@@ -313,7 +332,7 @@ async function loadHistory() {
   } catch (error) { if (version === requestVersion) showMessage(error.message, true); }
 }
 byId('settings').addEventListener('submit', event => { event.preventDefault(); loadHistory(); });
-for (const id of ['sprint', 'done-status']) byId(id).addEventListener('change', render);
+for (const id of ['calendar', 'sprint', 'done-status']) byId(id).addEventListener('change', render);
 byId('history-file').addEventListener('change', loadHistory);
 byId('history-url').addEventListener('input', () => {
   if (byId('history-file').files.length) return;
