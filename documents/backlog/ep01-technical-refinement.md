@@ -50,7 +50,7 @@ Sandro Dias maintains drafting traceability. EN-01's allocated owner coordinates
 ## R06 — Test environment, delivery and measurable evidence
 
 - Applies to: all four stories.
-- Design work: [EN-01-03](tasks/EN-01-03-consolidate-architecture-views.md), [EN-01-04](tasks/EN-01-04-review-security-and-privacy.md); EN-02/03/04 in the [product backlog](../06-product-backlog.md#3-discovery-and-engineering); DEC-08.
+- Design work: [EN-01-03](tasks/EN-01-03-consolidate-architecture-views.md), [EN-01-04](tasks/EN-01-04-review-security-and-privacy.md); EN-02/03/04 in the [product backlog](../05-product-backlog.md#3-discovery-and-engineering); DEC-08.
 - Resolve: synthetic users/buildings/issues, API/contract/E2E environment, restart/AI-disabled/notification-failure scenarios, container/CI setup, sanitised observability evidence and agreed performance/accessibility scenarios. Framework/tool choices follow R01.
 - Closure evidence: linked verification plan and reproducible environment instructions, with numerical thresholds reviewed before measuring. Actual execution evidence belongs to story implementation, not this drafting task; final usability/performance evaluation remains EN-04.
 - Closure record: open; add actual plan/environment/reviewer/date references when resolved.

@@ -26,7 +26,7 @@ Mirrored for every agent harness: canonical `.agents/skills/labdsof-workflow/SKI
 | Decisions DEC-XX, feedback FB-XX, limitations LIM-XX | `documents/planning/decisions-and-feedback.md` |
 | Sprint phases/deliverables | `documents/planning/sprint-1-plan.md` |
 | Board, metrics collector, charts | `documents/planning/project-monitoring.md` |
-| Product backlog (epics, stories, MoSCoW) | `documents/06-product-backlog.md` |
+| Product backlog (epics, stories, MoSCoW) | `documents/05-product-backlog.md` |
 | Issue drafts + ownership + publishing steps | `documents/backlog/README.md` (+ `epics/`, `tasks/`) |
 | Issue/PR templates | `.github/ISSUE_TEMPLATE/{user-story,epic,task,bug}.md`, `.github/pull_request_template.md` |
 | Product docs 01–10, requirements, ADRs | `documents/*.md`, `documents/adr/` |

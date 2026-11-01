@@ -6,7 +6,7 @@
 - Horizon: Sprint 1 backlog preparation for implementation in Sprints 2/3;
 - Priority: Must candidate for backlog preparation; confirm during prioritisation.
 - Source: [Assignment](../../../LABDSOF-26-27-Assignment.md) §7.1.2 item 5; §5.5; §6.1, §6.3–§6.4, §6.6–§6.8.
-- Dependencies / related decision: use the existing epic, [product backlog](../../06-product-backlog.md) and [requirements](../../requirements.md); DEC-04, DEC-06, DEC-07 and DEC-10 in the [decision register](../../planning/decisions-and-feedback.md). Initial drafts can be prepared before architecture selection; technical completion and implementation readiness require the relevant EN-01 design decisions.
+- Dependencies / related decision: use the existing epic, [product backlog](../../05-product-backlog.md) and [requirements](../../requirements.md); DEC-04, DEC-06, DEC-07 and DEC-10 in the [decision register](../../planning/decisions-and-feedback.md). Initial drafts can be prepared before architecture selection; technical completion and implementation readiness require the relevant EN-01 design decisions.
 
 ## Objective and scope
 
@@ -26,7 +26,7 @@ This is a documentation task, not a spike. Estimate the drafting/review effort d
 - [ ] Cover administrator-published shared summaries, impact confirmation/withdrawal and notification content/recipients without exposing private report text or resident identities.
 - [ ] Specify that reporting and manual triage remain available without AI, and status queries remain available when notification delivery fails.
 - [ ] Identify story-level dependencies on EP-02/EP-03, including intervention events consumed by US-10, without requiring either whole epic to finish first.
-- [ ] Link the drafts from EP-01 and update `documents/backlog/README.md` and `documents/06-product-backlog.md` without creating duplicate work items.
+- [ ] Link the drafts from EP-01 and update `documents/backlog/README.md` and `documents/05-product-backlog.md` without creating duplicate work items.
 - [ ] Record technical-refinement follow-ups linked to EN-01: API/event contracts, data ownership, identity/authorisation integration, notification mechanism, persistence and test environment. Complete these after stack and architecture selection, before implementation readiness.
 - [ ] Link the reviewed PR and document the remaining refinements; do not mark child implementation work completed or Ready merely because its draft exists.
 
@@ -35,7 +35,7 @@ This is a documentation task, not a spike. Estimate the drafting/review effort d
 - Story drafts in `documents/backlog/tasks/` — preserve existing story IDs and add new IDs only where needed.
 - [EP-01 epic](../epics/EP-01-reporting-and-tracking.md) — link the future implementation stories directly to this epic, alongside PLAN-01, rather than making them children of this planning task.
 - [Backlog index](../README.md) — update story references and record Sandro Dias as the owner of PLAN-01.
-- [Product backlog](../../06-product-backlog.md) — keep scope, priorities and dependencies consistent.
+- [Product backlog](../../05-product-backlog.md) — keep scope, priorities and dependencies consistent.
 - Reviewed PR and technical-refinement follow-ups — provide actual references in the completion record.
 
 ## Verification

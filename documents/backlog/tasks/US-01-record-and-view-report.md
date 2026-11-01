@@ -6,7 +6,7 @@
 - Priority: Must.
 - Estimate: 5 story points — report form/API, persistence, building permissions, safe retries and tests.
 - Sprint: implement in S2 and refine/evaluate in S3.
-- Dependencies: [EN-01](EN-01-technical-design.md) for design and access rules, and EN-02 in the [product backlog](../../06-product-backlog.md#3-discovery-and-engineering) for implementation foundations. Count a shared report/query implementation once. AI is not a prerequisite.
+- Dependencies: [EN-01](EN-01-technical-design.md) for design and access rules, and EN-02 in the [product backlog](../../05-product-backlog.md#3-discovery-and-engineering) for implementation foundations. Count a shared report/query implementation once. AI is not a prerequisite.
 
 ## Story
 
