@@ -8,6 +8,14 @@ on:
         required: true
         type: boolean
         default: false
+      failure_type:
+        description: "Kind of failure to simulate (used only when simulate_failure is true)"
+        required: true
+        type: choice
+        options:
+          - generic
+          - missing-type-label
+        default: generic
 
 permissions:
   contents: read
@@ -17,14 +25,44 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
+      - name: Checkout
+        if: ${{ inputs.simulate_failure && inputs.failure_type == 'missing-type-label' }}
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Setup Node
+        if: ${{ inputs.simulate_failure && inputs.failure_type == 'missing-type-label' }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
       - name: Confirm workflow notification test
         run: echo "Testing GitHub workflow notifications"
 
       - name: Simulate workflow failure
-        if: ${{ inputs.simulate_failure }}
+        if: ${{ inputs.simulate_failure && inputs.failure_type == 'generic' }}
         run: |
           echo "::error::Intentional failure for GitHub notification testing"
           exit 1
+
+      # Runs the real chart-data validator on synthetic issues with no type label
+      # (no GitHub API access, no repository data read), so the notification
+      # carries the same "Issue type" error a genuine label failure would.
+      - name: Simulate missing type label failure
+        if: ${{ inputs.simulate_failure && inputs.failure_type == 'missing-type-label' }}
+        run: |
+          node -e "
+          const { validateLive } = require('./workflow-scripts/validate-chart-data.js');
+          const { annotation } = require('./workflow-scripts/check-sprints.js');
+          const issue = (id, labels) => ({ id, sprint: 'A', status: 'Ready', labels });
+          const live = { statusOptions: ['Ready'], activeNumbers: [1, 2, 3], missing: [],
+            liveIssues: [issue(1, ['Story']), issue(2, ['bug']), issue(3, ['Epic', 'Task'])] };
+          const errors = validateLive(live, new Date('2026-10-12T12:00:00Z'), null).filter(f => f.level === 'error');
+          for (const f of errors) console.log('::error::' + annotation('[SIMULATED] ' + f.check + ': ' + f.message + ' Issues: ' + f.ids.join(', ')));
+          if (!errors.length) { console.log('::error::Simulation did not produce the expected label errors.'); }
+          process.exit(1);
+          "
 
       - name: Confirm non-failure run
         if: ${{ !inputs.simulate_failure }}

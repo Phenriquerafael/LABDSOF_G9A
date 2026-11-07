@@ -107,7 +107,7 @@
       {
         "id": 12,
         "status": "Ready",
-        "sprint": "Sprint A",
+        "sprint": "Sprint B",
         "labels": [
           "security",
           "Sub-Task"
@@ -157,7 +157,7 @@
       {
         "id": 19,
         "status": "In progress",
-        "sprint": "Sprint A",
+        "sprint": "Sprint B",
         "labels": [
           "Sub-Task"
         ]
@@ -417,6 +417,18 @@
       "source": "Current GitHub labels of each issue (gh issue list, 2026-11-07) applied retroactively",
       "rule": "Same labels for every snapshot of Sprint B",
       "date": "2026-11-07"
+    },
+    "sprintBackfill": {
+      "kind": "sprint-carryover",
+      "issueIds": [
+        12,
+        19
+      ],
+      "recordedSprint": "Sprint A",
+      "appliedSprint": "Sprint B",
+      "source": "workflow-scripts/data/raw/2026-11-07T02-10-14.551Z-2303.json",
+      "date": "2026-11-07",
+      "note": "At the user's request, issues #12 and #19 (assigned to Sprint B on 7 November 2026) are counted in Sprint B for every earlier Sprint B day. Their recorded status is unchanged; the original Sprint A assignment is recorded here, not observed as Sprint B on these dates."
     }
   },
   {
@@ -527,7 +539,7 @@
       {
         "id": 12,
         "status": "In progress",
-        "sprint": "Sprint A",
+        "sprint": "Sprint B",
         "labels": [
           "security",
           "Sub-Task"
@@ -577,7 +589,7 @@
       {
         "id": 19,
         "status": "In progress",
-        "sprint": "Sprint A",
+        "sprint": "Sprint B",
         "labels": [
           "Sub-Task"
         ]
@@ -837,6 +849,18 @@
       "source": "Current GitHub labels of each issue (gh issue list, 2026-11-07) applied retroactively",
       "rule": "Same labels for every snapshot of Sprint B",
       "date": "2026-11-07"
+    },
+    "sprintBackfill": {
+      "kind": "sprint-carryover",
+      "issueIds": [
+        12,
+        19
+      ],
+      "recordedSprint": "Sprint A",
+      "appliedSprint": "Sprint B",
+      "source": "workflow-scripts/data/raw/2026-11-07T02-10-14.551Z-2303.json",
+      "date": "2026-11-07",
+      "note": "At the user's request, issues #12 and #19 (assigned to Sprint B on 7 November 2026) are counted in Sprint B for every earlier Sprint B day. Their recorded status is unchanged; the original Sprint A assignment is recorded here, not observed as Sprint B on these dates."
     }
   },
   {
@@ -947,7 +971,7 @@
       {
         "id": 12,
         "status": "In progress",
-        "sprint": "Sprint A",
+        "sprint": "Sprint B",
         "labels": [
           "security",
           "Sub-Task"
@@ -997,7 +1021,7 @@
       {
         "id": 19,
         "status": "In progress",
-        "sprint": "Sprint A",
+        "sprint": "Sprint B",
         "labels": [
           "Sub-Task"
         ]
@@ -1257,6 +1281,18 @@
       "source": "Current GitHub labels of each issue (gh issue list, 2026-11-07) applied retroactively",
       "rule": "Same labels for every snapshot of Sprint B",
       "date": "2026-11-07"
+    },
+    "sprintBackfill": {
+      "kind": "sprint-carryover",
+      "issueIds": [
+        12,
+        19
+      ],
+      "recordedSprint": "Sprint A",
+      "appliedSprint": "Sprint B",
+      "source": "workflow-scripts/data/raw/2026-11-07T02-10-14.551Z-2303.json",
+      "date": "2026-11-07",
+      "note": "At the user's request, issues #12 and #19 (assigned to Sprint B on 7 November 2026) are counted in Sprint B for every earlier Sprint B day. Their recorded status is unchanged; the original Sprint A assignment is recorded here, not observed as Sprint B on these dates."
     }
   },
   {
@@ -1367,7 +1403,7 @@
       {
         "id": 12,
         "status": "In progress",
-        "sprint": "Sprint A",
+        "sprint": "Sprint B",
         "labels": [
           "security",
           "Sub-Task"
@@ -1417,7 +1453,7 @@
       {
         "id": 19,
         "status": "In progress",
-        "sprint": "Sprint A",
+        "sprint": "Sprint B",
         "labels": [
           "Sub-Task"
         ]
@@ -1677,6 +1713,18 @@
       "source": "Current GitHub labels of each issue (gh issue list, 2026-11-07) applied retroactively",
       "rule": "Same labels for every snapshot of Sprint B",
       "date": "2026-11-07"
+    },
+    "sprintBackfill": {
+      "kind": "sprint-carryover",
+      "issueIds": [
+        12,
+        19
+      ],
+      "recordedSprint": "Sprint A",
+      "appliedSprint": "Sprint B",
+      "source": "workflow-scripts/data/raw/2026-11-07T02-10-14.551Z-2303.json",
+      "date": "2026-11-07",
+      "note": "At the user's request, issues #12 and #19 (assigned to Sprint B on 7 November 2026) are counted in Sprint B for every earlier Sprint B day. Their recorded status is unchanged; the original Sprint A assignment is recorded here, not observed as Sprint B on these dates."
     }
   },
   {
@@ -1787,7 +1835,7 @@
       {
         "id": 12,
         "status": "In progress",
-        "sprint": "Sprint A",
+        "sprint": "Sprint B",
         "labels": [
           "security",
           "Sub-Task"
@@ -1837,7 +1885,7 @@
       {
         "id": 19,
         "status": "In progress",
-        "sprint": "Sprint A",
+        "sprint": "Sprint B",
         "labels": [
           "Sub-Task"
         ]
@@ -2097,6 +2145,18 @@
       "source": "Current GitHub labels of each issue (gh issue list, 2026-11-07) applied retroactively",
       "rule": "Same labels for every snapshot of Sprint B",
       "date": "2026-11-07"
+    },
+    "sprintBackfill": {
+      "kind": "sprint-carryover",
+      "issueIds": [
+        12,
+        19
+      ],
+      "recordedSprint": "Sprint A",
+      "appliedSprint": "Sprint B",
+      "source": "workflow-scripts/data/raw/2026-11-07T02-10-14.551Z-2303.json",
+      "date": "2026-11-07",
+      "note": "At the user's request, issues #12 and #19 (assigned to Sprint B on 7 November 2026) are counted in Sprint B for every earlier Sprint B day. Their recorded status is unchanged; the original Sprint A assignment is recorded here, not observed as Sprint B on these dates."
     }
   },
   {
@@ -2207,7 +2267,7 @@
       {
         "id": 12,
         "status": "In progress",
-        "sprint": "Sprint A",
+        "sprint": "Sprint B",
         "labels": [
           "security",
           "Sub-Task"
@@ -2257,7 +2317,7 @@
       {
         "id": 19,
         "status": "In progress",
-        "sprint": "Sprint A",
+        "sprint": "Sprint B",
         "labels": [
           "Sub-Task"
         ]
@@ -2407,6 +2467,18 @@
       "source": "Current GitHub labels of each issue (gh issue list, 2026-11-07) applied retroactively",
       "rule": "Same labels for every snapshot of Sprint B",
       "date": "2026-11-07"
+    },
+    "sprintBackfill": {
+      "kind": "sprint-carryover",
+      "issueIds": [
+        12,
+        19
+      ],
+      "recordedSprint": "Sprint A",
+      "appliedSprint": "Sprint B",
+      "source": "workflow-scripts/data/raw/2026-11-07T02-10-14.551Z-2303.json",
+      "date": "2026-11-07",
+      "note": "At the user's request, issues #12 and #19 (assigned to Sprint B on 7 November 2026) are counted in Sprint B for every earlier Sprint B day. Their recorded status is unchanged; the original Sprint A assignment is recorded here, not observed as Sprint B on these dates."
     }
   },
   {
@@ -2517,7 +2589,7 @@
       {
         "id": 12,
         "status": "In progress",
-        "sprint": "Sprint A",
+        "sprint": "Sprint B",
         "labels": [
           "security",
           "Sub-Task"
@@ -2567,7 +2639,7 @@
       {
         "id": 19,
         "status": "In progress",
-        "sprint": "Sprint A",
+        "sprint": "Sprint B",
         "labels": [
           "Sub-Task"
         ]
@@ -2829,6 +2901,18 @@
       "source": "Current GitHub labels of each issue (gh issue list, 2026-11-07) applied retroactively",
       "rule": "Same labels for every snapshot of Sprint B",
       "date": "2026-11-07"
+    },
+    "sprintBackfill": {
+      "kind": "sprint-carryover",
+      "issueIds": [
+        12,
+        19
+      ],
+      "recordedSprint": "Sprint A",
+      "appliedSprint": "Sprint B",
+      "source": "workflow-scripts/data/raw/2026-11-07T02-10-14.551Z-2303.json",
+      "date": "2026-11-07",
+      "note": "At the user's request, issues #12 and #19 (assigned to Sprint B on 7 November 2026) are counted in Sprint B for every earlier Sprint B day. Their recorded status is unchanged; the original Sprint A assignment is recorded here, not observed as Sprint B on these dates."
     }
   },
   {
@@ -2939,7 +3023,7 @@
       {
         "id": 12,
         "status": "In progress",
-        "sprint": "Sprint A",
+        "sprint": "Sprint B",
         "labels": [
           "security",
           "Sub-Task"
@@ -2989,7 +3073,7 @@
       {
         "id": 19,
         "status": "In progress",
-        "sprint": "Sprint A",
+        "sprint": "Sprint B",
         "labels": [
           "Sub-Task"
         ]
@@ -3251,6 +3335,18 @@
       "source": "Current GitHub labels of each issue (gh issue list, 2026-11-07) applied retroactively",
       "rule": "Same labels for every snapshot of Sprint B",
       "date": "2026-11-07"
+    },
+    "sprintBackfill": {
+      "kind": "sprint-carryover",
+      "issueIds": [
+        12,
+        19
+      ],
+      "recordedSprint": "Sprint A",
+      "appliedSprint": "Sprint B",
+      "source": "workflow-scripts/data/raw/2026-11-07T02-10-14.551Z-2303.json",
+      "date": "2026-11-07",
+      "note": "At the user's request, issues #12 and #19 (assigned to Sprint B on 7 November 2026) are counted in Sprint B for every earlier Sprint B day. Their recorded status is unchanged; the original Sprint A assignment is recorded here, not observed as Sprint B on these dates."
     }
   },
   {
@@ -3361,7 +3457,7 @@
       {
         "id": 12,
         "status": "In progress",
-        "sprint": "Sprint A",
+        "sprint": "Sprint B",
         "labels": [
           "security",
           "Sub-Task"
@@ -3411,7 +3507,7 @@
       {
         "id": 19,
         "status": "In progress",
-        "sprint": "Sprint A",
+        "sprint": "Sprint B",
         "labels": [
           "Sub-Task"
         ]
@@ -3673,6 +3769,18 @@
       "source": "Current GitHub labels of each issue (gh issue list, 2026-11-07) applied retroactively",
       "rule": "Same labels for every snapshot of Sprint B",
       "date": "2026-11-07"
+    },
+    "sprintBackfill": {
+      "kind": "sprint-carryover",
+      "issueIds": [
+        12,
+        19
+      ],
+      "recordedSprint": "Sprint A",
+      "appliedSprint": "Sprint B",
+      "source": "workflow-scripts/data/raw/2026-11-07T02-10-14.551Z-2303.json",
+      "date": "2026-11-07",
+      "note": "At the user's request, issues #12 and #19 (assigned to Sprint B on 7 November 2026) are counted in Sprint B for every earlier Sprint B day. Their recorded status is unchanged; the original Sprint A assignment is recorded here, not observed as Sprint B on these dates."
     }
   },
   {
@@ -3783,7 +3891,7 @@
       {
         "id": 12,
         "status": "In progress",
-        "sprint": "Sprint A",
+        "sprint": "Sprint B",
         "labels": [
           "security",
           "Sub-Task"
@@ -3833,7 +3941,7 @@
       {
         "id": 19,
         "status": "In progress",
-        "sprint": "Sprint A",
+        "sprint": "Sprint B",
         "labels": [
           "Sub-Task"
         ]
@@ -4090,7 +4198,19 @@
           "Story"
         ]
       }
-    ]
+    ],
+    "sprintBackfill": {
+      "kind": "sprint-carryover",
+      "issueIds": [
+        12,
+        19
+      ],
+      "recordedSprint": "Sprint A",
+      "appliedSprint": "Sprint B",
+      "source": "workflow-scripts/data/raw/2026-11-07T02-10-14.551Z-2303.json",
+      "date": "2026-11-07",
+      "note": "At the user's request, issues #12 and #19 (assigned to Sprint B on 7 November 2026) are counted in Sprint B for every earlier Sprint B day. Their recorded status is unchanged; the original Sprint A assignment is recorded here, not observed as Sprint B on these dates."
+    }
   },
   {
     "date": "2026-11-07T02:10:14.551Z",

@@ -154,24 +154,27 @@ test('CFD filters issue sprint assignments independently of dates and preserves 
   get('sprint').value='all';ctx.render();
   assert.deepEqual(Array.from(charts.at(-1).data.datasets.find(d=>d.label==='Ready').data),[2,0,3,1]);
 });
-test('Sprint B reconstructed baseline shows 13 Backlog issues on November 1 and 2 with explicit provenance',()=>{
+test('Sprint B reconstructed baseline shows 13 Backlog planned issues plus 2 carried-over issues on November 1 and 2 with explicit provenance',()=>{
  const history=readHistory();
  const affected=history.filter(s=>/^2026-11-0[12]/.test(s.date));
  assert.equal(affected.length,5);
  for(const snapshot of affected){
   const issues=snapshot.issues.filter(i=>i.sprint==='Sprint B');
-  assert.equal(issues.length,13);assert.ok(issues.every(i=>i.status==='Backlog'));
+  assert.equal(issues.length,15);assert.deepEqual(snapshot.sprintBackfill.issueIds,[12,19]);
+  const planned=issues.filter(i=>![12,19].includes(i.id));assert.equal(planned.length,13);assert.ok(planned.every(i=>i.status==='Backlog'));
   assert.equal(new Set(snapshot.issues.map(i=>i.id)).size,snapshot.issues.length);
   assert.equal(snapshot.reconstruction.kind,'planned-scope');
  }
  const rows=build(history,'B');
  for(const date of ['2026-11-01','2026-11-02']){
-  const day=row(rows,date);assert.equal(day.scope,13);assert.equal(day.remaining,13);assert.equal(day.done,0);
-  assert.equal(day.reconstructed,true);assert.match(day.quality,/not observed/);
+  const day=row(rows,date);assert.equal(day.scope,15);assert.equal(day.remaining,15);assert.equal(day.done,0);
+  assert.equal(day.reconstructed,true);assert.match(day.quality,/not observed/);assert.match(day.quality,/sprint assignment backfilled/);
  }
  assert.match(row(rows,'2026-11-02').quality,/synthetic day/);
  const raw=JSON.parse(fs.readFileSync(path.join(directory,'data/raw/2026-11-01T21-47-09.987Z-2388.json'),'utf8'));
  assert.equal(raw.data.repository.projectsV2.nodes[0].items.nodes.filter(i=>i.sprint==='Sprint B').length,6);
+ const carried=history.filter(s=>s.date>='2026-11-01'&&s.date<'2026-11-07');
+ for(const s of carried)for(const id of [12,19])assert.equal(s.issues.find(i=>i.id===id).sprint,'Sprint B');
 });
 test('history is split into one file per sprint by UTC snapshot day, and files stay in their sprint',()=>{
  assert.equal(sprintForDate('2026-10-01T10:00:00Z'),'A');assert.equal(sprintForDate('2026-10-31T23:59:59Z'),'A');

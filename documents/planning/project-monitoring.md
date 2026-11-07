@@ -175,3 +175,7 @@ At the user?s explicit request, the four 1 November snapshots and a new syntheti
 Each affected snapshot has `reconstruction` metadata listing assumptions, issue IDs and source information. The 2 November timestamp `00:00:00.000Z` is a daily placeholder, not a collection time. Its non-Sprint-B values are carried forward from 1 November at 21:47:09.987 UTC. Original raw files are unchanged. Other dates are unchanged, including the real 3 November 00:39 snapshot that still contains six Sprint B issues; resulting scope changes must not be interpreted as completed work.
 
 Both charts flag reconstructed data. The burndown daily table and CSV distinguish reconstructed values through `data_quality`. These values may be used to discuss the planned baseline, but must not be presented as measurements recovered from 1?2 November.
+
+### Sprint B carry-over of #12 and #19 (7 November 2026)
+
+The 7 November 2026 collection (`data/raw/2026-11-07T02-10-14.551Z-2303.json`) moved #12 and #19 from Sprint A to Sprint B. At the user's request, every Sprint B snapshot before 7 November (1 to 6 November) now records them as `Sprint B`, so those days count 15 issues instead of 13 (6 instead of 8 on the real 3 November 00:39 snapshot). Their recorded status is unchanged, and the original Sprint A assignment is documented in a `sprintBackfill` object on each changed snapshot. Sprint A snapshots are unchanged. These are retroactive assignments, not observed ones; the burndown `data_quality` column says so.

@@ -21,7 +21,7 @@
 The [Test GitHub notifications workflow](.github/workflows/test-notifications.yml) can be started manually to verify failure notifications without changing the production workflows:
 
 1. Open **Actions → Test GitHub notifications → Run workflow**.
-2. Set **simulate_failure** to `true` and start the workflow.
+2. Set **simulate_failure** to `true`, choose **failure_type** (`generic`, or `missing-type-label` to reproduce the "Issue type" error raised when an issue lacks exactly one of the Epic, Story, Task or Sub-Task labels, using synthetic issues only) and start the workflow.
 3. Confirm that the run fails and that the expected GitHub notification is received.
 4. Run it again with **simulate_failure** set to `false` to confirm the successful path.
 

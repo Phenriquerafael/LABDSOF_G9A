@@ -233,6 +233,7 @@ function buildBurndown(history, sprint, doneStatus, issueSprint = sprint, type =
       row.quality = 'Reconstructed planning data (not observed): ' + row.date;
       if (entry.snapshot.reconstruction.syntheticSnapshot) row.quality += '; synthetic day; other sprint values carried forward';
     }
+    if (entry.snapshot.sprintBackfill) row.quality += '; sprint assignment backfilled for issues ' + entry.snapshot.sprintBackfill.issueIds.map(id => '#' + id).join(', ');
     if (unassigned && issueSprint !== 'all') row.quality += `; ${unassigned} unassigned issues excluded`;
   }
   const baseline = rows.findIndex(row => row.scope > 0);
