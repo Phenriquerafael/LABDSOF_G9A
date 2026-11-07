@@ -165,3 +165,12 @@ Plot completed items and total scope over time. This helps distinguish delivery 
 **Data source and implementation — native Insights or custom snapshots**
 
 GitHub Projects offers a native historical Burn up chart based on issue/PR states. Use it if those states match the team's completion policy. For the exact sprint-scope and board-Status definition above, calculate Done and total scope from the snapshot table and add a custom chart. Native Insights excludes archived/deleted items, so preserve review evidence before removing them. [GitHub documentation](https://docs.github.com/en/issues/planning-and-tracking-with-projects/viewing-insights-from-your-project/about-insights-for-projects)
+
+
+### Retrospective Sprint B planning baseline (5 November 2026)
+
+At the user?s explicit request, the four 1 November snapshots and a new synthetic 2 November entry in `history.json` represent 13 Sprint B issues as Backlog: #2, #3, #4, #5, #9, #10, #56, #58, #59, #60, #61, #65 and #66. The scope list comes from `data/raw/2026-11-03T22-58-16.925Z-2181.json`. The seven added issues were created in GitHub on 3 November; their presence on earlier dates represents retrospective planned scope, not observed issue existence.
+
+Each affected snapshot has `reconstruction` metadata listing assumptions, issue IDs and source information. The 2 November timestamp `00:00:00.000Z` is a daily placeholder, not a collection time. Its non-Sprint-B values are carried forward from 1 November at 21:47:09.987 UTC. Original raw files are unchanged. Other dates are unchanged, including the real 3 November 00:39 snapshot that still contains six Sprint B issues; resulting scope changes must not be interpreted as completed work.
+
+Both charts flag reconstructed data. The burndown daily table and CSV distinguish reconstructed values through `data_quality`. These values may be used to discuss the planned baseline, but must not be presented as measurements recovered from 1?2 November.

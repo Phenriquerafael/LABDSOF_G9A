@@ -182,6 +182,11 @@ function buildBurndown(history, sprint, doneStatus, issueSprint = sprint) {
     row.remaining = row.scope - row.done;
     const unassigned = entry.snapshot.issues.filter(item => item.sprint == null || !item.sprint.trim()).length;
     row.quality = 'Latest snapshot: ' + new Date(entry.time).toISOString();
+    if (entry.snapshot.reconstruction) {
+      row.reconstructed = true;
+      row.quality = 'Reconstructed planning data (not observed): ' + row.date;
+      if (entry.snapshot.reconstruction.syntheticSnapshot) row.quality += '; synthetic day; other sprint values carried forward';
+    }
     if (unassigned && issueSprint !== 'all') row.quality += `; ${unassigned} unassigned issues excluded`;
   }
   const baseline = rows.findIndex(row => row.scope > 0);
@@ -280,8 +285,10 @@ function render() {
     byId('export').disabled = false;
     const measured = rows.filter(row => row.remaining !== null).length;
     const baseline = rows.find(row => row.scope > 0);
-    let message = `${measured} measured days; ${rows.length - measured} days without complete data.`;
-    if (baseline) message += ` Reference scope: ${baseline.scope} issues first observed on ${baseline.date}.`;
+    const reconstructed = rows.filter(row => row.reconstructed).length;
+    let message = `${measured} days with values (${reconstructed} reconstructed); ${rows.length - measured} days without complete data.`;
+    if (reconstructed) message += " Reconstructed days represent user-confirmed planning assumptions, not actual collections; see Data quality below.";
+    if (baseline) message += ` Reference scope: ${baseline.scope} issues in the reference data on ${baseline.date}.`;
     else message += ' No non-empty scope recorded for this selection in the selected period.';
     if (period !== 'all' && rows.at(-1)?.date > end) message += ` Latest collected snapshot extends beyond the sprint end through ${rows.at(-1).date}.`;
     if (sprint !== 'all' && unknown) message += ' Older snapshots have no sprint data. Run the updated collector after assigning Sprint values on the board.';
@@ -296,7 +303,7 @@ function render() {
       type: 'line',
       data: { labels: rows.map(row => row.date), datasets: [
         { label: 'Remaining issues', data: rows.map(row => row.remaining), borderColor: '#1765ab', backgroundColor: '#1765ab', tension: 0, spanGaps: false, pointRadius: 4 },
-        { label: 'Ideal (first observed scope)', data: rows.map(row => row.ideal), borderColor: '#58646c', borderDash: [7, 5], pointRadius: 0, tension: 0 },
+        { label: 'Ideal (reference scope)', data: rows.map(row => row.ideal), borderColor: '#58646c', borderDash: [7, 5], pointRadius: 0, tension: 0 },
         { label: 'Recorded scope', data: rows.map(row => row.scope), borderColor: '#994800', borderDash: [2, 4], pointStyle: 'triangle', pointRadius: 4, tension: 0, spanGaps: false }
       ] },
       options: {

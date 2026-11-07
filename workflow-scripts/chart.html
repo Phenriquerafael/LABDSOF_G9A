@@ -157,6 +157,8 @@ function render() {
   const matched = history.reduce((total, snapshot) => total + (snapshot.issues?.length || 0), 0);
   message.textContent = `${history.length} snapshot(s) loaded. ${gaps} snapshot(s) lack sprint data.`;
   if (sprint !== "all" && !matched) message.textContent += " No matching issues recorded for this sprint.";
+  const reconstructed = history.filter(snapshot => snapshot.reconstruction).length;
+  if (reconstructed) message.textContent += ` Includes ${reconstructed} reconstructed planning snapshots (not observed collections); marked in the date labels.`;
   if (history.length === 1) message.textContent += ' With one snapshot, only points are shown; the flow develops as more snapshots are collected.';
   if (typeof Chart === 'undefined') {
     message.className = 'error';
@@ -179,7 +181,7 @@ function render() {
   chart = new Chart(document.getElementById('chart'), {
     type: 'line',
     data: {
-      labels: history.map(s => new Date(s.date).toISOString().replace('T', ' ').slice(0, 19) + ' UTC'),
+      labels: history.map(s => new Date(s.date).toISOString().replace('T', ' ').slice(0, 19) + ' UTC' + (s.reconstruction ? ' [reconstructed]' : '')),
       datasets
     },
     options: {
