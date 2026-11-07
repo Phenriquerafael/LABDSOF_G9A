@@ -30,5 +30,5 @@ Canonical copies live in `.agents/skills/` (open standard), mirrored byte-for-by
 
 - Branch from `main` (`docs/DISC-02-competitors`); commit as `<ID>: <imperative summary>`; follow `.github/pull_request_template.md`; squash-merge.
 - Documentation-only changes are verified by content, source, consistency and link review; do not claim code tests ran.
-- Commits named `update metrics` are automation; do not hand-edit `workflow-scripts/data/history.json`.
+- Commits named `update metrics` are automation; do not hand-edit `workflow-scripts/data/history-sprint-{a,b,c}.json`.
 - In T3 Code sessions, register any PR you open for the thread with the `link_pull_request` tool.

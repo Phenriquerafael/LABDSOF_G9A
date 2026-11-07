@@ -4,7 +4,7 @@ const fs=require('node:fs');
 const path=require('node:path');
 const {audit,validateHistory,validateLive,report,SPRINTS}=require('../validate-chart-data.js');
 const now=new Date('2026-10-25T19:00:00Z');
-const issue=(id,sprint='A',status='Ready')=>({id,sprint,status});
+const issue=(id,sprint='A',status='Ready',labels=['Task'])=>({id,sprint,status,labels});
 const snapshot=(date,issues=[issue(1)])=>({date,issues});
 const live=(issues=[issue(1)])=>({checked:issues.length,liveIssues:issues,missing:[],statusOptions:['Backlog','Ready','Done'],activeNumbers:issues.map(i=>i.id)});
 const errors=result=>result.findings.filter(f=>f.level==='error');
@@ -59,6 +59,7 @@ test('current sprint uses Lisbon calendar; current sprint completed is only a wa
  assert.ok(outside.some(f=>f.message.includes('outside')));
 });
 const {normalizeHistoryIdentity,migration}=require('../history-identity.js');
+const {readHistory,historyFiles}=require('../history-files.js');
 test('title mapping is unique and verified against all three raw sources',()=>{
  const raw=name=>JSON.parse(fs.readFileSync(path.join(__dirname,'../data/raw',name),'utf8'));
  const items=source=>raw(source).data.repository.projectsV2.nodes.find(p=>p.number===9).items.nodes;
@@ -90,14 +91,23 @@ test('fixing current assignments clears candidate errors without rewriting store
 });
 test('actual saved history produces one historical warning with corrected links, without changing source files',async()=>{
  const raw=JSON.parse(fs.readFileSync(path.join(__dirname,'../data/raw',migration.sources.new),'utf8'));
- const source=fs.readFileSync(path.join(__dirname,'../data/history.json'),'utf8');
- const historical=JSON.parse(source).filter(s=>s.date<=raw.date);
- const candidate=raw.data.repository.projectsV2.nodes.find(p=>p.number===9).items.nodes.map(i=>({id:i.content.number,sprint:i.sprint,status:i.fieldValues.nodes.find(f=>f.field?.name==='Status').name}));
+ const files=historyFiles().map(f=>f.file), source=files.map(f=>fs.readFileSync(f,'utf8'));
+ const historical=readHistory().filter(s=>s.date<=raw.date);
+ const candidate=raw.data.repository.projectsV2.nodes.find(p=>p.number===9).items.nodes.map(i=>({id:i.content.number,sprint:i.sprint,status:i.fieldValues.nodes.find(f=>f.field?.name==='Status').name,labels:['Task']}));
  const value={...live(candidate),candidateIssues:candidate,statusOptions:[...new Set(candidate.map(i=>i.status))]};
  const result=await audit({now:new Date(Date.parse(raw.date)+60000),historyText:JSON.stringify(historical),loadLive:async()=>value});
  assert.equal(errors(result).length,0);
  const gaps=result.findings.filter(f=>f.check==='Sprint history');assert.equal(gaps.length,1);assert.equal(gaps[0].details.length,11);
  const first=gaps[0].details[0];assert.deepEqual([...first.ids].sort((a,b)=>a-b),[9,10,11,30]);
  assert.ok(!result.findings.some(f=>f.check==='Scope'));
- assert.equal(fs.readFileSync(path.join(__dirname,'../data/history.json'),'utf8'),source);
+ assert.deepEqual(files.map(f=>fs.readFileSync(f,'utf8')),source);
+});
+test('live issues need exactly one type label; unrecorded historical labels are not reported',async()=>{
+ const findings=validateLive(live([issue(1,'A','Ready',['Story','frontend']),issue(2,'A','Ready',['bug']),issue(3,'A','Ready',['Epic','Task']),{id:4,sprint:'A',status:'Ready'},issue(5,'A','Ready',[' sub-task '])]),now,null);
+ assert.deepEqual(findings.filter(f=>f.check==='Issue type'&&f.level==='error').flatMap(f=>f.ids),[2,3,4]);
+ const value=live([issue(1)]);value.candidateIssues=[issue(1),issue(2,'A','Done',[])];
+ assert.ok(validateLive(value,now,null).some(f=>f.check==='Issue type'&&f.ids.includes(2)));
+ const legacy=await audit({now,history:[snapshot('2026-10-24T00:00:00Z',[{id:1,sprint:'A',status:'Ready'}]),snapshot('2026-10-25T00:00:00Z')],loadLive:async()=>live()});
+ assert.equal(legacy.findings.length,0);
+ assert.ok(errors(validateHistory([snapshot('2026-10-25T00:00:00Z',[issue(1,'A','Ready','Task')])],now)).some(f=>f.message.includes('labels')));
 });

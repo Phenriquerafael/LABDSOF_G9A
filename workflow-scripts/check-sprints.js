@@ -17,7 +17,7 @@ const projectQuery = `query($owner:String!, $number:Int!, $field:String!) {
 const issuesQuery = `query($owner:String!, $repository:String!, $after:String) {
   repository(owner:$owner, name:$repository) {
     issues(first:100, after:$after, states:OPEN) {
-      nodes { id number title }
+      nodes { id number title labels(first:100) { nodes { name } pageInfo { hasNextPage } } }
       pageInfo { hasNextPage endCursor }
     }
   }
@@ -26,7 +26,7 @@ const itemsQuery = `query($id:ID!, $field:String!, $after:String) {
   node(id:$id) { ... on ProjectV2 {
     items(first:100, after:$after) {
       nodes {
-        content { __typename ... on Issue { id number repository { nameWithOwner } } }
+        content { __typename ... on Issue { id number repository { nameWithOwner } labels(first:100) { nodes { name } pageInfo { hasNextPage } } } }
         status:fieldValueByName(name:"Status") {
           ... on ProjectV2ItemFieldSingleSelectValue { name }
         }
@@ -80,6 +80,13 @@ function sprintValue(value) {
   return text.trim() || null;
 }
 
+// Missing label data stays undefined so the validator reports it instead of assuming no labels.
+function labelNames(connection) {
+  if (!Array.isArray(connection?.nodes)) return undefined;
+  if (connection.pageInfo?.hasNextPage) throw new Error('An issue has more than 100 labels; check incomplete.');
+  return connection.nodes.map(label => label?.name?.trim()).filter(Boolean);
+}
+
 async function checkSprints({ token, fetchImpl = fetch } = {}) {
   if (!token) throw new Error('GITHUB_TOKEN not set. Configure the MY_PAT Actions secret.');
   const request = (query, variables) => graphql(query, variables, token, fetchImpl);
@@ -106,7 +113,7 @@ async function checkSprints({ token, fetchImpl = fetch } = {}) {
     if (item.content.repository?.nameWithOwner?.toLowerCase() === `${config.owner}/${config.repository}`.toLowerCase()) {
       if (!Number.isSafeInteger(item.content.number) || item.content.number <= 0) throw new Error("Invalid project issue number.");
       activeNumbers.push(item.content.number);
-      candidateIssues.push({ id: item.content.number, sprint: assignments.get(item.content.id), status: statuses.get(item.content.id) });
+      candidateIssues.push({ id: item.content.number, sprint: assignments.get(item.content.id), status: statuses.get(item.content.id), labels: labelNames(item.content.labels) });
     }
   }
   const missing = [], seen = new Set();
@@ -124,7 +131,7 @@ async function checkSprints({ token, fetchImpl = fetch } = {}) {
   }
   return {
     checked: issues.length, missing: missing.sort((a, b) => a.number - b.number),
-    liveIssues: issues.map(issue => ({ id: issue.number, sprint: assignments.get(issue.id) ?? null, status: statuses.get(issue.id) ?? null })),
+    liveIssues: issues.map(issue => ({ id: issue.number, sprint: assignments.get(issue.id) ?? null, status: statuses.get(issue.id) ?? null, labels: labelNames(issue.labels) })),
     activeNumbers,
     candidateIssues,
     statusOptions: project.statusField?.__typename === 'ProjectV2SingleSelectField' ? project.statusField.options?.map(option => option.name) : null,
@@ -167,4 +174,4 @@ async function main() {
   }
 }
 if (require.main === module) main();
-module.exports = { checkSprints, summary, sprintValue, annotation, escapeMarkdown };
+module.exports = { checkSprints, summary, sprintValue, labelNames, annotation, escapeMarkdown };

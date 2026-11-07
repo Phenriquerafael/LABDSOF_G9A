@@ -51,6 +51,15 @@
           <option value="C">Sprint C · 6 Dec 2026–3 Jan 2027</option>
         </select>
       </label>
+      <label for="issue-type">Issue type filter
+        <select id="issue-type" aria-describedby="type-help">
+          <option value="all">All types</option>
+          <option value="epic">Epic</option>
+          <option value="story-task">Story &amp; Task</option>
+          <option value="sub-task">Sub-Task</option>
+        </select>
+        <small id="type-help">Uses each snapshot's recorded issue labels. Older snapshots without labels show as gaps.</small>
+      </label>
       <label for="done-status">Completed status
         <select id="done-status" aria-describedby="status-help">
           <option>Done</option><option>Completed</option><option>Closed</option>
@@ -60,14 +69,14 @@
       </label>
     </div>
     <p id="period" class="wide"></p>
-    <label class="wide" for="history-file">Open a history.json file
-      <input id="history-file" type="file" accept=".json,application/json" aria-describedby="file-help">
-      <small id="file-help">Read locally in your browser; no upload. A selected file overrides the URL below.</small>
+    <label class="wide" for="history-file">Open history files
+      <input id="history-file" type="file" accept=".json,application/json" multiple aria-describedby="file-help">
+      <small id="file-help">Select one or more of history-sprint-a.json, -b.json and -c.json. Read locally in your browser; no upload. Selected files override the URLs below.</small>
     </label>
     <details class="wide" id="source-settings">
-      <summary>Data source URL</summary>
-      <label for="history-url">History URL<input id="history-url" value="./data/history.json"></label>
-      <p>The default loads automatically when this page is served through HTTP. Use a local file when opening the HTML directly.</p>
+      <summary>Data source URLs</summary>
+      <label for="history-url">History URLs (comma-separated)<input id="history-url" value="./data/history-sprint-a.json, ./data/history-sprint-b.json, ./data/history-sprint-c.json"></label>
+      <p>The defaults load automatically when this page is served through HTTP. Use local files when opening the HTML directly.</p>
     </details>
     <div class="actions wide">
       <button type="submit">Reload history</button>
@@ -86,7 +95,7 @@
     <p id="issue-summary">Load history to see the issues.</p>
     <div class="table-wrap" tabindex="0" role="region" aria-label="Collected issues">
       <table><caption id="issue-caption">Latest collected issues</caption>
-        <thead><tr><th scope="col">Issue</th><th scope="col">Status</th><th scope="col">Sprint</th></tr></thead>
+        <thead><tr><th scope="col">Issue</th><th scope="col">Status</th><th scope="col">Sprint</th><th scope="col">Type</th></tr></thead>
         <tbody id="issue-rows"></tbody>
       </table>
     </div>
@@ -115,6 +124,34 @@ function sprintKey(value) {
   return match ? match[1].toUpperCase() : label.toLowerCase();
 }
 
+const TYPE_LABELS = ['Epic', 'Story', 'Task', 'Sub-Task'];
+const TYPE_FILTERS = { all: null, epic: ['Epic'], 'story-task': ['Story', 'Task'], 'sub-task': ['Sub-Task'] };
+
+// Exactly one type label is expected; none or several give null (excluded from type filters).
+function issueType(labels) {
+  if (!Array.isArray(labels)) return null;
+  const types = new Set();
+  for (const label of labels) {
+    const type = TYPE_LABELS.find(name => name.toLowerCase() === String(label).trim().toLowerCase());
+    if (type) types.add(type);
+  }
+  return types.size === 1 ? [...types][0] : null;
+}
+
+function typeFilter(type) {
+  if (!(type in TYPE_FILTERS)) throw new Error('Choose a listed issue type.');
+  return TYPE_FILTERS[type];
+}
+
+function mergeHistories(histories) {
+  const merged = [];
+  for (const history of histories) {
+    if (!Array.isArray(history)) throw new Error('Each history file must contain an array of snapshots.');
+    merged.push(...history);
+  }
+  return merged.sort((a, b) => Date.parse(a?.date) - Date.parse(b?.date));
+}
+
 function periodFor(sprint) {
   if (sprint === 'all' || sprint === 'full') return { start: SPRINTS.A.start, end: SPRINTS.C.end };
   if (!SPRINTS[sprint]) throw new Error('Choose a listed sprint.');
@@ -132,17 +169,22 @@ function validateHistory(history) {
       if (item.sprint !== undefined && item.sprint !== null && typeof item.sprint !== 'string') {
         throw new Error('Issue sprint must be a string or null.');
       }
+      if (item.labels !== undefined && (!Array.isArray(item.labels) || item.labels.some(label => typeof label !== 'string'))) {
+        throw new Error('Issue labels must be an array of strings.');
+      }
     }
   }
   return history;
 }
 
-function selectIssues(snapshot, sprint) {
-  return snapshot.issues.filter(item => sprint === 'all' || sprintKey(item.sprint) === sprint);
+function selectIssues(snapshot, sprint, type = 'all') {
+  const types = typeFilter(type);
+  return snapshot.issues.filter(item => (sprint === 'all' || sprintKey(item.sprint) === sprint) && (!types || types.includes(issueType(item.labels))));
 }
 
-function buildBurndown(history, sprint, doneStatus, issueSprint = sprint) {
+function buildBurndown(history, sprint, doneStatus, issueSprint = sprint, type = 'all') {
   validateHistory(history);
+  typeFilter(type);
   const { start, end } = periodFor(sprint);
   const first = Date.parse(start + 'T00:00:00Z');
   const periodLast = Date.parse(end + 'T00:00:00Z');
@@ -167,7 +209,11 @@ function buildBurndown(history, sprint, doneStatus, issueSprint = sprint) {
       row.quality = 'Sprint was not recorded for every issue in this snapshot';
       continue;
     }
-    const items = selectIssues(entry.snapshot, issueSprint);
+    if (type !== 'all' && entry.snapshot.issues.some(item => item.labels === undefined)) {
+      row.quality = 'Labels were not recorded for every issue in this snapshot';
+      continue;
+    }
+    const items = selectIssues(entry.snapshot, issueSprint, type);
     const seen = new Set();
     if (entry.snapshot.issues.some(item => { const duplicate = seen.has(item.id); seen.add(item.id); return duplicate; })) {
       row.quality = 'Duplicate issue IDs in snapshot';
@@ -231,8 +277,12 @@ function updatePeriod() {
   const selectedCalendar = byId('calendar').value;
   const calendar = ['full', 'A', 'B', 'C'].includes(selectedCalendar) ? selectedCalendar : 'full';
   const { start, end } = periodFor(calendar === 'full' ? 'all' : calendar);
-  const filter = sprint === 'all' ? 'all issue sprints' : `Sprint ${sprint} issues`;
+  const type = byId('issue-type').value || 'all';
+  const filter = (sprint === 'all' ? 'all issue sprints' : `Sprint ${sprint} issues`) + (type === 'all' ? '' : ` (${typeName(type)})`);
   byId('period').textContent = `${calendar === 'full' ? 'Full calendar' : 'Sprint ' + calendar} with ${filter}: ${start} to ${end} (inclusive, UTC).`;
+}
+function typeName(type) {
+  return { all: 'all types', epic: 'Epic', 'story-task': 'Story & Task', 'sub-task': 'Sub-Task' }[type] || type;
 }
 function appendRow(target, values) {
   const tr = document.createElement('tr');
@@ -269,18 +319,22 @@ function render() {
     const selectedCalendar = byId('calendar').value;
     const calendar = ['full', 'A', 'B', 'C'].includes(selectedCalendar) ? selectedCalendar : 'full';
     const period = calendar === 'full' ? 'all' : calendar;
-    rows = buildBurndown(history, period, byId('done-status').value, sprint);
+    const type = byId('issue-type').value || 'all';
+    rows = buildBurndown(history, period, byId('done-status').value, sprint, type);
     const { end } = periodFor(period);
     // The latest collected snapshot keeps the issue list aligned with the extended chart.
     const latest = history.slice().sort((a, b) => Date.parse(b.date) - Date.parse(a.date))[0];
-    const issues = latest ? selectIssues(latest, sprint).sort((a, b) => a.id - b.id) : [];
+    const labelsMissing = latest?.issues.filter(item => item.labels === undefined).length || 0;
+    const issues = latest && !(type !== 'all' && labelsMissing) ? selectIssues(latest, sprint, type).sort((a, b) => a.id - b.id) : [];
     byId('issue-caption').textContent = latest ? 'Assignments as of ' + new Date(latest.date).toISOString() : 'No snapshot before the period end';
     for (const issue of issues) {
-      appendRow(byId('issue-rows'), ['#' + issue.id, issue.status || 'Unknown', issue.sprint === undefined ? 'Not recorded (older snapshot)' : issue.sprint || 'Unassigned']);
+      const recordedType = issue.labels === undefined ? 'Not recorded (older snapshot)' : issueType(issue.labels) || 'No single type label';
+      appendRow(byId('issue-rows'), ['#' + issue.id, issue.status || 'Unknown', issue.sprint === undefined ? 'Not recorded (older snapshot)' : issue.sprint || 'Unassigned', recordedType]);
     }
     const unassigned = latest?.issues.filter(item => item.sprint === null || item.sprint === '').length || 0;
     const unknown = latest?.issues.filter(item => item.sprint === undefined).length || 0;
-    byId('issue-summary').textContent = `${issues.length} issues shown. ${unassigned} unassigned; ${unknown} without recorded sprint in the source snapshot.`;
+    const untyped = latest?.issues.filter(item => item.labels !== undefined && !issueType(item.labels)).length || 0;
+    byId('issue-summary').textContent = `${issues.length} issues shown. ${unassigned} unassigned; ${unknown} without recorded sprint; ${labelsMissing} without recorded labels; ${untyped} without a single type label in the source snapshot.`;
     for (const row of rows) appendRow(byId('rows'), [row.date, row.scope ?? '—', row.done ?? '—', row.remaining ?? '—', row.ideal === null ? '—' : row.ideal.toFixed(2), row.quality]);
     byId('export').disabled = false;
     const measured = rows.filter(row => row.remaining !== null).length;
@@ -293,6 +347,7 @@ function render() {
     if (period !== 'all' && rows.at(-1)?.date > end) message += ` Latest collected snapshot extends beyond the sprint end through ${rows.at(-1).date}.`;
     if (sprint !== 'all' && unknown) message += ' Older snapshots have no sprint data. Run the updated collector after assigning Sprint values on the board.';
     if (sprint !== 'all' && !issues.length && !unknown) message += ' Assign board Sprint values such as A or Sprint A, B or Sprint B, C or Sprint C.';
+    if (type !== 'all' && rows.some(row => row.quality.startsWith('Labels were not recorded'))) message += ' Snapshots collected before labels were recorded appear as gaps for type filters.';
     if (baseline && rows.every(row => row.ideal === null)) message += ' No ideal line: no working days remain after the first observation.';
     showMessage(message);
     if (typeof Chart === 'undefined') {
@@ -309,7 +364,7 @@ function render() {
       options: {
         responsive: true, maintainAspectRatio: false,
         interaction: { mode: 'index', intersect: false },
-        plugins: { title: { display: true, text: `${calendar === 'full' ? 'Full calendar' : `Sprint ${calendar}`} · ${sprint === 'all' ? 'all issues' : `Sprint ${sprint} issues`} · UTC` } },
+        plugins: { title: { display: true, text: `${calendar === 'full' ? 'Full calendar' : `Sprint ${calendar}`} · ${sprint === 'all' ? 'all issues' : `Sprint ${sprint} issues`} · ${typeName(type)} · UTC` } },
         scales: { y: { beginAtZero: true, ticks: { precision: 0 }, title: { display: true, text: 'Issues' } }, x: { title: { display: true, text: 'Date (UTC)' } } }
       }
     });
@@ -321,25 +376,27 @@ async function loadHistory() {
   clearResult();
   showMessage('Loading snapshots…');
   try {
-    const file = byId('history-file').files[0];
-    let text;
-    if (file) text = await file.text();
+    const files = Array.from(byId('history-file').files || []);
+    let texts;
+    if (files.length) texts = await Promise.all(files.map(file => file.text()));
     else {
-      if (location.protocol === 'file:') throw new Error('Choose your workflow-scripts/data/history.json file above to get started.');
-      const url = byId('history-url').value.trim();
-      if (!url) throw new Error('Enter a history URL or choose a local file.');
-      const response = await fetch(url, { cache: 'no-store' });
-      if (!response.ok) throw new Error('History request failed: HTTP ' + response.status);
-      text = await response.text();
+      if (location.protocol === 'file:') throw new Error('Choose your workflow-scripts/data/history-sprint-*.json files above to get started.');
+      const urls = byId('history-url').value.split(',').map(url => url.trim()).filter(Boolean);
+      if (!urls.length) throw new Error('Enter history URLs or choose local files.');
+      texts = await Promise.all(urls.map(async url => {
+        const response = await fetch(url, { cache: 'no-store' });
+        if (!response.ok) throw new Error(`History request failed for ${url}: HTTP ${response.status}`);
+        return response.text();
+      }));
     }
     if (version !== requestVersion) return;
-    history = validateHistory(JSON.parse(text.replace(/^\uFEFF/, '')));
+    history = validateHistory(mergeHistories(texts.map(text => JSON.parse(text.replace(/^\uFEFF/, '')))));
     updateStatuses();
     render();
   } catch (error) { if (version === requestVersion) showMessage(error.message, true); }
 }
 byId('settings').addEventListener('submit', event => { event.preventDefault(); loadHistory(); });
-for (const id of ['calendar', 'sprint', 'done-status']) byId(id).addEventListener('change', render);
+for (const id of ['calendar', 'sprint', 'issue-type', 'done-status']) byId(id).addEventListener('change', render);
 byId('history-file').addEventListener('change', loadHistory);
 byId('history-url').addEventListener('input', () => {
   if (byId('history-file').files.length) return;
@@ -352,11 +409,11 @@ byId('clear-file').addEventListener('click', () => { byId('history-file').value 
 byId('export').addEventListener('click', () => {
   if (!rows.length) return;
   const quote = value => '"' + String(value ?? '').replaceAll('"', '""') + '"';
-  const csv = ['sprint,completed_status,date_utc,total_scope,done,remaining,ideal,data_quality', ...rows.map(row => [byId('sprint').value, byId('done-status').value, row.date, row.scope, row.done, row.remaining, row.ideal === null ? '' : row.ideal.toFixed(4), row.quality].map(quote).join(','))].join('\r\n');
+  const csv = ['sprint,issue_type,completed_status,date_utc,total_scope,done,remaining,ideal,data_quality', ...rows.map(row => [byId('sprint').value, byId('issue-type').value, byId('done-status').value, row.date, row.scope, row.done, row.remaining, row.ideal === null ? '' : row.ideal.toFixed(4), row.quality].map(quote).join(','))].join('\r\n');
   const url = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' }));
   const link = document.createElement('a');
   link.href = url;
-  link.download = `burndown-${byId('sprint').value}-${rows[0].date}-${rows.at(-1).date}.csv`;
+  link.download = `burndown-${byId('sprint').value}-${byId('issue-type').value}-${rows[0].date}-${rows.at(-1).date}.csv`;
   document.body.append(link); link.click(); link.remove();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 });

@@ -53,4 +53,10 @@ test('empty repositories pass with explicit zero-issue message; report escapes i
   const text=summary({checked:1,missing:[{number:1,title:'<b> | [link]\n::error::',url:'https://github.com/Phenriquerafael/LABDSOF_G9A/issues/1',reason:'Sprint is empty'}]});
   assert.ok(!text.includes('<b>'));assert.ok(text.includes('\\|'));assert.ok(!text.includes('\n::error::'));
   assert.equal(annotation('x\n%'), 'x%0A%25');
+});test('collects live labels for open and project issues; label overflow is incomplete',async()=>{
+  const labels=(...names)=>({nodes:names.map(name=>({name})),pageInfo:{hasNextPage:false}});
+  const result=await run({issues:[{...issue(1),labels:labels('Story','frontend')},issue(2)],items:[{content:{__typename:'Issue',id:'i1',number:1,repository:{nameWithOwner:'Phenriquerafael/LABDSOF_G9A'},labels:labels('Story','frontend')}},item(2,{name:'A'})]});
+  assert.deepEqual(result.liveIssues.map(i=>i.labels),[['Story','frontend'],undefined]);
+  assert.deepEqual(result.candidateIssues[0].labels,['Story','frontend']);
+  await assert.rejects(()=>run({issues:[{...issue(1),labels:{nodes:[],pageInfo:{hasNextPage:true}}}]}),/more than 100 labels/);
 });

@@ -15,7 +15,7 @@
 <body>
   <h2>Project Issues CFD (Stacked Area)</h2>
   <p>Load the collected history, or select a local JSON file when opening this page directly.</p>
-  <p><label>History JSON <input id="history-file" type="file" accept=".json,application/json"></label>
+  <p><label>History JSON files (history-sprint-a/b/c.json) <input id="history-file" type="file" accept=".json,application/json" multiple></label>
   <button id="reload" type="button">Reload collected history</button></p>
   <p><label for="sprint">Sprint (issue assignment)
     <select id="sprint" aria-describedby="sprint-help">
@@ -26,29 +26,49 @@
     </select>
   </label></p>
   <p id="sprint-help">Filters each snapshot using the issue's sprint attribute, not its date. A and Sprint A match (likewise B/C). Unassigned issues are included only in All sprints; missing sprint data leaves gaps.</p>
+  <p><label for="issue-type">Issue type (label)
+    <select id="issue-type" aria-describedby="type-help">
+      <option value="all">All types</option>
+      <option value="epic">Epic</option>
+      <option value="story-task">Story &amp; Task</option>
+      <option value="sub-task">Sub-Task</option>
+    </select>
+  </label></p>
+  <p id="type-help">Uses each snapshot's recorded labels (Epic, Story, Task, Sub-Task). Snapshots collected before labels were recorded leave gaps for a type filter.</p>
   <p id="message" role="status" aria-live="polite"></p>
   <p id="summary"></p>
   <div class="chart-container"><canvas id="chart" role="img" aria-label="Issue counts by status over time"></canvas></div>
 
 <script>
-const historyUrl = './data/history.json';
+const historyUrls = ['./data/history-sprint-a.json', './data/history-sprint-b.json', './data/history-sprint-c.json'];
+const TYPE_LABELS = ['Epic', 'Story', 'Task', 'Sub-Task'];
+const TYPE_FILTERS = { all: null, epic: ['Epic'], 'story-task': ['Story', 'Task'], 'sub-task': ['Sub-Task'] };
+const TYPE_NAMES = { all: 'All types', epic: 'Epic', 'story-task': 'Story & Task', 'sub-task': 'Sub-Task' };
 let chart = null;
 let loadVersion = 0;
 let loadedHistory = null;
 
-async function loadData(file) {
-  let history;
-  if (file) {
-    history = JSON.parse((await file.text()).replace(/^\uFEFF/, ''));
+async function loadData(files) {
+  const texts = [];
+  if (files && files.length) {
+    for (const file of files) texts.push(await file.text());
   } else {
     if (location.protocol === 'file:') {
-      throw new Error('Select workflow-scripts/data/history.json above, or open this page with a local HTTP server (for example VS Code Live Server). Direct file opening cannot reliably fetch the JSON.');
+      throw new Error('Select the workflow-scripts/data/history-sprint-*.json files above, or open this page with a local HTTP server (for example VS Code Live Server). Direct file opening cannot reliably fetch the JSON.');
     }
-    const response = await fetch(historyUrl, { cache: 'no-store' });
-    if (!response.ok) throw new Error(`Could not load ${historyUrl}: HTTP ${response.status}. Pull the latest workflow-generated data, or select history.json above.`);
-    history = JSON.parse((await response.text()).replace(/^\uFEFF/, ''));
+    for (const url of historyUrls) {
+      const response = await fetch(url, { cache: 'no-store' });
+      if (!response.ok) throw new Error(`Could not load ${url}: HTTP ${response.status}. Pull the latest workflow-generated data, or select the history files above.`);
+      texts.push(await response.text());
+    }
   }
-  if (!Array.isArray(history) || history.length === 0) throw new Error('History must contain at least one snapshot.');
+  const history = [];
+  for (const text of texts) {
+    const part = JSON.parse(text.replace(/^\uFEFF/, ''));
+    if (!Array.isArray(part)) throw new Error('Each history file must contain an array of snapshots.');
+    history.push(...part);
+  }
+  if (history.length === 0) throw new Error('History must contain at least one snapshot.');
   for (const snapshot of history) {
     if (!snapshot || typeof snapshot.date !== 'string' || !Number.isFinite(Date.parse(snapshot.date))) throw new Error('A snapshot has an invalid date.');
     if ('issues' in snapshot) {
@@ -75,6 +95,30 @@ function filterSprint(history, sprint) {
       return { date: snapshot.date, issues: [], sprintMissing: true };
     }
     return { ...snapshot, issues: snapshot.issues.filter(issue => sprintKey(issue.sprint) === sprint) };
+  });
+}
+
+// Exactly one type label is expected; none or several give null (excluded from type filters).
+function issueType(labels) {
+  if (!Array.isArray(labels)) return null;
+  const types = new Set();
+  for (const label of labels) {
+    const type = TYPE_LABELS.find(name => name.toLowerCase() === String(label).trim().toLowerCase());
+    if (type) types.add(type);
+  }
+  return types.size === 1 ? [...types][0] : null;
+}
+
+function filterType(history, type) {
+  if (!(type in TYPE_FILTERS)) throw new Error('Choose a listed issue type.');
+  const types = TYPE_FILTERS[type];
+  if (!types) return history;
+  return history.map(snapshot => {
+    if (snapshot.sprintMissing) return snapshot;
+    if (!Array.isArray(snapshot.issues) || snapshot.issues.some(issue => issue.labels === undefined)) {
+      return { date: snapshot.date, issues: [], labelsMissing: true, reconstruction: snapshot.reconstruction };
+    }
+    return { ...snapshot, issues: snapshot.issues.filter(issue => types.includes(issueType(issue.labels))) };
   });
 }
 
@@ -109,7 +153,7 @@ function getStatuses(history) {
 }
 
 function countByStatus(snapshot, status) {
-  if (snapshot.sprintMissing) return null;
+  if (snapshot.sprintMissing || snapshot.labelsMissing) return null;
   if (Array.isArray(snapshot.issues)) {
     return snapshot.issues.filter(issue => normalizeStatus(issue.status) === status).length;
   }
@@ -149,14 +193,18 @@ function render() {
   if (!loadedHistory) return;
   try {
   const sprint = document.getElementById('sprint').value;
-  const history = filterSprint(loadedHistory, sprint);
+  const type = document.getElementById('issue-type').value || 'all';
+  const history = filterType(filterSprint(loadedHistory, sprint), type);
   const statuses = getStatuses(loadedHistory);
   if (!statuses.length) throw new Error('Snapshots contain no issue counts to display.');
-  document.getElementById('summary').textContent = history.at(-1).sprintMissing ? 'Latest snapshot has no reliable sprint data.' : 'Latest snapshot: ' + new Date(history.at(-1).date).toISOString() + ' — ' + statuses.map(status => `${status}: ${countByStatus(history.at(-1), status)}`).join(' · ');
+  const last = history.at(-1);
+  document.getElementById('summary').textContent = last.sprintMissing ? 'Latest snapshot has no reliable sprint data.' : last.labelsMissing ? 'Latest snapshot has no recorded labels.' : 'Latest snapshot: ' + new Date(last.date).toISOString() + ' — ' + statuses.map(status => `${status}: ${countByStatus(last, status)}`).join(' · ');
   const gaps = history.filter(snapshot => snapshot.sprintMissing).length;
+  const labelGaps = history.filter(snapshot => snapshot.labelsMissing).length;
   const matched = history.reduce((total, snapshot) => total + (snapshot.issues?.length || 0), 0);
   message.textContent = `${history.length} snapshot(s) loaded. ${gaps} snapshot(s) lack sprint data.`;
-  if (sprint !== "all" && !matched) message.textContent += " No matching issues recorded for this sprint.";
+  if (type !== 'all') message.textContent += ` ${labelGaps} snapshot(s) lack label data.`;
+  if ((sprint !== "all" || type !== 'all') && !matched) message.textContent += " No matching issues recorded for this selection.";
   const reconstructed = history.filter(snapshot => snapshot.reconstruction).length;
   if (reconstructed) message.textContent += ` Includes ${reconstructed} reconstructed planning snapshots (not observed collections); marked in the date labels.`;
   if (history.length === 1) message.textContent += ' With one snapshot, only points are shown; the flow develops as more snapshots are collected.';
@@ -188,7 +236,7 @@ function render() {
       responsive: true,
       maintainAspectRatio: false,
       plugins: {
-        title: { display: true, text: sprint === 'all' ? 'Project Issues CFD ? All issues' : `Project Issues CFD ? Sprint ${sprint}` },
+        title: { display: true, text: `Project Issues CFD - ${sprint === 'all' ? 'All issues' : `Sprint ${sprint}`} - ${TYPE_NAMES[type]}` },
         tooltip: { mode: 'index', intersect: false }
       },
       interaction: {
@@ -226,10 +274,11 @@ async function main(file) {
 }
 
 document.getElementById('sprint').addEventListener('change', render);
+document.getElementById('issue-type').addEventListener('change', render);
 
 document.getElementById('history-file').addEventListener('change', event => {
-  const file = event.target.files[0];
-  if (file) main(file);
+  const files = Array.from(event.target.files || []);
+  if (files.length) main(files);
 });
 document.getElementById('reload').addEventListener('click', () => {
   document.getElementById('history-file').value = '';

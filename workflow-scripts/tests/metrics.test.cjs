@@ -8,7 +8,8 @@ const html = fs.readFileSync(path.join(directory, 'burndown.html'), 'utf8');
 const model = html.match(/<script id="burndown-model">([\s\S]*?)<\/script>/)[1];
 const context = vm.createContext({});
 vm.runInContext(model, context);
-const build = (history, sprint = 'A', done = 'Done', issueSprint = sprint) => context.buildBurndown(history, sprint, done, issueSprint);
+const build = (history, sprint = 'A', done = 'Done', issueSprint = sprint, type = 'all') => context.buildBurndown(history, sprint, done, issueSprint, type);
+const { readHistory, historyFiles, appendSnapshot, sprintForDate, issueType, SPRINTS } = require('../history-files.js');
 const issue = (id, status = 'Ready', sprint = 'A') => ({ id, status, sprint });
 const snapshot = (day, issues) => ({ date: day.includes('T') ? day + 'T12:00:00Z' : day + 'T12:00:00Z', issues });
 const row = (rows, date) => rows.find(row => row.date === date);
@@ -70,11 +71,14 @@ test('completed status is case insensitive and validates input', () => {
 async function collect({fail=false}={}) {
   const source=fs.readFileSync(path.join(directory,'snapshot.js'),'utf8').replace(/main\(\)\.catch\([\s\S]*$/, '');
   const writes=new Map(), queries=[];
-  const item=(id,sprint,repository='Phenriquerafael/LABDSOF_G9A')=>({content:{__typename:'Issue',number:id,title:'Issue '+id,repository:{nameWithOwner:repository}},status:{name:'Ready'},sprint});
-  const responses=[{user:{projectV2:{id:'p9',number:9,title:'Project'}}},{node:{items:{nodes:[item(1,{name:'Sprint A'}),item(2,{title:'B'}),item(99,{name:'C'},'other/repo')],pageInfo:{hasNextPage:true,endCursor:'next'}}}},{node:{items:{nodes:[item(3,{text:' C '}),item(4,null)],pageInfo:{hasNextPage:false}}}}];
-  const fakeFs={existsSync:()=>true,readFileSync:()=>JSON.stringify([snapshot('2026-10-10',[{id:1,status:'Ready'}])]),mkdirSync:()=>{},writeFileSync:(file,text)=>writes.set(file,JSON.parse(text)),renameSync:(a,b)=>{writes.set(b,writes.get(a));writes.delete(a);}};
+  const item=(id,sprint,labels=['Story','frontend'],repository='Phenriquerafael/LABDSOF_G9A')=>({content:{__typename:'Issue',number:id,title:'Issue '+id,repository:{nameWithOwner:repository},labels:{nodes:labels.map(name=>({name})),pageInfo:{hasNextPage:false}}},status:{name:'Ready'},sprint});
+  const responses=[{user:{projectV2:{id:'p9',number:9,title:'Project'}}},{node:{items:{nodes:[item(1,{name:'Sprint A'}),item(2,{title:'B'}),item(99,{name:'C'},['Task'],'other/repo')],pageInfo:{hasNextPage:true,endCursor:'next'}}}},{node:{items:{nodes:[item(3,{text:' C '},['Sub-Task']),item(4,null,[])],pageInfo:{hasNextPage:false}}}}];
+  // Only the sprint file for today's collection exists, holding one older snapshot.
+  const existingDay=new Date().toISOString().slice(0,10);
+  const existing=historyFiles().find(file=>file.key===sprintForDate(existingDay+'T12:00:00Z')).file;
+  const fakeFs={existsSync:file=>file===existing,readFileSync:()=>JSON.stringify([{date:existingDay+'T00:00:00.000Z',issues:[{id:1,status:'Ready'}]}]),mkdirSync:()=>{},writeFileSync:(file,text)=>writes.set(file,JSON.parse(text)),renameSync:(a,b)=>{writes.set(b,writes.get(a));writes.delete(a);}};
   let calls=0;
-  const ctx=vm.createContext({require:name=>name==='node:fs'?fakeFs:require(name),__dirname:directory,process:{env:{GITHUB_TOKEN:'mock'},pid:42},console:{log(){},warn(){}},AbortSignal,fetch:async(url,options)=>{
+  const ctx=vm.createContext({require:name=>name==='node:fs'?fakeFs:require(name.startsWith('./')?path.join(directory,name):name),__dirname:directory,process:{env:{GITHUB_TOKEN:'mock'},pid:42},console:{log(){},warn(){}},AbortSignal,fetch:async(url,options)=>{
     queries.push(JSON.parse(options.body));
     if(fail && calls===2) return {ok:false,status:403};
     return {ok:true,json:async()=>({data:responses[calls++]})};
@@ -86,12 +90,16 @@ async function collect({fail=false}={}) {
 }
 test('collector preserves per-issue sprint in history and raw across pages and field types',async()=>{
   const {writes,queries}=await collect();
-  const history=[...writes].find(([file])=>file.endsWith('history.json'))[1];
-  assert.equal(history.length,2);assert.equal(history[0].issues[0].sprint,undefined);
+  const [historyFile,history]=[...writes].find(([file])=>/history-sprint-[abc]\.json$/.test(file));
+  assert.equal(path.basename(historyFile),`history-sprint-${sprintForDate(history[1].date).toLowerCase()}.json`);
+  assert.equal(history.length,2);assert.equal(history[0].issues[0].sprint,undefined);assert.equal(history[0].issues[0].labels,undefined);
   assert.deepEqual(history[1].issues.map(item=>item.sprint),['Sprint A','B','C',null]);
+  assert.deepEqual(history[1].issues.map(item=>item.labels),[['frontend','Story'],['frontend','Story'],['Sub-Task'],[]]);
   const [filename,raw]=[...writes].find(([file])=>file.includes(path.sep+'raw'+path.sep));
   const items=raw.data.repository.projectsV2.nodes[0].items.nodes;
   assert.deepEqual(items.map(item=>item.sprint),['Sprint A','B','C',null]);
+  assert.deepEqual(items[2].labels,['Sub-Task']);
+  assert.match(queries[1].query,/labels\(first: 100\)/);
   assert.deepEqual(items[0].fieldValues.nodes[1],{name:'Sprint A',field:{name:'Sprint'}});
   assert.equal(items[3].fieldValues.nodes.length,1);
   assert.equal(raw.date,history[1].date);assert.equal(path.basename(filename),raw.date.replace(/:/g,'-')+'-42.json');
@@ -147,7 +155,7 @@ test('CFD filters issue sprint assignments independently of dates and preserves 
   assert.deepEqual(Array.from(charts.at(-1).data.datasets.find(d=>d.label==='Ready').data),[2,0,3,1]);
 });
 test('Sprint B reconstructed baseline shows 13 Backlog issues on November 1 and 2 with explicit provenance',()=>{
- const history=JSON.parse(fs.readFileSync(path.join(directory,'data/history.json'),'utf8'));
+ const history=readHistory();
  const affected=history.filter(s=>/^2026-11-0[12]/.test(s.date));
  assert.equal(affected.length,5);
  for(const snapshot of affected){
@@ -164,4 +172,54 @@ test('Sprint B reconstructed baseline shows 13 Backlog issues on November 1 and 
  assert.match(row(rows,'2026-11-02').quality,/synthetic day/);
  const raw=JSON.parse(fs.readFileSync(path.join(directory,'data/raw/2026-11-01T21-47-09.987Z-2388.json'),'utf8'));
  assert.equal(raw.data.repository.projectsV2.nodes[0].items.nodes.filter(i=>i.sprint==='Sprint B').length,6);
+});
+test('history is split into one file per sprint by UTC snapshot day, and files stay in their sprint',()=>{
+ assert.equal(sprintForDate('2026-10-01T10:00:00Z'),'A');assert.equal(sprintForDate('2026-10-31T23:59:59Z'),'A');
+ assert.equal(sprintForDate('2026-11-01T00:00:00Z'),'B');assert.equal(sprintForDate('2026-12-06T00:00:00Z'),'C');assert.equal(sprintForDate('2027-02-01T00:00:00Z'),'C');
+ for(const key of Object.keys(SPRINTS)) assert.ok(html.includes(SPRINTS[key].start)&&html.includes(SPRINTS[key].end));
+ const files={};const fakeFs={existsSync:file=>file in files,readFileSync:file=>files[file],mkdirSync(){},writeFileSync:(file,text)=>{files[file]=text;},renameSync:(a,b)=>{files[b]=files[a];delete files[a];}};
+ const dir=path.join(directory,'tmp-test');
+ appendSnapshot({date:'2026-11-02T00:00:00Z',issues:[]},{directory:dir,fsImpl:fakeFs,runId:'x'});
+ appendSnapshot({date:'2026-10-30T00:00:00Z',issues:[]},{directory:dir,fsImpl:fakeFs,runId:'x'});
+ assert.deepEqual(Object.keys(files).map(f=>path.basename(f)).sort(),['history-sprint-a.json','history-sprint-b.json']);
+ assert.deepEqual(readHistory({directory:dir,fsImpl:fakeFs}).map(s=>s.date),['2026-10-30T00:00:00Z','2026-11-02T00:00:00Z']);
+ files[path.join(dir,'history-sprint-c.json')]=JSON.stringify([{date:'2026-11-03T00:00:00Z',issues:[]}]);
+ assert.throws(()=>readHistory({directory:dir,fsImpl:fakeFs}),/belongs to Sprint B/);
+ const stored=readHistory();
+ for(const {key,file} of historyFiles()) assert.ok(JSON.parse(fs.readFileSync(file,'utf8')).every(s=>sprintForDate(s.date)===key));
+ assert.ok(stored.length>0);assert.ok(!fs.existsSync(path.join(directory,'data/history.json')));
+});
+test('issue type requires exactly one of Epic, Story, Task or Sub-Task',()=>{
+ assert.equal(issueType(['frontend','Story']),'Story');assert.equal(issueType([' sub-task ']),'Sub-Task');
+ assert.equal(issueType(['Story','Task']),null);assert.equal(issueType(['bug']),null);assert.equal(issueType(undefined),null);
+ assert.equal(context.issueType(['Epic','ai']),'Epic');assert.equal(context.issueType(['Epic','Task']),null);
+});
+test('burndown filters by Epic, Story & Task, Sub-Task; unrecorded labels are gaps, not zero',()=>{
+ const typed=(id,labels,status='Ready')=>({id,status,sprint:'A',labels});
+ const history=[snapshot('2026-10-10',[{id:1,status:'Ready',sprint:'A'}]),snapshot('2026-10-11',[typed(1,['Epic']),typed(2,['Story'],'Done'),typed(3,['Task']),typed(4,['Sub-Task']),typed(5,['bug'])])];
+ const rows=(type)=>build(history,'A','Done','A',type);
+ assert.equal(rows('all')[1].scope,5);assert.equal(rows('all')[0].scope,1);
+ assert.equal(rows('epic')[1].scope,1);assert.equal(rows('story-task')[1].scope,2);assert.equal(rows('story-task')[1].remaining,1);assert.equal(rows('sub-task')[1].scope,1);
+ assert.equal(rows('epic')[0].scope,null);assert.match(rows('epic')[0].quality,/Labels were not recorded/);
+ assert.throws(()=>rows('bug'),/issue type/);
+});
+test('CFD filters issue types and leaves gaps for snapshots without labels',()=>{
+ const cfd=fs.readFileSync(path.join(directory,'chart.html'),'utf8');
+ const script=cfd.match(/<script>([\s\S]*?)<\/script>/)[1];
+ const elements=new Map();
+ const get=id=>{if(!elements.has(id))elements.set(id,{value:id==='sprint'||id==='issue-type'?'all':'',textContent:'',className:'',addEventListener(){}});return elements.get(id);};
+ const charts=[];
+ const ctx=vm.createContext({document:{getElementById:get},location:{protocol:'file:'},Chart:function(canvas,config){charts.push(config);this.destroy=()=>{};}});
+ vm.runInContext(script.replace(/main\(\);\s*$/, ''),ctx);
+ const history=[
+  {date:'2026-11-05T12:00:00Z',issues:[{id:1,status:'Ready',sprint:'B'}]},
+  {date:'2026-11-06T12:00:00Z',issues:[{id:1,status:'Ready',sprint:'B',labels:['Epic']},{id:2,status:'Ready',sprint:'B',labels:['Story']},{id:3,status:'Ready',sprint:'A',labels:['Task']},{id:4,status:'Ready',sprint:'B',labels:['Sub-Task']}]}
+ ];
+ ctx.testHistory=history;vm.runInContext('loadedHistory = testHistory',ctx);
+ get('issue-type').value='story-task';ctx.render();
+ assert.deepEqual(Array.from(charts.at(-1).data.datasets.find(d=>d.label==='Ready').data),[null,2]);
+ get('sprint').value='B';ctx.render();
+ assert.deepEqual(Array.from(charts.at(-1).data.datasets.find(d=>d.label==='Ready').data),[null,1]);
+ get('issue-type').value='all';ctx.render();
+ assert.deepEqual(Array.from(charts.at(-1).data.datasets.find(d=>d.label==='Ready').data),[1,3]);
 });

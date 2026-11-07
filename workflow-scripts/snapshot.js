@@ -1,13 +1,12 @@
 // CommonJS keeps this runnable on Node 20 without a root package.json.
 const fs = require("node:fs");
 const path = require("node:path");
+const { appendSnapshot, dataDirectory } = require("./history-files.js");
 
 const owner = "Phenriquerafael";
 const repository = "LABDSOF_G9A";
 const projectNumber = 9;
 const sprintFieldName = "Sprint"; // GitHub Projects field name (single-select, iteration or text).
-const dataDirectory = path.join(__dirname, "data");
-const historyFile = path.join(dataDirectory, "history.json");
 const token = process.env.GITHUB_TOKEN;
 
 // Personal projects belong to the user, even when not linked to a repository.
@@ -26,7 +25,10 @@ query($id: ID!, $after: String, $sprintField: String!) {
         nodes {
           content {
             __typename
-            ... on Issue { number title repository { nameWithOwner } }
+            ... on Issue {
+              number title repository { nameWithOwner }
+              labels(first: 100) { nodes { name } pageInfo { hasNextPage } }
+            }
           }
           status: fieldValueByName(name: "Status") {
             ... on ProjectV2ItemFieldSingleSelectValue { name }
@@ -90,6 +92,13 @@ function readSprint(value) {
   return label.trim() || null;
 }
 
+function readLabels(connection, id) {
+  if (!Array.isArray(connection?.nodes) || connection.pageInfo?.hasNextPage) {
+    throw new Error(`Issue #${id} labels are missing or exceed one page; history will not be updated.`);
+  }
+  return connection.nodes.map(label => label?.name?.trim()).filter(Boolean).sort((a, b) => a.localeCompare(b));
+}
+
 async function fetchIssues(project) {
   let after = null;
   const cursors = new Set();
@@ -120,10 +129,12 @@ async function fetchIssues(project) {
       }
       if (issues.has(id)) throw new Error(`Duplicate issue #${id} across pages; retry collection.`);
       const sprint = readSprint(item.sprint);
-      issues.set(id, { id, status, sprint });
+      const labels = readLabels(item.content.labels, id);
+      issues.set(id, { id, status, sprint, labels });
       rawItems.push({
         content: { number: id, title: item.content.title },
         sprint,
+        labels,
         fieldValues: { nodes: [
           { name: status, field: { name: "Status" } },
           ...(sprint === null ? [] : [{ name: sprint, field: { name: sprintFieldName } }]),
@@ -156,11 +167,6 @@ async function main() {
   const project = await findProject();
   const { issues, rawItems } = await fetchIssues(project);
   const snapshot = { date: new Date().toISOString(), issues };
-  let history = [];
-  if (fs.existsSync(historyFile)) {
-    history = JSON.parse(fs.readFileSync(historyFile, "utf8"));
-    if (!Array.isArray(history)) throw new Error("Existing history.json is not an array; refusing to overwrite it.");
-  }
   // Compatibility export matching example.json, assembled from all API pages.
   // This contains the configured repository's issues, not verbatim API responses.
   const rawSnapshot = {
@@ -178,17 +184,14 @@ async function main() {
       },
     },
   };
+  // Append first: an unreadable sprint file stops the run before a raw export is written.
+  const { key, file } = appendSnapshot(snapshot, { fsImpl: fs, runId });
   const rawDirectory = path.join(dataDirectory, "raw");
   fs.mkdirSync(rawDirectory, { recursive: true });
   // Replace colons for Windows-compatible filenames; keep the same UTC date as history.
   const rawFilename = `${snapshot.date.replace(/:/g, "-")}-${process.pid}.json`;
   fs.writeFileSync(path.join(rawDirectory, rawFilename), JSON.stringify(rawSnapshot, null, 2));
-  history.push(snapshot);
-  fs.mkdirSync(dataDirectory, { recursive: true });
-  const temporaryFile = path.join(dataDirectory, `history-${runId}.tmp`);
-  fs.writeFileSync(temporaryFile, JSON.stringify(history, null, 2));
-  fs.renameSync(temporaryFile, historyFile);
-  console.log(`Snapshot saved: ${issues.length} issues from ${owner}/${repository}, project ${projectNumber}.`);
+  console.log(`Snapshot saved to ${path.basename(file)} (Sprint ${key}): ${issues.length} issues from ${owner}/${repository}, project ${projectNumber}.`);
 }
 
 main().catch(error => {

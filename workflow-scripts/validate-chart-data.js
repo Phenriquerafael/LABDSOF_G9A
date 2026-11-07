@@ -1,11 +1,6 @@
 const fs = require('node:fs');
-const path = require('node:path');
 const { checkSprints, annotation, escapeMarkdown } = require('./check-sprints.js');
-const SPRINTS = {
-  A: { start: '2026-10-10', end: '2026-10-31' },
-  B: { start: '2026-11-01', end: '2026-12-05' },
-  C: { start: '2026-12-06', end: '2027-01-03' },
-};
+const { SPRINTS, SPRINT_KEYS, TYPE_LABELS, issueType, readHistory, historyFileName } = require('./history-files.js');
 const { normalizeHistoryIdentity } = require('./history-identity.js');
 const MAX_AGE_HOURS = 26;
 const normalize = value => typeof value === 'string' ? value.trim().toLowerCase() : '';
@@ -42,6 +37,10 @@ function validateHistory(history, now, statusOptions = null) {
       }
       if (issue.sprint !== undefined && issue.sprint !== null && typeof issue.sprint !== 'string') {
         findings.push(finding('error','History',`${prefix}: sprint must be text or null.`,[issue.id])); usable = false;
+      }
+      // Older snapshots have no labels: a known gap, deliberately not reported. Recorded labels must be text.
+      if (issue.labels !== undefined && (!Array.isArray(issue.labels) || issue.labels.some(label => typeof label !== 'string'))) {
+        findings.push(finding('error','History',`${prefix}: labels must be an array of text.`,[issue.id])); usable = false;
       }
     }
     if (usable) valid.push({ ...snapshot, time });
@@ -85,6 +84,7 @@ function validateLive(live, now, latest) {
   for (const issue of issuesToCheck.values()) {
     if (!sprintKey(issue.sprint)) findings.push(finding('error','Sprint','Issue has no recognised sprint in the current collection candidate. Use A/Sprint A, B/Sprint B or C/Sprint C in project 9.',[issue.id]));
     if (!normalize(issue.status) || ['unknown','no_status'].includes(normalize(issue.status)) || !allowed.has(normalize(issue.status))) findings.push(finding('error','Status','Issue has no valid project Status in the current collection candidate.',[issue.id]));
+    if (!issueType(issue.labels)) findings.push(finding('error','Issue type',`Issue must have exactly one type label (${TYPE_LABELS.join(', ')}) in the current collection candidate.`,[issue.id]));
   }
   for (const missing of live.missing.filter(issue=>issue.reason==='Not an active item in project 9')) findings.push(finding('error','Project membership','Open issue is not an active item in project 9.',[missing.number]));
   const localDay = new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Lisbon',year:'numeric',month:'2-digit',day:'2-digit'}).format(now);
@@ -99,12 +99,12 @@ function validateLive(live, now, latest) {
   return findings;
 }
 
-async function audit({ historyText, now = new Date(), loadLive = () => checkSprints({token:process.env.GITHUB_TOKEN}) }) {
+async function audit({ history: storedHistory, historyText, now = new Date(), loadLive = () => checkSprints({token:process.env.GITHUB_TOKEN}) }) {
   const findings=[];
   let live=null, latest=null;
   try { live=await loadLive(); } catch(error) { findings.push(finding('error','GitHub access',`Live checks incomplete: ${error.message}`)); }
   try {
-    const history=normalizeHistoryIdentity(JSON.parse(historyText.replace(/^\uFEFF/,'')));
+    const history=normalizeHistoryIdentity(storedHistory ?? JSON.parse(historyText.replace(/^\uFEFF/,'')));
     const result=validateHistory(history,now,live?.statusOptions);
     findings.push(...result.findings); latest=result.latest;
   } catch(error) { findings.push(finding('error','History',`Unable to validate history: ${error.message}`)); }
@@ -115,7 +115,7 @@ async function audit({ historyText, now = new Date(), loadLive = () => checkSpri
 function report(result) {
   const errors=result.findings.filter(f=>f.level==='error').length;
   const warnings=result.findings.length-errors;
-  const lines=['## Chart data validation','',`Checked at ${result.now}. Repository: Phenriquerafael/LABDSOF_G9A; project 9.`,
+  const lines=['## Chart data validation','',`Checked at ${result.now}. Repository: Phenriquerafael/LABDSOF_G9A; project 9. History: ${SPRINT_KEYS.map(historyFileName).join(', ')}.`,
     `Open issues checked: ${result.checked ?? 'unavailable'}. Latest valid snapshot: ${result.latestDate ?? 'unavailable'}.`,
     `Active project issues in collection candidate (including closed): ${result.candidateCount ?? 'unavailable'}.`,
     `${errors} error(s), ${warnings} warning(s).`,''];
@@ -134,10 +134,10 @@ function report(result) {
   return lines.join('\n')+'\n';
 }
 async function main() {
-  let historyText='';
+  let history=[];
   let readError=null;
-  try {historyText=fs.readFileSync(path.join(__dirname,'data/history.json'),'utf8');} catch(error) {readError=error;}
-  const result=await audit({historyText});
+  try {history=readHistory();} catch(error) {readError=error;}
+  const result=await audit({history});
   if(readError) result.findings.push(finding('error','History file',readError.message));
   if(process.env.GITHUB_STEP_SUMMARY) fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY,report(result));
   for(const f of result.findings) console.log(`::${f.level}::${annotation(`${f.check}: ${f.message}${f.ids.length?' Issues: '+f.ids.join(', '):''}`)}`);

@@ -77,7 +77,7 @@ If `gh issue view`, `gh pr view` or `gh pr edit` fails with `GraphQL: Projects (
 
 ## Automation and pitfalls
 
-- Commits named `update metrics` are automation (`.github/workflows/metrics.yml`, daily 00:00 UTC) appending `workflow-scripts/data/`. Do not hand-edit `history.json`. `.github/workflows/check-sprints.yml` validates the live issues and chart history daily at 15:00 Lisbon time. When changing the collector, validator or charts, run `node --test workflow-scripts/tests/*.cjs`.
+- Commits named `update metrics` are automation (`.github/workflows/metrics.yml`, daily 00:00 UTC) appending `workflow-scripts/data/`. Do not hand-edit the per-sprint history files (`history-sprint-a.json`, `-b.json`, `-c.json`). `.github/workflows/check-sprints.yml` validates the live issues (Sprint, Status and exactly one type label: Epic, Story, Task or Sub-Task) and chart history daily at 15:00 Lisbon time. When changing the collector, validator or charts, run `node --test workflow-scripts/tests/*.cjs`.
 - `grilling` and `grill-me` are vendored from `mattpocock/skills`, and `council` and `sol-loop` from `t3dotgg/tstack` (all MIT). Keep the `LICENSE` file in each skill folder. When updating from upstream, re-pin `metadata.source` to the new commit SHA and re-check the body against upstream. Only `grill-me` differs from upstream: its one line is reworded so it works in every harness.
 - Skill frontmatter must parse as strict YAML (Codex and opencode are stricter than Claude Code): quote any value that contains `: `, and keep `name` equal to the folder name.
 - `P1–P5` = team members; `P1–P7` = research hypotheses — different namespaces. `Sprint A/B/C` (milestones) vs `Sprint 1/2/3` (narrative) vs `Sprint B` (planning concept, DEC-03 open): do not assume B = Sprint 2.
