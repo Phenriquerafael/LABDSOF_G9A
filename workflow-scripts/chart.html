@@ -34,6 +34,18 @@
       <option value="sub-task">Sub-Task</option>
     </select>
   </label></p>
+  <p><label for="window">Date window
+    <select id="window" aria-describedby="window-help">
+      <option value="full">Full calendar · 10 Oct 2026–3 Jan 2027</option>
+      <option value="A">Sprint A · 10–31 Oct 2026</option>
+      <option value="B">Sprint B · 1 Nov–5 Dec 2026</option>
+      <option value="C">Sprint C · 6 Dec 2026–3 Jan 2027</option>
+      <option value="custom">Custom range</option>
+    </select>
+  </label>
+  <label for="date-from">From <input id="date-from" type="date"></label>
+  <label for="date-to">To <input id="date-to" type="date"></label></p>
+  <p id="window-help">Shows snapshots collected on these UTC days (inclusive). Choosing a sprint fills the dates; editing a date switches to a custom range. Independent of the sprint filter above, which selects issues.</p>
   <p id="type-help">Uses each snapshot's recorded labels (Epic, Story, Task, Sub-Task). Snapshots collected before labels were recorded leave gaps for a type filter.</p>
   <p id="message" role="status" aria-live="polite"></p>
   <p id="summary"></p>
@@ -41,6 +53,11 @@
 
 <script>
 const historyUrls = ['./data/history-sprint-a.json', './data/history-sprint-b.json', './data/history-sprint-c.json'];
+const SPRINTS = {
+  A: { start: '2026-10-10', end: '2026-10-31' },
+  B: { start: '2026-11-01', end: '2026-12-05' },
+  C: { start: '2026-12-06', end: '2027-01-03' }
+};
 const TYPE_LABELS = ['Epic', 'Story', 'Task', 'Sub-Task'];
 const TYPE_FILTERS = { all: null, epic: ['Epic'], 'story-task': ['Story', 'Task'], 'sub-task': ['Sub-Task'] };
 const TYPE_NAMES = { all: 'All types', epic: 'Epic', 'story-task': 'Story & Task', 'sub-task': 'Sub-Task' };
@@ -96,6 +113,29 @@ function filterSprint(history, sprint) {
     }
     return { ...snapshot, issues: snapshot.issues.filter(issue => sprintKey(issue.sprint) === sprint) };
   });
+}
+
+// Keeps snapshots whose UTC collection day is within [start, end]; an empty bound is open.
+function filterWindow(history, start, end) {
+  if (start && end && start > end) throw new Error('The start date must not be after the end date.');
+  return history.filter(snapshot => {
+    const day = new Date(snapshot.date).toISOString().slice(0, 10);
+    return (!start || day >= start) && (!end || day <= end);
+  });
+}
+
+function windowBounds() {
+  const key = document.getElementById('window').value;
+  if (key === 'custom') return { start: document.getElementById('date-from').value, end: document.getElementById('date-to').value };
+  return SPRINTS[key] || { start: '', end: '' };
+}
+
+function syncWindowInputs() {
+  const { start, end } = windowBounds();
+  if (document.getElementById('window').value !== 'custom') {
+    document.getElementById('date-from').value = start;
+    document.getElementById('date-to').value = end;
+  }
 }
 
 // Exactly one type label is expected; none or several give null (excluded from type filters).
@@ -194,7 +234,13 @@ function render() {
   try {
   const sprint = document.getElementById('sprint').value;
   const type = document.getElementById('issue-type').value || 'all';
-  const history = filterType(filterSprint(loadedHistory, sprint), type);
+  const { start, end } = windowBounds();
+  const windowed = filterWindow(loadedHistory, start, end);
+  if (!windowed.length) {
+    message.textContent = 'No snapshots were collected in this date window' + (start || end ? ` (${start || '…'} to ${end || '…'}, UTC).` : '.');
+    return;
+  }
+  const history = filterType(filterSprint(windowed, sprint), type);
   const statuses = getStatuses(loadedHistory);
   if (!statuses.length) throw new Error('Snapshots contain no issue counts to display.');
   const last = history.at(-1);
@@ -236,7 +282,7 @@ function render() {
       responsive: true,
       maintainAspectRatio: false,
       plugins: {
-        title: { display: true, text: `Project Issues CFD - ${sprint === 'all' ? 'All issues' : `Sprint ${sprint}`} - ${TYPE_NAMES[type]}` },
+        title: { display: true, text: `Project Issues CFD - ${sprint === 'all' ? 'All issues' : `Sprint ${sprint}`} - ${TYPE_NAMES[type]}${start || end ? ` - ${start || '…'} to ${end || '…'}` : ''}` },
         tooltip: { mode: 'index', intersect: false }
       },
       interaction: {
@@ -275,6 +321,10 @@ async function main(file) {
 
 document.getElementById('sprint').addEventListener('change', render);
 document.getElementById('issue-type').addEventListener('change', render);
+document.getElementById('window').addEventListener('change', () => { syncWindowInputs(); render(); });
+for (const id of ['date-from', 'date-to']) {
+  document.getElementById(id).addEventListener('change', () => { document.getElementById('window').value = 'custom'; render(); });
+}
 
 document.getElementById('history-file').addEventListener('change', event => {
   const files = Array.from(event.target.files || []);

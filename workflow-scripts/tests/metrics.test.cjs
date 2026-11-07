@@ -238,3 +238,47 @@ test('stored history is fully labelled with exactly one type; Sprint A types fol
  assert.equal(issueType(b.issues.find(i=>i.id===58).labels),'Story');
  assert.deepEqual(b.issues.find(i=>i.id===12).labels,['security','Sub-Task']);
 });
+
+test('CFD date window keeps snapshots by UTC day, syncs presets and rejects reversed ranges',()=>{
+ const cfd=fs.readFileSync(path.join(directory,'chart.html'),'utf8');
+ const script=cfd.match(/<script>([\s\S]*?)<\/script>/)[1];
+ const elements=new Map();
+ const get=id=>{if(!elements.has(id))elements.set(id,{value:['sprint','issue-type'].includes(id)?'all':id==='window'?'full':'',textContent:'',className:'',addEventListener(){}});return elements.get(id);};
+ const charts=[];
+ const ctx=vm.createContext({document:{getElementById:get},location:{protocol:'file:'},Chart:function(canvas,config){charts.push(config);this.destroy=()=>{};}});
+ vm.runInContext(script.replace(/main\(\);\s*$/, ''),ctx);
+ const history=['2026-10-31T21:00:00Z','2026-11-01T00:00:00Z','2026-11-05T12:00:00Z','2026-12-06T00:00:00Z'].map((date,i)=>({date,issues:Array.from({length:i+1},(_,n)=>({id:n+1,status:'Ready',sprint:'B',labels:['Task']}))}));
+ assert.deepEqual(Array.from(ctx.filterWindow(history,'2026-11-01','2026-12-05'),s=>s.date),['2026-11-01T00:00:00Z','2026-11-05T12:00:00Z']);
+ assert.equal(ctx.filterWindow(history,'','').length,4);assert.equal(ctx.filterWindow(history,'2026-11-05','').length,2);
+ assert.throws(()=>ctx.filterWindow(history,'2026-11-05','2026-11-01'),/must not be after/);
+ ctx.testHistory=history;vm.runInContext('loadedHistory = testHistory',ctx);
+ get('window').value='B';ctx.syncWindowInputs();assert.equal(get('date-from').value,'2026-11-01');assert.equal(get('date-to').value,'2026-12-05');
+ ctx.render();assert.deepEqual(Array.from(charts.at(-1).data.datasets.find(d=>d.label==='Ready').data),[2,3]);
+ get('window').value='custom';get('date-from').value='2026-12-01';get('date-to').value='2026-12-31';ctx.render();
+ assert.deepEqual(Array.from(charts.at(-1).data.datasets.find(d=>d.label==='Ready').data),[4]);
+ get('date-from').value='2027-02-01';get('date-to').value='';const before=charts.length;ctx.render();
+ assert.equal(charts.length,before);assert.match(get('message').textContent,/No snapshots were collected/);
+ get('date-from').value='2026-12-05';get('date-to').value='2026-12-01';ctx.render();assert.equal(get('message').className,'error');
+});
+
+test('burndown custom date range sets the period, validates dates and syncs presets in the page',async()=>{
+ const rows=context.buildBurndown([snapshot('2026-10-20',[issue(1)]),snapshot('2026-10-22',[issue(1,'Done')])],'custom','Done','all','all',{start:'2026-10-19',end:'2026-10-23'});
+ assert.equal(rows[0].date,'2026-10-19');assert.equal(rows.at(-1).date,'2026-10-23');assert.equal(rows.length,5);
+ assert.equal(row(rows,'2026-10-20').ideal,1);assert.equal(rows.at(-1).ideal,0);assert.equal(row(rows,'2026-10-22').remaining,0);
+ assert.throws(()=>context.periodFor('custom',{start:'2026-10-23',end:'2026-10-19'}),/must not be after/);
+ assert.throws(()=>context.periodFor('custom',{start:'',end:'2026-10-19'}),/both custom dates/);
+ assert.throws(()=>context.periodFor('custom',{start:'2026-02-30',end:'2026-03-01'}),/both custom dates/);
+ const elements=new Map();
+ function element() {return {value:'',files:[],children:[],listeners:{},textContent:'',className:'',disabled:false,append(child){this.children.push(child);},replaceChildren(){this.children=[];},addEventListener(name,fn){this.listeners[name]=fn;},remove(){},click(){}};}
+ const get=id=>{if(!elements.has(id))elements.set(id,element());return elements.get(id);};
+ get('sprint').value='all';get('done-status').value='Done';get('calendar').value='full';
+ const ctx=vm.createContext({document:{getElementById:get,createElement:element,body:element()},location:{protocol:'file:'},console});
+ for(const script of html.matchAll(/<script(?: id="burndown-model")?>([\s\S]*?)<\/script>/g))vm.runInContext(script[1],ctx);
+ get('history-file').files=[{text:async()=>JSON.stringify([snapshot('2026-10-20',[issue(1)])])}];await get('history-file').listeners.change();
+ get('calendar').value='B';get('calendar').listeners.change();
+ assert.equal(get('date-from').value,'2026-11-01');assert.equal(get('date-to').value,'2026-12-05');
+ get('date-from').value='2026-10-19';get('date-to').value='2026-10-23';get('date-to').listeners.change();
+ assert.equal(get('calendar').value,'custom');assert.equal(get('rows').children.length,5);assert.match(get('period').textContent,/Custom range.*2026-10-19 to 2026-10-23/);
+ get('date-from').value='2026-10-24';get('date-from').listeners.change();
+ assert.equal(get('message').className,'error');assert.match(get('message').textContent,/must not be after/);assert.equal(get('export').disabled,true);
+});

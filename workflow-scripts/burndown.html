@@ -41,7 +41,15 @@
           <option value="A">Sprint A · 10–31 Oct 2026</option>
           <option value="B">Sprint B · 1 Nov–5 Dec 2026</option>
           <option value="C">Sprint C · 6 Dec 2026–3 Jan 2027</option>
+          <option value="custom">Custom range</option>
         </select>
+      </label>
+      <label for="date-from">Range start (UTC)
+        <input id="date-from" type="date" aria-describedby="range-help" value="2026-10-10">
+      </label>
+      <label for="date-to">Range end (UTC)
+        <input id="date-to" type="date" aria-describedby="range-help" value="2027-01-03">
+        <small id="range-help">Choosing a calendar range fills these dates; editing either date switches to a custom range.</small>
       </label>
       <label for="sprint">Issue sprint filter
         <select id="sprint" aria-describedby="period">
@@ -152,7 +160,16 @@ function mergeHistories(histories) {
   return merged.sort((a, b) => Date.parse(a?.date) - Date.parse(b?.date));
 }
 
-function periodFor(sprint) {
+function validDay(value) {
+  return typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value) && new Date(value + 'T00:00:00Z').toISOString().slice(0, 10) === value;
+}
+
+function periodFor(sprint, custom = null) {
+  if (sprint === 'custom') {
+    if (!validDay(custom?.start) || !validDay(custom?.end)) throw new Error('Enter both custom dates.');
+    if (custom.start > custom.end) throw new Error('The start date must not be after the end date.');
+    return { start: custom.start, end: custom.end };
+  }
   if (sprint === 'all' || sprint === 'full') return { start: SPRINTS.A.start, end: SPRINTS.C.end };
   if (!SPRINTS[sprint]) throw new Error('Choose a listed sprint.');
   return SPRINTS[sprint];
@@ -182,10 +199,10 @@ function selectIssues(snapshot, sprint, type = 'all') {
   return snapshot.issues.filter(item => (sprint === 'all' || sprintKey(item.sprint) === sprint) && (!types || types.includes(issueType(item.labels))));
 }
 
-function buildBurndown(history, sprint, doneStatus, issueSprint = sprint, type = 'all') {
+function buildBurndown(history, sprint, doneStatus, issueSprint = sprint, type = 'all', custom = null) {
   validateHistory(history);
   typeFilter(type);
-  const { start, end } = periodFor(sprint);
+  const { start, end } = periodFor(sprint, custom);
   const first = Date.parse(start + 'T00:00:00Z');
   const periodLast = Date.parse(end + 'T00:00:00Z');
   const completed = doneStatus.trim().toLowerCase();
@@ -273,14 +290,27 @@ function clearResult() {
   byId('issue-summary').textContent = 'No issues displayed.';
   byId('export').disabled = true;
 }
+function currentCalendar() {
+  const selectedCalendar = byId('calendar').value;
+  const calendar = ['full', 'A', 'B', 'C', 'custom'].includes(selectedCalendar) ? selectedCalendar : 'full';
+  const custom = calendar === 'custom' ? { start: byId('date-from').value, end: byId('date-to').value } : null;
+  return { calendar, period: calendar === 'full' ? 'all' : calendar, custom };
+}
+function syncRangeInputs() {
+  const { calendar, period } = currentCalendar();
+  if (calendar === 'custom') return;
+  const { start, end } = periodFor(period);
+  byId('date-from').value = start;
+  byId('date-to').value = end;
+}
 function updatePeriod() {
   const sprint = byId('sprint').value;
-  const selectedCalendar = byId('calendar').value;
-  const calendar = ['full', 'A', 'B', 'C'].includes(selectedCalendar) ? selectedCalendar : 'full';
-  const { start, end } = periodFor(calendar === 'full' ? 'all' : calendar);
+  const { calendar, period, custom } = currentCalendar();
+  let start, end;
+  try { ({ start, end } = periodFor(period, custom)); } catch (error) { byId('period').textContent = error.message; return; }
   const type = byId('issue-type').value || 'all';
   const filter = (sprint === 'all' ? 'all issue sprints' : `Sprint ${sprint} issues`) + (type === 'all' ? '' : ` (${typeName(type)})`);
-  byId('period').textContent = `${calendar === 'full' ? 'Full calendar' : 'Sprint ' + calendar} with ${filter}: ${start} to ${end} (inclusive, UTC).`;
+  byId('period').textContent = `${calendar === 'full' ? 'Full calendar' : calendar === 'custom' ? 'Custom range' : 'Sprint ' + calendar} with ${filter}: ${start} to ${end} (inclusive, UTC).`;
 }
 function typeName(type) {
   return { all: 'all types', epic: 'Epic', 'story-task': 'Story & Task', 'sub-task': 'Sub-Task' }[type] || type;
@@ -317,12 +347,10 @@ function render() {
   if (!history) return;
   try {
     const sprint = byId('sprint').value;
-    const selectedCalendar = byId('calendar').value;
-    const calendar = ['full', 'A', 'B', 'C'].includes(selectedCalendar) ? selectedCalendar : 'full';
-    const period = calendar === 'full' ? 'all' : calendar;
+    const { calendar, period, custom } = currentCalendar();
     const type = byId('issue-type').value || 'all';
-    rows = buildBurndown(history, period, byId('done-status').value, sprint, type);
-    const { end } = periodFor(period);
+    rows = buildBurndown(history, period, byId('done-status').value, sprint, type, custom);
+    const { end } = periodFor(period, custom);
     // The latest collected snapshot keeps the issue list aligned with the extended chart.
     const latest = history.slice().sort((a, b) => Date.parse(b.date) - Date.parse(a.date))[0];
     const labelsMissing = latest?.issues.filter(item => item.labels === undefined).length || 0;
@@ -365,7 +393,7 @@ function render() {
       options: {
         responsive: true, maintainAspectRatio: false,
         interaction: { mode: 'index', intersect: false },
-        plugins: { title: { display: true, text: `${calendar === 'full' ? 'Full calendar' : `Sprint ${calendar}`} · ${sprint === 'all' ? 'all issues' : `Sprint ${sprint} issues`} · ${typeName(type)} · UTC` } },
+        plugins: { title: { display: true, text: `${calendar === 'full' ? 'Full calendar' : calendar === 'custom' ? `${custom.start} to ${custom.end}` : `Sprint ${calendar}`} · ${sprint === 'all' ? 'all issues' : `Sprint ${sprint} issues`} · ${typeName(type)} · UTC` } },
         scales: { y: { beginAtZero: true, ticks: { precision: 0 }, title: { display: true, text: 'Issues' } }, x: { title: { display: true, text: 'Date (UTC)' } } }
       }
     });
@@ -397,7 +425,9 @@ async function loadHistory() {
   } catch (error) { if (version === requestVersion) showMessage(error.message, true); }
 }
 byId('settings').addEventListener('submit', event => { event.preventDefault(); loadHistory(); });
-for (const id of ['calendar', 'sprint', 'issue-type', 'done-status']) byId(id).addEventListener('change', render);
+for (const id of ['sprint', 'issue-type', 'done-status']) byId(id).addEventListener('change', render);
+byId('calendar').addEventListener('change', () => { syncRangeInputs(); render(); });
+for (const id of ['date-from', 'date-to']) byId(id).addEventListener('change', () => { byId('calendar').value = 'custom'; render(); });
 byId('history-file').addEventListener('change', loadHistory);
 byId('history-url').addEventListener('input', () => {
   if (byId('history-file').files.length) return;
