@@ -38,9 +38,11 @@ function validateHistory(history, now, statusOptions = null) {
       if (issue.sprint !== undefined && issue.sprint !== null && typeof issue.sprint !== 'string') {
         findings.push(finding('error','History',`${prefix}: sprint must be text or null.`,[issue.id])); usable = false;
       }
-      // Older snapshots have no labels: a known gap, deliberately not reported. Recorded labels must be text.
-      if (issue.labels !== undefined && (!Array.isArray(issue.labels) || issue.labels.some(label => typeof label !== 'string'))) {
-        findings.push(finding('error','History',`${prefix}: labels must be an array of text.`,[issue.id])); usable = false;
+      // Stored history is fully labelled (collected or backfilled): every issue needs exactly one type label.
+      if (!Array.isArray(issue.labels) || issue.labels.some(label => typeof label !== 'string')) {
+        findings.push(finding('error','Issue type',`${prefix}: labels are missing or not an array of text.`,[issue.id])); usable = false;
+      } else if (!issueType(issue.labels)) {
+        findings.push(finding('error','Issue type',`${prefix}: issue must have exactly one type label (${TYPE_LABELS.join(', ')}).`,[issue.id])); usable = false;
       }
     }
     if (usable) valid.push({ ...snapshot, time });

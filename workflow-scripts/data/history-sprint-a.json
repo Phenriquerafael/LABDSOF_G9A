@@ -5,114 +5,185 @@
       {
         "id": 1,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 2,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 3,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 4,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 5,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 6,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 7,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 8,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 9,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 10,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 11,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 12,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 13,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 14,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 15,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 16,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 17,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 18,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 19,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 20,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 21,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 22,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       }
-    ]
+    ],
+    "labelsBackfill": {
+      "source": "Issue type derived from the title code in the raw export 2026-10-11T11-00-37.292Z-2126.json (no raw file for this snapshot; titles inferred from the next day)",
+      "rule": "EP-NN = Epic; US-NN = Story; other X-NN = Task; X-NN-NN = Sub-Task. Other labels were not recorded and are not inferred",
+      "date": "2026-11-07"
+    }
   },
   {
     "date": "2026-10-11T11:00:37.292Z",
@@ -120,114 +191,185 @@
       {
         "id": 1,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 2,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 3,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 4,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 5,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 6,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 7,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 8,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 9,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 10,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 11,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 12,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 13,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 14,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 15,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 16,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 17,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 18,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 19,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 20,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 21,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 22,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       }
-    ]
+    ],
+    "labelsBackfill": {
+      "source": "Issue type derived from the title code in the raw export 2026-10-11T11-00-37.292Z-2126.json",
+      "rule": "EP-NN = Epic; US-NN = Story; other X-NN = Task; X-NN-NN = Sub-Task. Other labels were not recorded and are not inferred",
+      "date": "2026-11-07"
+    }
   },
   {
     "date": "2026-10-12T04:28:50.713Z",
@@ -235,114 +377,185 @@
       {
         "id": 1,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 2,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 3,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 4,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 5,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 6,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 7,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 8,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 9,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 10,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 11,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 12,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 13,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 14,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 15,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 16,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 17,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 18,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 19,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 20,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 21,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 22,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       }
-    ]
+    ],
+    "labelsBackfill": {
+      "source": "Issue type derived from the title code in the raw export 2026-10-12T04-28-50.713Z-2310.json",
+      "rule": "EP-NN = Epic; US-NN = Story; other X-NN = Task; X-NN-NN = Sub-Task. Other labels were not recorded and are not inferred",
+      "date": "2026-11-07"
+    }
   },
   {
     "date": "2026-10-13T05:35:59.565Z",
@@ -350,114 +563,185 @@
       {
         "id": 1,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 2,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 3,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 4,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 5,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 6,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 7,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 8,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 9,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 10,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 11,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 12,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 13,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 14,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 15,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 16,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 17,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 18,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 19,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 20,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 21,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 22,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       }
-    ]
+    ],
+    "labelsBackfill": {
+      "source": "Issue type derived from the title code in the raw export 2026-10-13T05-35-59.565Z-2272.json",
+      "rule": "EP-NN = Epic; US-NN = Story; other X-NN = Task; X-NN-NN = Sub-Task. Other labels were not recorded and are not inferred",
+      "date": "2026-11-07"
+    }
   },
   {
     "date": "2026-10-14T03:39:41.009Z",
@@ -465,114 +749,185 @@
       {
         "id": 1,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 2,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 3,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 4,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 5,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 6,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 7,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 8,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 9,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 10,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 11,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 12,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 13,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 14,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 15,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 16,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 17,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 18,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 19,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 20,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 21,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 22,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       }
-    ]
+    ],
+    "labelsBackfill": {
+      "source": "Issue type derived from the title code in the raw export 2026-10-14T03-39-41.009Z-2199.json",
+      "rule": "EP-NN = Epic; US-NN = Story; other X-NN = Task; X-NN-NN = Sub-Task. Other labels were not recorded and are not inferred",
+      "date": "2026-11-07"
+    }
   },
   {
     "date": "2026-10-15T03:20:30.641Z",
@@ -580,114 +935,185 @@
       {
         "id": 1,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 2,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 3,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 4,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 5,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 6,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 7,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 8,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 9,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 10,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 11,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 12,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 13,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 14,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 15,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 16,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 17,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 18,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 19,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 20,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 21,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 22,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       }
-    ]
+    ],
+    "labelsBackfill": {
+      "source": "Issue type derived from the title code in the raw export 2026-10-15T03-20-30.641Z-2117.json",
+      "rule": "EP-NN = Epic; US-NN = Story; other X-NN = Task; X-NN-NN = Sub-Task. Other labels were not recorded and are not inferred",
+      "date": "2026-11-07"
+    }
   },
   {
     "date": "2026-10-16T03:15:56.089Z",
@@ -695,134 +1121,217 @@
       {
         "id": 1,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 2,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 3,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 4,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 5,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 6,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 7,
         "status": "In review",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 8,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 9,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 10,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 11,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 12,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 13,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 14,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 15,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 16,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 17,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 18,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 19,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 20,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 21,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 22,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 26,
         "status": "In progress",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 28,
         "status": "Done",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 31,
         "status": "Backlog",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 32,
         "status": "Backlog",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Epic"
+        ]
       }
-    ]
+    ],
+    "labelsBackfill": {
+      "source": "Issue type derived from the title code in the raw export 2026-10-16T03-15-56.089Z-2460.json",
+      "rule": "EP-NN = Epic; US-NN = Story; other X-NN = Task; X-NN-NN = Sub-Task. Other labels were not recorded and are not inferred",
+      "date": "2026-11-07"
+    }
   },
   {
     "date": "2026-10-17T03:06:57.883Z",
@@ -830,134 +1339,217 @@
       {
         "id": 1,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 2,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 3,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 4,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 5,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 6,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 7,
         "status": "In review",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 8,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 9,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 10,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 11,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 12,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 13,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 14,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 15,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 16,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 17,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 18,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 19,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 20,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 21,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 22,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 26,
         "status": "In progress",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 28,
         "status": "Done",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 31,
         "status": "Backlog",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 32,
         "status": "Backlog",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Epic"
+        ]
       }
-    ]
+    ],
+    "labelsBackfill": {
+      "source": "Issue type derived from the title code in the raw export 2026-10-17T03-06-57.883Z-2332.json",
+      "rule": "EP-NN = Epic; US-NN = Story; other X-NN = Task; X-NN-NN = Sub-Task. Other labels were not recorded and are not inferred",
+      "date": "2026-11-07"
+    }
   },
   {
     "date": "2026-10-18T03:09:19.384Z",
@@ -965,134 +1557,217 @@
       {
         "id": 1,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 2,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 3,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 4,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 5,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 6,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 7,
         "status": "In review",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 8,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 9,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 10,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 11,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 12,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 13,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 14,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 15,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 16,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 17,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 18,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 19,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 20,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 21,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 22,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 26,
         "status": "In progress",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 28,
         "status": "Done",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 31,
         "status": "Backlog",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 32,
         "status": "Backlog",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Epic"
+        ]
       }
-    ]
+    ],
+    "labelsBackfill": {
+      "source": "Issue type derived from the title code in the raw export 2026-10-18T03-09-19.384Z-2354.json",
+      "rule": "EP-NN = Epic; US-NN = Story; other X-NN = Task; X-NN-NN = Sub-Task. Other labels were not recorded and are not inferred",
+      "date": "2026-11-07"
+    }
   },
   {
     "date": "2026-10-19T03:23:29.236Z",
@@ -1100,169 +1775,273 @@
       {
         "id": 1,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 2,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 3,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 4,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 5,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 6,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 7,
         "status": "In review",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 8,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 9,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 10,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 11,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 12,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 13,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 14,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 15,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 16,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 17,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 18,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 19,
         "status": "In review",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 20,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 21,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 22,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 26,
         "status": "In progress",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 28,
         "status": "Done",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 31,
         "status": "Backlog",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 32,
         "status": "Backlog",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 33,
         "status": "Backlog",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 34,
         "status": "Backlog",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 35,
         "status": "Backlog",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 36,
         "status": "Backlog",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Story"
+        ]
       },
       {
         "id": 37,
         "status": "Backlog",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Story"
+        ]
       },
       {
         "id": 38,
         "status": "Backlog",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Story"
+        ]
       },
       {
         "id": 39,
         "status": "Backlog",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Story"
+        ]
       }
-    ]
+    ],
+    "labelsBackfill": {
+      "source": "Issue type derived from the title code in the raw export 2026-10-19T03-23-29.236Z-2316.json",
+      "rule": "EP-NN = Epic; US-NN = Story; other X-NN = Task; X-NN-NN = Sub-Task. Other labels were not recorded and are not inferred",
+      "date": "2026-11-07"
+    }
   },
   {
     "date": "2026-10-20T03:32:16.591Z",
@@ -1270,169 +2049,273 @@
       {
         "id": 1,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 2,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 3,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 4,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 5,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 6,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 7,
         "status": "In review",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 8,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 9,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 10,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 11,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 12,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 13,
         "status": "In review",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 14,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 15,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 16,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 17,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 18,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 19,
         "status": "In review",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 20,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 21,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 22,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 26,
         "status": "In progress",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 28,
         "status": "Done",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 31,
         "status": "Backlog",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 32,
         "status": "Backlog",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 33,
         "status": "Backlog",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 34,
         "status": "Backlog",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 35,
         "status": "Backlog",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 36,
         "status": "Backlog",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Story"
+        ]
       },
       {
         "id": 37,
         "status": "Backlog",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Story"
+        ]
       },
       {
         "id": 38,
         "status": "Backlog",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Story"
+        ]
       },
       {
         "id": 39,
         "status": "Backlog",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Story"
+        ]
       }
-    ]
+    ],
+    "labelsBackfill": {
+      "source": "Issue type derived from the title code in the raw export 2026-10-20T03-32-16.591Z-2344.json",
+      "rule": "EP-NN = Epic; US-NN = Story; other X-NN = Task; X-NN-NN = Sub-Task. Other labels were not recorded and are not inferred",
+      "date": "2026-11-07"
+    }
   },
   {
     "date": "2026-10-21T03:25:51.250Z",
@@ -1440,169 +2323,273 @@
       {
         "id": 1,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 2,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 3,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 4,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 5,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 6,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 7,
         "status": "In review",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 8,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 9,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 10,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 11,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 12,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 13,
         "status": "In review",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 14,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 15,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 16,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 17,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 18,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 19,
         "status": "In review",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 20,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 21,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 22,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 26,
         "status": "In progress",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 28,
         "status": "Done",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 31,
         "status": "Backlog",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 32,
         "status": "Backlog",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 33,
         "status": "Backlog",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 34,
         "status": "Backlog",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 35,
         "status": "Backlog",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 36,
         "status": "Backlog",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Story"
+        ]
       },
       {
         "id": 37,
         "status": "Backlog",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Story"
+        ]
       },
       {
         "id": 38,
         "status": "Backlog",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Story"
+        ]
       },
       {
         "id": 39,
         "status": "Backlog",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Story"
+        ]
       }
-    ]
+    ],
+    "labelsBackfill": {
+      "source": "Issue type derived from the title code in the raw export 2026-10-21T03-25-51.250Z-2346.json",
+      "rule": "EP-NN = Epic; US-NN = Story; other X-NN = Task; X-NN-NN = Sub-Task. Other labels were not recorded and are not inferred",
+      "date": "2026-11-07"
+    }
   },
   {
     "date": "2026-10-21T18:26:07.504Z",
@@ -1610,174 +2597,281 @@
       {
         "id": 1,
         "status": "In progress",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 2,
         "status": "Backlog",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Story"
+        ]
       },
       {
         "id": 3,
         "status": "Backlog",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Story"
+        ]
       },
       {
         "id": 4,
         "status": "Backlog",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Story"
+        ]
       },
       {
         "id": 5,
         "status": "Backlog",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Story"
+        ]
       },
       {
         "id": 6,
         "status": "Backlog",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 7,
         "status": "Backlog",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 8,
         "status": "Backlog",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 9,
         "status": "Backlog",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 10,
         "status": "Backlog",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 11,
         "status": "In progress",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 12,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 13,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 14,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 15,
         "status": "In review",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 16,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 17,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 18,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 19,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 20,
         "status": "In review",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 21,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 22,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 23,
         "status": "In review",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 24,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 25,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 26,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 27,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 28,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 29,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 30,
         "status": "Done",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 31,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 32,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 33,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 34,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       }
-    ]
+    ],
+    "labelsBackfill": {
+      "source": "Issue type derived from the title code in the raw export 2026-10-21T18-26-07.504Z-2149.json",
+      "rule": "EP-NN = Epic; US-NN = Story; other X-NN = Task; X-NN-NN = Sub-Task. Other labels were not recorded and are not inferred",
+      "date": "2026-11-07"
+    }
   },
   {
     "date": "2026-10-22T15:47:51.628Z",
@@ -1785,174 +2879,281 @@
       {
         "id": 1,
         "status": "In progress",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 2,
         "status": "Backlog",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Story"
+        ]
       },
       {
         "id": 3,
         "status": "Backlog",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Story"
+        ]
       },
       {
         "id": 4,
         "status": "Backlog",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Story"
+        ]
       },
       {
         "id": 5,
         "status": "Backlog",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Story"
+        ]
       },
       {
         "id": 6,
         "status": "Backlog",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 7,
         "status": "Backlog",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 8,
         "status": "Backlog",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 9,
         "status": "Backlog",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 10,
         "status": "Backlog",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 11,
         "status": "In progress",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 12,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 13,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 14,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 15,
         "status": "In review",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 16,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 17,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 18,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 19,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 20,
         "status": "In review",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 21,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 22,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 23,
         "status": "In review",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 24,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 25,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 26,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 27,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 28,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 29,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 30,
         "status": "Done",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 31,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 32,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 33,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 34,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       }
-    ]
+    ],
+    "labelsBackfill": {
+      "source": "Issue type derived from the title code in the raw export 2026-10-22T15-47-51.628Z-2420.json",
+      "rule": "EP-NN = Epic; US-NN = Story; other X-NN = Task; X-NN-NN = Sub-Task. Other labels were not recorded and are not inferred",
+      "date": "2026-11-07"
+    }
   },
   {
     "date": "2026-10-23T01:20:25.428Z",
@@ -1960,174 +3161,281 @@
       {
         "id": 1,
         "status": "In progress",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 2,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Story"
+        ]
       },
       {
         "id": 3,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Story"
+        ]
       },
       {
         "id": 4,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Story"
+        ]
       },
       {
         "id": 5,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Story"
+        ]
       },
       {
         "id": 6,
         "status": "Backlog",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 7,
         "status": "Backlog",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 8,
         "status": "Backlog",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 9,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 10,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 11,
         "status": "In progress",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 12,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 13,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 14,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 15,
         "status": "In review",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 16,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 17,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 18,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 19,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 20,
         "status": "In review",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 21,
         "status": "In review",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 22,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 23,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 24,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 25,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 26,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 27,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 28,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 29,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 30,
         "status": "Done",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 31,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 32,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 33,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 34,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       }
-    ]
+    ],
+    "labelsBackfill": {
+      "source": "Issue type derived from the title code in the raw export 2026-10-23T01-20-25.428Z-2214.json",
+      "rule": "EP-NN = Epic; US-NN = Story; other X-NN = Task; X-NN-NN = Sub-Task. Other labels were not recorded and are not inferred",
+      "date": "2026-11-07"
+    }
   },
   {
     "date": "2026-10-24T01:25:24.346Z",
@@ -2135,174 +3443,281 @@
       {
         "id": 1,
         "status": "In progress",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 2,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Story"
+        ]
       },
       {
         "id": 3,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Story"
+        ]
       },
       {
         "id": 4,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Story"
+        ]
       },
       {
         "id": 5,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Story"
+        ]
       },
       {
         "id": 6,
         "status": "Backlog",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 7,
         "status": "Backlog",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 8,
         "status": "Backlog",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 9,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 10,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 11,
         "status": "In progress",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 12,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 13,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 14,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 15,
         "status": "In review",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 16,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 17,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 18,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 19,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 20,
         "status": "In review",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 21,
         "status": "In review",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 22,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 23,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 24,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 25,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 26,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 27,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 28,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 29,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 30,
         "status": "Done",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 31,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 32,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 33,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 34,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       }
-    ]
+    ],
+    "labelsBackfill": {
+      "source": "Issue type derived from the title code in the raw export 2026-10-24T01-25-24.346Z-2350.json",
+      "rule": "EP-NN = Epic; US-NN = Story; other X-NN = Task; X-NN-NN = Sub-Task. Other labels were not recorded and are not inferred",
+      "date": "2026-11-07"
+    }
   },
   {
     "date": "2026-10-25T00:54:59.695Z",
@@ -2310,174 +3725,281 @@
       {
         "id": 1,
         "status": "In progress",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 2,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Story"
+        ]
       },
       {
         "id": 3,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Story"
+        ]
       },
       {
         "id": 4,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Story"
+        ]
       },
       {
         "id": 5,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Story"
+        ]
       },
       {
         "id": 6,
         "status": "Backlog",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 7,
         "status": "Backlog",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 8,
         "status": "Backlog",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 9,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 10,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 11,
         "status": "In progress",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 12,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 13,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 14,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 15,
         "status": "In review",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 16,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 17,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 18,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 19,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 20,
         "status": "In review",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 21,
         "status": "In review",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 22,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 23,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 24,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 25,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 26,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 27,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 28,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 29,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 30,
         "status": "Done",
-        "sprint": null
+        "sprint": null,
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 31,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 32,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 33,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 34,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       }
-    ]
+    ],
+    "labelsBackfill": {
+      "source": "Issue type derived from the title code in the raw export 2026-10-25T00-54-59.695Z-2159.json",
+      "rule": "EP-NN = Epic; US-NN = Story; other X-NN = Task; X-NN-NN = Sub-Task. Other labels were not recorded and are not inferred",
+      "date": "2026-11-07"
+    }
   },
   {
     "date": "2026-10-25T22:48:45.110Z",
@@ -2485,179 +4007,289 @@
       {
         "id": 1,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 2,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Story"
+        ]
       },
       {
         "id": 3,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Story"
+        ]
       },
       {
         "id": 4,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Story"
+        ]
       },
       {
         "id": 5,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Story"
+        ]
       },
       {
         "id": 6,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 7,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 8,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 9,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 10,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 11,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 12,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 13,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 14,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 15,
         "status": "In review",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 16,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 17,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 18,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 19,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 20,
         "status": "In review",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 21,
         "status": "In review",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 22,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 23,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 24,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 25,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 26,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 27,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 28,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 29,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 30,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 31,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 32,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 33,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 34,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 42,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       }
-    ]
+    ],
+    "labelsBackfill": {
+      "source": "Issue type derived from the title code in the raw export 2026-10-25T22-48-45.110Z-2656.json",
+      "rule": "EP-NN = Epic; US-NN = Story; other X-NN = Task; X-NN-NN = Sub-Task. Other labels were not recorded and are not inferred",
+      "date": "2026-11-07"
+    }
   },
   {
     "date": "2026-10-26T04:00:31.478Z",
@@ -2665,179 +4297,289 @@
       {
         "id": 1,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 2,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Story"
+        ]
       },
       {
         "id": 3,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Story"
+        ]
       },
       {
         "id": 4,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Story"
+        ]
       },
       {
         "id": 5,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Story"
+        ]
       },
       {
         "id": 6,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 7,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 8,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 9,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 10,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 11,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 12,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 13,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 14,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 15,
         "status": "In review",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 16,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 17,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 18,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 19,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 20,
         "status": "In review",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 21,
         "status": "In review",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 22,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 23,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 24,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 25,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 26,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 27,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 28,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 29,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 30,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 31,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 32,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 33,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 34,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 42,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       }
-    ]
+    ],
+    "labelsBackfill": {
+      "source": "Issue type derived from the title code in the raw export 2026-10-26T04-00-31.478Z-2158.json",
+      "rule": "EP-NN = Epic; US-NN = Story; other X-NN = Task; X-NN-NN = Sub-Task. Other labels were not recorded and are not inferred",
+      "date": "2026-11-07"
+    }
   },
   {
     "date": "2026-10-27T04:21:08.294Z",
@@ -2845,179 +4587,289 @@
       {
         "id": 1,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 2,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Story"
+        ]
       },
       {
         "id": 3,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Story"
+        ]
       },
       {
         "id": 4,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Story"
+        ]
       },
       {
         "id": 5,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Story"
+        ]
       },
       {
         "id": 6,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 7,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 8,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 9,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 10,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 11,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 12,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 13,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 14,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 15,
         "status": "In review",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 16,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 17,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 18,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 19,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 20,
         "status": "In review",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 21,
         "status": "In review",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 22,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 23,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 24,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 25,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 26,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 27,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 28,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 29,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 30,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 31,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 32,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 33,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 34,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 42,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       }
-    ]
+    ],
+    "labelsBackfill": {
+      "source": "Issue type derived from the title code in the raw export 2026-10-27T04-21-08.294Z-2175.json",
+      "rule": "EP-NN = Epic; US-NN = Story; other X-NN = Task; X-NN-NN = Sub-Task. Other labels were not recorded and are not inferred",
+      "date": "2026-11-07"
+    }
   },
   {
     "date": "2026-10-28T04:51:26.763Z",
@@ -3025,179 +4877,289 @@
       {
         "id": 1,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 2,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Story"
+        ]
       },
       {
         "id": 3,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Story"
+        ]
       },
       {
         "id": 4,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Story"
+        ]
       },
       {
         "id": 5,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Story"
+        ]
       },
       {
         "id": 6,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 7,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 8,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 9,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 10,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 11,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 12,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 13,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 14,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 15,
         "status": "In review",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 16,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 17,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 18,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 19,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 20,
         "status": "In review",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 21,
         "status": "In review",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 22,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 23,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 24,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 25,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 26,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 27,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 28,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 29,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 30,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 31,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 32,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 33,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 34,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 42,
         "status": "Backlog",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       }
-    ]
+    ],
+    "labelsBackfill": {
+      "source": "Issue type derived from the title code in the raw export 2026-10-28T04-51-26.763Z-2180.json",
+      "rule": "EP-NN = Epic; US-NN = Story; other X-NN = Task; X-NN-NN = Sub-Task. Other labels were not recorded and are not inferred",
+      "date": "2026-11-07"
+    }
   },
   {
     "date": "2026-10-28T22:17:50.331Z",
@@ -3205,179 +5167,289 @@
       {
         "id": 1,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 2,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Story"
+        ]
       },
       {
         "id": 3,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Story"
+        ]
       },
       {
         "id": 4,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Story"
+        ]
       },
       {
         "id": 5,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Story"
+        ]
       },
       {
         "id": 6,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 7,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 8,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 9,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 10,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 11,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 12,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 13,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 14,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 15,
         "status": "In review",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 16,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 17,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 18,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 19,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 20,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 21,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 22,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 23,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 24,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 25,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 26,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 27,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 28,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 29,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 30,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 31,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 32,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 33,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 34,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 42,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       }
-    ]
+    ],
+    "labelsBackfill": {
+      "source": "Issue type derived from the title code in the raw export 2026-10-28T22-17-50.331Z-2517.json",
+      "rule": "EP-NN = Epic; US-NN = Story; other X-NN = Task; X-NN-NN = Sub-Task. Other labels were not recorded and are not inferred",
+      "date": "2026-11-07"
+    }
   },
   {
     "date": "2026-10-29T22:31:02.064Z",
@@ -3385,184 +5457,297 @@
       {
         "id": 1,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 2,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Story"
+        ]
       },
       {
         "id": 3,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Story"
+        ]
       },
       {
         "id": 4,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Story"
+        ]
       },
       {
         "id": 5,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Story"
+        ]
       },
       {
         "id": 6,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 7,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 8,
         "status": "In review",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 9,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 10,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 11,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 12,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 13,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 14,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 15,
         "status": "In review",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 16,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 17,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 18,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 19,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 20,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 21,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 22,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 23,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 24,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 25,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 26,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 27,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 28,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 29,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 30,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 31,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 32,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 33,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 34,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 42,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 43,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       }
-    ]
+    ],
+    "labelsBackfill": {
+      "source": "Issue type derived from the title code in the raw export 2026-10-29T22-31-02.064Z-2205.json",
+      "rule": "EP-NN = Epic; US-NN = Story; other X-NN = Task; X-NN-NN = Sub-Task. Other labels were not recorded and are not inferred",
+      "date": "2026-11-07"
+    }
   },
   {
     "date": "2026-10-30T22:00:12.800Z",
@@ -3570,184 +5755,297 @@
       {
         "id": 1,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 2,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Story"
+        ]
       },
       {
         "id": 3,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Story"
+        ]
       },
       {
         "id": 4,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Story"
+        ]
       },
       {
         "id": 5,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Story"
+        ]
       },
       {
         "id": 6,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 7,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 8,
         "status": "In review",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 9,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 10,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 11,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 12,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 13,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 14,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 15,
         "status": "In review",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 16,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 17,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 18,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 19,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 20,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 21,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 22,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 23,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 24,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 25,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 26,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 27,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 28,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 29,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 30,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 31,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 32,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 33,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 34,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 42,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 43,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       }
-    ]
+    ],
+    "labelsBackfill": {
+      "source": "Issue type derived from the title code in the raw export 2026-10-30T22-00-12.800Z-2405.json",
+      "rule": "EP-NN = Epic; US-NN = Story; other X-NN = Task; X-NN-NN = Sub-Task. Other labels were not recorded and are not inferred",
+      "date": "2026-11-07"
+    }
   },
   {
     "date": "2026-10-31T21:06:47.123Z",
@@ -3755,178 +6053,288 @@
       {
         "id": 1,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 2,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Story"
+        ]
       },
       {
         "id": 3,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Story"
+        ]
       },
       {
         "id": 4,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Story"
+        ]
       },
       {
         "id": 5,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Story"
+        ]
       },
       {
         "id": 6,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 7,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 8,
         "status": "In review",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 9,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 10,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 11,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 12,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 14,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 15,
         "status": "In review",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 16,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 17,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 18,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 19,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 20,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 21,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 22,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 23,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 24,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 25,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 26,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 27,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 28,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 29,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 30,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 31,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 32,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 33,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 34,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 42,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 43,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       }
-    ]
+    ],
+    "labelsBackfill": {
+      "source": "Issue type derived from the title code in the raw export 2026-10-31T21-06-47.123Z-2194.json",
+      "rule": "EP-NN = Epic; US-NN = Story; other X-NN = Task; X-NN-NN = Sub-Task. Other labels were not recorded and are not inferred",
+      "date": "2026-11-07"
+    }
   }
 ]

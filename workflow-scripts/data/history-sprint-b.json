@@ -5,212 +5,374 @@
       {
         "id": 1,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "devops",
+          "documentation",
+          "Task"
+        ]
       },
       {
         "id": 2,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 3,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 4,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 5,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 6,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "documentation",
+          "Task"
+        ]
       },
       {
         "id": 7,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "documentation",
+          "Task"
+        ]
       },
       {
         "id": 8,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "documentation",
+          "Task"
+        ]
       },
       {
         "id": 9,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 10,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 11,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "documentation",
+          "Task"
+        ]
       },
       {
         "id": 12,
         "status": "Ready",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "security",
+          "Sub-Task"
+        ]
       },
       {
         "id": 14,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 15,
         "status": "In review",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 16,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 17,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "ai",
+          "Task"
+        ]
       },
       {
         "id": 18,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 19,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 20,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 21,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 22,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 23,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 24,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 25,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 26,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 27,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 28,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 29,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 30,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "documentation",
+          "Task"
+        ]
       },
       {
         "id": 31,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 32,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 33,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 34,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 42,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "devops",
+          "documentation",
+          "Task"
+        ]
       },
       {
         "id": 43,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "documentation",
+          "Sub-Task"
+        ]
       },
       {
         "id": 56,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "ai",
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 58,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 59,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 60,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 61,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 65,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "ai",
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 66,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "ai",
+          "documentation",
+          "Story"
+        ]
       }
     ],
     "reconstruction": {
@@ -250,6 +412,11 @@
         "Issues #56, #58, #59, #60, #61, #65 and #66 were created in GitHub on 3 November; their inclusion here represents planned scope, not observed existence.",
         "Original observed values remain available in the raw file matching this snapshot timestamp."
       ]
+    },
+    "labelsBackfill": {
+      "source": "Current GitHub labels of each issue (gh issue list, 2026-11-07) applied retroactively",
+      "rule": "Same labels for every snapshot of Sprint B",
+      "date": "2026-11-07"
     }
   },
   {
@@ -258,212 +425,374 @@
       {
         "id": 1,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "devops",
+          "documentation",
+          "Task"
+        ]
       },
       {
         "id": 2,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 3,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 4,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 5,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 6,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "documentation",
+          "Task"
+        ]
       },
       {
         "id": 7,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "documentation",
+          "Task"
+        ]
       },
       {
         "id": 8,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "documentation",
+          "Task"
+        ]
       },
       {
         "id": 9,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 10,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 11,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "documentation",
+          "Task"
+        ]
       },
       {
         "id": 12,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "security",
+          "Sub-Task"
+        ]
       },
       {
         "id": 14,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 15,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 16,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 17,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "ai",
+          "Task"
+        ]
       },
       {
         "id": 18,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 19,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 20,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 21,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 22,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 23,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 24,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 25,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 26,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 27,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 28,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 29,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 30,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "documentation",
+          "Task"
+        ]
       },
       {
         "id": 31,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 32,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 33,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 34,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 42,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "devops",
+          "documentation",
+          "Task"
+        ]
       },
       {
         "id": 43,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "documentation",
+          "Sub-Task"
+        ]
       },
       {
         "id": 56,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "ai",
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 58,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 59,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 60,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 61,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 65,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "ai",
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 66,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "ai",
+          "documentation",
+          "Story"
+        ]
       }
     ],
     "reconstruction": {
@@ -503,6 +832,11 @@
         "Issues #56, #58, #59, #60, #61, #65 and #66 were created in GitHub on 3 November; their inclusion here represents planned scope, not observed existence.",
         "Original observed values remain available in the raw file matching this snapshot timestamp."
       ]
+    },
+    "labelsBackfill": {
+      "source": "Current GitHub labels of each issue (gh issue list, 2026-11-07) applied retroactively",
+      "rule": "Same labels for every snapshot of Sprint B",
+      "date": "2026-11-07"
     }
   },
   {
@@ -511,212 +845,374 @@
       {
         "id": 1,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "devops",
+          "documentation",
+          "Task"
+        ]
       },
       {
         "id": 2,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 3,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 4,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 5,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 6,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "documentation",
+          "Task"
+        ]
       },
       {
         "id": 7,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "documentation",
+          "Task"
+        ]
       },
       {
         "id": 8,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "documentation",
+          "Task"
+        ]
       },
       {
         "id": 9,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 10,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 11,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "documentation",
+          "Task"
+        ]
       },
       {
         "id": 12,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "security",
+          "Sub-Task"
+        ]
       },
       {
         "id": 14,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 15,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 16,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 17,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "ai",
+          "Task"
+        ]
       },
       {
         "id": 18,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 19,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 20,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 21,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 22,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 23,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 24,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 25,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 26,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 27,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 28,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 29,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 30,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "documentation",
+          "Task"
+        ]
       },
       {
         "id": 31,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 32,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 33,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 34,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 42,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "devops",
+          "documentation",
+          "Task"
+        ]
       },
       {
         "id": 43,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "documentation",
+          "Sub-Task"
+        ]
       },
       {
         "id": 56,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "ai",
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 58,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 59,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 60,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 61,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 65,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "ai",
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 66,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "ai",
+          "documentation",
+          "Story"
+        ]
       }
     ],
     "reconstruction": {
@@ -756,6 +1252,11 @@
         "Issues #56, #58, #59, #60, #61, #65 and #66 were created in GitHub on 3 November; their inclusion here represents planned scope, not observed existence.",
         "Original observed values remain available in the raw file matching this snapshot timestamp."
       ]
+    },
+    "labelsBackfill": {
+      "source": "Current GitHub labels of each issue (gh issue list, 2026-11-07) applied retroactively",
+      "rule": "Same labels for every snapshot of Sprint B",
+      "date": "2026-11-07"
     }
   },
   {
@@ -764,212 +1265,374 @@
       {
         "id": 1,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "devops",
+          "documentation",
+          "Task"
+        ]
       },
       {
         "id": 2,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 3,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 4,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 5,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 6,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "documentation",
+          "Task"
+        ]
       },
       {
         "id": 7,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "documentation",
+          "Task"
+        ]
       },
       {
         "id": 8,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "documentation",
+          "Task"
+        ]
       },
       {
         "id": 9,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 10,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 11,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "documentation",
+          "Task"
+        ]
       },
       {
         "id": 12,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "security",
+          "Sub-Task"
+        ]
       },
       {
         "id": 14,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 15,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 16,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 17,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "ai",
+          "Task"
+        ]
       },
       {
         "id": 18,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 19,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 20,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 21,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 22,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 23,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 24,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 25,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 26,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 27,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 28,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 29,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 30,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "documentation",
+          "Task"
+        ]
       },
       {
         "id": 31,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 32,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 33,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 34,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 42,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "devops",
+          "documentation",
+          "Task"
+        ]
       },
       {
         "id": 43,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "documentation",
+          "Sub-Task"
+        ]
       },
       {
         "id": 56,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "ai",
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 58,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 59,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 60,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 61,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 65,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "ai",
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 66,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "ai",
+          "documentation",
+          "Story"
+        ]
       }
     ],
     "reconstruction": {
@@ -1009,6 +1672,11 @@
         "Issues #56, #58, #59, #60, #61, #65 and #66 were created in GitHub on 3 November; their inclusion here represents planned scope, not observed existence.",
         "Original observed values remain available in the raw file matching this snapshot timestamp."
       ]
+    },
+    "labelsBackfill": {
+      "source": "Current GitHub labels of each issue (gh issue list, 2026-11-07) applied retroactively",
+      "rule": "Same labels for every snapshot of Sprint B",
+      "date": "2026-11-07"
     }
   },
   {
@@ -1017,212 +1685,374 @@
       {
         "id": 1,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "devops",
+          "documentation",
+          "Task"
+        ]
       },
       {
         "id": 2,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 3,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 4,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 5,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 6,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "documentation",
+          "Task"
+        ]
       },
       {
         "id": 7,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "documentation",
+          "Task"
+        ]
       },
       {
         "id": 8,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "documentation",
+          "Task"
+        ]
       },
       {
         "id": 9,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 10,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 11,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "documentation",
+          "Task"
+        ]
       },
       {
         "id": 12,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "security",
+          "Sub-Task"
+        ]
       },
       {
         "id": 14,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 15,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 16,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 17,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "ai",
+          "Task"
+        ]
       },
       {
         "id": 18,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 19,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 20,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 21,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 22,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 23,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 24,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 25,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 26,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 27,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 28,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 29,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 30,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "documentation",
+          "Task"
+        ]
       },
       {
         "id": 31,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 32,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 33,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 34,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 42,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "devops",
+          "documentation",
+          "Task"
+        ]
       },
       {
         "id": 43,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "documentation",
+          "Sub-Task"
+        ]
       },
       {
         "id": 56,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "ai",
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 58,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 59,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 60,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 61,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 65,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "ai",
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 66,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "ai",
+          "documentation",
+          "Story"
+        ]
       }
     ],
     "reconstruction": {
@@ -1262,6 +2092,11 @@
         "Issues #56, #58, #59, #60, #61, #65 and #66 were created in GitHub on 3 November; their inclusion here represents planned scope, not observed existence.",
         "No collection exists for 2 November. The timestamp is a daily placeholder; non-Sprint-B values are carried forward from the last 1 November collection."
       ]
+    },
+    "labelsBackfill": {
+      "source": "Current GitHub labels of each issue (gh issue list, 2026-11-07) applied retroactively",
+      "rule": "Same labels for every snapshot of Sprint B",
+      "date": "2026-11-07"
     }
   },
   {
@@ -1270,179 +2105,309 @@
       {
         "id": 1,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "devops",
+          "documentation",
+          "Task"
+        ]
       },
       {
         "id": 2,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 3,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 4,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 5,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 6,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "documentation",
+          "Task"
+        ]
       },
       {
         "id": 7,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "documentation",
+          "Task"
+        ]
       },
       {
         "id": 8,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "documentation",
+          "Task"
+        ]
       },
       {
         "id": 9,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 10,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 11,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "documentation",
+          "Task"
+        ]
       },
       {
         "id": 12,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "security",
+          "Sub-Task"
+        ]
       },
       {
         "id": 14,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 15,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 16,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 17,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "ai",
+          "Task"
+        ]
       },
       {
         "id": 18,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 19,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 20,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 21,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 22,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 23,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 24,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 25,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 26,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 27,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 28,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 29,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 30,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "documentation",
+          "Task"
+        ]
       },
       {
         "id": 31,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 32,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 33,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 34,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 42,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "devops",
+          "documentation",
+          "Task"
+        ]
       },
       {
         "id": 43,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "documentation",
+          "Sub-Task"
+        ]
       }
-    ]
+    ],
+    "labelsBackfill": {
+      "source": "Current GitHub labels of each issue (gh issue list, 2026-11-07) applied retroactively",
+      "rule": "Same labels for every snapshot of Sprint B",
+      "date": "2026-11-07"
+    }
   },
   {
     "date": "2026-11-03T22:58:16.925Z",
@@ -1450,234 +2415,421 @@
       {
         "id": 1,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "devops",
+          "documentation",
+          "Task"
+        ]
       },
       {
         "id": 2,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 3,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 4,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 5,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 6,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "documentation",
+          "Task"
+        ]
       },
       {
         "id": 7,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "documentation",
+          "Task"
+        ]
       },
       {
         "id": 8,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "documentation",
+          "Task"
+        ]
       },
       {
         "id": 9,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 10,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 11,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "documentation",
+          "Task"
+        ]
       },
       {
         "id": 12,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "security",
+          "Sub-Task"
+        ]
       },
       {
         "id": 14,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 15,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 16,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 17,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "ai",
+          "Task"
+        ]
       },
       {
         "id": 18,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 19,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 20,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 21,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 22,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 23,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 24,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 25,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 26,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 27,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 28,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 29,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 30,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "documentation",
+          "Task"
+        ]
       },
       {
         "id": 31,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 32,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 33,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 34,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 42,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "devops",
+          "documentation",
+          "Task"
+        ]
       },
       {
         "id": 43,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "documentation",
+          "Sub-Task"
+        ]
       },
       {
         "id": 56,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "ai",
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 57,
         "status": "Backlog",
-        "sprint": "Sprint C"
+        "sprint": "Sprint C",
+        "labels": [
+          "ai",
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 58,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 59,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 60,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 61,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 62,
         "status": "Backlog",
-        "sprint": "Sprint C"
+        "sprint": "Sprint C",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 63,
         "status": "Backlog",
-        "sprint": "Sprint C"
+        "sprint": "Sprint C",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 64,
         "status": "Backlog",
-        "sprint": "Sprint C"
+        "sprint": "Sprint C",
+        "labels": [
+          "backend",
+          "Story"
+        ]
       },
       {
         "id": 65,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "ai",
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 66,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "ai",
+          "documentation",
+          "Story"
+        ]
       }
-    ]
+    ],
+    "labelsBackfill": {
+      "source": "Current GitHub labels of each issue (gh issue list, 2026-11-07) applied retroactively",
+      "rule": "Same labels for every snapshot of Sprint B",
+      "date": "2026-11-07"
+    }
   },
   {
     "date": "2026-11-04T23:18:46.629Z",
@@ -1685,234 +2837,421 @@
       {
         "id": 1,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "devops",
+          "documentation",
+          "Task"
+        ]
       },
       {
         "id": 2,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 3,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 4,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 5,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 6,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "documentation",
+          "Task"
+        ]
       },
       {
         "id": 7,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "documentation",
+          "Task"
+        ]
       },
       {
         "id": 8,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "documentation",
+          "Task"
+        ]
       },
       {
         "id": 9,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 10,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 11,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "documentation",
+          "Task"
+        ]
       },
       {
         "id": 12,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "security",
+          "Sub-Task"
+        ]
       },
       {
         "id": 14,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 15,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 16,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 17,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "ai",
+          "Task"
+        ]
       },
       {
         "id": 18,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 19,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 20,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 21,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 22,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 23,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 24,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 25,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 26,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 27,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 28,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 29,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 30,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "documentation",
+          "Task"
+        ]
       },
       {
         "id": 31,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 32,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 33,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 34,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 42,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "devops",
+          "documentation",
+          "Task"
+        ]
       },
       {
         "id": 43,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "documentation",
+          "Sub-Task"
+        ]
       },
       {
         "id": 56,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "ai",
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 57,
         "status": "Backlog",
-        "sprint": "Sprint C"
+        "sprint": "Sprint C",
+        "labels": [
+          "ai",
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 58,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 59,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 60,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 61,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 62,
         "status": "Backlog",
-        "sprint": "Sprint C"
+        "sprint": "Sprint C",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 63,
         "status": "Backlog",
-        "sprint": "Sprint C"
+        "sprint": "Sprint C",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 64,
         "status": "Backlog",
-        "sprint": "Sprint C"
+        "sprint": "Sprint C",
+        "labels": [
+          "backend",
+          "Story"
+        ]
       },
       {
         "id": 65,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "ai",
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 66,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "ai",
+          "documentation",
+          "Story"
+        ]
       }
-    ]
+    ],
+    "labelsBackfill": {
+      "source": "Current GitHub labels of each issue (gh issue list, 2026-11-07) applied retroactively",
+      "rule": "Same labels for every snapshot of Sprint B",
+      "date": "2026-11-07"
+    }
   },
   {
     "date": "2026-11-05T22:47:13.254Z",
@@ -1920,234 +3259,421 @@
       {
         "id": 1,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "devops",
+          "documentation",
+          "Task"
+        ]
       },
       {
         "id": 2,
         "status": "Ready",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 3,
         "status": "Ready",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 4,
         "status": "Ready",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 5,
         "status": "Ready",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 6,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "documentation",
+          "Task"
+        ]
       },
       {
         "id": 7,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "documentation",
+          "Task"
+        ]
       },
       {
         "id": 8,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "documentation",
+          "Task"
+        ]
       },
       {
         "id": 9,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 10,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 11,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "documentation",
+          "Task"
+        ]
       },
       {
         "id": 12,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "security",
+          "Sub-Task"
+        ]
       },
       {
         "id": 14,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 15,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 16,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 17,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "ai",
+          "Task"
+        ]
       },
       {
         "id": 18,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 19,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 20,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 21,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 22,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 23,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 24,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 25,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 26,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 27,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 28,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 29,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 30,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "documentation",
+          "Task"
+        ]
       },
       {
         "id": 31,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 32,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 33,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 34,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 42,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "devops",
+          "documentation",
+          "Task"
+        ]
       },
       {
         "id": 43,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "documentation",
+          "Sub-Task"
+        ]
       },
       {
         "id": 56,
         "status": "Ready",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "ai",
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 57,
         "status": "Backlog",
-        "sprint": "Sprint C"
+        "sprint": "Sprint C",
+        "labels": [
+          "ai",
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 58,
         "status": "Ready",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 59,
         "status": "Ready",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 60,
         "status": "Ready",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 61,
         "status": "Ready",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 62,
         "status": "Backlog",
-        "sprint": "Sprint C"
+        "sprint": "Sprint C",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 63,
         "status": "Backlog",
-        "sprint": "Sprint C"
+        "sprint": "Sprint C",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 64,
         "status": "Backlog",
-        "sprint": "Sprint C"
+        "sprint": "Sprint C",
+        "labels": [
+          "backend",
+          "Story"
+        ]
       },
       {
         "id": 65,
         "status": "Ready",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "ai",
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 66,
         "status": "Ready",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "ai",
+          "documentation",
+          "Story"
+        ]
       }
-    ]
+    ],
+    "labelsBackfill": {
+      "source": "Current GitHub labels of each issue (gh issue list, 2026-11-07) applied retroactively",
+      "rule": "Same labels for every snapshot of Sprint B",
+      "date": "2026-11-07"
+    }
   },
   {
     "date": "2026-11-06T22:28:54.314Z",
@@ -2155,233 +3681,420 @@
       {
         "id": 1,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "devops",
+          "documentation",
+          "Task"
+        ]
       },
       {
         "id": 2,
         "status": "Ready",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 3,
         "status": "Ready",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 4,
         "status": "Ready",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 5,
         "status": "Ready",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 6,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "documentation",
+          "Task"
+        ]
       },
       {
         "id": 7,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "documentation",
+          "Task"
+        ]
       },
       {
         "id": 8,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "documentation",
+          "Task"
+        ]
       },
       {
         "id": 9,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 10,
         "status": "Backlog",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 11,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "documentation",
+          "Task"
+        ]
       },
       {
         "id": 12,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "security",
+          "Sub-Task"
+        ]
       },
       {
         "id": 14,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 15,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 16,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 17,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "ai",
+          "Task"
+        ]
       },
       {
         "id": 18,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 19,
         "status": "In progress",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 20,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 21,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 22,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 23,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 24,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 25,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 26,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Task"
+        ]
       },
       {
         "id": 27,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 28,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 29,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Epic"
+        ]
       },
       {
         "id": 30,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "documentation",
+          "Task"
+        ]
       },
       {
         "id": 31,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 32,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 33,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 34,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "Sub-Task"
+        ]
       },
       {
         "id": 42,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "devops",
+          "documentation",
+          "Task"
+        ]
       },
       {
         "id": 43,
         "status": "Done",
-        "sprint": "Sprint A"
+        "sprint": "Sprint A",
+        "labels": [
+          "documentation",
+          "Sub-Task"
+        ]
       },
       {
         "id": 56,
         "status": "Ready",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "ai",
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 57,
         "status": "Backlog",
-        "sprint": "Sprint C"
+        "sprint": "Sprint C",
+        "labels": [
+          "ai",
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 58,
         "status": "Ready",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 59,
         "status": "Ready",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 60,
         "status": "Ready",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 61,
         "status": "Ready",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 62,
         "status": "Backlog",
-        "sprint": "Sprint C"
+        "sprint": "Sprint C",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 63,
         "status": "Backlog",
-        "sprint": "Sprint C"
+        "sprint": "Sprint C",
+        "labels": [
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 64,
         "status": "Backlog",
-        "sprint": "Sprint C"
+        "sprint": "Sprint C",
+        "labels": [
+          "backend",
+          "Story"
+        ]
       },
       {
         "id": 65,
         "status": "Ready",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "ai",
+          "backend",
+          "frontend",
+          "Story"
+        ]
       },
       {
         "id": 66,
         "status": "Ready",
-        "sprint": "Sprint B"
+        "sprint": "Sprint B",
+        "labels": [
+          "ai",
+          "documentation",
+          "Story"
+        ]
       }
-    ]
+    ],
+    "labelsBackfill": {
+      "source": "Current GitHub labels of each issue (gh issue list, 2026-11-07) applied retroactively",
+      "rule": "Same labels for every snapshot of Sprint B",
+      "date": "2026-11-07"
+    }
   }
 ]

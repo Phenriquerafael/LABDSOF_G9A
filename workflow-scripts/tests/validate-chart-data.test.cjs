@@ -28,7 +28,7 @@ test('rejects invalid shape, impossible dates, duplicate IDs, timestamps and chr
  for(const h of [[],{},[snapshot('2026-02-30T00:00:00Z')],[snapshot('2026-10-25T00:00:00Z',[issue(1),issue(1)])],[{date:'2026-10-25T00:00:00Z',Ready:1}],[snapshot('2026-10-25T00:00:00Z'),snapshot('2026-10-25T00:00:00Z')],[snapshot('2026-10-25T00:00:00Z'),snapshot('2026-10-24T00:00:00Z')]]) assert.ok(errors(validateHistory(h,now)).length);
 });
 test('stored sprint and status limitations warn separately from current candidate errors',()=>{
- const h=[snapshot('2026-10-24T00:00:00Z',[{id:1,status:'Ready'}]),snapshot('2026-10-25T00:00:00Z')];
+ const h=[snapshot('2026-10-24T00:00:00Z',[{id:1,status:'Ready',labels:['Task']}]),snapshot('2026-10-25T00:00:00Z')];
  assert.equal(errors(validateHistory(h,now)).length,0);assert.ok(validateHistory(h,now).findings.some(f=>f.level==='warning'));
  const stored=validateHistory([snapshot('2026-10-25T00:00:00Z',[issue(1,'Other','Bogus')])],now,['Ready']);
  assert.equal(errors(stored).length,0);assert.equal(stored.findings.filter(f=>f.level==='warning').length,2);
@@ -102,12 +102,12 @@ test('actual saved history produces one historical warning with corrected links,
  assert.ok(!result.findings.some(f=>f.check==='Scope'));
  assert.deepEqual(files.map(f=>fs.readFileSync(f,'utf8')),source);
 });
-test('live issues need exactly one type label; unrecorded historical labels are not reported',async()=>{
+test('live issues need exactly one type label; stored history must be labelled too',async()=>{
  const findings=validateLive(live([issue(1,'A','Ready',['Story','frontend']),issue(2,'A','Ready',['bug']),issue(3,'A','Ready',['Epic','Task']),{id:4,sprint:'A',status:'Ready'},issue(5,'A','Ready',[' sub-task '])]),now,null);
  assert.deepEqual(findings.filter(f=>f.check==='Issue type'&&f.level==='error').flatMap(f=>f.ids),[2,3,4]);
  const value=live([issue(1)]);value.candidateIssues=[issue(1),issue(2,'A','Done',[])];
  assert.ok(validateLive(value,now,null).some(f=>f.check==='Issue type'&&f.ids.includes(2)));
- const legacy=await audit({now,history:[snapshot('2026-10-24T00:00:00Z',[{id:1,sprint:'A',status:'Ready'}]),snapshot('2026-10-25T00:00:00Z')],loadLive:async()=>live()});
- assert.equal(legacy.findings.length,0);
+ const legacy=await audit({now,history:[snapshot('2026-10-24T00:00:00Z',[{id:1,sprint:'A',status:'Ready'}]),snapshot('2026-10-25T00:00:00Z',[issue(1,'A','Ready',['bug'])])],loadLive:async()=>live()});
+ assert.equal(errors(legacy).filter(f=>f.check==='Issue type').length,2);
  assert.ok(errors(validateHistory([snapshot('2026-10-25T00:00:00Z',[issue(1,'A','Ready','Task')])],now)).some(f=>f.message.includes('labels')));
 });

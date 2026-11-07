@@ -223,3 +223,15 @@ test('CFD filters issue types and leaves gaps for snapshots without labels',()=>
  get('issue-type').value='all';ctx.render();
  assert.deepEqual(Array.from(charts.at(-1).data.datasets.find(d=>d.label==='Ready').data),[1,3]);
 });
+
+test('stored history is fully labelled with exactly one type; Sprint A types follow title codes',()=>{
+ const history=readHistory();
+ for(const s of history)for(const i of s.issues){assert.ok(issueType(i.labels),`#${i.id} at ${s.date}`);}
+ const a=history.find(s=>s.date.startsWith('2026-10-31'));
+ const type=id=>issueType(a.issues.find(i=>i.id===id).labels);
+ assert.equal(type(29),'Epic');assert.equal(type(26),'Task');assert.equal(type(23),'Sub-Task');
+ assert.ok(a.labelsBackfill);
+ const b=history.find(s=>s.date.startsWith('2026-11-06'));
+ assert.equal(issueType(b.issues.find(i=>i.id===58).labels),'Story');
+ assert.deepEqual(b.issues.find(i=>i.id===12).labels,['security','Sub-Task']);
+});
